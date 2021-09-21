@@ -20,11 +20,9 @@ export const FormForAdding: FC = () => {
           price: 123,
         }),
       });
+      const transaction = await response.json();
+      dispatch({ type: 'addTransaction', payload: transaction});
       setText('');
-
-      // if (response.ok) {
-      //   dispatch({ type: 'deleteTransaction', payload: { id: _id }});
-      // }
     } catch (error) {
     } finally {
     }

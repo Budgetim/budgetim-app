@@ -63,7 +63,7 @@ export const TransactionCard: FC<Transaction> = (props) => {
     >
       <Card>
         <Info>
-          <Title>{title} {_id}</Title>
+          <Title>{title}</Title>
           <Category>{category}</Category>
         </Info>
         <Price>{price} руб.</Price>

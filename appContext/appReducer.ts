@@ -21,6 +21,15 @@ export const appReducer = (state: AppContextState, action: AppDispatchAction) =>
       };
     }
 
+    case 'addTransaction': {
+      const transaction = action.payload;
+      console.log(transaction, 'TRR');
+      return {
+        ...state,
+        transactions: [...state.transactions, transaction],
+      };
+    }
+
     case 'setError': {
       const { error } = action.payload;
       return {
