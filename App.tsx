@@ -3,11 +3,7 @@ import styled from 'styled-components/native'
 import { AppProvider } from './appContext';
 import { TransactionsList } from './components/TransactionsList';
 import { FormForAdding } from './components/FormForAdding';
-
-const Container = styled.View`
-  display: flex;
-  height: 90%;
-`;
+import { KeyboardAvoidingView, Platform } from 'react-native';
 
 const Header = styled.View`
   padding: 16px;
@@ -25,7 +21,7 @@ const Content = styled.ScrollView`
 export default function App() {
   return (
     <AppProvider>
-      <Container>
+      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
         <Header>
           <Title>расходы</Title>
         </Header>
@@ -33,7 +29,7 @@ export default function App() {
           <TransactionsList />
           <FormForAdding />
         </Content>
-      </Container>
+      </KeyboardAvoidingView>
     </AppProvider>
   );
 }

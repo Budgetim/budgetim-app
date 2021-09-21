@@ -21,6 +21,19 @@ export const appReducer = (state: AppContextState, action: AppDispatchAction) =>
       };
     }
 
+    case 'editTransaction': {
+      const transaction = action.payload;
+      return {
+        ...state,
+        transactions: state.transactions.map(item => {
+          if (item._id === transaction._id) {
+            return transaction;
+          }
+          return item;
+        }),
+      };
+    }
+
     case 'addTransaction': {
       const transaction = action.payload;
       console.log(transaction, 'TRR');

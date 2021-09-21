@@ -1,6 +1,8 @@
 import React, { FC, useState } from 'react';
-import { TextInput, View } from 'react-native';
+import { TextInput } from 'react-native';
 import { useAppDispatch } from '../../appContext';
+
+import { Card } from './styled';
 
 export const FormForAdding: FC = () => {
   const [text, setText] = useState('');
@@ -15,27 +17,27 @@ export const FormForAdding: FC = () => {
         },
         body: JSON.stringify({
           title: text,
-          description: 'test description',
-          category: 'test category',
-          price: 123,
+          category: 't',
+          price: 1,
         }),
       });
       const transaction = await response.json();
       dispatch({ type: 'addTransaction', payload: transaction});
       setText('');
     } catch (error) {
-    } finally {
+      console.log(error);
     }
   }
 
   return (
-    <View>
+    <Card>
       <TextInput
         placeholder="Добавить"
         onChangeText={setText}
         onEndEditing={onAdd}
         defaultValue={text}
+        style={{ fontSize: 16 }}
       />
-    </View>
+    </Card>
   );
 }

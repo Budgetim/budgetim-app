@@ -20,7 +20,12 @@ export interface AddTransactionAction {
   payload: Transaction;
 }
 
-export type AppDispatchAction = SetDataAction | SetErrorAction | DeleteTransactionAction | AddTransactionAction;
+export interface EditTransactionAction {
+  type: 'editTransaction';
+  payload: Transaction;
+}
+
+export type AppDispatchAction = SetDataAction | SetErrorAction | DeleteTransactionAction | AddTransactionAction | EditTransactionAction;
 
 export type AppDispatch = (action: AppDispatchAction) => void;
 

@@ -1,14 +1,17 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { SwipeItem, SwipeButtonsContainer } from 'react-native-swipe-item';
 
 import { Transaction } from '../../types';
 
-import { Card, Info, Title, Category, Price } from './styled';
-import { Text, TouchableOpacity } from 'react-native';
+import { Card, Info } from './styled';
+import { Text, TextInput, TouchableOpacity } from 'react-native';
 import { useAppDispatch } from '../../appContext';
 
 export const TransactionCard: FC<Transaction> = (props) => {
-  const { _id, title, price, category } = props;
+  const { _id } = props;
+  const [title, setTitle] = useState(props.title);
+  const [price, setPrice] = useState(props.price);
+  const [category, setCategory] = useState(props.category);
   const dispatch = useAppDispatch();
 
   const onDelete = async () => {
@@ -28,6 +31,27 @@ export const TransactionCard: FC<Transaction> = (props) => {
       }
     } catch (error) {
     } finally {
+    }
+  }
+
+  const onEdit = async () => {
+    try {
+      const response = await fetch('https://api.budgetim.ru/transaction/edit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: _id,
+          title,
+          category,
+          price,
+        }),
+      });
+      const transaction = await response.json();
+      dispatch({ type: 'editTransaction', payload: transaction});
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -52,7 +76,7 @@ export const TransactionCard: FC<Transaction> = (props) => {
   return (
     <SwipeItem
       style={{
-        height: 70,
+        height: 60,
         alignSelf: 'center',
         marginVertical: 5,
       }}
@@ -63,10 +87,25 @@ export const TransactionCard: FC<Transaction> = (props) => {
     >
       <Card>
         <Info>
-          <Title>{title}</Title>
-          <Category>{category}</Category>
+          <TextInput
+            defaultValue={title}
+            onChangeText={setTitle}
+            onEndEditing={onEdit}
+            style={{ fontSize: 20 }}
+          />
+          <TextInput
+            defaultValue={category}
+            onChangeText={setCategory}
+            onEndEditing={onEdit}
+            style={{ fontSize: 16, color: '#939393' }}
+          />
         </Info>
-        <Price>{price} руб.</Price>
+        <TextInput
+          defaultValue={price.toString()}
+          onChangeText={price => setPrice(+price)}
+          onEndEditing={onEdit}
+          style={{ fontSize: 20 }}
+        />
       </Card>
     </SwipeItem>
   );
