@@ -1,8 +1,13 @@
 import React from 'react';
 import styled from 'styled-components/native'
-import { View } from 'react-native';
 import { AppProvider } from './appContext';
 import { TransactionsList } from './components/TransactionsList';
+import { FormForAdding } from './components/FormForAdding';
+
+const Container = styled.View`
+  display: flex;
+  height: 90%;
+`;
 
 const Header = styled.View`
   padding: 16px;
@@ -20,14 +25,15 @@ const Content = styled.ScrollView`
 export default function App() {
   return (
     <AppProvider>
-      <View>
+      <Container>
         <Header>
           <Title>расходы</Title>
         </Header>
         <Content>
           <TransactionsList />
+          <FormForAdding />
         </Content>
-      </View>
+      </Container>
     </AppProvider>
   );
 }

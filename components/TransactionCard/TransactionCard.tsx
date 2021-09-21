@@ -42,9 +42,7 @@ export const TransactionCard: FC<Transaction> = (props) => {
       }}
     >
       <TouchableOpacity
-        onPress={() => {
-          onDelete();
-        }}
+        onPress={onDelete}
       >
         <Text>delete</Text>
       </TouchableOpacity>

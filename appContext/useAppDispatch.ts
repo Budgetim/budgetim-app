@@ -1,5 +1,7 @@
-import { useContext } from 'react';
-import { AppDispatchContext } from './';
+import { createContext, useContext } from 'react';
+import { AppDispatch } from './types';
+
+export const AppDispatchContext = createContext<AppDispatch | undefined>(undefined);
 
 export const useAppDispatch = () => {
   const context = useContext(AppDispatchContext);

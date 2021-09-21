@@ -1,7 +1,8 @@
 import React, { FC, useReducer } from 'react';
 
 import { appReducer } from './appReducer';
-import { AppStateContext, AppDispatchContext } from './';
+import { AppDispatchContext } from './useAppDispatch';
+import { AppStateContext } from './useAppState';
 
 export const AppProvider: FC = ({ children }) => {
 

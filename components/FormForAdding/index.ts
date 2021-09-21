@@ -1,0 +1,1 @@
+export { FormForAdding } from './FormForAdding';
