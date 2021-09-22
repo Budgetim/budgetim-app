@@ -19,6 +19,7 @@ export const FormForAdding: FC = () => {
           title: text,
           category: 't',
           price: 1,
+          date: new Date(),
         }),
       });
       const transaction = await response.json();

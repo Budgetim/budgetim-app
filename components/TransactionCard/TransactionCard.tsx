@@ -1,9 +1,10 @@
 import React, { FC, useState } from 'react';
+import format from 'date-fns/format'
 import { SwipeItem, SwipeButtonsContainer } from 'react-native-swipe-item';
 
 import { Transaction } from '../../types';
 
-import { Card, Info } from './styled';
+import { Card, Info, Description } from './styled';
 import { Text, TextInput, TouchableOpacity } from 'react-native';
 import { useAppDispatch } from '../../appContext';
 
@@ -12,6 +13,7 @@ export const TransactionCard: FC<Transaction> = (props) => {
   const [title, setTitle] = useState(props.title);
   const [price, setPrice] = useState(props.price);
   const [category, setCategory] = useState(props.category);
+  const [date, setDate] = useState(props.date);
   const dispatch = useAppDispatch();
 
   const onDelete = async () => {
@@ -46,6 +48,7 @@ export const TransactionCard: FC<Transaction> = (props) => {
           title,
           category,
           price,
+          date,
         }),
       });
       const transaction = await response.json();
@@ -78,7 +81,7 @@ export const TransactionCard: FC<Transaction> = (props) => {
       style={{
         height: 60,
         alignSelf: 'center',
-        marginVertical: 5,
+        marginVertical: 15,
       }}
       swipeContainerStyle={{
         backgroundColor: '#fff',
@@ -99,12 +102,17 @@ export const TransactionCard: FC<Transaction> = (props) => {
             onEndEditing={onEdit}
             style={{ fontSize: 16, color: '#939393' }}
           />
+          <TextInput
+            defaultValue={format(new Date(date), 'dd MMM Y')}
+            //onEndEditing={onEdit}
+            style={{ fontSize: 16, color: '#939393' }}
+          />
         </Info>
         <TextInput
           defaultValue={price.toString()}
           onChangeText={price => setPrice(+price)}
           onEndEditing={onEdit}
-          style={{ fontSize: 20 }}
+          style={{ fontSize: 16 }}
         />
       </Card>
     </SwipeItem>
