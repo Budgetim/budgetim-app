@@ -1,34 +1,14 @@
 import React from 'react';
-import styled from 'styled-components/native'
 import { AppProvider } from './appContext';
-import { TransactionsList } from './components/TransactionsList';
-import { FormForAdding } from './components/FormForAdding';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 
-const Header = styled.View`
-  padding: 16px;
-`;
-
-const Title = styled.Text`
-  font-size: 24px;
-  font-weight: bold;
-`;
-
-const Content = styled.ScrollView`
-  padding: 16px;
-`;
+import { Transactions } from './screens/Transactions';
 
 export default function App() {
   return (
     <AppProvider>
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
-        <Header>
-          <Title>расходы</Title>
-        </Header>
-        <Content>
-          <TransactionsList />
-          <FormForAdding />
-        </Content>
+        <Transactions />
       </KeyboardAvoidingView>
     </AppProvider>
   );

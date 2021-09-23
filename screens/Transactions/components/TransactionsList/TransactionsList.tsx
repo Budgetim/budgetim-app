@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
 
 import { Container } from './styled';
-import { useAppDispatch, useAppState } from '../../appContext';
+import { useAppDispatch, useAppState } from '../../../../appContext';
 import { TransactionCard } from '../TransactionCard/TransactionCard';
 import { Text } from 'react-native';
 
