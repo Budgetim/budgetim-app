@@ -1,7 +1,6 @@
 import { AppContextState, AppDispatchAction } from './types';
 
 export const appReducer = (state: AppContextState, action: AppDispatchAction) => {
-  const { } = state;
   switch (action.type) {
     case 'setData': {
       const { data } = action.payload;
@@ -17,7 +16,7 @@ export const appReducer = (state: AppContextState, action: AppDispatchAction) =>
       const { id } = action.payload;
       return {
         ...state,
-        transactions: state.transactions.filter(item => item._id !== id),
+        transactions: state.transactions.filter(item => item.id !== id),
       };
     }
 
@@ -26,7 +25,7 @@ export const appReducer = (state: AppContextState, action: AppDispatchAction) =>
       return {
         ...state,
         transactions: state.transactions.map(item => {
-          if (item._id === transaction._id) {
+          if (item.id === transaction.id) {
             return transaction;
           }
           return item;
@@ -36,7 +35,6 @@ export const appReducer = (state: AppContextState, action: AppDispatchAction) =>
 
     case 'addTransaction': {
       const transaction = action.payload;
-      console.log(transaction, 'TRR');
       return {
         ...state,
         transactions: [...state.transactions, transaction],

@@ -9,7 +9,7 @@ import { useAppDispatch } from '../../../../appContext';
 
 export const TransactionCard: FC<Transaction> = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const { _id } = props;
+  const { id } = props;
   const [title, setTitle] = useState(props.title);
   const [price, setPrice] = useState(props.price);
   const [category, setCategory] = useState(props.category);
@@ -24,12 +24,12 @@ export const TransactionCard: FC<Transaction> = (props) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          id: _id,
+          id,
         }),
       });
 
       if (response.ok) {
-        dispatch({ type: 'deleteTransaction', payload: { id: _id }});
+        dispatch({ type: 'deleteTransaction', payload: { id }});
       }
     } catch (error) {
     } finally {
@@ -44,9 +44,9 @@ export const TransactionCard: FC<Transaction> = (props) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          id: _id,
+          id,
           title,
-          category,
+          categoryId: 1,
           price,
           date,
         }),

@@ -35,7 +35,7 @@ export const TransactionsList: FC = () => {
     <Container>
       {transactions.map(item => {
         return (
-          <TransactionCard key={item._id} {...item} />
+          <TransactionCard key={item.id} {...item} />
         );
       })}
     </Container>

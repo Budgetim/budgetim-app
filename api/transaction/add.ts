@@ -15,7 +15,7 @@ export const add = async (params: AddParams, callback: CallbackFunc) => {
       },
       body: JSON.stringify({
         ...params,
-        category: 'cat',
+        category: 1,
         price: 0,
         date: new Date(),
       }),
