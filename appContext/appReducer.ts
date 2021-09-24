@@ -12,6 +12,14 @@ export const appReducer = (state: AppContextState, action: AppDispatchAction) =>
       };
     }
 
+    case 'setCategories': {
+      const { data } = action.payload;
+      return {
+        ...state,
+        categories: data,
+      };
+    }
+
     case 'deleteTransaction': {
       const { id } = action.payload;
       return {

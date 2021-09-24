@@ -9,6 +9,7 @@ export const AppProvider: FC = ({ children }) => {
   const initialState = {
     isLoading: true,
     transactions: [],
+    categories: [],
     error: null,
   };
 

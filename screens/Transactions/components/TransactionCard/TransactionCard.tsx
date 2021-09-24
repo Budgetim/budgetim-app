@@ -1,18 +1,20 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import format from 'date-fns/format';
 
 import { Transaction } from '../../../../types';
 
 import { Card, Info } from './styled';
 import { TextInput, Modal, StyleSheet, Text, Pressable, View } from 'react-native';
-import { useAppDispatch } from '../../../../appContext';
+import { useAppDispatch, useAppState } from '../../../../appContext';
 
 export const TransactionCard: FC<Transaction> = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const { category } = props;
+  const { categories } = useAppState();
   const { id } = props;
   const [title, setTitle] = useState(props.title);
   const [price, setPrice] = useState(props.price);
-  const [category, setCategory] = useState(props.category);
+  const [categoryId, setCategoryId] = useState(categories.find(cat => cat.title === props.category)?.id);
   const [date, setDate] = useState(props.date);
   const dispatch = useAppDispatch();
 
@@ -37,6 +39,13 @@ export const TransactionCard: FC<Transaction> = (props) => {
   }
 
   const onEdit = async () => {
+    console.log({
+      id,
+      title,
+      categoryId,
+      price,
+      date,
+    })
     try {
       const response = await fetch('https://api.budgetim.ru/transaction/edit', {
         method: 'POST',
@@ -46,7 +55,7 @@ export const TransactionCard: FC<Transaction> = (props) => {
         body: JSON.stringify({
           id,
           title,
-          categoryId: 1,
+          categoryId,
           price,
           date,
         }),
@@ -57,6 +66,10 @@ export const TransactionCard: FC<Transaction> = (props) => {
       console.log(error);
     }
   }
+
+  useEffect(() => {
+    onEdit();
+  }, [categoryId]);
 
   return (
     <Card onPress={() => setModalVisible(true)}>
@@ -81,12 +94,21 @@ export const TransactionCard: FC<Transaction> = (props) => {
                   onEndEditing={onEdit}
                   style={{ fontSize: 20 }}
                 />
-                <TextInput
-                  defaultValue={category}
-                  onChangeText={setCategory}
-                  onEndEditing={onEdit}
-                  style={{ fontSize: 16, color: '#939393' }}
-                />
+                <View style={{ backgroundColor: 'lightgrey' }}>
+                  {categories.map(item => {
+                    return (
+                      <Text
+                        key={item.id}
+                        style={{ fontSize: 16, padding: 8, fontWeight: item.id === categoryId ? 'bold' : 'normal' }}
+                        onPress={() => {
+                          setCategoryId(item.id);
+                        }}
+                      >
+                        {item.title}
+                      </Text>
+                    )
+                  })}
+                </View>
                 <TextInput
                   defaultValue={date}
                   onChangeText={setDate}

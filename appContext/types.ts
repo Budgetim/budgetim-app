@@ -1,8 +1,13 @@
-import { Transaction } from '../types';
+import { Category, Transaction } from '../types';
 
 export interface SetDataAction {
   type: 'setData';
   payload: { data: Transaction[] };
+}
+
+export interface SetCategoriesAction {
+  type: 'setCategories';
+  payload: { data: Category[] };
 }
 
 export interface SetErrorAction {
@@ -12,7 +17,7 @@ export interface SetErrorAction {
 
 export interface DeleteTransactionAction {
   type: 'deleteTransaction';
-  payload: { id: string };
+  payload: { id: number };
 }
 
 export interface AddTransactionAction {
@@ -25,12 +30,13 @@ export interface EditTransactionAction {
   payload: Transaction;
 }
 
-export type AppDispatchAction = SetDataAction | SetErrorAction | DeleteTransactionAction | AddTransactionAction | EditTransactionAction;
+export type AppDispatchAction = SetDataAction | SetCategoriesAction | SetErrorAction | DeleteTransactionAction | AddTransactionAction | EditTransactionAction;
 
 export type AppDispatch = (action: AppDispatchAction) => void;
 
 export interface AppContextState {
   isLoading: boolean;
   transactions: Transaction[];
+  categories: Category[];
   error: string | null;
 }
