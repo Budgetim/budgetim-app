@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 export const Header = styled.View`
-  padding: 16px;
+  padding: 40px 16px 16px;
 `;
 
 export const Title = styled.Text`
@@ -10,5 +10,5 @@ export const Title = styled.Text`
 `;
 
 export const Content = styled.ScrollView`
-  padding: 16px;
+  padding: 16px 0;
 `;
