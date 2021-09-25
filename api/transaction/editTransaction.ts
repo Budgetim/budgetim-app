@@ -5,7 +5,7 @@ interface EditTransactionParams {
   title: string;
   categoryId: number;
   price: number;
-  date: string;
+  date: Date;
 }
 
 type CallbackFunc = (transaction: Transaction) => void;

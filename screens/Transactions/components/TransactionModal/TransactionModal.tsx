@@ -5,8 +5,9 @@ import {
   Pressable,
   Platform,
   KeyboardAvoidingView,
-  ScrollView
+  ScrollView,
 } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { useAppDispatch, useAppState } from '../../../../appContext';
 
 import { Header, Content, Section, ModalContent, ButtonText, Category, CategoryWrapper, Categories, ModalWrapper } from './styled';
@@ -20,7 +21,7 @@ export const TransactionModal: FC<TransactionModalProps> = (props) => {
   const [title, setTitle] = useState(props.title);
   const [price, setPrice] = useState(props.price);
   const [categoryId, setCategoryId] = useState(categories.find(cat => cat.title === props.category)?.id as number);
-  const [date, setDate] = useState(props.date);
+  const [date, setDate] = useState(new Date(props.date));
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -84,10 +85,15 @@ export const TransactionModal: FC<TransactionModalProps> = (props) => {
                   </Categories>
                 </Section>
                 <Section>
-                  <TextInput
-                    defaultValue={date}
-                    onChangeText={setDate}
-                    style={{ fontSize: 16, color: '#939393' }}
+                  <DateTimePicker
+                    value={date}
+                    mode="date"
+                    display="default"
+                    onChange={(event, selectedDate) => {
+                      const currentDate = selectedDate || date;
+                      setDate(currentDate);
+                    }}
+                    maximumDate={new Date()}
                   />
                 </Section>
                 <Section>
@@ -95,6 +101,8 @@ export const TransactionModal: FC<TransactionModalProps> = (props) => {
                     defaultValue={price.toString()}
                     onChangeText={price => setPrice(+price)}
                     style={{ fontSize: 16 }}
+                    placeholder="сумма"
+                    keyboardType="numeric"
                   />
                 </Section>
               </Content>
