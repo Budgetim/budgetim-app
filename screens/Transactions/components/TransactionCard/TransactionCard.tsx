@@ -8,11 +8,19 @@ import { Card, Info } from './styled';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { TransactionModal } from '../TransactionModal/TransactionModal';
 import { useAppDispatch } from '../../../../appContext';
+import { deleteTransaction } from '../../../../api/transaction/deleteTransaction';
 
 export const TransactionCard: FC<Transaction> = (props) => {
   const { title, category, price, date, id} = props;
   const [modalVisible, setModalVisible] = useState(false);
   const dispatch = useAppDispatch();
+
+  const onDelete2 = () => {
+    deleteTransaction(
+      id,
+      () => dispatch({ type: 'deleteTransaction', payload: { id }})
+    );
+  };
 
   const onDelete = async () => {
     try {

@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { TextInput } from 'react-native';
 
 import { useAppDispatch } from '../../../../appContext';
-import { add } from '../../../../api/transaction/add';
+import { addTransaction } from '../../../../api/transaction/addTransaction';
 
 import { Card } from './styled';
 
@@ -11,7 +11,7 @@ export const FormForAdding: FC = () => {
   const dispatch = useAppDispatch();
 
   const onAdd = () => {
-    add(
+    addTransaction(
       { title: text },
       (transaction) => {
         dispatch({ type: 'addTransaction', payload: transaction});

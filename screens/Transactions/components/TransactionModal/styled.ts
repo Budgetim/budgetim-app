@@ -1,5 +1,5 @@
 import styled from 'styled-components/native'
-import { Text, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 export const Header = styled(View)`
   display: flex;
@@ -39,7 +39,7 @@ export const ButtonText = styled(Text)`
   font-size: 16px;
 `;
 
-export const CategoryWrapper = styled(View)<{ hasBorder: boolean }>`
+export const CategoryWrapper = styled(TouchableOpacity)<{ hasBorder: boolean }>`
   padding: 16px 0;
   ${({ hasBorder }) => hasBorder && `
     border-color: #E5E5E5;

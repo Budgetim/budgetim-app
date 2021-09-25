@@ -4,18 +4,19 @@ import { TransactionsList } from './components/TransactionsList';
 import { FormForAdding } from './components/FormForAdding';
 import { Header, Title, Content } from './styled';
 import { useAppDispatch } from '../../appContext';
+import { getCategories } from '../../api/category/getCategories';
 
 export const Transactions = () => {
   const dispatch = useAppDispatch();
 
-  const getCategories = async () => {
-    const response = await fetch('https://api.budgetim.ru/categories');
-    const json = await response.json();
-    dispatch({ type: 'setCategories', payload: { data: json }});
+  const getData = async () => {
+    getCategories((categories) => {
+      dispatch({ type: 'setCategories', payload: { data: categories }});
+    });
   }
 
   useEffect(() => {
-    getCategories();
+    getData();
   }, []);
 
   return (

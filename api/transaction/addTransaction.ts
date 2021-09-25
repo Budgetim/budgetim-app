@@ -6,7 +6,7 @@ interface AddParams {
 
 type CallbackFunc = (transaction: Transaction) => void;
 
-export const add = async (params: AddParams, callback: CallbackFunc) => {
+export const addTransaction = async (params: AddParams, callback: CallbackFunc) => {
   try {
     const response = await fetch('https://api.budgetim.ru/transaction/add', {
       method: 'POST',

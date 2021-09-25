@@ -11,6 +11,7 @@ import { useAppDispatch, useAppState } from '../../../../appContext';
 
 import { Header, Content, Section, ModalContent, ButtonText, Category, CategoryWrapper, Categories, ModalWrapper } from './styled';
 import { TransactionModalProps } from './types';
+import { editTransaction } from '../../../../api/transaction/editTransaction';
 
 export const TransactionModal: FC<TransactionModalProps> = (props) => {
   const { visible, setVisible } = props;
@@ -18,34 +19,18 @@ export const TransactionModal: FC<TransactionModalProps> = (props) => {
   const { id } = props;
   const [title, setTitle] = useState(props.title);
   const [price, setPrice] = useState(props.price);
-  const [categoryId, setCategoryId] = useState(categories.find(cat => cat.title === props.category)?.id);
+  const [categoryId, setCategoryId] = useState(categories.find(cat => cat.title === props.category)?.id as number);
   const [date, setDate] = useState(props.date);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    setCategoryId(categories.find(cat => cat.title === props.category)?.id);
+    setCategoryId(categories.find(cat => cat.title === props.category)?.id as number);
   }, [categories]);
 
   const onEdit = async () => {
-    try {
-      const response = await fetch('https://api.budgetim.ru/transaction/edit', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          id,
-          title,
-          categoryId,
-          price,
-          date,
-        }),
-      });
-      const transaction = await response.json();
+    editTransaction({ id, title, categoryId, price, date }, (transaction) => {
       dispatch({ type: 'editTransaction', payload: transaction});
-    } catch (error) {
-      console.log(error);
-    }
+    });
   }
 
   return (
@@ -86,7 +71,7 @@ export const TransactionModal: FC<TransactionModalProps> = (props) => {
                         <CategoryWrapper
                           key={item.id}
                           hasBorder={index !== categories.length - 1}
-                          onTouchStart={() => {
+                          onPress={() => {
                             setCategoryId(item.id);
                           }}
                         >

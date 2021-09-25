@@ -4,23 +4,22 @@ import { Container } from './styled';
 import { useAppDispatch, useAppState } from '../../../../appContext';
 import { TransactionCard } from '../TransactionCard/TransactionCard';
 import { Text } from 'react-native';
+import { getTransactions } from '../../../../api/transaction/getTransactions';
 
 export const TransactionsList: FC = () => {
   const { transactions, isLoading, error } = useAppState();
   const dispatch = useAppDispatch();
 
-  const getTransactions = async () => {
-    try {
-      const response = await fetch('https://api.budgetim.ru/transaction');
-      const json = await response.json();
-      dispatch({ type: 'setData', payload: { data: json }});
-    } catch (error) {
+  const getData = () => {
+    getTransactions((transactions) => {
+      dispatch({ type: 'setData', payload: { data: transactions }});
+    }, (error) => {
       dispatch({ type: 'setError', payload: { error }});
-    }
+    });
   }
 
   useEffect(() => {
-    getTransactions();
+    getData();
   }, []);
 
   if (error) {
