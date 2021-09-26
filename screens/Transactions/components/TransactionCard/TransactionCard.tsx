@@ -59,7 +59,7 @@ export const TransactionCard: FC<Transaction> = (props) => {
             <Text style={{ fontSize: 14, color: '#939393', marginBottom: 4 }}>{category}</Text>
             <Text style={{ fontSize: 14, color: '#939393' }}>{format(new Date(date), 'dd MMM')}</Text>
           </Info>
-          <Text style={{ fontSize: 16 }}>{price} <Text style={{ color: '#939393' }}>руб.</Text></Text>
+          <Text style={{ fontSize: 16 }}>{+price} <Text style={{ color: '#939393' }}>руб.</Text></Text>
           <TransactionModal {...props} visible={modalVisible} setVisible={setModalVisible} />
         </CardInner>
       </Card>

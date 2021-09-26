@@ -16,7 +16,7 @@ export const addTransaction = async (params: AddParams, callback: CallbackFunc) 
       body: JSON.stringify({
         ...params,
         categoryId: 1,
-        price: 50,
+        price: 0,
         date: new Date(),
       }),
     });

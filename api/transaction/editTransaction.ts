@@ -4,7 +4,7 @@ interface EditTransactionParams {
   id: number;
   title: string;
   categoryId: number;
-  price: number;
+  price: string;
   date: Date;
 }
 

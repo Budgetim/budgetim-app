@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import {
   TextInput,
   Modal,
@@ -20,13 +20,9 @@ export const TransactionModal: FC<TransactionModalProps> = (props) => {
   const { id } = props;
   const [title, setTitle] = useState(props.title);
   const [price, setPrice] = useState(props.price);
-  const [categoryId, setCategoryId] = useState(categories.find(cat => cat.title === props.category)?.id as number);
+  const [categoryId, setCategoryId] = useState(props.categoryId);
   const [date, setDate] = useState(new Date(props.date));
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    setCategoryId(categories.find(cat => cat.title === props.category)?.id as number);
-  }, [categories]);
 
   const onEdit = async () => {
     editTransaction({ id, title, categoryId, price, date }, (transaction) => {
@@ -98,8 +94,10 @@ export const TransactionModal: FC<TransactionModalProps> = (props) => {
                 </Section>
                 <Section>
                   <TextInput
-                    defaultValue={price.toString()}
-                    onChangeText={price => setPrice(+price)}
+                    defaultValue={price === '0.00' ? '' : (+price).toString()}
+                    onChangeText={price => {
+                      setPrice(price);
+                    }}
                     style={{ fontSize: 16 }}
                     placeholder="сумма"
                     keyboardType="numeric"
