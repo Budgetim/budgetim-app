@@ -2,21 +2,13 @@ import { AppContextState, AppDispatchAction } from './types';
 
 export const appReducer = (state: AppContextState, action: AppDispatchAction) => {
   switch (action.type) {
-    case 'setData': {
+    case 'setTransactions': {
       const { data } = action.payload;
       return {
         ...state,
         transactions: data,
-        isLoading: false,
-        error: null,
-      };
-    }
-
-    case 'setCategories': {
-      const { data } = action.payload;
-      return {
-        ...state,
-        categories: data,
+        isLoadingTransactions: false,
+        errorTransactions: null,
       };
     }
 
@@ -49,14 +41,34 @@ export const appReducer = (state: AppContextState, action: AppDispatchAction) =>
       };
     }
 
-    case 'setError': {
+    case 'setErrorTransactions': {
       const { error } = action.payload;
       return {
         ...state,
-        isLoading: false,
-        error,
+        isLoadingTransactions: false,
+        errorTransactions: error,
       };
     }
+
+    case 'setCategories': {
+      const { data } = action.payload;
+      return {
+        ...state,
+        categories: data,
+        isLoadingCategories: false,
+        errorCategories: null,
+      };
+    }
+
+    case 'setErrorCategories': {
+      const { error } = action.payload;
+      return {
+        ...state,
+        isLoadingCategories: false,
+        errorCategories: error,
+      };
+    }
+
     default: {
       throw new Error('Unhandled action type');
     }

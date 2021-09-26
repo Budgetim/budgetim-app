@@ -1,17 +1,12 @@
 import { Category, Transaction } from '../types';
 
-export interface SetDataAction {
-  type: 'setData';
+export interface SetTransactionsAction {
+  type: 'setTransactions';
   payload: { data: Transaction[] };
 }
 
-export interface SetCategoriesAction {
-  type: 'setCategories';
-  payload: { data: Category[] };
-}
-
-export interface SetErrorAction {
-  type: 'setError';
+export interface SetErrorTransactionsAction {
+  type: 'setErrorTransactions';
   payload: { error: string };
 }
 
@@ -30,13 +25,33 @@ export interface EditTransactionAction {
   payload: Transaction;
 }
 
-export type AppDispatchAction = SetDataAction | SetCategoriesAction | SetErrorAction | DeleteTransactionAction | AddTransactionAction | EditTransactionAction;
+export interface SetCategoriesAction {
+  type: 'setCategories';
+  payload: { data: Category[] };
+}
+
+export interface SetErrorCategoriesAction {
+  type: 'setErrorCategories';
+  payload: { error: string };
+}
+
+
+export type AppDispatchAction =
+  SetTransactionsAction |
+  SetCategoriesAction |
+  SetErrorTransactionsAction |
+  DeleteTransactionAction |
+  AddTransactionAction |
+  EditTransactionAction |
+  SetErrorCategoriesAction;
 
 export type AppDispatch = (action: AppDispatchAction) => void;
 
 export interface AppContextState {
-  isLoading: boolean;
+  isLoadingTransactions: boolean;
   transactions: Transaction[];
+  errorTransactions: string | null;
+  isLoadingCategories: boolean;
   categories: Category[];
-  error: string | null;
+  errorCategories: string | null;
 }

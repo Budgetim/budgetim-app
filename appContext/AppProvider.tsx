@@ -3,14 +3,17 @@ import React, { FC, useReducer } from 'react';
 import { appReducer } from './appReducer';
 import { AppDispatchContext } from './useAppDispatch';
 import { AppStateContext } from './useAppState';
+import { AppContextState } from './types';
 
 export const AppProvider: FC = ({ children }) => {
 
-  const initialState = {
-    isLoading: true,
+  const initialState: AppContextState = {
+    isLoadingTransactions: true,
     transactions: [],
+    errorTransactions: null,
+    isLoadingCategories: true,
     categories: [],
-    error: null,
+    errorCategories: null,
   };
 
   const [state, dispatch] = useReducer(appReducer, initialState);
