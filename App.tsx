@@ -1,25 +1,45 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 import { Transactions } from './screens/Transactions';
-import { Home } from './screens/Home';
 import { AppProvider } from './appContext';
-import { Categories } from './screens/Categories';
 import { KeyboardAvoidingView, Platform } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import { Categories } from './screens/Categories';
 
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
     <AppProvider>
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Home">
-            <Stack.Screen name="Home" component={Home} options={{ title: 'главная' }} />
-            <Stack.Screen name="Transactions" component={Transactions} options={{ title: 'расходы' }} />
-            <Stack.Screen name="Categories" component={Categories} options={{ title: 'категории' }} />
-          </Stack.Navigator>
+          <Tab.Navigator>
+            <Tab.Screen
+              name="Transactions"
+              component={Transactions}
+              options={{
+                title: 'расходы',
+                tabBarLabelPosition: 'beside-icon',
+                tabBarLabelStyle: { fontSize: 16 },
+                tabBarIcon: ({ color }) => (
+                  <FontAwesome5 name="ruble-sign" color={color} size={16} />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Categories"
+              component={Categories}
+              options={{
+                title: 'категории',
+                tabBarLabelPosition: 'beside-icon',
+                tabBarLabelStyle: { fontSize: 16 },
+                tabBarIcon: ({ color }) => (
+                  <FontAwesome5 name="chart-pie" color={color} size={16} />
+                ),
+              }}
+            />
+          </Tab.Navigator>
         </NavigationContainer>
       </KeyboardAvoidingView>
     </AppProvider>
