@@ -2,7 +2,9 @@ import React, { useEffect } from 'react';
 
 import { useAppDispatch, useAppState } from '../../appContext';
 import { getCategories } from '../../api/category/getCategories';
-import { Text, View, ScrollView } from 'react-native';
+import { Text, ScrollView, FlatList } from 'react-native';
+import { CardButton } from '../../components/CardButton';
+import { CardDetails } from '../../components/CardDetails';
 
 export const Categories = () => {
   const { categories, isLoadingCategories, errorCategories } = useAppState();
@@ -30,13 +32,17 @@ export const Categories = () => {
 
   return (
     <ScrollView>
-      {categories.map(category => {
-        return (
-          <View key={category.id}>
-            <Text style={{ fontSize: 16 }}>{category.title}</Text>
-          </View>
-        );
-      })}
+      <FlatList
+        data={categories}
+        renderItem={({ item }) => (
+          <CardButton key={item.id}>
+            <CardDetails
+              title={'описание категории'}
+              subTitle={item.title}
+            />
+          </CardButton>
+        )}
+      />
     </ScrollView>
   );
 };

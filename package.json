@@ -12,6 +12,7 @@
     "@react-navigation/bottom-tabs": "^6.0.7",
     "@react-navigation/native": "^6.0.3",
     "@react-navigation/native-stack": "^6.2.0",
+    "@styled-system/css": "^5.1.5",
     "@types/date-fns": "^2.6.0",
     "date-fns": "^2.24.0",
     "expo": "~42.0.1",
@@ -36,6 +37,7 @@
     "@types/styled-components": "^5.1.14",
     "@types/styled-components-react-native": "^5.1.1",
     "@types/styled-system": "^5.1.13",
+    "@types/styled-system__css": "^5.0.16",
     "typescript": "~4.0.0"
   },
   "private": true
