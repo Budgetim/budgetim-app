@@ -4,7 +4,7 @@ import { SwipeItem, SwipeButtonsContainer } from 'react-native-swipe-item';
 
 import { Transaction } from '../../../../types';
 
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import { TransactionModal } from '../TransactionModal/TransactionModal';
 import { useAppDispatch } from '../../../../appContext';
 import { deleteTransaction } from '../../../../api/transaction/deleteTransaction';
@@ -16,7 +16,7 @@ import { useTheme } from 'styled-components/native';
 export const TransactionCard: FC<Transaction> = (props) => {
   const { title, category, price, date, id} = props;
   const [modalVisible, setModalVisible] = useState(false);
-  const { colors: { bgPrimary }} = useTheme();
+  const { colors: { bgPrimary, systemRed }} = useTheme();
   const dispatch = useAppDispatch();
 
   const onDelete = () => {
@@ -38,13 +38,13 @@ export const TransactionCard: FC<Transaction> = (props) => {
         style={{
           height: '100%',
           width: '100%',
-          backgroundColor: '#FF8983',
+          backgroundColor: systemRed,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
         }}
       >
-        <Text style={{ color: '#fff', fontWeight: 'bold' }}>удалить</Text>
+        <Text style={{ color: '#fff' }}>удалить</Text>
       </TouchableOpacity>
     </SwipeButtonsContainer>
   );

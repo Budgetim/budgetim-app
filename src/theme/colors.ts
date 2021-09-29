@@ -8,7 +8,8 @@ export default {
     systemGray04: '#D1D1D6',
     systemGray05: '#E5E5EA',
     systemGray06: '#F2F2F7',
-    systemBlue: '#007AFF'
+    systemBlue: '#007AFF',
+    systemRed: '#FF3B30',
   },
   dark: {
     bgPrimary: '#000000',
@@ -19,6 +20,7 @@ export default {
     systemGray04: '#3A3A3C',
     systemGray05: '#2C2C2E',
     systemGray06: '#1C1C1E',
-    systemBlue: '#0A84FF'
+    systemBlue: '#0A84FF',
+    systemRed: '#FF453A',
   }
 };
