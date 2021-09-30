@@ -35,6 +35,20 @@ export interface SetErrorCategoriesAction {
   payload: { error: string };
 }
 
+export interface DeleteCategoryAction {
+  type: 'deleteCategory',
+  payload: { id: number };
+}
+
+export interface AddCategoryAction {
+  type: 'addCategory';
+  payload: Category;
+}
+
+export interface EditCategoryAction {
+  type: 'editCategory';
+  payload: Category;
+}
 
 export type AppDispatchAction =
   SetTransactionsAction |
@@ -43,7 +57,10 @@ export type AppDispatchAction =
   DeleteTransactionAction |
   AddTransactionAction |
   EditTransactionAction |
-  SetErrorCategoriesAction;
+  SetErrorCategoriesAction |
+  DeleteCategoryAction |
+  AddCategoryAction |
+  EditCategoryAction;
 
 export type AppDispatch = (action: AppDispatchAction) => void;
 

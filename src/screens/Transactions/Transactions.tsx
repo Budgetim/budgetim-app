@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-
 import { TransactionsList } from './components/TransactionsList';
-import { useAppDispatch } from '../../appContext';
-import { getCategories } from '../../api/category/getCategories';
 import { Button, ScrollView } from 'react-native';
 import { TransactionModal } from './components/TransactionModal/TransactionModal';
+import { getCategories } from '../../api/category/getCategories';
+import { useAppDispatch } from '../../appContext';
 
 export const Transactions = ({ navigation }: any) => {
-  const dispatch = useAppDispatch();
   const [modalVisible, setModalVisible] = useState(false);
+  const dispatch = useAppDispatch();
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -25,7 +24,6 @@ export const Transactions = ({ navigation }: any) => {
       dispatch({ type: 'setErrorCategories', payload: { error }});
     });
   }
-
   useEffect(() => {
     getData();
   }, []);

@@ -69,6 +69,36 @@ export const appReducer = (state: AppContextState, action: AppDispatchAction) =>
       };
     }
 
+    case 'deleteCategory': {
+      const { id } = action.payload;
+      return {
+        ...state,
+        categories: state.categories.filter(item => item.id !== id),
+      };
+    }
+
+    case 'editCategory': {
+      const category = action.payload;
+      return {
+        ...state,
+        categories: state.categories.map(item => {
+          if (item.id === category.id) {
+            return category;
+          }
+          return item;
+        }),
+      };
+    }
+
+    case 'addCategory': {
+      const category = action.payload;
+      return {
+        ...state,
+        categories: [...state.categories, category],
+      };
+    }
+
+
     default: {
       throw new Error('Unhandled action type');
     }

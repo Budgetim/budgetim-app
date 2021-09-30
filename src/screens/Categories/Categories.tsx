@@ -1,49 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 
-import { useAppDispatch, useAppState } from '../../appContext';
-import { getCategories } from '../../api/category/getCategories';
-import { Text, ScrollView, FlatList } from 'react-native';
-import { CardButton } from '../../components/CardButton';
-import { CardDetails } from '../../components/CardDetails';
+import { Button, ScrollView } from 'react-native';
+import { CategoriesList } from './components/CategoriesList';
+import { CategoryModal } from './components/CategoryModal';
 
-export const Categories = () => {
-  const { categories, isLoadingCategories, errorCategories } = useAppState();
-  const dispatch = useAppDispatch();
+export const Categories = ({ navigation }: any) => {
+  const [modalVisible, setModalVisible] = useState(false);
 
-  const getData = async () => {
-    getCategories((categories) => {
-      dispatch({ type: 'setCategories', payload: { data: categories }});
-    }, (error) => {
-      dispatch({ type: 'setErrorCategories', payload: { error }});
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button onPress={() => setModalVisible(true)} title="добавить" />
+      ),
     });
-  }
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  if (errorCategories) {
-    return <Text>{errorCategories}</Text>
-  }
-
-  if (isLoadingCategories) {
-    return <Text>Loading...</Text>
-  }
+  }, [navigation]);
 
   return (
     <ScrollView>
-      <FlatList
-        data={categories}
-        renderItem={({ item }) => (
-          <CardButton key={item.id}>
-            <CardDetails
-              title={item.description || 'нет описания'}
-              subTitle={item.title}
-              tagColor={item.color}
-            />
-          </CardButton>
-        )}
-      />
+      <CategoriesList />
+      <CategoryModal category={{ title: '', description: '', color: '' }} visible={modalVisible} setVisible={setModalVisible} />
     </ScrollView>
   );
 };
