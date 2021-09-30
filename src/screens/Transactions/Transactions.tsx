@@ -1,27 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { TransactionsList } from './components/TransactionsList';
 import { useAppDispatch } from '../../appContext';
 import { getCategories } from '../../api/category/getCategories';
 import { Button, ScrollView } from 'react-native';
-import { addTransaction } from '../../api/transaction/addTransaction';
+import { TransactionModal } from './components/TransactionModal/TransactionModal';
 
 export const Transactions = ({ navigation }: any) => {
   const dispatch = useAppDispatch();
-
-  const onAdd = () => {
-    addTransaction(
-      { title: '' },
-      (transaction) => {
-        dispatch({ type: 'addTransaction', payload: transaction });
-      },
-    );
-  };
+  const [modalVisible, setModalVisible] = useState(false);
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Button onPress={onAdd} title="добавить" />
+        <Button onPress={() => setModalVisible(true)} title="добавить" />
       ),
     });
   }, [navigation]);
@@ -41,6 +33,11 @@ export const Transactions = ({ navigation }: any) => {
   return (
     <ScrollView>
       <TransactionsList />
+      <TransactionModal
+        transaction={{ title: '', category: null, price: '0.00', date: null }}
+        visible={modalVisible}
+        setVisible={setModalVisible}
+      />
     </ScrollView>
   );
 };

@@ -2,6 +2,9 @@ import { Transaction } from '../../types';
 
 interface AddParams {
   title: string;
+  categoryId: number;
+  price: string;
+  date: Date;
 }
 
 type CallbackFunc = (transaction: Transaction) => void;
@@ -13,12 +16,7 @@ export const addTransaction = async (params: AddParams, callback: CallbackFunc) 
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        ...params,
-        categoryId: 1,
-        price: 0,
-        date: new Date(),
-      }),
+      body: JSON.stringify(params),
     });
     const transaction = await response.json();
     callback(transaction);

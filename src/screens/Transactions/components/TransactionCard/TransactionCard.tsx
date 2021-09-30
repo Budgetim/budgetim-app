@@ -10,6 +10,7 @@ import { CardDetails } from '../../../../components/CardDetails';
 import { CardButton } from '../../../../components/CardButton';
 
 import { useTheme } from 'styled-components/native';
+import { separateThousands } from '../../../../utils/separateThousands';
 
 export const TransactionCard: FC<Transaction> = (props) => {
   const { title, category, price, id} = props;
@@ -39,10 +40,10 @@ export const TransactionCard: FC<Transaction> = (props) => {
           title={title}
           subTitle={category.title}
           tagColor={category.color}
-          label={`${+price} ₽`}
+          label={`${separateThousands(+price)} ₽`}
         />
       </CardButton>
-      <TransactionModal {...props} visible={modalVisible} setVisible={setModalVisible} />
+      <TransactionModal visible={modalVisible} setVisible={setModalVisible} transaction={props} />
     </Swipeout>
   );
 };

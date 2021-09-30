@@ -20,7 +20,7 @@ export const Section = styled(View)(css({
   bg: 'bgPrimary',
   p: 4,
   mb: 4,
-}))
+}));
 
 export const ModalWrapper = styled(View)({
   flex: 1,
@@ -43,6 +43,9 @@ export const ButtonText = styled(TextVariant)(css({
 
 export const CategoryWrapper = styled(TouchableOpacity)<{ hasBorder: boolean }>(props => css({
   py: 4,
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
   ...(props.hasBorder ? {
     borderColor: 'systemGray05',
     borderBottomWidth: 0.5,
@@ -51,7 +54,14 @@ export const CategoryWrapper = styled(TouchableOpacity)<{ hasBorder: boolean }>(
 
 export const Categories = styled(View)(css({
   my: -4,
-}))
+}));
+
+export const Circle = styled(View)<ColorProps>(css({
+  width: 8,
+  height: 8,
+  borderRadius: 4,
+  mr: 2,
+}), color);
 
 export const Category = styled(TextVariant)<{ isSelected: boolean }>(props => css({
   color: props.isSelected ? 'systemBlue' : 'textPrimary',
