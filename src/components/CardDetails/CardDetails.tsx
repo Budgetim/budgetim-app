@@ -6,12 +6,12 @@ import { useTheme } from 'styled-components/native';
 
 export const CardDetails: FC<CardDetailsProps> = (props) => {
   const { colors: { systemGray05 } } = useTheme();
-  const { title, subTitle, label, tagColor = systemGray05 } = props;
+  const { title, subTitle, label, tagColor } = props;
   return (
     <Container>
       <LeftContentWrapper>
         <SubTitleWrapper>
-          <Circle bg={tagColor} />
+          <Circle bg={tagColor || systemGray05} />
           <SubTitle variant="footnoteRegular" numberOfLines={1}>{subTitle}</SubTitle>
         </SubTitleWrapper>
         <Title variant="subheadlineRegular" numberOfLines={1}>{title}</Title>

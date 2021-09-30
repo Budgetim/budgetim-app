@@ -5,10 +5,12 @@ import { useAppDispatch } from '../../../../appContext';
 import { addTransaction } from '../../../../api/transaction/addTransaction';
 
 import { Card } from './styled';
+import { useTheme } from 'styled-components/native';
 
 export const FormForAdding: FC = () => {
   const [text, setText] = useState('');
   const dispatch = useAppDispatch();
+  const { colors: { textPrimary } } = useTheme();
 
   const onAdd = () => {
     addTransaction(
@@ -27,7 +29,7 @@ export const FormForAdding: FC = () => {
         onChangeText={setText}
         onEndEditing={onAdd}
         defaultValue={text}
-        style={{ fontSize: 16 }}
+        style={{ fontSize: 16, color: textPrimary }}
       />
     </Card>
   );

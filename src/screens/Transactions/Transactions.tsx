@@ -23,8 +23,8 @@ export const Transactions = () => {
 
   return (
     <ScrollView>
-      <TransactionsList />
       <FormForAdding />
+      <TransactionsList />
     </ScrollView>
   );
 };

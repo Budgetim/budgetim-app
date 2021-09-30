@@ -20,7 +20,7 @@ export const TransactionModal: FC<TransactionModalProps> = (props) => {
   const { id } = props;
   const [title, setTitle] = useState(props.title);
   const [price, setPrice] = useState(props.price);
-  const [categoryId, setCategoryId] = useState(props.categoryId);
+  const [categoryId, setCategoryId] = useState(props.category.id);
   const [date, setDate] = useState(new Date(props.date));
   const dispatch = useAppDispatch();
 

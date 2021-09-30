@@ -37,8 +37,9 @@ export const Categories = () => {
         renderItem={({ item }) => (
           <CardButton key={item.id}>
             <CardDetails
-              title={'описание категории'}
+              title={item.description || 'нет описания'}
               subTitle={item.title}
+              tagColor={item.color}
             />
           </CardButton>
         )}
