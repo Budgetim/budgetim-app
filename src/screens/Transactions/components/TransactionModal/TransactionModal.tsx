@@ -1,14 +1,14 @@
 import React, { FC, useState } from 'react';
 import {
-  TextInput,
   Modal,
   Pressable,
   Platform,
   KeyboardAvoidingView,
-  ScrollView,
+  ScrollView, TouchableWithoutFeedback,
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useAppDispatch, useAppState } from '../../../../appContext';
+import { Input } from '../../../../components/Input';
 
 import { Header, Content, Section, ModalContent, ButtonText, Category, CategoryWrapper, Categories, ModalWrapper } from './styled';
 import { TransactionModalProps } from './types';
@@ -36,78 +36,82 @@ export const TransactionModal: FC<TransactionModalProps> = (props) => {
       transparent
       visible={visible}
     >
-      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
-        <ModalWrapper>
-          <ModalContent>
-            <Header>
-              <Pressable onPress={() => setVisible(!visible)}>
-                <ButtonText>отменить</ButtonText>
-              </Pressable>
-              <Pressable
-                onPress={() => {
-                  setVisible(!visible);
-                  onEdit();
-                }}
-              >
-                <ButtonText style={{ fontWeight: 'bold' }}>сохранить</ButtonText>
-              </Pressable>
-            </Header>
-            <ScrollView>
-              <Content>
-                <Section>
-                  <TextInput
-                    defaultValue={title}
-                    onChangeText={setTitle}
-                    style={{ fontSize: 16 }}
-                  />
-                </Section>
-                <Section>
-                  <Categories>
-                    {categories.map((item, index) => {
-                      return (
-                        <CategoryWrapper
-                          key={item.id}
-                          hasBorder={index !== categories.length - 1}
-                          onPress={() => {
-                            setCategoryId(item.id);
-                          }}
-                        >
-                          <Category isSelected={item.id === categoryId}>
-                            {item.title}
-                          </Category>
-                        </CategoryWrapper>
-                      );
-                    })}
-                  </Categories>
-                </Section>
-                <Section>
-                  <DateTimePicker
-                    value={date}
-                    mode="date"
-                    display="default"
-                    onChange={(event, selectedDate) => {
-                      const currentDate = selectedDate || date;
-                      setDate(currentDate);
-                    }}
-                    maximumDate={new Date()}
-                  />
-                </Section>
-                <Section>
-                  <TextInput
-                    defaultValue={price === '0.00' ? '' : (+price).toString()}
-                    onChangeText={price => {
-                      setPrice(price);
-                    }}
-                    style={{ fontSize: 16 }}
-                    placeholder="сумма"
-                    keyboardType="numeric"
-                  />
-                </Section>
-              </Content>
-            </ScrollView>
-          </ModalContent>
-        </ModalWrapper>
-      </KeyboardAvoidingView>
+      <TouchableWithoutFeedback onPress={() => setVisible(false)}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
+          <ModalWrapper>
+            <TouchableWithoutFeedback onPress={() => {}}>
+            <ModalContent>
+              <Header>
+                <Pressable onPress={() => setVisible(!visible)}>
+                  <ButtonText variant="subheadlineRegular">отменить</ButtonText>
+                </Pressable>
+                <Pressable
+                  onPress={() => {
+                    setVisible(!visible);
+                    onEdit();
+                  }}
+                >
+                  <ButtonText variant="subheadlineBold">сохранить</ButtonText>
+                </Pressable>
+              </Header>
+              <ScrollView>
+                <Content>
+                  <Section>
+                    <Input
+                      variant="subheadlineRegular"
+                      defaultValue={title}
+                      onChangeText={setTitle}
+                    />
+                  </Section>
+                  <Section>
+                    <Categories>
+                      {categories.map((item, index) => {
+                        return (
+                          <CategoryWrapper
+                            key={item.id}
+                            hasBorder={index !== categories.length - 1}
+                            onPress={() => {
+                              setCategoryId(item.id);
+                            }}
+                          >
+                            <Category isSelected={item.id === categoryId} variant="subheadlineRegular">
+                              {item.title}
+                            </Category>
+                          </CategoryWrapper>
+                        );
+                      })}
+                    </Categories>
+                  </Section>
+                  <Section>
+                    <DateTimePicker
+                      value={date}
+                      mode="date"
+                      display="default"
+                      onChange={(event, selectedDate) => {
+                        const currentDate = selectedDate || date;
+                        setDate(currentDate);
+                      }}
+                      maximumDate={new Date()}
+                    />
+                  </Section>
+                  <Section>
+                    <Input
+                      variant="subheadlineRegular"
+                      defaultValue={price === '0.00' ? '' : (+price).toString()}
+                      onChangeText={price => {
+                        setPrice(price);
+                      }}
+                      placeholder="сумма"
+                      keyboardType="numeric"
+                    />
+                  </Section>
+                </Content>
+              </ScrollView>
+            </ModalContent>
+              </TouchableWithoutFeedback>
+          </ModalWrapper>
+        </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
     </Modal>
   );
 };

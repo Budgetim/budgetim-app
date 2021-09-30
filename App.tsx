@@ -1,7 +1,7 @@
 import React from 'react';
 import { Transactions } from './src/screens/Transactions';
 import { AppProvider } from './src/appContext';
-import { KeyboardAvoidingView, Platform, useColorScheme } from 'react-native';
+import { Button, KeyboardAvoidingView, Platform, useColorScheme } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DarkTheme, DefaultTheme } from '@react-navigation/native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';

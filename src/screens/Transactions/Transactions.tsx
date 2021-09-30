@@ -1,13 +1,30 @@
 import React, { useEffect } from 'react';
 
 import { TransactionsList } from './components/TransactionsList';
-import { FormForAdding } from './components/FormForAdding';
 import { useAppDispatch } from '../../appContext';
 import { getCategories } from '../../api/category/getCategories';
-import { ScrollView } from 'react-native';
+import { Button, ScrollView } from 'react-native';
+import { addTransaction } from '../../api/transaction/addTransaction';
 
-export const Transactions = () => {
+export const Transactions = ({ navigation }: any) => {
   const dispatch = useAppDispatch();
+
+  const onAdd = () => {
+    addTransaction(
+      { title: '' },
+      (transaction) => {
+        dispatch({ type: 'addTransaction', payload: transaction });
+      },
+    );
+  };
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button onPress={onAdd} title="добавить" />
+      ),
+    });
+  }, [navigation]);
 
   const getData = async () => {
     getCategories((categories) => {
@@ -23,7 +40,6 @@ export const Transactions = () => {
 
   return (
     <ScrollView>
-      <FormForAdding />
       <TransactionsList />
     </ScrollView>
   );
