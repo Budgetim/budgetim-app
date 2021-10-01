@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import format from 'date-fns/format';
-import locale from 'date-fns/locale/ru';
+import locale from 'date-fns/locale/en-US';
 
 import { TitleWrapper, Title } from './styled';
 import { useAppDispatch, useAppState } from '../../../../appContext';
@@ -55,7 +55,7 @@ export const TransactionsList: FC = () => {
       renderItem={({ item }) => <Item {...item} />}
       renderSectionHeader={({ section: { title } }) => (
         <TitleWrapper>
-          <Title variant="title2Bold">{format(new Date(title), 'dd MMMM', { locale })}</Title>
+          <Title variant="title2Bold">{format(new Date(title), 'd MMMM', { locale })}</Title>
         </TitleWrapper>
       )}
     />

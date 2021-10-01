@@ -8,9 +8,8 @@ const MyText = styled(TextVariant)(css({ color: 'textPrimary' }));
 
 export const Settings: FC<any> = ({ navigation }) => {
   return (
-    <View style={{ padding: 4 }}>
-      <MyText variant="largeTitleBold" style={{ marginTop: 10, marginBottom: 8, color: '#fff' }}>Настройки</MyText>
-      <MyText variant="bodyBold" onPress={() => navigation.navigate('Categories')}>Категории</MyText>
+    <View style={{ paddingLeft: 16, paddingTop: 40 }}>
+      <MyText variant="bodyRegular" onPress={() => navigation.navigate('Categories')}>Categories</MyText>
     </View>
   );
 };

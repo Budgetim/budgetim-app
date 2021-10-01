@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { TransactionsList } from './components/TransactionsList';
-import { Button, ScrollView, TouchableOpacity, View } from 'react-native';
+import { ScrollView, TouchableOpacity, View } from 'react-native';
 import { TransactionModal } from './components/TransactionModal/TransactionModal';
 import { getCategories } from '../../api/category/getCategories';
 import { useAppDispatch } from '../../appContext';
 import { Footer, AddButton, SettingsButton } from './styled';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useTheme } from 'styled-components/native';
 
 export const Transactions = ({ navigation }: any) => {
@@ -16,8 +17,10 @@ export const Transactions = ({ navigation }: any) => {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
-        <Button onPress={() => navigation.navigate('Login')} title="Войти" />
-      )
+        <TouchableOpacity onPress={() => navigation.navigate('Login')} style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 4, paddingBottom: 4 }}>
+          <Ionicons name="person" color={textPrimary} size={16} />
+        </TouchableOpacity>
+      ),
     });
   }, [navigation]);
 
@@ -47,7 +50,7 @@ export const Transactions = ({ navigation }: any) => {
           <AntDesign name="pluscircle" color={textPrimary} size={40} />
         </AddButton>
         <SettingsButton onPress={() => navigation.navigate('Settings')}>
-          <AntDesign name="setting" color={textPrimary} size={32} />
+          <AntDesign name="setting" color={textPrimary} size={28} />
         </SettingsButton>
       </Footer>
     </View>
