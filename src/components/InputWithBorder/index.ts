@@ -1,0 +1,1 @@
+export { InputWithBorder } from './styled';

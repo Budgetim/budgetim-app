@@ -3,16 +3,23 @@ import { User } from '../../layouts/User';
 import { InputWithBorder } from '../../components/InputWithBorder';
 import { FooterLink } from './styled';
 
-export const Login: FC<any> = ({ navigation }) => {
+export const CreateAccount: FC<any> = ({ navigation }) => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   return (
     <User
-      title="Login"
-      message="Welcome back, sign in to continue"
+      title="Create account"
+      message="Nec nihil affert partiendo ne, quo no iisque etiam tacimates sed conceptam."
       form={(
         <>
+          <InputWithBorder
+            variant="bodyRegular"
+            defaultValue={name}
+            onChangeText={setName}
+            placeholder="Name"
+          />
           <InputWithBorder
             variant="bodyRegular"
             defaultValue={email}
@@ -33,8 +40,8 @@ export const Login: FC<any> = ({ navigation }) => {
       }}
       footer={(
         <>
-          Don’t have an account?{' '}
-          <FooterLink variant="bodyBold" onPress={() => navigation.navigate('CreateAccount')}>Create account</FooterLink>
+          Already have an account?{' '}
+          <FooterLink variant="bodyBold" onPress={() => navigation.navigate('Login')}>Sign In</FooterLink>
         </>
       )}
     />
