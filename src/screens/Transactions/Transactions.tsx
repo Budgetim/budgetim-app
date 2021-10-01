@@ -12,8 +12,11 @@ export const Transactions = ({ navigation }: any) => {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Button onPress={() => setModalVisible(true)} title="добавить" />
+        <Button onPress={() => setModalVisible(true)} title="Добавить" />
       ),
+      headerLeft: () => (
+        <Button onPress={() => navigation.navigate('Login')} title="Войти" />
+      )
     });
   }, [navigation]);
 

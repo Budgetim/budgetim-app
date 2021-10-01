@@ -2,6 +2,7 @@ export default {
   light: {
     bgPrimary: '#FFFFFF',
     textPrimary: '#000000',
+    textSecondary: '#AEAEB2', // TODO: проверить
     systemGray01: '#8E8E93',
     systemGray02: '#AEAEB2',
     systemGray03: '#C7C7CC',
@@ -14,6 +15,7 @@ export default {
   dark: {
     bgPrimary: '#000000',
     textPrimary: '#FFFFFF',
+    textSecondary: '#636366',
     systemGray01: '#8E8E93',
     systemGray02: '#636366',
     systemGray03: '#48484A',
