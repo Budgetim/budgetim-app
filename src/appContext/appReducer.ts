@@ -1,4 +1,5 @@
 import { AppContextState, AppDispatchAction } from './types';
+import compareDesc from 'date-fns/compareDesc';
 
 export const appReducer = (state: AppContextState, action: AppDispatchAction) => {
   switch (action.type) {
@@ -37,7 +38,7 @@ export const appReducer = (state: AppContextState, action: AppDispatchAction) =>
       const transaction = action.payload;
       return {
         ...state,
-        transactions: [...state.transactions, transaction],
+        transactions: [...state.transactions, transaction].sort((a, b) => compareDesc(new Date(a.date), new Date(b.date))),
       };
     }
 

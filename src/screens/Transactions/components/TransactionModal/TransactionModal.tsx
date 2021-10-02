@@ -77,6 +77,18 @@ export const TransactionModal: FC<TransactionModalProps> = (props) => {
                     <Section>
                       <Input
                         variant="subheadlineRegular"
+                        defaultValue={price === '0.00' ? '' : (+price).toString()}
+                        onChangeText={price => {
+                          setPrice(price);
+                        }}
+                        placeholder="сумма"
+                        keyboardType="numeric"
+                        autoFocus
+                      />
+                    </Section>
+                    <Section>
+                      <Input
+                        variant="subheadlineRegular"
                         defaultValue={title}
                         onChangeText={setTitle}
                         placeholder="название"
@@ -112,17 +124,6 @@ export const TransactionModal: FC<TransactionModalProps> = (props) => {
                           setDate(currentDate);
                         }}
                         maximumDate={new Date()}
-                      />
-                    </Section>
-                    <Section>
-                      <Input
-                        variant="subheadlineRegular"
-                        defaultValue={price === '0.00' ? '' : (+price).toString()}
-                        onChangeText={price => {
-                          setPrice(price);
-                        }}
-                        placeholder="сумма"
-                        keyboardType="numeric"
                       />
                     </Section>
                   </Content>

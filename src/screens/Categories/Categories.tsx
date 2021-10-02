@@ -13,7 +13,7 @@ export const Categories = ({ navigation }: any) => {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity onPress={() => setModalVisible(true)} style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 4, paddingBottom: 4 }}>
-          <Feather name="plus" color={systemBlue} size={32} />
+          <Feather name="plus" color={systemBlue} size={24} />
         </TouchableOpacity>
       ),
     });
