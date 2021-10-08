@@ -39,6 +39,7 @@ export const Transactions: FC<NativeStackScreenProps<StackParamList, 'Transactio
     getData();
   }, []);
 
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView>

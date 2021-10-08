@@ -5,4 +5,5 @@ import { TextVariant } from '../../components/TextVariant';
 
 export const Item = styled(TextVariant)(css({
   color: 'textPrimary',
+  mb: 5,
 }));

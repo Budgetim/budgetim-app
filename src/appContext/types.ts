@@ -49,6 +49,16 @@ type SetUserAction = Action<'setUser', {
   user: User;
 }>
 
+type RestoreTokenAction = Action<'restoreToken', {
+  token: string | null;
+}>
+
+type SignInAction = Action<'signIn', {
+  token: string | null;
+}>
+
+type SignOutAction = Action<'signOut', {}>
+
 export type AppDispatchAction =
   SetTransactionsAction |
   SetCategoriesAction |
@@ -60,7 +70,10 @@ export type AppDispatchAction =
   DeleteCategoryAction |
   AddCategoryAction |
   EditCategoryAction |
-  SetUserAction;
+  SetUserAction |
+  RestoreTokenAction |
+  SignInAction |
+  SignOutAction;
 
 export type AppDispatch = (action: AppDispatchAction) => void;
 
@@ -79,6 +92,7 @@ export interface AppContextState {
     email: string;
     userId: number | null;
     name: string;
-    token: string;
+    token: string | null;
+    isLoading: boolean;
   },
 }

@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import * as SecureStore from 'expo-secure-store';
 
 import { User } from '../../layouts/User';
 import { InputWithBorder } from '../../components/InputWithBorder';
@@ -17,11 +18,14 @@ export const Login: FC<NativeStackScreenProps<StackParamList, 'Login'>> = ({ nav
   // mail
   // 1
 
+
+
   const auth = async () => {
     authentificate({ email, password }, (user) => {
       if (user.email === email) {
         console.log(user);
         dispatch({ type: 'setUser', payload: { user } });
+        SecureStore.setItemAsync('userToken', user.token);
       }
     });
   };

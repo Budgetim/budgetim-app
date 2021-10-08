@@ -22,7 +22,8 @@ export const AppProvider: FC = ({ children }) => {
       email: '',
       userId: null,
       name: '',
-      token: '',
+      token: null,
+      isLoading: true,
     },
   };
 

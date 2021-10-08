@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
+import * as SecureStore from 'expo-secure-store';
 
-import { useUser } from '../appContext';
+import { useAppDispatch, useUser } from '../appContext';
 
 import { Transactions } from './Transactions';
 import { Categories } from './Categories';
@@ -13,7 +14,27 @@ import { StackParamList } from './types';
 const Stack = createStackNavigator<StackParamList>();
 
 export const Screens = () => {
-  const { token } = useUser();
+  const user = useUser();
+  const { token } = user;
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const bootstrapAsync = async () => {
+      let userToken;
+
+      try {
+        userToken = await SecureStore.getItemAsync('userToken');
+      } catch (e) {
+        // Restoring token failed
+      }
+
+      if (userToken) {
+        dispatch({ type: 'restoreToken', payload: { token: userToken } });
+      }
+    };
+
+    bootstrapAsync();
+  }, []);
 
   return (
     <Stack.Navigator>

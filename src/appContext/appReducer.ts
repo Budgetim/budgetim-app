@@ -7,7 +7,7 @@ export const appReducer = (state: AppContextState, action: AppDispatchAction) =>
 
   switch (action.type) {
     case 'setTransactions': {
-      const { data } = action.payload;
+      const {data} = action.payload;
       return {
         ...state,
         transactions: {
@@ -19,7 +19,7 @@ export const appReducer = (state: AppContextState, action: AppDispatchAction) =>
     }
 
     case 'deleteTransaction': {
-      const { id } = action.payload;
+      const {id} = action.payload;
 
       return {
         ...state,
@@ -31,7 +31,7 @@ export const appReducer = (state: AppContextState, action: AppDispatchAction) =>
     }
 
     case 'editTransaction': {
-      const { transaction } = action.payload;
+      const {transaction} = action.payload;
 
       return {
         ...state,
@@ -48,7 +48,7 @@ export const appReducer = (state: AppContextState, action: AppDispatchAction) =>
     }
 
     case 'addTransaction': {
-      const { transaction } = action.payload;
+      const {transaction} = action.payload;
 
       return {
         ...state,
@@ -60,7 +60,7 @@ export const appReducer = (state: AppContextState, action: AppDispatchAction) =>
     }
 
     case 'setErrorTransactions': {
-      const { error } = action.payload;
+      const {error} = action.payload;
       return {
         ...state,
         transactions: {
@@ -72,7 +72,7 @@ export const appReducer = (state: AppContextState, action: AppDispatchAction) =>
     }
 
     case 'setCategories': {
-      const { data } = action.payload;
+      const {data} = action.payload;
       return {
         ...state,
         categories: {
@@ -84,7 +84,7 @@ export const appReducer = (state: AppContextState, action: AppDispatchAction) =>
     }
 
     case 'setErrorCategories': {
-      const { error } = action.payload;
+      const {error} = action.payload;
       return {
         ...state,
         categories: {
@@ -96,7 +96,7 @@ export const appReducer = (state: AppContextState, action: AppDispatchAction) =>
     }
 
     case 'deleteCategory': {
-      const { id } = action.payload;
+      const {id} = action.payload;
 
       return {
         ...state,
@@ -108,7 +108,7 @@ export const appReducer = (state: AppContextState, action: AppDispatchAction) =>
     }
 
     case 'editCategory': {
-      const { category } = action.payload;
+      const {category} = action.payload;
 
       return {
         ...state,
@@ -125,7 +125,7 @@ export const appReducer = (state: AppContextState, action: AppDispatchAction) =>
     }
 
     case 'addCategory': {
-      const { category } = action.payload;
+      const {category} = action.payload;
 
       return {
         ...state,
@@ -137,12 +137,35 @@ export const appReducer = (state: AppContextState, action: AppDispatchAction) =>
     }
 
     case 'setUser': {
-      const { user } = action.payload;
+      const {user} = action.payload;
       return {
         ...state,
         user: {
           ...user,
           userId: user.id,
+        },
+      };
+    }
+
+    case 'restoreToken': {
+      const { token } = action.payload;
+
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          token,
+          isLoading: false,
+        },
+      };
+    }
+
+    case 'signOut': {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          token: null,
         },
       };
     }
