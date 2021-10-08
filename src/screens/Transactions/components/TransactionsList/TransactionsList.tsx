@@ -1,16 +1,17 @@
 import React, { FC, useEffect } from 'react';
 import format from 'date-fns/format';
 import locale from 'date-fns/locale/en-US';
-
-import { TitleWrapper, Title } from './styled';
-import { useAppDispatch, useAppState } from '../../../../appContext';
-import { TransactionCard } from '../TransactionCard/TransactionCard';
 import { SectionList, Text } from 'react-native';
+
+import { useAppDispatch, useTransactions } from '../../../../appContext';
+import { TransactionCard } from '../TransactionCard/TransactionCard';
 import { getTransactions } from '../../../../api/transaction/getTransactions';
 import { Transaction } from '../../../../types';
 
+import { TitleWrapper, Title } from './styled';
+
 export const TransactionsList: FC = () => {
-  const { transactions, isLoadingTransactions, errorTransactions } = useAppState();
+  const { data, isLoading, error } = useTransactions();
   const dispatch = useAppDispatch();
 
   const getData = () => {
@@ -25,22 +26,22 @@ export const TransactionsList: FC = () => {
     getData();
   }, []);
 
-  if (errorTransactions) {
-    return <Text>{errorTransactions}</Text>
+  if (error) {
+    return <Text>{error}</Text>
   }
 
-  if (isLoadingTransactions) {
+  if (isLoading) {
     return <Text>Loading...</Text>
   }
 
-  const data: { title: string, data: Transaction[] }[] = [];
-  transactions.forEach(transaction => {
+  const expandedData: { title: string, data: Transaction[] }[] = [];
+  data.forEach(transaction => {
     const date = format(new Date(transaction.date), 'yyyy-MM-dd');
-    const findedTransaction = data.find(({ title }) => title === date)
+    const findedTransaction = expandedData.find(({ title }) => title === date)
     if (findedTransaction) {
       findedTransaction.data.push(transaction);
     } else {
-      data.push({ title: date, data: [transaction] });
+      expandedData.push({ title: date, data: [transaction] });
     }
   });
 
@@ -50,7 +51,7 @@ export const TransactionsList: FC = () => {
 
   return (
     <SectionList
-      sections={data}
+      sections={expandedData}
       keyExtractor={(item, index) => item.id.toString() + index}
       renderItem={({ item }) => <Item {...item} />}
       renderSectionHeader={({ section: { title } }) => (

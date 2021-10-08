@@ -1,15 +1,15 @@
 import React, { FC } from 'react';
 import { View } from 'react-native';
-import { TextVariant } from '../../components/TextVariant';
-import styled from 'styled-components/native';
-import css from '@styled-system/css';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-const MyText = styled(TextVariant)(css({ color: 'textPrimary' }));
+import { StackParamList } from '../types';
 
-export const Settings: FC<any> = ({ navigation }) => {
+import { Item } from './styled';
+
+export const Settings: FC<NativeStackScreenProps<StackParamList, 'Settings'>> = ({ navigation }) => {
   return (
     <View style={{ paddingLeft: 16, paddingTop: 40 }}>
-      <MyText variant="bodyRegular" onPress={() => navigation.navigate('Categories')}>Categories</MyText>
+      <Item variant="bodyRegular" onPress={() => navigation.navigate('Categories')}>Categories</Item>
     </View>
   );
 };

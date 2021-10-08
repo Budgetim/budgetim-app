@@ -37,11 +37,11 @@ export const CategoryModal: FC<CategoryModalProps> = (props) => {
   const onEdit = async () => {
     if (id) {
       editCategory({ id, description, title, color }, (category) => {
-        dispatch({ type: 'editCategory', payload: category});
+        dispatch({ type: 'editCategory', payload: { category } });
       });
     } else {
       addCategory({ description, title, color }, (category) => {
-        dispatch({ type: 'addCategory', payload: category});
+        dispatch({ type: 'addCategory', payload: { category } });
       });
     }
   }
@@ -60,7 +60,7 @@ export const CategoryModal: FC<CategoryModalProps> = (props) => {
               <ModalContent>
                 <Header>
                   <Pressable onPress={() => setVisible(!visible)}>
-                    <ButtonText variant="subheadlineRegular">отменить</ButtonText>
+                    <ButtonText variant="subheadlineRegular">cancel</ButtonText>
                   </Pressable>
                   <Pressable
                     onPress={() => {
@@ -68,7 +68,7 @@ export const CategoryModal: FC<CategoryModalProps> = (props) => {
                       onEdit();
                     }}
                   >
-                    <ButtonText variant="subheadlineBold">сохранить</ButtonText>
+                    <ButtonText variant="subheadlineBold">save</ButtonText>
                   </Pressable>
                 </Header>
                 <ScrollView>

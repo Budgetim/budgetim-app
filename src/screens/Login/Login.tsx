@@ -1,11 +1,30 @@
 import React, { FC, useState } from 'react';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+
 import { User } from '../../layouts/User';
 import { InputWithBorder } from '../../components/InputWithBorder';
+import { authentificate } from '../../api/user/authentificate';
+import { useAppDispatch } from '../../appContext';
+import { StackParamList } from '../types';
+
 import { FooterLink } from './styled';
 
-export const Login: FC<any> = ({ navigation }) => {
+export const Login: FC<NativeStackScreenProps<StackParamList, 'Login'>> = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useAppDispatch();
+
+  // mail
+  // 1
+
+  const auth = async () => {
+    authentificate({ email, password }, (user) => {
+      if (user.email === email) {
+        console.log(user);
+        dispatch({ type: 'setUser', payload: { user } });
+      }
+    });
+  };
 
   return (
     <User
@@ -29,7 +48,7 @@ export const Login: FC<any> = ({ navigation }) => {
       )}
       button={{
         text: 'Sign in',
-        action: () => {},
+        action: auth,
       }}
       footer={(
         <>

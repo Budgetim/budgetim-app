@@ -7,18 +7,19 @@ import {
   ScrollView, TouchableWithoutFeedback,
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { useAppDispatch, useAppState } from '../../../../appContext';
+import { useTheme } from 'styled-components/native';
+
+import { useAppDispatch, useCategories } from '../../../../appContext';
 import { Input } from '../../../../components/Input';
+import { editTransaction } from '../../../../api/transaction/editTransaction';
+import { addTransaction } from '../../../../api/transaction/addTransaction';
 
 import { Header, Content, Section, ModalContent, ButtonText, Category, CategoryWrapper, Categories, ModalWrapper, Circle } from './styled';
 import { TransactionModalProps } from './types';
-import { editTransaction } from '../../../../api/transaction/editTransaction';
-import { useTheme } from 'styled-components/native';
-import { addTransaction } from '../../../../api/transaction/addTransaction';
 
 export const TransactionModal: FC<TransactionModalProps> = (props) => {
   const { visible, setVisible, transaction } = props;
-  const { categories } = useAppState();
+  const { data } = useCategories();
   const { id } = transaction;
   const [title, setTitle] = useState(transaction.title);
   const [price, setPrice] = useState(transaction.price);
@@ -38,11 +39,11 @@ export const TransactionModal: FC<TransactionModalProps> = (props) => {
     if (!categoryId) return;
     if (id) {
       editTransaction({ id, title, categoryId, price, date }, (transaction) => {
-        dispatch({ type: 'editTransaction', payload: transaction});
+        dispatch({ type: 'editTransaction', payload: { transaction }});
       });
     } else {
       addTransaction({ title, categoryId, price, date }, (transaction) => {
-        dispatch({ type: 'addTransaction', payload: transaction});
+        dispatch({ type: 'addTransaction', payload: { transaction }});
       });
     }
   }
@@ -60,7 +61,7 @@ export const TransactionModal: FC<TransactionModalProps> = (props) => {
               <ModalContent>
                 <Header>
                   <Pressable onPress={() => setVisible(!visible)}>
-                    <ButtonText variant="subheadlineRegular">отменить</ButtonText>
+                    <ButtonText variant="subheadlineRegular">cancel</ButtonText>
                   </Pressable>
                   <Pressable
                     onPress={() => {
@@ -69,7 +70,7 @@ export const TransactionModal: FC<TransactionModalProps> = (props) => {
                       onEdit();
                     }}
                   >
-                    <ButtonText variant="subheadlineBold">сохранить</ButtonText>
+                    <ButtonText variant="subheadlineBold">save</ButtonText>
                   </Pressable>
                 </Header>
                 <ScrollView>
@@ -96,11 +97,11 @@ export const TransactionModal: FC<TransactionModalProps> = (props) => {
                     </Section>
                     <Section>
                       <Categories>
-                        {categories.map((item, index) => {
+                        {data.map((item, index) => {
                           return (
                             <CategoryWrapper
                               key={item.id}
-                              hasBorder={index !== categories.length - 1}
+                              hasBorder={index !== data.length - 1}
                               onPress={() => {
                                 setCategoryId(item.id);
                               }}

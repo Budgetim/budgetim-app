@@ -1,54 +1,53 @@
-import { Category, Transaction } from '../types';
+import { Category, Transaction, User } from '../types';
 
-export interface SetTransactionsAction {
-  type: 'setTransactions';
-  payload: { data: Transaction[] };
+interface Action<T extends string, P extends unknown> {
+  type: T;
+  payload: P;
 }
 
-export interface SetErrorTransactionsAction {
-  type: 'setErrorTransactions';
-  payload: { error: string };
-}
+type SetTransactionsAction = Action<'setTransactions', {
+  data: Transaction[];
+}>
 
-export interface DeleteTransactionAction {
-  type: 'deleteTransaction';
-  payload: { id: number };
-}
+type SetErrorTransactionsAction = Action<'setErrorTransactions', {
+  error: string;
+}>
 
-export interface AddTransactionAction {
-  type: 'addTransaction';
-  payload: Transaction;
-}
+type DeleteTransactionAction = Action<'deleteTransaction', {
+  id: number;
+}>
 
-export interface EditTransactionAction {
-  type: 'editTransaction';
-  payload: Transaction;
-}
+type AddTransactionAction = Action<'addTransaction', {
+  transaction: Transaction;
+}>
 
-export interface SetCategoriesAction {
-  type: 'setCategories';
-  payload: { data: Category[] };
-}
+type EditTransactionAction = Action<'editTransaction', {
+  transaction: Transaction;
+}>
 
-export interface SetErrorCategoriesAction {
-  type: 'setErrorCategories';
-  payload: { error: string };
-}
+type SetCategoriesAction = Action<'setCategories', {
+  data: Category[];
+}>
 
-export interface DeleteCategoryAction {
-  type: 'deleteCategory',
-  payload: { id: number };
-}
+type SetErrorCategoriesAction = Action<'setErrorCategories', {
+  error: string;
+}>
 
-export interface AddCategoryAction {
-  type: 'addCategory';
-  payload: Category;
-}
+type DeleteCategoryAction = Action<'deleteCategory', {
+  id: number;
+}>
 
-export interface EditCategoryAction {
-  type: 'editCategory';
-  payload: Category;
-}
+type AddCategoryAction = Action<'addCategory', {
+  category: Category;
+}>
+
+type EditCategoryAction = Action<'editCategory', {
+  category: Category;
+}>
+
+type SetUserAction = Action<'setUser', {
+  user: User;
+}>
 
 export type AppDispatchAction =
   SetTransactionsAction |
@@ -60,15 +59,26 @@ export type AppDispatchAction =
   SetErrorCategoriesAction |
   DeleteCategoryAction |
   AddCategoryAction |
-  EditCategoryAction;
+  EditCategoryAction |
+  SetUserAction;
 
 export type AppDispatch = (action: AppDispatchAction) => void;
 
 export interface AppContextState {
-  isLoadingTransactions: boolean;
-  transactions: Transaction[];
-  errorTransactions: string | null;
-  isLoadingCategories: boolean;
-  categories: Category[];
-  errorCategories: string | null;
+  transactions: {
+    isLoading: boolean;
+    error: string | null;
+    data: Transaction[];
+  }
+  categories: {
+    isLoading: boolean;
+    error: string | null;
+    data: Category[];
+  },
+  user: {
+    email: string;
+    userId: number | null;
+    name: string;
+    token: string;
+  },
 }

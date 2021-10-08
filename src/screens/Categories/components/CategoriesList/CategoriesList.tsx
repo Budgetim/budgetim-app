@@ -1,11 +1,11 @@
 import React, { FC, useEffect } from 'react';
-import { useAppDispatch, useAppState } from '../../../../appContext';
+import { useAppDispatch, useCategories } from '../../../../appContext';
 import { FlatList, Text } from 'react-native';
 import { getCategories } from '../../../../api/category/getCategories';
 import { CategoryCard } from '../CategoryCard';
 
 export const CategoriesList: FC = () => {
-  const { categories, isLoadingCategories, errorCategories } = useAppState();
+  const { data, isLoading, error } = useCategories();
   const dispatch = useAppDispatch();
 
   const getData = async () => {
@@ -19,17 +19,17 @@ export const CategoriesList: FC = () => {
     getData();
   }, []);
 
-  if (errorCategories) {
-    return <Text>{errorCategories}</Text>
+  if (error) {
+    return <Text>{error}</Text>
   }
 
-  if (isLoadingCategories) {
+  if (isLoading) {
     return <Text>Loading...</Text>
   }
 
   return (
     <FlatList
-      data={categories}
+      data={data}
       renderItem={({ item }) => (
         <CategoryCard key={item.id} {...item} />
       )}

@@ -8,12 +8,22 @@ import { AppContextState } from './types';
 export const AppProvider: FC = ({ children }) => {
 
   const initialState: AppContextState = {
-    isLoadingTransactions: true,
-    transactions: [],
-    errorTransactions: null,
-    isLoadingCategories: true,
-    categories: [],
-    errorCategories: null,
+    transactions: {
+      isLoading: true,
+      data: [],
+      error: null,
+    },
+    categories: {
+      isLoading: true,
+      data: [],
+      error: null,
+    },
+    user: {
+      email: '',
+      userId: null,
+      name: '',
+      token: '',
+    },
   };
 
   const [state, dispatch] = useReducer(appReducer, initialState);

@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { ScrollView, TouchableOpacity } from 'react-native';
-import { CategoriesList } from './components/CategoriesList';
-import { CategoryModal } from './components/CategoryModal';
 import { useTheme } from 'styled-components/native';
 import Feather from 'react-native-vector-icons/Feather';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-export const Categories = ({ navigation }: any) => {
+import { StackParamList } from '../types';
+
+import { CategoriesList } from './components/CategoriesList';
+import { CategoryModal } from './components/CategoryModal';
+
+export const Categories: FC<NativeStackScreenProps<StackParamList, 'Categories'>> = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const { colors: { systemBlue } } = useTheme();
 

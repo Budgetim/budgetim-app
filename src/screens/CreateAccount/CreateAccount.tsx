@@ -1,12 +1,23 @@
 import React, { FC, useState } from 'react';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+
 import { User } from '../../layouts/User';
 import { InputWithBorder } from '../../components/InputWithBorder';
+import { register } from '../../api/user/register';
+import { StackParamList } from '../types';
+
 import { FooterLink } from './styled';
 
-export const CreateAccount: FC<any> = ({ navigation }) => {
+export const CreateAccount: FC<NativeStackScreenProps<StackParamList, 'CreateAccount'>> = ({ navigation }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const action = async () => {
+    register({ name, email, password }, (user) => {
+
+    });
+  };
 
   return (
     <User
@@ -35,8 +46,8 @@ export const CreateAccount: FC<any> = ({ navigation }) => {
         </>
       )}
       button={{
-        text: 'Sign in',
-        action: () => {},
+        text: 'Register',
+        action,
       }}
       footer={(
         <>

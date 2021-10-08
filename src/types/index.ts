@@ -12,3 +12,10 @@ export interface Category {
   color: string | null;
   description: string | null;
 }
+
+export interface User {
+  id: number;
+  email: string;
+  name: string;
+  token: string;
+}
