@@ -1,4 +1,5 @@
 import { Category } from '../../types';
+import { authHeader } from '../../helpers/authHeader';
 
 interface EditCategoryParams {
   id: number;
@@ -13,7 +14,10 @@ export const editCategory = async (params: EditCategoryParams, callback: Callbac
   try {
     const response = await fetch('https://api.budgetim.ru/categories/edit', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        ...authHeader('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsImlhdCI6MTYzMzc4NDUwNywiZXhwIjoxNjM0Mzg5MzA3fQ.vQbK2UfhABKIlqjwptTzlPiH0QqAok0GS65br8N4tts'),
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(params),
     });
     const category = await response.json();

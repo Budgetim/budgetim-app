@@ -16,6 +16,7 @@ const Stack = createStackNavigator<StackParamList>();
 export const Screens = () => {
   const user = useUser();
   const { token } = user;
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
