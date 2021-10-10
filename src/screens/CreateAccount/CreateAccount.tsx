@@ -7,15 +7,26 @@ import { register } from '../../api/user/register';
 import { StackParamList } from '../types';
 
 import { FooterLink } from './styled';
+import { authentificate } from '../../api/user/authentificate';
+import * as SecureStore from 'expo-secure-store';
+import { useAppDispatch } from '../../appContext';
 
 export const CreateAccount: FC<NativeStackScreenProps<StackParamList, 'CreateAccount'>> = ({ navigation }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useAppDispatch();
 
   const action = async () => {
-    register({ name, email, password }, (user) => {
-
+    register({ name, email, password }, (_user) => {
+      if (_user) { // TODO: нормальная обработка успешной регистрации
+        authentificate({ email, password }, (user) => {
+          if (user.email === email) {
+            dispatch({ type: 'setUser', payload: { user } });
+            SecureStore.setItemAsync('userToken', user.token);
+          }
+        });
+      }
     });
   };
 

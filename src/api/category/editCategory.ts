@@ -10,12 +10,12 @@ interface EditCategoryParams {
 
 type CallbackFunc = (category: Category) => void;
 
-export const editCategory = async (params: EditCategoryParams, callback: CallbackFunc) => {
+export const editCategory = async (params: EditCategoryParams, callback: CallbackFunc, token: string | null) => {
   try {
     const response = await fetch('https://api.budgetim.ru/categories/edit', {
       method: 'POST',
       headers: {
-        ...authHeader('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsImlhdCI6MTYzMzc4NDUwNywiZXhwIjoxNjM0Mzg5MzA3fQ.vQbK2UfhABKIlqjwptTzlPiH0QqAok0GS65br8N4tts'),
+        ...authHeader(token),
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(params),

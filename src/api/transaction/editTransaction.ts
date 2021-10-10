@@ -11,13 +11,13 @@ interface EditTransactionParams {
 
 type CallbackFunc = (transaction: Transaction) => void;
 
-export const editTransaction = async (params: EditTransactionParams, callback: CallbackFunc) => {
+export const editTransaction = async (params: EditTransactionParams, callback: CallbackFunc, token: string | null) => {
   try {
     const response = await fetch('https://api.budgetim.ru/transaction/edit', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        ...authHeader('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsImlhdCI6MTYzMzc4NDUwNywiZXhwIjoxNjM0Mzg5MzA3fQ.vQbK2UfhABKIlqjwptTzlPiH0QqAok0GS65br8N4tts'),
+        ...authHeader(token),
       },
       body: JSON.stringify(params),
     });

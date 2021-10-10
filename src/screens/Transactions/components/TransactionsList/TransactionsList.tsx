@@ -3,7 +3,7 @@ import format from 'date-fns/format';
 import locale from 'date-fns/locale/en-US';
 import { SectionList, Text } from 'react-native';
 
-import { useAppDispatch, useTransactions } from '../../../../appContext';
+import { useAppDispatch, useTransactions, useUser } from '../../../../appContext';
 import { TransactionCard } from '../TransactionCard/TransactionCard';
 import { getTransactions } from '../../../../api/transaction/getTransactions';
 import { Transaction } from '../../../../types';
@@ -13,13 +13,14 @@ import { TitleWrapper, Title } from './styled';
 export const TransactionsList: FC = () => {
   const { data, isLoading, error } = useTransactions();
   const dispatch = useAppDispatch();
+  const { token } = useUser();
 
   const getData = () => {
     getTransactions((transactions) => {
       dispatch({ type: 'setTransactions', payload: { data: transactions }});
     }, (error) => {
       dispatch({ type: 'setErrorTransactions', payload: { error }});
-    });
+    }, token);
   }
 
   useEffect(() => {

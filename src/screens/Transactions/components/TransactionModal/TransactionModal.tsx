@@ -9,7 +9,7 @@ import {
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useTheme } from 'styled-components/native';
 
-import { useAppDispatch, useCategories } from '../../../../appContext';
+import { useAppDispatch, useCategories, useUser } from '../../../../appContext';
 import { Input } from '../../../../components/Input';
 import { editTransaction } from '../../../../api/transaction/editTransaction';
 import { addTransaction } from '../../../../api/transaction/addTransaction';
@@ -27,6 +27,7 @@ export const TransactionModal: FC<TransactionModalProps> = (props) => {
   const [date, setDate] = useState(transaction.date ? new Date(transaction.date) : new Date());
   const dispatch = useAppDispatch();
   const { colors: { systemGray05 } } = useTheme();
+  const { token } = useUser();
 
   useEffect(() => {
     setTitle(transaction.title);
@@ -40,11 +41,11 @@ export const TransactionModal: FC<TransactionModalProps> = (props) => {
     if (id) {
       editTransaction({ id, title, categoryId, price, date }, (transaction) => {
         dispatch({ type: 'editTransaction', payload: { transaction }});
-      });
+      }, token);
     } else {
       addTransaction({ title, categoryId, price, date }, (transaction) => {
         dispatch({ type: 'addTransaction', payload: { transaction }});
-      });
+      }, token);
     }
   }
 

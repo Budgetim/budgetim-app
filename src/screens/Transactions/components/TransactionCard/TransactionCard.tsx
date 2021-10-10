@@ -4,7 +4,7 @@ import Swipeout from 'react-native-swipeout';
 import { Transaction } from '../../../../types';
 
 import { TransactionModal } from '../TransactionModal/TransactionModal';
-import { useAppDispatch } from '../../../../appContext';
+import { useAppDispatch, useUser } from '../../../../appContext';
 import { deleteTransaction } from '../../../../api/transaction/deleteTransaction';
 import { CardDetails } from '../../../../components/CardDetails';
 import { CardButton } from '../../../../components/CardButton';
@@ -17,11 +17,13 @@ export const TransactionCard: FC<Transaction> = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const { colors: { bgPrimary, systemRed, textPrimary }} = useTheme();
   const dispatch = useAppDispatch();
+  const { token } = useUser();
 
   const onDelete = () => {
     deleteTransaction(
       id,
-      () => dispatch({ type: 'deleteTransaction', payload: { id }})
+      () => dispatch({ type: 'deleteTransaction', payload: { id }}),
+      token,
     );
   };
 

@@ -3,7 +3,7 @@ import Swipeout from 'react-native-swipeout';
 
 import { Category } from '../../../../types';
 
-import { useAppDispatch } from '../../../../appContext';
+import { useAppDispatch, useUser } from '../../../../appContext';
 import { CardDetails } from '../../../../components/CardDetails';
 import { CardButton } from '../../../../components/CardButton';
 
@@ -16,11 +16,13 @@ export const CategoryCard: FC<Category> = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const { colors: { bgPrimary, systemRed, textPrimary }} = useTheme();
   const dispatch = useAppDispatch();
+  const { token } = useUser();
 
   const onDelete = () => {
     deleteCategory(
       id,
-      () => dispatch({ type: 'deleteCategory', payload: { id }})
+      () => dispatch({ type: 'deleteCategory', payload: { id }}),
+      token,
     );
   };
 

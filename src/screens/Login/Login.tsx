@@ -15,15 +15,9 @@ export const Login: FC<NativeStackScreenProps<StackParamList, 'Login'>> = ({ nav
   const [password, setPassword] = useState('');
   const dispatch = useAppDispatch();
 
-  // mail
-  // 1
-
-
-
   const auth = async () => {
     authentificate({ email, password }, (user) => {
       if (user.email === email) {
-        console.log(user);
         dispatch({ type: 'setUser', payload: { user } });
         SecureStore.setItemAsync('userToken', user.token);
       }

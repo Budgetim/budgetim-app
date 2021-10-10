@@ -11,7 +11,7 @@ import {
 // @ts-ignore
 import ColorPalette from 'react-native-color-palette';
 
-import { useAppDispatch } from '../../../../appContext';
+import { useAppDispatch, useUser } from '../../../../appContext';
 import { Input } from '../../../../components/Input';
 
 import { Header, Content, Section, ModalContent, ButtonText, ModalWrapper } from './styled';
@@ -27,6 +27,7 @@ export const CategoryModal: FC<CategoryModalProps> = (props) => {
   const [description, setDescription] = useState(category.description);
   const [color, setColor] = useState(category.color);
   const dispatch = useAppDispatch();
+  const { token } = useUser();
 
   useEffect(() => {
     setTitle(category.title || '');
@@ -38,11 +39,11 @@ export const CategoryModal: FC<CategoryModalProps> = (props) => {
     if (id) {
       editCategory({ id, description, title, color }, (category) => {
         dispatch({ type: 'editCategory', payload: { category } });
-      });
+      }, token);
     } else {
       addCategory({ description, title, color }, (category) => {
         dispatch({ type: 'addCategory', payload: { category } });
-      });
+      }, token);
     }
   }
 

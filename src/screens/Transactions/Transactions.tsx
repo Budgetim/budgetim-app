@@ -7,7 +7,7 @@ import { useTheme } from 'styled-components/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { getCategories } from '../../api/category/getCategories';
-import { useAppDispatch } from '../../appContext';
+import { useAppDispatch, useUser } from '../../appContext';
 import { StackParamList } from '../types';
 
 import { TransactionModal } from './components/TransactionModal';
@@ -17,6 +17,7 @@ export const Transactions: FC<NativeStackScreenProps<StackParamList, 'Transactio
   const [modalVisible, setModalVisible] = useState(false);
   const { colors: { textPrimary } } = useTheme();
   const dispatch = useAppDispatch();
+  const { token } = useUser();
 
   // useLayoutEffect(() => {
   //   navigation.setOptions({
@@ -33,7 +34,7 @@ export const Transactions: FC<NativeStackScreenProps<StackParamList, 'Transactio
       dispatch({ type: 'setCategories', payload: { data: categories }});
     }, (error) => {
       dispatch({ type: 'setErrorCategories', payload: { error }});
-    });
+    }, token);
   }
   useEffect(() => {
     getData();
