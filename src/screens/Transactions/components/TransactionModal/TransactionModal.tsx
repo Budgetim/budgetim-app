@@ -120,7 +120,7 @@ export const TransactionModal: FC<TransactionModalProps> = (props) => {
                       <DateTimePicker
                         value={date}
                         mode="date"
-                        display="default"
+                        display="spinner"
                         onChange={(event, selectedDate) => {
                           const currentDate = selectedDate || date;
                           setDate(currentDate);

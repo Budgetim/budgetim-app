@@ -3,7 +3,9 @@ import { TouchableOpacity, View } from 'react-native';
 import css from '@styled-system/css';
 
 export const Footer = styled(View)(css({
-  bg: 'systemGray06',
+  bg: 'navigationBar',
+  borderColor: 'systemGray05',
+  borderTopWidth: 0.5,
   height: 70,
   display: 'flex',
   flexDirection: 'row',

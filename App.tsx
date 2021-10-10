@@ -12,13 +12,32 @@ import { Screens } from './src/screens';
 
 const Stack = createStackNavigator();
 
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: 'red'
+  },
+};
+
 export default function App() {
   const scheme = useColorScheme();
+  const navigationTheme = scheme === 'dark' ? DarkTheme : DefaultTheme;
   return (
     <ThemeProvider theme={{ colors: scheme === 'dark' ? colors.dark : colors.light, space, typography }}>
       <AppProvider>
         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
-          <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
+          <NavigationContainer
+            theme={{
+              ...navigationTheme,
+              colors: {
+                ...navigationTheme.colors,
+                background: scheme === 'dark' ? '#000000' : '#FFFFFF',
+                border: scheme === 'dark' ? '#2C2C2E' : '#E5E5EA',
+                card: scheme === 'dark' ? '#1D1D1D' : '#F9F9F9', // TODO: брать эти цвета из темы
+              },
+            }}
+          >
             <Screens />
           </NavigationContainer>
         </KeyboardAvoidingView>

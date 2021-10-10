@@ -3,7 +3,7 @@ import Swipeout from 'react-native-swipeout';
 
 import { Transaction } from '../../../../types';
 
-import { TransactionModal } from '../TransactionModal/TransactionModal';
+import { TransactionModal } from '../TransactionModal';
 import { useAppDispatch, useUser } from '../../../../appContext';
 import { deleteTransaction } from '../../../../api/transaction/deleteTransaction';
 import { CardDetails } from '../../../../components/CardDetails';
