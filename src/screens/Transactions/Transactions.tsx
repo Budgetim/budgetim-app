@@ -2,7 +2,6 @@ import React, { FC, useEffect, useState, useLayoutEffect } from 'react';
 import { TransactionsList } from './components/TransactionsList';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useTheme } from 'styled-components/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
@@ -19,15 +18,15 @@ export const Transactions: FC<NativeStackScreenProps<StackParamList, 'Transactio
   const dispatch = useAppDispatch();
   const { token } = useUser();
 
-  // useLayoutEffect(() => {
-  //   navigation.setOptions({
-  //     headerLeft: () => (
-  //       <TouchableOpacity onPress={() => navigation.navigate('Login')} style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 4, paddingBottom: 4 }}>
-  //         <Ionicons name="person" color={textPrimary} size={16} />
-  //       </TouchableOpacity>
-  //     ),
-  //   });
-  // }, [navigation]);
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity onPress={() => navigation.navigate('Statistics')} style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 4, paddingBottom: 4 }}>
+          <AntDesign name="piechart" color={textPrimary} size={16} />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation]);
 
   const getData = async () => {
     getCategories((categories) => {
