@@ -1,6 +1,5 @@
 import React from 'react';
 import { KeyboardAvoidingView, Platform, useColorScheme } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer, DarkTheme, DefaultTheme } from '@react-navigation/native';
 import { ThemeProvider } from 'styled-components';
 
@@ -9,16 +8,6 @@ import colors from './src/theme/colors';
 import space from './src/theme/space';
 import typography from './src/theme/typography';
 import { Screens } from './src/screens';
-
-const Stack = createStackNavigator();
-
-const MyTheme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    background: 'red'
-  },
-};
 
 export default function App() {
   const scheme = useColorScheme();

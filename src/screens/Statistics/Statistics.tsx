@@ -1,15 +1,16 @@
 import React, { FC, useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { StackParamList } from '../types';
-import { useAppDispatch, useUser } from '../../appContext';
+import { useUser } from '../../appContext';
 
 import { getStatistics } from '../../api/category/getStatistics';
 import { CardDetails } from '../../components/CardDetails';
 import { separateThousands } from '../../utils/separateThousands';
 import { CardButton } from '../../components/CardButton';
-import { Item, ItemButton, Wrapper } from './styled';
+import { Item, ItemButton, Wrapper, PieChartWrapper, ChartTitle, ChartSubtitle } from './styled';
+import { PieChart } from '../../components/PieChart';
 
 interface StatisticsItem {
   color: string;
@@ -23,9 +24,9 @@ export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>
   const {token} = useUser();
   const [data, setData] = useState<StatisticsItem[]>([]);
   const DATES = [
-    { month: 9, year: 2021, title: 'Сентябрь' },
-    { month: 10, year: 2021, title: 'Октябрь' },
-    { month: 11, year: 2021, title: 'Ноябрь' },
+    { month: 9, year: 2021, title: 'September' },
+    { month: 10, year: 2021, title: 'October' },
+    { month: 11, year: 2021, title: 'November' },
   ];
 
   const [indexDate, setIndexDate] = useState(1);
@@ -38,7 +39,7 @@ export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>
   }, [indexDate]);
 
   return (
-    <View>
+    <ScrollView>
       <Wrapper>
         {DATES.map((item, index) => {
           return (
@@ -48,6 +49,25 @@ export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>
           );
         })}
       </Wrapper>
+      {data.length > 0 && (
+        <PieChartWrapper>
+          <PieChart
+            data={data.map(item => {
+              return {
+                color: item.color,
+                value: +item.sum,
+                additionalValue: 1,
+              };
+            })}
+            innerRadius={66}
+            segmentWidth={6}
+            outerSegmentWidth={24}
+          >
+            <ChartSubtitle variant="subheadlineBold">{DATES[indexDate].title}</ChartSubtitle>
+            <ChartTitle variant="bodyBold">{separateThousands(data.reduce((sum, item) => sum + +item.sum, 0))} ₽</ChartTitle>
+          </PieChart>
+        </PieChartWrapper>
+      )}
       <View>
         {data.map(item => {
           return (
@@ -55,13 +75,13 @@ export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>
               <CardDetails
                 title={item.title}
                 subTitle={item.description}
-                label={separateThousands(+item.sum)}
+                label={`${separateThousands(+item.sum)} ₽`}
                 tagColor={item.color}
               />
             </CardButton>
           );
         })}
       </View>
-    </View>
+    </ScrollView>
   );
 };

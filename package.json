@@ -5,7 +5,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "lint": "eslint --ext .js,.ts,.jsx,.tsx src App.tsx"
   },
   "dependencies": {
     "@react-native-community/datetimepicker": "3.5.2",
@@ -15,6 +16,7 @@
     "@react-navigation/stack": "^6.0.9",
     "@styled-system/css": "^5.1.5",
     "@types/date-fns": "^2.6.0",
+    "d3": "^7.1.1",
     "date-fns": "^2.24.0",
     "expo": "~42.0.1",
     "expo-secure-store": "^10.2.0",
@@ -25,8 +27,10 @@
     "react-native-color-palette": "^2.2.0",
     "react-native-color-picker-ios": "^0.1.2",
     "react-native-date-picker": "^4.0.0",
+    "react-native-gesture-handler": "^1.10.3",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
+    "react-native-svg": "^12.1.1",
     "react-native-swipeout": "^2.3.6",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "~0.13.12",
@@ -35,6 +39,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
+    "@types/d3": "^7.0.0",
     "@types/react": "~16.9.35",
     "@types/react-native": "~0.63.2",
     "@types/react-native-vector-icons": "^6.4.9",
@@ -42,6 +47,15 @@
     "@types/styled-components-react-native": "^5.1.1",
     "@types/styled-system": "^5.1.13",
     "@types/styled-system__css": "^5.0.16",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.26.1",
+    "lint-staged": "^11.2.3",
     "typescript": "~4.0.0"
   },
   "private": true

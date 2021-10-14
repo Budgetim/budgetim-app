@@ -10,6 +10,13 @@ export const Wrapper = styled(View)(css({
   justifyContent: 'center',
 }));
 
+export const PieChartWrapper = styled(View)(css({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  padding: 5,
+}));
+
 export const ItemButton = styled(TouchableOpacity)<{ active: boolean }>(({ active }) => css({
   color: 'textPrimary',
   py: 2,
@@ -20,5 +27,14 @@ export const ItemButton = styled(TouchableOpacity)<{ active: boolean }>(({ activ
 }));
 
 export const Item = styled(TextVariant)(css({
+  color: 'textPrimary',
+}));
+
+export const ChartSubtitle = styled(TextVariant)(css({
+  color: 'textPrimary',
+  mb: 1,
+}));
+
+export const ChartTitle = styled(TextVariant)(css({
   color: 'textPrimary',
 }));
