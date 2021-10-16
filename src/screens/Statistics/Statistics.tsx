@@ -5,14 +5,16 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StackParamList } from '../types';
 import { useUser } from '../../appContext';
 
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { getStatistics } from '../../api/category/getStatistics';
 import { CardDetails } from '../../components/CardDetails';
 import { separateThousands } from '../../utils/separateThousands';
 import { CardButton } from '../../components/CardButton';
-import { Item, ItemButton, Wrapper, PieChartWrapper, ChartTitle, ChartSubtitle } from './styled';
+import { PieChartWrapper, ChartTitle, ChartSubtitle, NavigateButton } from './styled';
 import { PieChart } from '../../components/PieChart';
+import { useTheme } from 'styled-components/native';
 
-interface StatisticsItem {
+export interface StatisticsItem {
   color: string;
   description: string;
   id: number;
@@ -30,6 +32,7 @@ export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>
   ];
 
   const [indexDate, setIndexDate] = useState(1);
+  const { colors: { textPrimary } } = useTheme();
 
   useEffect(() => {
     getStatistics(DATES[indexDate], (res) => {
@@ -38,36 +41,45 @@ export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>
     }, token);
   }, [indexDate]);
 
+  const setPrevMonth = () => {
+    if (indexDate === 0) {
+      return;
+    }
+    setIndexDate(indexDate - 1);
+  };
+
+  const setNextMonth = () => {
+    if (indexDate === DATES.length - 1) {
+      return;
+    }
+    setIndexDate(indexDate + 1);
+  };
+
   return (
     <ScrollView>
-      <Wrapper>
-        {DATES.map((item, index) => {
-          return (
-            <ItemButton active={index === indexDate} key={item.title} onPress={() => setIndexDate(index)}>
-              <Item variant="subheadlineBold">{item.title}</Item>
-            </ItemButton>
-          );
-        })}
-      </Wrapper>
-      {data.length > 0 && (
-        <PieChartWrapper>
-          <PieChart
-            data={data.map(item => {
-              return {
-                color: item.color,
-                value: +item.sum,
-                additionalValue: 1,
-              };
-            })}
-            innerRadius={66}
-            segmentWidth={6}
-            outerSegmentWidth={24}
-          >
-            <ChartSubtitle variant="subheadlineBold">{DATES[indexDate].title}</ChartSubtitle>
-            <ChartTitle variant="bodyBold">{separateThousands(data.reduce((sum, item) => sum + +item.sum, 0))} ₽</ChartTitle>
-          </PieChart>
-        </PieChartWrapper>
-      )}
+      <PieChartWrapper>
+        <NavigateButton onPress={setPrevMonth}>
+          <MaterialIcons name="arrow-back-ios" color={textPrimary} size={24} />
+        </NavigateButton>
+        <PieChart
+          data={data.map(item => {
+            return {
+              color: item.color,
+              value: +item.sum,
+              additionalValue: 1,
+            };
+          })}
+          innerRadius={66}
+          segmentWidth={6}
+          outerSegmentWidth={24}
+        >
+          <ChartSubtitle variant="subheadlineBold">{DATES[indexDate].title}</ChartSubtitle>
+          <ChartTitle variant="bodyBold">{separateThousands(data.reduce((sum, item) => sum + +item.sum, 0))} ₽</ChartTitle>
+        </PieChart>
+        <NavigateButton onPress={setNextMonth}>
+          <MaterialIcons name="arrow-forward-ios" color={textPrimary} size={24} />
+        </NavigateButton>
+      </PieChartWrapper>
       <View>
         {data.map(item => {
           return (

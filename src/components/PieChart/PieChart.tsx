@@ -13,12 +13,12 @@ import { PieChartProps } from './types';
 export const PieChart: FC<PieChartProps> = props => {
   const { innerRadius, segmentWidth, outerSegmentWidth, children } = props;
 
-  const { colors: { systemGray02, bgPrimary } } = useTheme();
+  const { colors: { systemGray03, bgPrimary } } = useTheme();
 
   // ширина сектора круга
   const scaleWidth = d3
     .scaleLinear()
-    .domain([0, Math.max(...props.data.map(value => value.additionalValue))])
+    .domain([0, props.data.length ? Math.max(...props.data.map(value => value.additionalValue)) : 1])
     .range([0, outerSegmentWidth]);
 
   const outerRadius = innerRadius + segmentWidth;
@@ -36,11 +36,18 @@ export const PieChart: FC<PieChartProps> = props => {
         >
           <Arc
             endAngle={Math.PI * 2}
-            fill={systemGray02}
+            fill={systemGray03}
             innerRadius={innerRadius}
             outerRadius={outerRadius}
           />
-          {data.map(({ lastPart, part, id, additionalValue, arc, trend }) => {
+          <Arc
+            endAngle={Math.PI * 2}
+            fill={systemGray03}
+            innerRadius={outerRadius}
+            outerRadius={outerRadius + (scaleWidth(1) as number)}
+            attrs={{ opacity: 0.85 }}
+          />
+          {data.map(({ lastPart, part, id, additionalValue, arc }) => {
             const radianValue = getEndOfSection(lastPart + part);
             const point = getPointOnCircle({ radius, radianValue });
 
@@ -54,19 +61,15 @@ export const PieChart: FC<PieChartProps> = props => {
             return (
               <G key={id}>
                 {additionalValue && (
-                  <G style={{ opacity: 0.7 }}>
+                  <G opacity="0.85">
                     <Arc
                       {...arc}
                       innerRadius={outerRadius}
                       outerRadius={outerRadius + (scaleWidth(additionalValue) as number)}
                     />
-                    {trend && (
-                      <circle {...trendCircleParams} mask={`url(#mask-additional-${id})`} />
-                    )}
                   </G>
                 )}
-                <Arc {...arc} innerRadius={innerRadius} outerRadius={outerRadius} />
-                {trend && <Circle {...trendCircleParams} mask={`url(#mask-${id})`} />}
+                <Arc {...arc} innerRadius={innerRadius} outerRadius={outerRadius} attrs={{ opacity: 1 }} />
               </G>
             );
           })}
@@ -83,7 +86,7 @@ export const PieChart: FC<PieChartProps> = props => {
               x2={radius + point.x}
               y2={radius + point.y}
               stroke={bgPrimary}
-              strokeWidth={1}
+              strokeWidth={0.5}
             />
           );
         })}

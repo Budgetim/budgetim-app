@@ -1,12 +1,12 @@
-import { Category } from '../../types';
 import { authHeader } from '../../helpers/authHeader';
+import { StatisticsItem } from '../../screens/Statistics/Statistics';
 
 interface GetStatisticsParams {
   month: number;
   year: number;
 }
 
-type CallbackFunc = (categories: Category[]) => void;
+type CallbackFunc = (statisticItems: StatisticsItem[]) => void;
 
 export const getStatistics = async (params: GetStatisticsParams, callback: CallbackFunc, errorCallback: (error: string) => void, token: string | null) => {
   try {
