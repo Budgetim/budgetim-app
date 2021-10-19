@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, Text } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { StackParamList } from '../types';
@@ -25,6 +25,7 @@ export interface StatisticsItem {
 export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>> = ({ navigation}) => {
   const {token} = useUser();
   const [data, setData] = useState<StatisticsItem[]>([]);
+  const [error, setError] = useState(null);
   const DATES = [
     { month: 9, year: 2021, title: 'September' },
     { month: 10, year: 2021, title: 'October' },
@@ -38,8 +39,13 @@ export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>
     getStatistics(DATES[indexDate], (res) => {
       setData(res);
     }, () => {
+      setError(error);
     }, token);
   }, [indexDate]);
+
+  if (error) {
+    return <Text>Ошибка</Text>;
+  }
 
   const setPrevMonth = () => {
     if (indexDate === 0) {

@@ -11,6 +11,6 @@ export const getCategories = async (callback: CallbackFunc, errorCallback: (erro
     const categories = await response.json();
     callback(categories);
   } catch (error) {
-    callback(error);
+    errorCallback(error);
   }
 }

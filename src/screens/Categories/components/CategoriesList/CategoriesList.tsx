@@ -21,7 +21,7 @@ export const CategoriesList: FC = () => {
   }, []);
 
   if (error) {
-    return <Text>{error}</Text>
+    return <Text>Ошибка</Text>
   }
 
   if (isLoading) {

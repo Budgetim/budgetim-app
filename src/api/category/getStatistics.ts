@@ -21,6 +21,6 @@ export const getStatistics = async (params: GetStatisticsParams, callback: Callb
     const categories = await response.json();
     callback(categories);
   } catch (error) {
-    callback(error);
+    errorCallback(error);
   }
 }

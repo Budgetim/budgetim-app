@@ -28,7 +28,7 @@ export const TransactionsList: FC = () => {
   }, []);
 
   if (error) {
-    return <Text>{error}</Text>
+    return <Text>Ошибка</Text>
   }
 
   if (isLoading) {
