@@ -9,6 +9,7 @@ import { getTransactions } from '../../../../api/transaction/getTransactions';
 import { Transaction } from '../../../../types';
 
 import { TitleWrapper, Title } from './styled';
+import { TransactionModal } from '../TransactionModal';
 
 export const TransactionsList: FC = () => {
   const { data, isLoading, error } = useTransactions();

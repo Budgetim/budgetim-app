@@ -91,8 +91,8 @@ export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>
           return (
             <CardButton key={item.id}>
               <CardDetails
-                title={item.title}
-                subTitle={item.description}
+                title={item.title || 'Без категории'}
+                subTitle={item.description || 'Нет описания'}
                 label={`${separateThousands(+item.sum)} ₽`}
                 tagColor={item.color}
               />

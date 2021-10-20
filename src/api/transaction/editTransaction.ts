@@ -4,7 +4,7 @@ import { authHeader } from '../../helpers/authHeader';
 interface EditTransactionParams {
   id: number;
   title: string;
-  categoryId: number;
+  categoryId: number | null;
   price: string;
   date: Date;
 }

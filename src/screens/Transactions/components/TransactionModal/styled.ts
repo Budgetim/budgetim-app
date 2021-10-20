@@ -13,6 +13,11 @@ export const Header = styled(View)(css({
 
 export const Content = styled(View)(css({
   p: 4,
+}));
+
+export const SectionGroup = styled(View)(css({
+  display: 'flex',
+  flexDirection: 'row',
 }))
 
 export const Section = styled(View)(css({

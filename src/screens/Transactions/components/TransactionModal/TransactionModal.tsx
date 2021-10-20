@@ -14,13 +14,14 @@ import { Input } from '../../../../components/Input';
 import { editTransaction } from '../../../../api/transaction/editTransaction';
 import { addTransaction } from '../../../../api/transaction/addTransaction';
 
-import { Header, Content, Section, ModalContent, ButtonText, Category, CategoryWrapper, Categories, ModalWrapper, Circle } from './styled';
+import { Header, Content, Section, SectionGroup, ModalContent, ButtonText, Category, CategoryWrapper, Categories, ModalWrapper, Circle } from './styled';
 import { TransactionModalProps } from './types';
 
 export const TransactionModal: FC<TransactionModalProps> = (props) => {
   const { visible, setVisible, transaction } = props;
-  const { data } = useCategories();
+  const { data: categories } = useCategories();
   const { id } = transaction;
+  const [showAll, setShowAll] = useState(false);
   const [title, setTitle] = useState(transaction.title);
   const [price, setPrice] = useState(transaction.price);
   const [categoryId, setCategoryId] = useState(transaction.category?.id || null);
@@ -37,7 +38,6 @@ export const TransactionModal: FC<TransactionModalProps> = (props) => {
   }, [visible]);
 
   const onEdit = async () => {
-    if (!categoryId) return;
     if (id) {
       editTransaction({ id, title, categoryId, price, date }, (transaction) => {
         dispatch({ type: 'editTransaction', payload: { transaction }});
@@ -66,7 +66,6 @@ export const TransactionModal: FC<TransactionModalProps> = (props) => {
                   </Pressable>
                   <Pressable
                     onPress={() => {
-                      if (!categoryId) return;
                       setVisible(!visible);
                       onEdit();
                     }}
@@ -76,33 +75,35 @@ export const TransactionModal: FC<TransactionModalProps> = (props) => {
                 </Header>
                 <ScrollView>
                   <Content>
-                    <Section>
-                      <Input
-                        variant="subheadlineRegular"
-                        defaultValue={price === '0.00' ? '' : (+price).toString()}
-                        onChangeText={price => {
-                          setPrice(price);
-                        }}
-                        placeholder="сумма"
-                        keyboardType="numeric"
-                        autoFocus
-                      />
-                    </Section>
-                    <Section>
-                      <Input
-                        variant="subheadlineRegular"
-                        defaultValue={title}
-                        onChangeText={setTitle}
-                        placeholder="название"
-                      />
-                    </Section>
+                    <SectionGroup>
+                      <Section style={{ flex: '1 1 auto', marginRight: 12 }}>
+                        <Input
+                          variant="subheadlineRegular"
+                          defaultValue={title}
+                          onChangeText={setTitle}
+                          placeholder="название"
+                        />
+                      </Section>
+                      <Section style={{ width: 120 }}>
+                        <Input
+                          variant="subheadlineRegular"
+                          defaultValue={price === '0.00' ? '' : (+price).toString()}
+                          onChangeText={price => {
+                            setPrice(price);
+                          }}
+                          placeholder="сумма"
+                          keyboardType="numeric"
+                          autoFocus
+                        />
+                      </Section>
+                    </SectionGroup>
                     <Section>
                       <Categories>
-                        {data.map((item, index) => {
+                        {categories.slice(0, showAll ? categories.length : 5).map((item, index, array) => {
                           return (
                             <CategoryWrapper
                               key={item.id}
-                              hasBorder={index !== data.length - 1}
+                              hasBorder={index !== array.length - 1}
                               onPress={() => {
                                 setCategoryId(item.id);
                               }}
@@ -114,6 +115,11 @@ export const TransactionModal: FC<TransactionModalProps> = (props) => {
                             </CategoryWrapper>
                           );
                         })}
+                        <CategoryWrapper hasBorder={false} onPress={() => setShowAll(!showAll)}>
+                          <Category isSelected={false} variant="subheadlineRegular">
+                            {showAll ? 'hide' : 'more'}
+                          </Category>
+                        </CategoryWrapper>
                       </Categories>
                     </Section>
                     <Section>

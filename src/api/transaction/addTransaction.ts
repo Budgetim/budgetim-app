@@ -3,7 +3,7 @@ import { authHeader } from '../../helpers/authHeader';
 
 interface AddParams {
   title: string;
-  categoryId: number;
+  categoryId: number | null;
   price: string;
   date: Date;
 }

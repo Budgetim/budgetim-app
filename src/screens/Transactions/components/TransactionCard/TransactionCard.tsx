@@ -40,7 +40,7 @@ export const TransactionCard: FC<Transaction> = (props) => {
       <CardButton onPress={() => setModalVisible(true)}>
         <CardDetails
           title={title}
-          subTitle={category.title}
+          subTitle={category.title || 'Без категории'}
           tagColor={category.color}
           label={`${separateThousands(+price)} ₽`}
         />
