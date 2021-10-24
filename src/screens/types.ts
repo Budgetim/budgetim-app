@@ -4,5 +4,6 @@ export type StackParamList = {
   Transactions: undefined;
   Categories: undefined;
   Settings: undefined;
+  Personal: undefined;
   Statistics: undefined;
 };
