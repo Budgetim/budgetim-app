@@ -1,7 +1,7 @@
 import styled from 'styled-components/native'
 import { View } from 'react-native';
 import css from '@styled-system/css';
-import { TextVariant } from '../../../../components/TextVariant';
+import { TextVariant } from '../TextVariant';
 
 export const TitleWrapper = styled(View)(css({
   borderColor: 'systemGray05',

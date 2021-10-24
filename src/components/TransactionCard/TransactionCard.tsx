@@ -1,16 +1,16 @@
 import React, { FC, useState } from 'react';
 import Swipeout from 'react-native-swipeout';
 
-import { Transaction } from '../../../../types';
+import { Transaction } from '../../types';
 
 import { TransactionModal } from '../TransactionModal';
-import { useAppDispatch, useUser } from '../../../../appContext';
-import { deleteTransaction } from '../../../../api/transaction/deleteTransaction';
-import { CardDetails } from '../../../../components/CardDetails';
-import { CardButton } from '../../../../components/CardButton';
+import { useAppDispatch, useUser } from '../../appContext';
+import { deleteTransaction } from '../../api/transaction/deleteTransaction';
+import { CardDetails } from '../CardDetails';
+import { CardButton } from '../CardButton';
 
 import { useTheme } from 'styled-components/native';
-import { separateThousands } from '../../../../utils/separateThousands';
+import { separateThousands } from '../../utils/separateThousands';
 
 export const TransactionCard: FC<Transaction> = (props) => {
   const { title, category, price, id} = props;

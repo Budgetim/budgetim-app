@@ -9,10 +9,10 @@ import {
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useTheme } from 'styled-components/native';
 
-import { useAppDispatch, useCategories, useUser } from '../../../../appContext';
-import { Input } from '../../../../components/Input';
-import { editTransaction } from '../../../../api/transaction/editTransaction';
-import { addTransaction } from '../../../../api/transaction/addTransaction';
+import { useAppDispatch, useCategories, useUser } from '../../appContext';
+import { Input } from '../Input';
+import { editTransaction } from '../../api/transaction/editTransaction';
+import { addTransaction } from '../../api/transaction/addTransaction';
 
 import { Header, Content, Section, SectionGroup, ModalContent, ButtonText, Category, CategoryWrapper, Categories, ModalWrapper, Circle } from './styled';
 import { TransactionModalProps } from './types';

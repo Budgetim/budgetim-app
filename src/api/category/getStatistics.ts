@@ -1,14 +1,11 @@
 import { authHeader } from '../../helpers/authHeader';
-import { StatisticsItem } from '../../screens/Statistics/Statistics';
 
 interface GetStatisticsParams {
   month: number;
   year: number;
 }
 
-type CallbackFunc = (statisticItems: StatisticsItem[]) => void;
-
-export const getStatistics = async (params: GetStatisticsParams, callback: CallbackFunc, errorCallback: (error: string) => void, token: string | null) => {
+export const getStatistics = async (params: GetStatisticsParams, token: string | null) => {
   try {
     const response = await fetch('https://api.budgetim.ru/categories/statistic', {
       method: 'POST',
@@ -19,8 +16,8 @@ export const getStatistics = async (params: GetStatisticsParams, callback: Callb
       body: JSON.stringify(params),
     });
     const categories = await response.json();
-    callback(categories);
-  } catch (error) {
-    errorCallback(error);
+    return categories;
+  } catch (e) {
+    throw 'Ошибка при выполнении запроса';
   }
 }

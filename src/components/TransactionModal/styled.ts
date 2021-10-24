@@ -2,7 +2,7 @@ import styled from 'styled-components/native'
 import { ColorProps, color } from 'styled-system';
 import { Text, TouchableOpacity, View } from 'react-native';
 import css, { SystemStyleObject } from '@styled-system/css';
-import { TextVariant } from '../../../../components/TextVariant';
+import { TextVariant } from '../TextVariant';
 
 export const Header = styled(View)(css({
   display: 'flex',

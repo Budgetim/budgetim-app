@@ -12,6 +12,7 @@ import { CreateAccount } from './CreateAccount';
 import { StackParamList } from './types';
 import { Statistics } from './Statistics';
 import { Personal } from './Personal';
+import { TransactionsByCategory } from './TransactionsByCategory';
 
 const Stack = createStackNavigator<StackParamList>();
 
@@ -80,6 +81,11 @@ export const Screens = () => {
             name="Personal"
             component={Personal}
             options={{ title: 'Personal' }}
+          />
+          <Stack.Screen
+            name="TransactionsByCategory"
+            component={TransactionsByCategory}
+            options={{ title: 'TransactionsByCategory' }}
           />
         </>
       )}

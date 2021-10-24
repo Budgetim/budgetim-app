@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { View, ScrollView, Text } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { StackParamList } from '../types';
@@ -13,6 +13,7 @@ import { CardButton } from '../../components/CardButton';
 import { PieChartWrapper, ChartTitle, ChartSubtitle, NavigateButton } from './styled';
 import { PieChart } from '../../components/PieChart';
 import { useTheme } from 'styled-components/native';
+import { TextVariant } from '../../components/TextVariant';
 
 export interface StatisticsItem {
   color: string;
@@ -26,6 +27,7 @@ export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>
   const {token} = useUser();
   const [data, setData] = useState<StatisticsItem[]>([]);
   const [error, setError] = useState(null);
+  const [isLoading, setLoading] = useState(true);
   const DATES = [
     { month: 9, year: 2021, title: 'September' },
     { month: 10, year: 2021, title: 'October' },
@@ -36,15 +38,20 @@ export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>
   const { colors: { textPrimary } } = useTheme();
 
   useEffect(() => {
-    getStatistics(DATES[indexDate], (res) => {
-      setData(res);
-    }, () => {
-      setError(error);
-    }, token);
+    getStatistics(DATES[indexDate], token)
+      .then(categories => setData(categories))
+      .catch(error => {
+        setError(error);
+      })
+      .finally(() => setLoading(false));
   }, [indexDate]);
 
+  if (isLoading) {
+    return <TextVariant variant="subheadlineBold">Loading...</TextVariant>
+  }
+
   if (error) {
-    return <Text>Ошибка</Text>;
+    return <TextVariant variant="subheadlineBold">{error}</TextVariant>;
   }
 
   const setPrevMonth = () => {
@@ -89,7 +96,12 @@ export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>
       <View>
         {data.map(item => {
           return (
-            <CardButton key={item.id}>
+            <CardButton
+              key={item.id}
+              onPress={() => navigation.navigate('TransactionsByCategory', {
+                category: item.id,
+              })}
+            >
               <CardDetails
                 title={item.title || 'Без категории'}
                 subTitle={item.description || 'Нет описания'}

@@ -9,8 +9,8 @@ import { getCategories } from '../../api/category/getCategories';
 import { useAppDispatch, useUser } from '../../appContext';
 import { StackParamList } from '../types';
 
-import { TransactionModal } from './components/TransactionModal';
 import { Footer, AddButton, SettingsButton } from './styled';
+import { TransactionModal } from '../../components/TransactionModal';
 
 export const Transactions: FC<NativeStackScreenProps<StackParamList, 'Transactions'>> = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
