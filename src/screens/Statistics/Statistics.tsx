@@ -37,13 +37,19 @@ export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>
   const [indexDate, setIndexDate] = useState(1);
   const { colors: { textPrimary } } = useTheme();
 
+  const getStatisticsInit = async () => {
+    try {
+      const categories = await getStatistics(DATES[indexDate], token);
+      setData(categories)
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false)
+    }
+  };
+
   useEffect(() => {
-    getStatistics(DATES[indexDate], token)
-      .then(categories => setData(categories))
-      .catch(error => {
-        setError(error);
-      })
-      .finally(() => setLoading(false));
+    void getStatisticsInit();
   }, [indexDate]);
 
   if (isLoading) {

@@ -1,8 +1,8 @@
 import { authHeader } from '../../helpers/authHeader';
 
-export const deleteCategory = async (id: number, callback: () => void, token: string | null) => {
+export const deleteCategory = async (id: number, token: string | null) => {
   try {
-    const response = await fetch('https://api.budgetim.ru/categories/delete', {
+    await fetch('https://api.budgetim.ru/categories/delete', {
       method: 'POST',
       headers: {
         ...authHeader(token),
@@ -10,10 +10,8 @@ export const deleteCategory = async (id: number, callback: () => void, token: st
       },
       body: JSON.stringify({ id }),
     });
-    if (response.ok) {
-      callback();
-    }
-  } catch (error) {
-    console.log(error);
+  } catch (error: unknown) {
+    console.error(error);
+    throw (error as object).toString();
   }
 }

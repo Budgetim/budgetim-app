@@ -39,13 +39,11 @@ export const TransactionModal: FC<TransactionModalProps> = (props) => {
 
   const onEdit = async () => {
     if (id) {
-      editTransaction({ id, title, categoryId, price, date }, (transaction) => {
-        dispatch({ type: 'editTransaction', payload: { transaction }});
-      }, token);
+      const transaction = await editTransaction({ id, title, categoryId, price, date }, token);
+      dispatch({ type: 'editTransaction', payload: { transaction }})
     } else {
-      addTransaction({ title, categoryId, price, date }, (transaction) => {
-        dispatch({ type: 'addTransaction', payload: { transaction }});
-      }, token);
+      const transaction = await addTransaction({ title, categoryId, price, date }, token);
+      dispatch({ type: 'addTransaction', payload: { transaction }});
     }
   }
 
@@ -67,7 +65,7 @@ export const TransactionModal: FC<TransactionModalProps> = (props) => {
                   <Pressable
                     onPress={() => {
                       setVisible(!visible);
-                      onEdit();
+                      void onEdit();
                     }}
                   >
                     <ButtonText variant="subheadlineBold">save</ButtonText>

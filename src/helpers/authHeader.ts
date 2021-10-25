@@ -1,5 +1,5 @@
 export const authHeader = (token: string | null) => {
   return {
-    Authorization: `Bearer ${token}`,
+    Authorization: `Bearer ${token || ''}`,
   };
 }

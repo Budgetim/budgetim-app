@@ -5,7 +5,6 @@ import {
   Platform,
   KeyboardAvoidingView,
   ScrollView, TouchableWithoutFeedback,
-  TouchableOpacity,
   Text,
 } from 'react-native';
 // @ts-ignore
@@ -37,13 +36,11 @@ export const CategoryModal: FC<CategoryModalProps> = (props) => {
 
   const onEdit = async () => {
     if (id) {
-      editCategory({ id, description, title, color }, (category) => {
-        dispatch({ type: 'editCategory', payload: { category } });
-      }, token);
+      const category = await editCategory({ id, description, title, color }, token);
+      dispatch({ type: 'editCategory', payload: { category } });
     } else {
-      addCategory({ description, title, color }, (category) => {
-        dispatch({ type: 'addCategory', payload: { category } });
-      }, token);
+      const category = await addCategory({ description, title, color }, token);
+      dispatch({ type: 'addCategory', payload: { category } });
     }
   }
 
@@ -57,7 +54,7 @@ export const CategoryModal: FC<CategoryModalProps> = (props) => {
       <TouchableWithoutFeedback onPress={() => setVisible(false)}>
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
           <ModalWrapper>
-            <TouchableWithoutFeedback onPress={() => {}}>
+            <TouchableWithoutFeedback>
               <ModalContent>
                 <Header>
                   <Pressable onPress={() => setVisible(!visible)}>
@@ -66,7 +63,7 @@ export const CategoryModal: FC<CategoryModalProps> = (props) => {
                   <Pressable
                     onPress={() => {
                       setVisible(!visible);
-                      onEdit();
+                      void onEdit();
                     }}
                   >
                     <ButtonText variant="subheadlineBold">save</ButtonText>

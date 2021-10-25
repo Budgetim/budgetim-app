@@ -18,12 +18,9 @@ export const CategoryCard: FC<Category> = (props) => {
   const dispatch = useAppDispatch();
   const { token } = useUser();
 
-  const onDelete = () => {
-    deleteCategory(
-      id,
-      () => dispatch({ type: 'deleteCategory', payload: { id }}),
-      token,
-    );
+  const onDelete = async () => {
+    await deleteCategory(id, token);
+    dispatch({ type: 'deleteCategory', payload: { id }});
   };
 
   return (

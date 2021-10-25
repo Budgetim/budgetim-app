@@ -19,12 +19,9 @@ export const TransactionCard: FC<Transaction> = (props) => {
   const dispatch = useAppDispatch();
   const { token } = useUser();
 
-  const onDelete = () => {
-    deleteTransaction(
-      id,
-      () => dispatch({ type: 'deleteTransaction', payload: { id }}),
-      token,
-    );
+  const onDelete = async () => {
+    await deleteTransaction(id, token);
+    dispatch({ type: 'deleteTransaction', payload: { id }})
   };
 
   return (

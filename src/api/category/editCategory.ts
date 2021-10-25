@@ -8,9 +8,7 @@ interface EditCategoryParams {
   color: string | null;
 }
 
-type CallbackFunc = (category: Category) => void;
-
-export const editCategory = async (params: EditCategoryParams, callback: CallbackFunc, token: string | null) => {
+export const editCategory = async (params: EditCategoryParams, token: string | null): Promise<Category> => {
   try {
     const response = await fetch('https://api.budgetim.ru/categories/edit', {
       method: 'POST',
@@ -20,9 +18,9 @@ export const editCategory = async (params: EditCategoryParams, callback: Callbac
       },
       body: JSON.stringify(params),
     });
-    const category = await response.json();
-    callback(category);
-  } catch (error) {
-    console.log(error);
+    return await response.json() as Category;
+  } catch (error: unknown) {
+    console.error(error);
+    throw (error as object).toString();
   }
 }

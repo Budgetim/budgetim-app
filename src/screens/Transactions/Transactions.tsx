@@ -29,14 +29,16 @@ export const Transactions: FC<NativeStackScreenProps<StackParamList, 'Transactio
   }, [navigation]);
 
   const getData = async () => {
-    getCategories((categories) => {
-      dispatch({ type: 'setCategories', payload: { data: categories }});
-    }, (error) => {
-      dispatch({ type: 'setErrorCategories', payload: { error }});
-    }, token);
-  }
+    try {
+      const categories = await getCategories(token);
+      dispatch({ type: 'setCategories', payload: { data: categories }})
+    } catch (error) {
+      dispatch({ type: 'setErrorCategories', payload: { error }})
+    }
+  };
+
   useEffect(() => {
-    getData();
+    void getData();
   }, []);
 
   return (

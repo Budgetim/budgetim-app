@@ -9,9 +9,7 @@ interface EditTransactionParams {
   date: Date;
 }
 
-type CallbackFunc = (transaction: Transaction) => void;
-
-export const editTransaction = async (params: EditTransactionParams, callback: CallbackFunc, token: string | null) => {
+export const editTransaction = async (params: EditTransactionParams, token: string | null): Promise<Transaction> => {
   try {
     const response = await fetch('https://api.budgetim.ru/transaction/edit', {
       method: 'POST',
@@ -21,9 +19,9 @@ export const editTransaction = async (params: EditTransactionParams, callback: C
       },
       body: JSON.stringify(params),
     });
-    const transaction = await response.json();
-    callback(transaction);
-  } catch (error) {
-    console.log(error);
+    return await response.json() as Transaction;
+  } catch (error: unknown) {
+    console.error(error);
+    throw (error as object).toString();
   }
 }

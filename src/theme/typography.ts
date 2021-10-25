@@ -1,44 +1,44 @@
 export default {
   footnoteRegular: {
-    fontSize: 13,
+    fontSize: '13px',
     letterSpacing: -0.08,
-    lineHeight: 18,
+    lineHeight: '18px',
     fontWeight: 400,
   },
   subheadlineRegular: {
-    fontSize: 15,
+    fontSize: '15px',
     letterSpacing: -0.24,
-    lineHeight: 20,
+    lineHeight: '20px',
     fontWeight: 400,
   },
   bodyRegular: {
-    fontSize: 17,
+    fontSize: '17px',
     letterSpacing: -0.41,
-    lineHeight: 22,
+    lineHeight: '22px',
     fontWeight: 400,
   },
   subheadlineBold: {
-    fontSize: 15,
+    fontSize: '15px',
     letterSpacing: -0.5,
-    lineHeight: 20,
+    lineHeight: '20px',
     fontWeight: 600,
   },
   bodyBold: {
-    fontSize: 17,
+    fontSize: '17px',
     letterSpacing: -0.41,
-    lineHeight: 22,
+    lineHeight: '22px',
     fontWeight: 600,
   },
   title2Bold: {
-    fontSize: 22,
+    fontSize: '22px',
     letterSpacing: 0.35,
-    lineHeight: 28,
+    lineHeight: '28px',
     fontWeight: 700,
   },
   largeTitleBold: {
-    fontSize: 34,
+    fontSize: '34px',
     letterSpacing: 0.37,
-    lineHeight: 41,
+    lineHeight: '41px',
     fontWeight: 700,
   }
 }

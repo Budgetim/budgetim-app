@@ -28,7 +28,7 @@ export const TransactionGroups: FC<TransactionGroupsProps> = ({ data }) => {
   return (
     <SectionList
       sections={expandedData}
-      keyExtractor={(item, index) => item.id.toString() + index}
+      keyExtractor={(item, index) => `${item.id}${index}`}
       renderItem={({ item }) => <Item {...item} />}
       renderSectionHeader={({ section: { title } }) => (
         <TitleWrapper>

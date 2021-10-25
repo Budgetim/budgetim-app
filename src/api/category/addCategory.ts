@@ -7,9 +7,7 @@ interface AddParams {
   color: string | null;
 }
 
-type CallbackFunc = (category: Category) => void;
-
-export const addCategory = async (params: AddParams, callback: CallbackFunc, token: string | null) => {
+export const addCategory = async (params: AddParams, token: string | null): Promise<Category> => {
   try {
     const response = await fetch('https://api.budgetim.ru/categories/add', {
       method: 'POST',
@@ -19,9 +17,9 @@ export const addCategory = async (params: AddParams, callback: CallbackFunc, tok
       },
       body: JSON.stringify(params),
     });
-    const category = await response.json();
-    callback(category);
-  } catch (error) {
-    console.log(error);
+    return await response.json() as Category;
+  } catch (error: unknown) {
+    console.error(error);
+    throw (error as object).toString();
   }
 }

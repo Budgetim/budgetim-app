@@ -1,5 +1,5 @@
-import { Transaction } from '../../types';
 import { authHeader } from '../../helpers/authHeader';
+import { Transaction } from '../../types';
 
 interface AddParams {
   title: string;
@@ -8,9 +8,7 @@ interface AddParams {
   date: Date;
 }
 
-type CallbackFunc = (transaction: Transaction) => void;
-
-export const addTransaction = async (params: AddParams, callback: CallbackFunc, token: string | null) => {
+export const addTransaction = async (params: AddParams, token: string | null): Promise<Transaction> => {
   try {
     const response = await fetch('https://api.budgetim.ru/transaction/add', {
       method: 'POST',
@@ -20,9 +18,9 @@ export const addTransaction = async (params: AddParams, callback: CallbackFunc, 
       },
       body: JSON.stringify(params),
     });
-    const transaction = await response.json();
-    callback(transaction);
-  } catch (error) {
-    console.log(error);
+    return await response.json() as Transaction;
+  } catch (error: unknown) {
+    console.error(error);
+    throw (error as object).toString();
   }
 }

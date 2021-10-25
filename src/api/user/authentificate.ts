@@ -5,9 +5,7 @@ interface AuthentificateParams {
   password: string;
 }
 
-type CallbackFunc = (user: User) => void;
-
-export const authentificate = async (params: AuthentificateParams, callback: CallbackFunc) => {
+export const authentificate = async (params: AuthentificateParams): Promise<User> => {
   try {
     const response = await fetch('https://api.budgetim.ru/users/authenticate', {
       method: 'POST',
@@ -16,9 +14,9 @@ export const authentificate = async (params: AuthentificateParams, callback: Cal
       },
       body: JSON.stringify(params),
     });
-    const user = await response.json();
-    callback(user);
-  } catch (error) {
-    console.log(error);
+    return await response.json() as User;
+  } catch (error: unknown) {
+    console.error(error);
+    throw (error as object).toString();
   }
-}
+};

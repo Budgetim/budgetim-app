@@ -15,14 +15,15 @@ export const TransactionsByCategory: FC<NativeStackScreenProps<StackParamList, '
   const [error, setError] = useState<null | string>(null);
   const { token } = useUser();
 
-  const getData = () => {
-    getTransactions({ year: 2021, month: 10, category }, (transactions) => {
+  const getData = async () => {
+    try {
+      const transactions = await getTransactions({ year: 2021, month: 10, category }, token);
       setIsLoading(false);
       setData(transactions);
-    }, (error) => {
+    } catch (error) {
       setIsLoading(false);
       setError(error);
-    }, token);
+    }
   }
 
   useEffect(() => {

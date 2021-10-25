@@ -16,12 +16,11 @@ export const Login: FC<NativeStackScreenProps<StackParamList, 'Login'>> = ({ nav
   const dispatch = useAppDispatch();
 
   const auth = async () => {
-    authentificate({ email, password }, (user) => {
-      if (user.email === email) {
-        dispatch({ type: 'setUser', payload: { user } });
-        SecureStore.setItemAsync('userToken', user.token);
-      }
-    });
+    const user = await authentificate({ email, password });
+    if (user.email === email) {
+      dispatch({ type: 'setUser', payload: { user } });
+      await SecureStore.setItemAsync('userToken', user.token);
+    }
   };
 
   return (

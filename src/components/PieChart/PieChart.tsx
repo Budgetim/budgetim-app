@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import * as d3 from 'd3';
-import { G, Circle, Line } from 'react-native-svg';
+import { G, Line } from 'react-native-svg';
 import { useTheme } from 'styled-components';
 
 import { Arc } from './Arc';
@@ -47,17 +47,7 @@ export const PieChart: FC<PieChartProps> = props => {
             outerRadius={outerRadius + (scaleWidth(1) as number)}
             attrs={{ opacity: 0.85 }}
           />
-          {data.map(({ lastPart, part, id, additionalValue, arc }) => {
-            const radianValue = getEndOfSection(lastPart + part);
-            const point = getPointOnCircle({ radius, radianValue });
-
-            const trendCircleParams = {
-              cx: point.x,
-              cy: point.y,
-              r: outerRadius,
-              fill: `url(#gradient-${id})`,
-            };
-
+          {data.map(({ id, additionalValue, arc }) => {
             return (
               <G key={id}>
                 {additionalValue && (

@@ -6,9 +6,7 @@ interface RegisterParams {
   password: string;
 }
 
-type CallbackFunc = (user: User) => void;
-
-export const register = async (params: RegisterParams, callback: CallbackFunc) => {
+export const register = async (params: RegisterParams): Promise<User> => {
   try {
     const response = await fetch('https://api.budgetim.ru/users/register', {
       method: 'POST',
@@ -17,9 +15,9 @@ export const register = async (params: RegisterParams, callback: CallbackFunc) =
       },
       body: JSON.stringify(params),
     });
-    const user = await response.json();
-    callback(user);
-  } catch (error) {
-    console.log(error);
+    return await response.json() as User;
+  } catch (error: unknown) {
+    console.error(error);
+    throw (error as object).toString();
   }
 }

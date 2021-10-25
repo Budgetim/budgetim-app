@@ -1,6 +1,6 @@
 import styled from 'styled-components/native'
 import { ColorProps, color } from 'styled-system';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import css, { SystemStyleObject } from '@styled-system/css';
 import { TextVariant } from '../TextVariant';
 

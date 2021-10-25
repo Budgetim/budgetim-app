@@ -1,16 +1,14 @@
 import { Category } from '../../types';
 import { authHeader } from '../../helpers/authHeader';
 
-type CallbackFunc = (categories: Category[]) => void;
-
-export const getCategories = async (callback: CallbackFunc, errorCallback: (error: string) => void, token: string | null) => {
+export const getCategories = async (token: string | null): Promise<Category[]> => {
   try {
     const response = await fetch('https://api.budgetim.ru/categories', {
       headers: authHeader(token),
     });
-    const categories = await response.json();
-    callback(categories);
-  } catch (error) {
-    errorCallback(error);
+    return await response.json() as Category[];
+  } catch (error: unknown) {
+    console.error(error);
+    throw (error as object).toString();
   }
 }

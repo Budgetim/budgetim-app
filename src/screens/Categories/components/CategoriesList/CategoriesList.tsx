@@ -10,18 +10,20 @@ export const CategoriesList: FC = () => {
   const { token } = useUser();
 
   const getData = async () => {
-    getCategories((categories) => {
-      dispatch({ type: 'setCategories', payload: { data: categories }});
-    }, (error) => {
-      dispatch({ type: 'setErrorCategories', payload: { error }});
-    }, token);
-  }
+    try {
+      const categories = await getCategories(token);
+      dispatch({ type: 'setCategories', payload: { data: categories }})
+    } catch (error) {
+      dispatch({ type: 'setErrorCategories', payload: { error }})
+    }
+  };
+
   useEffect(() => {
-    getData();
+    void getData();
   }, []);
 
   if (error) {
-    return <Text>Ошибка</Text>
+    return <Text>{error}</Text>
   }
 
   if (isLoading) {

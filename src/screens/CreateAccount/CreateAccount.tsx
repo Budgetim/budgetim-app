@@ -18,16 +18,14 @@ export const CreateAccount: FC<NativeStackScreenProps<StackParamList, 'CreateAcc
   const dispatch = useAppDispatch();
 
   const action = async () => {
-    register({ name, email, password }, (_user) => {
-      if (_user) { // TODO: нормальная обработка успешной регистрации
-        authentificate({ email, password }, (user) => {
-          if (user.email === email) {
-            dispatch({ type: 'setUser', payload: { user } });
-            SecureStore.setItemAsync('userToken', user.token);
-          }
-        });
+    const _user = await register({ name, email, password });
+    if (_user) { // TODO: нормальная обработка успешной регистрации
+      const user = await authentificate({ email, password });
+      if (user.email === email) {
+        dispatch({ type: 'setUser', payload: { user } });
+        await SecureStore.setItemAsync('userToken', user.token);
       }
-    });
+    }
   };
 
   return (

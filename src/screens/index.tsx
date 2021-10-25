@@ -28,7 +28,7 @@ export const Screens = () => {
 
       try {
         userToken = await SecureStore.getItemAsync('userToken');
-      } catch (e) {
+      } catch (error) {
         // Restoring token failed
       }
 
@@ -37,7 +37,7 @@ export const Screens = () => {
       }
     };
 
-    bootstrapAsync();
+    void bootstrapAsync();
   }, []);
 
   return (
