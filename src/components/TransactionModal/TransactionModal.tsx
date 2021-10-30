@@ -5,6 +5,7 @@ import {
   Platform,
   KeyboardAvoidingView,
   ScrollView, TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
@@ -17,11 +18,13 @@ import { Header, Content, Section, SectionGroup, ModalContent, ButtonText, Modal
 import { TransactionModalProps } from './types';
 import { CategoriesList } from './components/CategoriesList';
 import { useTransactionsDispatch } from '../../contexts/transactions';
+import { PopularNames } from './components/PopularNames';
 
 export const TransactionModal: FC<TransactionModalProps> = (props) => {
   const { visible, setVisible, transaction } = props;
   const { id } = transaction;
   const [title, setTitle] = useState(transaction.title);
+  const [focusedTitle, setFocusedTitle] = useState(false);
   const [price, setPrice] = useState(transaction.price);
   const [categoryId, setCategoryId] = useState(transaction.category?.id || null);
   const [date, setDate] = useState(transaction.date ? new Date(transaction.date) : new Date());
@@ -80,6 +83,8 @@ export const TransactionModal: FC<TransactionModalProps> = (props) => {
                           defaultValue={title}
                           onChangeText={setTitle}
                           placeholder="название"
+                          onFocus={() => setFocusedTitle(true)}
+                          onBlur={() => setFocusedTitle(false)}
                         />
                       </Section>
                       <Section style={{ width: 120 }}>
@@ -115,6 +120,15 @@ export const TransactionModal: FC<TransactionModalProps> = (props) => {
                     </Section>
                   </Content>
                 </ScrollView>
+                {focusedTitle && (
+                  <PopularNames
+                    str={title}
+                    selectTitle={(name) => {
+                      setTitle(name);
+                      Keyboard.dismiss();
+                    }}
+                  />
+                )}
               </ModalContent>
             </TouchableWithoutFeedback>
           </ModalWrapper>

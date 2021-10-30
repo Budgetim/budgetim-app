@@ -1,6 +1,8 @@
+export interface DataItem {
+  title: string;
+  onPress: () => void;
+}
+
 export interface GroupListProps {
-  data: {
-    title: string;
-    onPress: () => void;
-  }[];
+  data: DataItem[];
 }

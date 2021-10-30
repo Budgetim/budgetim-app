@@ -30,7 +30,7 @@ export const Transactions: FC<NativeStackScreenProps<StackParamList, 'Transactio
     <TransactionsProvider>
       <CategoriesProvider>
         <View style={{ flex: 1 }}>
-          <ScrollView>
+          <ScrollView keyboardShouldPersistTaps="handled">
             <TransactionsList />
             <TransactionModal
               transaction={{ title: '', category: null, price: '0.00', date: null }}

@@ -6,7 +6,7 @@ import { TextVariant } from '../TextVariant';
 export const List = styled(FlatList)(css({
   bg: 'systemGray06',
   borderRadius: 12,
-}));
+})) as unknown as typeof FlatList;
 
 export const Item = styled(TouchableOpacity)(css({
   py: 3,
