@@ -13,7 +13,7 @@ export const TransactionsByCategory: FC<NativeStackScreenProps<StackParamList, '
   return (
     <TransactionsProvider>
       <CategoriesProvider>
-        <ScrollView>
+        <ScrollView keyboardShouldPersistTaps="handled">
           <TransactionsList category={category} />
         </ScrollView>
       </CategoriesProvider>
