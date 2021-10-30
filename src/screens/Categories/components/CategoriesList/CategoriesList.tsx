@@ -1,20 +1,23 @@
 import React, { FC, useEffect } from 'react';
-import { useAppDispatch, useCategories, useUser } from '../../../../appContext';
-import { FlatList, Text } from 'react-native';
+import { useUser } from '../../../../appContext';
+import { FlatList } from 'react-native';
 import { getCategories } from '../../../../api/category/getCategories';
 import { CategoryCard } from '../CategoryCard';
+import { TextVariant } from '../../../../components/TextVariant';
+import { useCategoriesState } from '../../../../constexts/categories/useCategoriesState';
+import { useCategoriesDispatch } from '../../../../constexts/categories';
 
 export const CategoriesList: FC = () => {
-  const { data, isLoading, error } = useCategories();
-  const dispatch = useAppDispatch();
+  const { data, isLoading, error } = useCategoriesState();
+  const dispatch = useCategoriesDispatch();
   const { token } = useUser();
 
   const getData = async () => {
     try {
       const categories = await getCategories(token);
-      dispatch({ type: 'setCategories', payload: { data: categories }})
+      dispatch({ type: 'setData', payload: { data: categories } })
     } catch (error) {
-      dispatch({ type: 'setErrorCategories', payload: { error }})
+      dispatch({ type: 'setError', payload: { error }})
     }
   };
 
@@ -23,11 +26,11 @@ export const CategoriesList: FC = () => {
   }, []);
 
   if (error) {
-    return <Text>{error}</Text>
+    return <TextVariant variant="bodyRegular">{error}</TextVariant>
   }
 
   if (isLoading) {
-    return <Text>Loading...</Text>
+    return <TextVariant variant="bodyRegular">Loading...</TextVariant>
   }
 
   return (

@@ -1,22 +1,20 @@
-import React, { FC, useEffect, useState, useLayoutEffect } from 'react';
-import { TransactionsList } from './components/TransactionsList';
+import React, { FC, useState, useLayoutEffect } from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useTheme } from 'styled-components/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-import { getCategories } from '../../api/category/getCategories';
-import { useAppDispatch, useUser } from '../../appContext';
 import { StackParamList } from '../types';
 
 import { Footer, AddButton, SettingsButton } from './styled';
 import { TransactionModal } from '../../components/TransactionModal';
+import { CategoriesProvider } from '../../constexts/categories';
+import { TransactionsProvider } from '../../constexts/transactions';
+import { TransactionsList } from '../../components/TransactionsList';
 
 export const Transactions: FC<NativeStackScreenProps<StackParamList, 'Transactions'>> = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const { colors: { textPrimary } } = useTheme();
-  const dispatch = useAppDispatch();
-  const { token } = useUser();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -28,37 +26,28 @@ export const Transactions: FC<NativeStackScreenProps<StackParamList, 'Transactio
     });
   }, [navigation]);
 
-  const getData = async () => {
-    try {
-      const categories = await getCategories(token);
-      dispatch({ type: 'setCategories', payload: { data: categories }})
-    } catch (error) {
-      dispatch({ type: 'setErrorCategories', payload: { error }})
-    }
-  };
-
-  useEffect(() => {
-    void getData();
-  }, []);
-
   return (
-    <View style={{ flex: 1 }}>
-      <ScrollView>
-        <TransactionsList />
-        <TransactionModal
-          transaction={{ title: '', category: null, price: '0.00', date: null }}
-          visible={modalVisible}
-          setVisible={setModalVisible}
-        />
-      </ScrollView>
-      <Footer>
-        <AddButton onPress={() => setModalVisible(true)}>
-          <AntDesign name="pluscircle" color={textPrimary} size={40} />
-        </AddButton>
-        <SettingsButton onPress={() => navigation.navigate('Settings')}>
-          <AntDesign name="setting" color={textPrimary} size={28} />
-        </SettingsButton>
-      </Footer>
-    </View>
+    <TransactionsProvider>
+      <CategoriesProvider>
+        <View style={{ flex: 1 }}>
+          <ScrollView>
+            <TransactionsList />
+            <TransactionModal
+              transaction={{ title: '', category: null, price: '0.00', date: null }}
+              visible={modalVisible}
+              setVisible={setModalVisible}
+            />
+          </ScrollView>
+          <Footer>
+            <AddButton onPress={() => setModalVisible(true)}>
+              <AntDesign name="pluscircle" color={textPrimary} size={40} />
+            </AddButton>
+            <SettingsButton onPress={() => navigation.navigate('Settings')}>
+              <AntDesign name="setting" color={textPrimary} size={28} />
+            </SettingsButton>
+          </Footer>
+        </View>
+      </CategoriesProvider>
+    </TransactionsProvider>
   );
-};
+}

@@ -3,19 +3,20 @@ import Swipeout from 'react-native-swipeout';
 
 import { Category } from '../../../../types';
 
-import { useAppDispatch, useUser } from '../../../../appContext';
+import { useUser } from '../../../../appContext';
 import { CardDetails } from '../../../../components/CardDetails';
 import { CardButton } from '../../../../components/CardButton';
 
 import { useTheme } from 'styled-components/native';
 import { deleteCategory } from '../../../../api/category/deleteCategory';
 import { CategoryModal } from '../CategoryModal';
+import { useCategoriesDispatch } from '../../../../constexts/categories';
 
 export const CategoryCard: FC<Category> = (props) => {
-  const { title, color, description, id} = props;
+  const { title, color, description, id } = props;
   const [modalVisible, setModalVisible] = useState(false);
   const { colors: { bgPrimary, systemRed, textPrimary }} = useTheme();
-  const dispatch = useAppDispatch();
+  const dispatch = useCategoriesDispatch();
   const { token } = useUser();
 
   const onDelete = async () => {

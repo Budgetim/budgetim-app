@@ -8,16 +8,6 @@ import { AppContextState } from './types';
 export const AppProvider: FC = ({ children }) => {
 
   const initialState: AppContextState = {
-    transactions: {
-      isLoading: true,
-      data: [],
-      error: null,
-    },
-    categories: {
-      isLoading: true,
-      data: [],
-      error: null,
-    },
     user: {
       email: '',
       userId: null,

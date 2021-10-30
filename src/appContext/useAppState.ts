@@ -6,7 +6,7 @@ export const AppStateContext = createContext<AppContextState | undefined>(undefi
 export const useAppState = () => {
   const context = useContext(AppStateContext);
   if (context === undefined) {
-    throw new Error('useAppState must be used within a AppProvider');
+    throw new Error('useTransactionsState must be used within a TransactionsProvider');
   }
   return context;
 };

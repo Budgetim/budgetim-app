@@ -6,7 +6,7 @@ import { SectionList } from 'react-native';
 import { TitleWrapper, Title } from './styled';
 import { TransactionGroupsProps } from './types';
 import { TransactionCard } from '../TransactionCard';
-import { Transaction } from '../../types';
+import { Transaction } from '../../../../types';
 
 export const TransactionGroups: FC<TransactionGroupsProps> = ({ data }) => {
   const expandedData: { title: string, data: Transaction[] }[] = [];

@@ -10,7 +10,7 @@ import {
 // @ts-ignore
 import ColorPalette from 'react-native-color-palette';
 
-import { useAppDispatch, useUser } from '../../../../appContext';
+import { useUser } from '../../../../appContext';
 import { Input } from '../../../../components/Input';
 
 import { Header, Content, Section, ModalContent, ButtonText, ModalWrapper } from './styled';
@@ -18,6 +18,7 @@ import { CategoryModalProps } from './types';
 import { editCategory } from '../../../../api/category/editCategory';
 import { addCategory } from '../../../../api/category/addCategory';
 import { colors } from '../../../../constants/colors';
+import { useCategoriesDispatch } from '../../../../constexts/categories';
 
 export const CategoryModal: FC<CategoryModalProps> = (props) => {
   const { visible, setVisible, category } = props;
@@ -25,7 +26,7 @@ export const CategoryModal: FC<CategoryModalProps> = (props) => {
   const [title, setTitle] = useState(category.title || '');
   const [description, setDescription] = useState(category.description);
   const [color, setColor] = useState(category.color);
-  const dispatch = useAppDispatch();
+  const dispatch = useCategoriesDispatch();
   const { token } = useUser();
 
   useEffect(() => {
@@ -46,11 +47,7 @@ export const CategoryModal: FC<CategoryModalProps> = (props) => {
 
 
   return (
-    <Modal
-      animationType="slide"
-      transparent
-      visible={visible}
-    >
+    <Modal animationType="slide" transparent visible={visible}>
       <TouchableWithoutFeedback onPress={() => setVisible(false)}>
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
           <ModalWrapper>

@@ -7,34 +7,34 @@ import {
   ScrollView, TouchableWithoutFeedback,
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { useTheme } from 'styled-components/native';
 
-import { useAppDispatch, useCategories, useUser } from '../../appContext';
+import { useUser } from '../../appContext';
 import { Input } from '../Input';
 import { editTransaction } from '../../api/transaction/editTransaction';
 import { addTransaction } from '../../api/transaction/addTransaction';
 
-import { Header, Content, Section, SectionGroup, ModalContent, ButtonText, Category, CategoryWrapper, Categories, ModalWrapper, Circle } from './styled';
+import { Header, Content, Section, SectionGroup, ModalContent, ButtonText, ModalWrapper } from './styled';
 import { TransactionModalProps } from './types';
+import { CategoriesList } from './components/CategoriesList';
+import { useTransactionsDispatch } from '../../constexts/transactions';
 
 export const TransactionModal: FC<TransactionModalProps> = (props) => {
   const { visible, setVisible, transaction } = props;
-  const { data: categories } = useCategories();
   const { id } = transaction;
-  const [showAll, setShowAll] = useState(false);
   const [title, setTitle] = useState(transaction.title);
   const [price, setPrice] = useState(transaction.price);
   const [categoryId, setCategoryId] = useState(transaction.category?.id || null);
   const [date, setDate] = useState(transaction.date ? new Date(transaction.date) : new Date());
-  const dispatch = useAppDispatch();
-  const { colors: { systemGray05 } } = useTheme();
+  const dispatch = useTransactionsDispatch();
   const { token } = useUser();
 
   useEffect(() => {
-    setTitle(transaction.title);
-    setPrice(transaction.price);
-    setCategoryId(transaction.category?.id || null);
-    setDate(transaction.date ? new Date(transaction.date) : new Date());
+    if (visible) {
+      setTitle(transaction.title);
+      setPrice(transaction.price);
+      setCategoryId(transaction.category?.id || null);
+      setDate(transaction.date ? new Date(transaction.date) : new Date());
+    }
   }, [visible]);
 
   const onEdit = async () => {
@@ -96,29 +96,10 @@ export const TransactionModal: FC<TransactionModalProps> = (props) => {
                       </Section>
                     </SectionGroup>
                     <Section>
-                      <Categories>
-                        {categories.slice(0, showAll ? categories.length : 5).map((item, index, array) => {
-                          return (
-                            <CategoryWrapper
-                              key={item.id}
-                              hasBorder={index !== array.length - 1}
-                              onPress={() => {
-                                setCategoryId(item.id);
-                              }}
-                            >
-                              <Circle bg={item.color || systemGray05} />
-                              <Category isSelected={item.id === categoryId} variant="subheadlineRegular">
-                                {item.title}
-                              </Category>
-                            </CategoryWrapper>
-                          );
-                        })}
-                        <CategoryWrapper hasBorder={false} onPress={() => setShowAll(!showAll)}>
-                          <Category isSelected={false} variant="subheadlineRegular">
-                            {showAll ? 'hide' : 'more'}
-                          </Category>
-                        </CategoryWrapper>
-                      </Categories>
+                      <CategoriesList
+                        activeCategoryId={categoryId}
+                        setCategoryId={setCategoryId}
+                      />
                     </Section>
                     <Section>
                       <DateTimePicker
