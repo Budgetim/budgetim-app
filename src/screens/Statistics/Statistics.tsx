@@ -3,17 +3,16 @@ import { View, ScrollView } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { StackParamList } from '../types';
-import { useUser } from '../../appContext';
+import { useUser } from '../../contexts/app';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { getStatistics } from '../../api/category/getStatistics';
-import { CardDetails } from '../../components/CardDetails';
 import { separateThousands } from '../../utils/separateThousands';
-import { CardButton } from '../../components/CardButton';
 import { PieChartWrapper, ChartTitle, ChartSubtitle, NavigateButton } from './styled';
 import { PieChart } from '../../components/PieChart';
 import { useTheme } from 'styled-components/native';
 import { TextVariant } from '../../components/TextVariant';
+import { CategoryCard } from '../../components/CategoryCard';
 
 export interface StatisticsItem {
   color: string;
@@ -75,7 +74,7 @@ export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>
   };
 
   return (
-    <ScrollView>
+    <ScrollView scrollIndicatorInsets={{ right: 1 }}>
       <PieChartWrapper>
         <NavigateButton onPress={setPrevMonth}>
           <MaterialIcons name="arrow-back-ios" color={textPrimary} size={24} />
@@ -102,19 +101,16 @@ export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>
       <View>
         {data.map(item => {
           return (
-            <CardButton
+            <CategoryCard
               key={item.id}
               onPress={() => navigation.navigate('TransactionsByCategory', {
                 category: item.id,
               })}
-            >
-              <CardDetails
-                title={item.title || 'Без категории'}
-                subTitle={item.description || 'Нет описания'}
-                label={`${separateThousands(+item.sum)} ₽`}
-                tagColor={item.color}
-              />
-            </CardButton>
+              title={item.title}
+              description={item.description}
+              label={`${separateThousands(+item.sum)} ₽`}
+              tagColor={item.color}
+            />
           );
         })}
       </View>

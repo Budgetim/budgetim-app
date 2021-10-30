@@ -5,7 +5,7 @@ import { SectionList } from 'react-native';
 
 import { TitleWrapper, Title } from './styled';
 import { TransactionGroupsProps } from './types';
-import { TransactionCard } from '../TransactionCard';
+import { Card } from '../Card';
 import { Transaction } from '../../../../types';
 
 export const TransactionGroups: FC<TransactionGroupsProps> = ({ data }) => {
@@ -22,7 +22,7 @@ export const TransactionGroups: FC<TransactionGroupsProps> = ({ data }) => {
   });
 
   const Item = (transaction: Transaction) => (
-    <TransactionCard key={transaction.id} {...transaction} />
+    <Card key={transaction.id} {...transaction} />
   );
 
   return (

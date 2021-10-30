@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-import { useUser } from '../../appContext';
+import { useUser } from '../../contexts/app';
 import { Input } from '../Input';
 import { editTransaction } from '../../api/transaction/editTransaction';
 import { addTransaction } from '../../api/transaction/addTransaction';
@@ -16,7 +16,7 @@ import { addTransaction } from '../../api/transaction/addTransaction';
 import { Header, Content, Section, SectionGroup, ModalContent, ButtonText, ModalWrapper } from './styled';
 import { TransactionModalProps } from './types';
 import { CategoriesList } from './components/CategoriesList';
-import { useTransactionsDispatch } from '../../constexts/transactions';
+import { useTransactionsDispatch } from '../../contexts/transactions';
 
 export const TransactionModal: FC<TransactionModalProps> = (props) => {
   const { visible, setVisible, transaction } = props;

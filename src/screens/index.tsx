@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as SecureStore from 'expo-secure-store';
 
-import { useAppDispatch, useUser } from '../appContext';
+import { useAppDispatch, useUser } from '../contexts/app';
 
 import { Transactions } from './Transactions';
 import { Categories } from './Categories';

@@ -1,13 +1,21 @@
 import styled from 'styled-components/native';
-import { View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import css from '@styled-system/css';
 import { TextVariant } from '../TextVariant';
 import { color, ColorProps } from 'styled-system';
 
-export const Container = styled(View)(css({
+export const Container = styled(TouchableOpacity)(css({
+  pl: 4,
+}));
+
+export const Content = styled(View)(css({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
+  borderColor: 'systemGray05',
+  py: 3,
+  pr: 3,
+  borderBottomWidth: 0.5,
 }));
 
 export const SubTitleWrapper = styled(View)(css({

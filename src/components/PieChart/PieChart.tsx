@@ -9,11 +9,14 @@ import { getEndOfSection } from './utils/math/getEndOfSection';
 import { getPointOnCircle } from './utils/math/getPointOnCircle';
 import { Container, SvgCircle, LabelWrapper } from './styled';
 import { PieChartProps } from './types';
+import { CATEGORY_COLOR_DEFAULT } from '../../constants';
 
 export const PieChart: FC<PieChartProps> = props => {
   const { innerRadius, segmentWidth, outerSegmentWidth, children } = props;
 
-  const { colors: { systemGray03, bgPrimary } } = useTheme();
+  const { colors } = useTheme();
+  const { systemGray03, bgPrimary } = colors;
+  const colorDefault = colors[CATEGORY_COLOR_DEFAULT];
 
   // ширина сектора круга
   const scaleWidth = d3
@@ -54,12 +57,19 @@ export const PieChart: FC<PieChartProps> = props => {
                   <G opacity="0.85">
                     <Arc
                       {...arc}
+                      fill={arc.fill || colorDefault}
                       innerRadius={outerRadius}
                       outerRadius={outerRadius + (scaleWidth(additionalValue) as number)}
                     />
                   </G>
                 )}
-                <Arc {...arc} innerRadius={innerRadius} outerRadius={outerRadius} attrs={{ opacity: 1 }} />
+                <Arc
+                  {...arc}
+                  fill={arc.fill || colorDefault}
+                  innerRadius={innerRadius}
+                  outerRadius={outerRadius}
+                  attrs={{ opacity: 1 }}
+                />
               </G>
             );
           })}

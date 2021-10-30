@@ -8,7 +8,7 @@ import { StackParamList } from '../types';
 
 import { CategoriesList } from './components/CategoriesList';
 import { CategoryModal } from './components/CategoryModal';
-import { CategoriesProvider } from '../../constexts/categories';
+import { CategoriesProvider } from '../../contexts/categories';
 
 export const Categories: FC<NativeStackScreenProps<StackParamList, 'Categories'>> = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);

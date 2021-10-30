@@ -3,9 +3,9 @@ import { ScrollView } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { StackParamList } from '../types';
-import { TransactionsProvider } from '../../constexts/transactions';
+import { TransactionsProvider } from '../../contexts/transactions';
 import { TransactionsList } from '../../components/TransactionsList';
-import { CategoriesProvider } from '../../constexts/categories';
+import { CategoriesProvider } from '../../contexts/categories';
 
 export const TransactionsByCategory: FC<NativeStackScreenProps<StackParamList, 'TransactionsByCategory'>> = ({ route }) => {
   const { category } = route.params;

@@ -1,8 +1,8 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useTheme } from 'styled-components/native';
 
-import { useUser } from '../../../../appContext';
-import { useCategoriesDispatch, useCategoriesState } from '../../../../constexts/categories';
+import { useUser } from '../../../../contexts/app';
+import { useCategoriesDispatch, useCategoriesState } from '../../../../contexts/categories';
 
 import { Category, CategoryWrapper, Categories, Circle } from './styled';
 import { CategoriesListProps } from './types';

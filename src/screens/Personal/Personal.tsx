@@ -3,7 +3,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import * as SecureStore from 'expo-secure-store';
 
 import { StackParamList } from '../types';
-import { useAppDispatch } from '../../appContext';
+import { useAppDispatch } from '../../contexts/app';
 import { Container, Link } from './styled';
 import { TouchableOpacity } from 'react-native';
 

@@ -5,7 +5,7 @@ import * as SecureStore from 'expo-secure-store';
 import { User } from '../../layouts/User';
 import { InputWithBorder } from '../../components/InputWithBorder';
 import { authentificate } from '../../api/user/authentificate';
-import { useAppDispatch } from '../../appContext';
+import { useAppDispatch } from '../../contexts/app';
 import { StackParamList } from '../types';
 
 import { FooterLink } from './styled';

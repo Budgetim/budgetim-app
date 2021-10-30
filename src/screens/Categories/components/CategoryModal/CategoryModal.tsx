@@ -10,7 +10,7 @@ import {
 // @ts-ignore
 import ColorPalette from 'react-native-color-palette';
 
-import { useUser } from '../../../../appContext';
+import { useUser } from '../../../../contexts/app';
 import { Input } from '../../../../components/Input';
 
 import { Header, Content, Section, ModalContent, ButtonText, ModalWrapper } from './styled';
@@ -18,7 +18,7 @@ import { CategoryModalProps } from './types';
 import { editCategory } from '../../../../api/category/editCategory';
 import { addCategory } from '../../../../api/category/addCategory';
 import { colors } from '../../../../constants/colors';
-import { useCategoriesDispatch } from '../../../../constexts/categories';
+import { useCategoriesDispatch } from '../../../../contexts/categories';
 
 export const CategoryModal: FC<CategoryModalProps> = (props) => {
   const { visible, setVisible, category } = props;

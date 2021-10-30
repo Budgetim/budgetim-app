@@ -8,8 +8,8 @@ import { StackParamList } from '../types';
 
 import { Footer, AddButton, SettingsButton } from './styled';
 import { TransactionModal } from '../../components/TransactionModal';
-import { CategoriesProvider } from '../../constexts/categories';
-import { TransactionsProvider } from '../../constexts/transactions';
+import { CategoriesProvider } from '../../contexts/categories';
+import { TransactionsProvider } from '../../contexts/transactions';
 import { TransactionsList } from '../../components/TransactionsList';
 
 export const Transactions: FC<NativeStackScreenProps<StackParamList, 'Transactions'>> = ({ navigation }) => {

@@ -3,16 +3,15 @@ import Swipeout from 'react-native-swipeout';
 
 import { Category } from '../../../../types';
 
-import { useUser } from '../../../../appContext';
-import { CardDetails } from '../../../../components/CardDetails';
-import { CardButton } from '../../../../components/CardButton';
+import { useUser } from '../../../../contexts/app';
 
 import { useTheme } from 'styled-components/native';
 import { deleteCategory } from '../../../../api/category/deleteCategory';
 import { CategoryModal } from '../CategoryModal';
-import { useCategoriesDispatch } from '../../../../constexts/categories';
+import { useCategoriesDispatch } from '../../../../contexts/categories';
+import { CategoryCard } from '../../../../components/CategoryCard';
 
-export const CategoryCard: FC<Category> = (props) => {
+export const Card: FC<Category> = (props) => {
   const { title, color, description, id } = props;
   const [modalVisible, setModalVisible] = useState(false);
   const { colors: { bgPrimary, systemRed, textPrimary }} = useTheme();
@@ -34,13 +33,12 @@ export const CategoryCard: FC<Category> = (props) => {
         onPress: onDelete,
       }]}
     >
-      <CardButton onPress={() => setModalVisible(true)}>
-        <CardDetails
-          title={description || 'нет описания'}
-          subTitle={title}
-          tagColor={color}
-        />
-      </CardButton>
+      <CategoryCard
+        onPress={() => setModalVisible(true)}
+        title={title}
+        description={description}
+        tagColor={color}
+      />
       <CategoryModal visible={modalVisible} setVisible={setModalVisible} category={props} />
     </Swipeout>
   );

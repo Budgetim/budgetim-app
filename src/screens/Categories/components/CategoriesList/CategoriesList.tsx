@@ -1,11 +1,10 @@
 import React, { FC, useEffect } from 'react';
-import { useUser } from '../../../../appContext';
+import { useUser } from '../../../../contexts/app';
 import { FlatList } from 'react-native';
 import { getCategories } from '../../../../api/category/getCategories';
-import { CategoryCard } from '../CategoryCard';
+import { Card } from '../Card';
 import { TextVariant } from '../../../../components/TextVariant';
-import { useCategoriesState } from '../../../../constexts/categories/useCategoriesState';
-import { useCategoriesDispatch } from '../../../../constexts/categories';
+import { useCategoriesState, useCategoriesDispatch } from '../../../../contexts/categories';
 
 export const CategoriesList: FC = () => {
   const { data, isLoading, error } = useCategoriesState();
@@ -37,7 +36,7 @@ export const CategoriesList: FC = () => {
     <FlatList
       data={data}
       renderItem={({ item }) => (
-        <CategoryCard key={item.id} {...item} />
+        <Card key={item.id} {...item} />
       )}
     />
   );

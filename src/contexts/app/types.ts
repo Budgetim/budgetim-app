@@ -1,4 +1,4 @@
-import { User } from '../types';
+import { User } from '../../types';
 
 interface Action<T extends string, P extends unknown> {
   type: T;

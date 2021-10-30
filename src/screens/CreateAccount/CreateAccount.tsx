@@ -9,7 +9,7 @@ import { StackParamList } from '../types';
 import { FooterLink } from './styled';
 import { authentificate } from '../../api/user/authentificate';
 import * as SecureStore from 'expo-secure-store';
-import { useAppDispatch } from '../../appContext';
+import { useAppDispatch } from '../../contexts/app';
 
 export const CreateAccount: FC<NativeStackScreenProps<StackParamList, 'CreateAccount'>> = ({ navigation }) => {
   const [name, setName] = useState('');

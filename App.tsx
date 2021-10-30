@@ -3,7 +3,7 @@ import { KeyboardAvoidingView, Platform, useColorScheme } from 'react-native';
 import { NavigationContainer, DarkTheme, DefaultTheme } from '@react-navigation/native';
 import { ThemeProvider } from 'styled-components';
 
-import { AppProvider } from './src/appContext';
+import { AppProvider } from './src/contexts/app';
 import colors from './src/theme/colors';
 import space from './src/theme/space';
 import typography from './src/theme/typography';

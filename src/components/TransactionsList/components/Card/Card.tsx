@@ -4,16 +4,15 @@ import Swipeout from 'react-native-swipeout';
 import { Transaction } from '../../../../types';
 
 import { TransactionModal } from '../../../TransactionModal';
-import { useUser } from '../../../../appContext';
+import { useUser } from '../../../../contexts/app';
 import { deleteTransaction } from '../../../../api/transaction/deleteTransaction';
-import { CardDetails } from '../../../CardDetails';
-import { CardButton } from '../../../CardButton';
+import { TransactionCard } from '../../../TransactionCard';
 
 import { useTheme } from 'styled-components/native';
 import { separateThousands } from '../../../../utils/separateThousands';
-import { useTransactionsDispatch } from '../../../../constexts/transactions';
+import { useTransactionsDispatch } from '../../../../contexts/transactions';
 
-export const TransactionCard: FC<Transaction> = (props) => {
+export const Card: FC<Transaction> = (props) => {
   const { title, category, price, id} = props;
   const [modalVisible, setModalVisible] = useState(false);
   const { colors: { bgPrimary, systemRed, textPrimary }} = useTheme();
@@ -35,14 +34,13 @@ export const TransactionCard: FC<Transaction> = (props) => {
         onPress: onDelete,
       }]}
     >
-      <CardButton onPress={() => setModalVisible(true)}>
-        <CardDetails
-          title={title}
-          subTitle={category.title || 'Без категории'}
-          tagColor={category.color}
-          label={`${separateThousands(+price)} ₽`}
-        />
-      </CardButton>
+      <TransactionCard
+        onPress={() => setModalVisible(true)}
+        title={title}
+        subTitle={category.title || 'no category'}
+        tagColor={category.color}
+        label={`${separateThousands(+price)} ₽`}
+      />
       <TransactionModal visible={modalVisible} setVisible={setModalVisible} transaction={props} />
     </Swipeout>
   );

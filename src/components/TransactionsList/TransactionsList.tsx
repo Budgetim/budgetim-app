@@ -1,11 +1,10 @@
 import React, { FC, useEffect } from 'react';
 
-import { useUser } from '../../appContext';
+import { useUser } from '../../contexts/app';
 import { getTransactions } from '../../api/transaction/getTransactions';
 import { TransactionGroups } from './components/TransactionGroups';
 import { TextVariant } from '../TextVariant';
-import { useTransactionsState } from '../../constexts/transactions/useTransactionsState';
-import { useTransactionsDispatch } from '../../constexts/transactions';
+import { useTransactionsState, useTransactionsDispatch } from '../../contexts/transactions';
 
 interface TransactionsListProps {
   category?: number;
