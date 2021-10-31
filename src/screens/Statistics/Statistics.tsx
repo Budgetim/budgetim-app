@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { View, ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { StackParamList } from '../types';
@@ -12,7 +12,8 @@ import { PieChartWrapper, ChartTitle, ChartSubtitle, NavigateButton } from './st
 import { PieChart } from '../../components/PieChart';
 import { useTheme } from 'styled-components/native';
 import { TextVariant } from '../../components/TextVariant';
-import { CategoryCard } from '../../components/CategoryCard';
+import { Loader } from '../../components/Loader';
+import { CategoriesList } from './CategoriesList';
 
 export interface StatisticsItem {
   color: string;
@@ -22,7 +23,7 @@ export interface StatisticsItem {
   title: string;
 }
 
-export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>> = ({ navigation}) => {
+export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>> = () => {
   const {token} = useUser();
   const [data, setData] = useState<StatisticsItem[]>([]);
   const [error, setError] = useState(null);
@@ -37,6 +38,8 @@ export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>
   const { colors: { textPrimary } } = useTheme();
 
   const getStatisticsInit = async () => {
+    setLoading(true);
+    setData([]);
     try {
       const categories = await getStatistics(DATES[indexDate], token);
       setData(categories)
@@ -50,14 +53,6 @@ export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>
   useEffect(() => {
     void getStatisticsInit();
   }, [indexDate]);
-
-  if (isLoading) {
-    return <TextVariant variant="subheadlineBold">Loading...</TextVariant>
-  }
-
-  if (error) {
-    return <TextVariant variant="subheadlineBold">{error}</TextVariant>;
-  }
 
   const setPrevMonth = () => {
     if (indexDate === 0) {
@@ -73,8 +68,22 @@ export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>
     setIndexDate(indexDate + 1);
   };
 
+  const renderContent = () => {
+    if (isLoading) {
+      return <Loader />;
+    }
+
+    if (error) {
+      return <TextVariant variant="subheadlineBold">{error}</TextVariant>;
+    }
+
+    return (
+      <CategoriesList data={data} />
+    )
+  }
+
   return (
-    <ScrollView scrollIndicatorInsets={{ right: 1 }}>
+    <View style={{ flex: 1 }}>
       <PieChartWrapper>
         <NavigateButton onPress={setPrevMonth}>
           <MaterialIcons name="arrow-back-ios" color={textPrimary} size={24} />
@@ -92,28 +101,17 @@ export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>
           outerSegmentWidth={24}
         >
           <ChartSubtitle variant="subheadlineBold">{DATES[indexDate].title}</ChartSubtitle>
-          <ChartTitle variant="bodyBold">{separateThousands(data.reduce((sum, item) => sum + +item.sum, 0))} ₽</ChartTitle>
+          <ChartTitle variant="bodyBold">
+            {data.length > 0 ? `${separateThousands(data.reduce((sum, item) => sum + +item.sum, 0))} ₽` : ' '}
+          </ChartTitle>
         </PieChart>
         <NavigateButton onPress={setNextMonth}>
           <MaterialIcons name="arrow-forward-ios" color={textPrimary} size={24} />
         </NavigateButton>
       </PieChartWrapper>
-      <View>
-        {data.map(item => {
-          return (
-            <CategoryCard
-              key={item.id}
-              onPress={() => navigation.navigate('TransactionsByCategory', {
-                category: item.id,
-              })}
-              title={item.title}
-              description={item.description}
-              label={`${separateThousands(+item.sum)} ₽`}
-              tagColor={item.color}
-            />
-          );
-        })}
-      </View>
-    </ScrollView>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        {renderContent()}
+      </ScrollView>
+    </View>
   );
 };

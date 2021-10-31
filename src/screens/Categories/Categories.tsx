@@ -26,7 +26,7 @@ export const Categories: FC<NativeStackScreenProps<StackParamList, 'Categories'>
 
   return (
     <CategoriesProvider>
-      <ScrollView>
+      <ScrollView contentContainerStyle={{ flex: 1 }}>
         <CategoriesList />
         <CategoryModal
           category={{ title: '', description: '', color: '' }}

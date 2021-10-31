@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
-import { TouchableOpacity, View } from 'react-native';
+import { View } from 'react-native';
 import css from '@styled-system/css';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export const Container = styled(View)(css({
   width: '100%',

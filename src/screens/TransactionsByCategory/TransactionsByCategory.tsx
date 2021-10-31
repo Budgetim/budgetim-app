@@ -13,8 +13,8 @@ export const TransactionsByCategory: FC<NativeStackScreenProps<StackParamList, '
   return (
     <TransactionsProvider>
       <CategoriesProvider>
-        <ScrollView keyboardShouldPersistTaps="handled">
-          <TransactionsList category={category} />
+        <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={{ flex: 1 }}>
+          <TransactionsList category={category} month={10} />
         </ScrollView>
       </CategoriesProvider>
     </TransactionsProvider>

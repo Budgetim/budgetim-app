@@ -5,6 +5,7 @@ import { getCategories } from '../../../../api/category/getCategories';
 import { Card } from '../Card';
 import { TextVariant } from '../../../../components/TextVariant';
 import { useCategoriesState, useCategoriesDispatch } from '../../../../contexts/categories';
+import { Loader } from '../../../../components/Loader';
 
 export const CategoriesList: FC = () => {
   const { data, isLoading, error } = useCategoriesState();
@@ -29,7 +30,7 @@ export const CategoriesList: FC = () => {
   }
 
   if (isLoading) {
-    return <TextVariant variant="bodyRegular">Loading...</TextVariant>
+    return <Loader />;
   }
 
   return (

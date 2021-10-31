@@ -6,7 +6,8 @@ import {
   Footer,
   Form,
   LargeButton,
-  MainTitle, Page
+  MainTitle,
+  Page,
 } from './styled';
 
 export const User: FC<UserProps> = (props) => {

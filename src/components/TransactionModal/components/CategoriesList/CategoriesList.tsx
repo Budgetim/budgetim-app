@@ -8,6 +8,7 @@ import { Category, CategoryWrapper, Categories, Circle } from './styled';
 import { CategoriesListProps } from './types';
 import { getCategories } from '../../../../api/category/getCategories';
 import { TextVariant } from '../../../TextVariant';
+import { Loader } from '../../../Loader';
 
 export const CategoriesList: FC<CategoriesListProps> = ({ activeCategoryId, setCategoryId }) => {
   const { data, error, isLoading } = useCategoriesState();
@@ -30,11 +31,11 @@ export const CategoriesList: FC<CategoriesListProps> = ({ activeCategoryId, setC
   }, []);
 
   if (error) {
-    return <TextVariant variant="bodyRegular">{error}</TextVariant>
+    return <TextVariant variant="bodyRegular">{error}</TextVariant>;
   }
 
   if (isLoading) {
-    return <TextVariant variant="bodyRegular">Loading...</TextVariant>
+    return <Loader />;
   }
 
   return (
