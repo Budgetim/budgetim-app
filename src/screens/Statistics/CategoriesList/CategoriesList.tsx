@@ -7,7 +7,7 @@ import { CategoryCard } from '../../../components/CategoryCard';
 import { CategoriesListProps } from './types';
 import { useNavigation } from '@react-navigation/native';
 
-export const CategoriesList: FC<CategoriesListProps> = ({ data }) => {
+export const CategoriesList: FC<CategoriesListProps> = ({ data, month, year }) => {
   const navigation = useNavigation();
   return (
     <View>
@@ -17,6 +17,8 @@ export const CategoriesList: FC<CategoriesListProps> = ({ data }) => {
             key={item.id}
             onPress={() => navigation.navigate('TransactionsByCategory', {
               category: item.id,
+              month,
+              year,
             })}
             title={item.title}
             description={item.description}

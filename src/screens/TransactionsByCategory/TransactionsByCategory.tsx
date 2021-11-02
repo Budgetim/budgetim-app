@@ -8,13 +8,13 @@ import { TransactionsList } from '../../components/TransactionsList';
 import { CategoriesProvider } from '../../contexts/categories';
 
 export const TransactionsByCategory: FC<NativeStackScreenProps<StackParamList, 'TransactionsByCategory'>> = ({ route }) => {
-  const { category } = route.params;
+  const { category, month, year } = route.params;
 
   return (
     <TransactionsProvider>
       <CategoriesProvider>
         <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={{ flex: 1 }}>
-          <TransactionsList category={category} month={10} />
+          <TransactionsList category={category} month={month} year={year} />
         </ScrollView>
       </CategoriesProvider>
     </TransactionsProvider>

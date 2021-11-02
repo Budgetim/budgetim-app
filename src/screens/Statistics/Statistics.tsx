@@ -78,7 +78,7 @@ export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>
     }
 
     return (
-      <CategoriesList data={data} />
+      <CategoriesList data={data} month={DATES[indexDate].month} year={DATES[indexDate].year} />
     )
   }
 

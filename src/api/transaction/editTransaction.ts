@@ -1,5 +1,6 @@
 import { Transaction } from '../../types';
 import { authHeader } from '../../helpers/authHeader';
+import format from 'date-fns/format';
 
 interface EditTransactionParams {
   id: number;
@@ -17,7 +18,7 @@ export const editTransaction = async (params: EditTransactionParams, token: stri
         'Content-Type': 'application/json',
         ...authHeader(token),
       },
-      body: JSON.stringify(params),
+      body: JSON.stringify({ ...params, date: format(params.date, 'yyyy-MM-dd')}),
     });
     return await response.json() as Transaction;
   } catch (error: unknown) {

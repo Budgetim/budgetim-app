@@ -11,27 +11,10 @@ import { TransactionModal } from '../../components/TransactionModal';
 import { CategoriesProvider } from '../../contexts/categories';
 import { TransactionsProvider } from '../../contexts/transactions';
 import { TransactionsList } from '../../components/TransactionsList';
-import { SelectGroup } from '../../components/SelectGroup';
 
 export const Transactions: FC<NativeStackScreenProps<StackParamList, 'Transactions'>> = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
   const { colors: { textPrimary } } = useTheme();
-
-  const DATA = [
-    {
-      month: 10,
-      title: 'October',
-    },
-    {
-      month: 11,
-      title: 'November',
-    },
-    {
-      month: 12,
-      title: 'December',
-    },
-  ];
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -47,13 +30,8 @@ export const Transactions: FC<NativeStackScreenProps<StackParamList, 'Transactio
     <TransactionsProvider>
       <CategoriesProvider>
         <View style={{ flex: 1, display: 'flex' }}>
-          <SelectGroup
-            activeIndex={activeIndex}
-            onChangeIndex={setActiveIndex}
-            data={DATA}
-          />
           <ScrollView contentContainerStyle={{ flex: 1 }}>
-            <TransactionsList month={DATA[activeIndex].month} />
+            <TransactionsList />
             <TransactionModal
               transaction={{ title: '', category: null, price: '0.00', date: null }}
               visible={modalVisible}

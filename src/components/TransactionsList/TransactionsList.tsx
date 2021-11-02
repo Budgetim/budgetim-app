@@ -9,17 +9,18 @@ import { Loader } from '../Loader';
 
 interface TransactionsListProps {
   category?: number;
-  month: number;
+  month?: number;
+  year?: number;
 }
 
-export const TransactionsList: FC<TransactionsListProps> = ({ category, month }) => {
+export const TransactionsList: FC<TransactionsListProps> = ({ category, month, year }) => {
   const { data, isLoading, error } = useTransactionsState();
   const dispatch = useTransactionsDispatch();
   const { token } = useUser();
 
   const getData = async () => {
     try {
-      const transactions = await getTransactions({ year: 2021, month, category }, token);
+      const transactions = await getTransactions({ year, month, category }, token);
       dispatch({ type: 'setData', payload: { data: transactions }});
     } catch (error) {
       dispatch({ type: 'setError', payload: { error }});
