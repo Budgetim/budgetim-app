@@ -1,19 +1,14 @@
 import React, { FC, useEffect, useState } from 'react';
-import { ScrollView, View } from 'react-native';
+import { View } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { StackParamList } from '../types';
 import { useUser } from '../../contexts/app';
 
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { getStatistics } from '../../api/category/getStatistics';
-import { separateThousands } from '../../utils/separateThousands';
-import { PieChartWrapper, ChartTitle, ChartSubtitle, NavigateButton } from './styled';
-import { PieChart } from '../../components/PieChart';
-import { useTheme } from 'styled-components/native';
 import { TextVariant } from '../../components/TextVariant';
 import { Loader } from '../../components/Loader';
-import { CategoriesList } from './CategoriesList';
+import { getAvailableMonths } from '../../api/transaction/getAvailableMonths';
+import { StatisticsInfo } from './StatisticsInfo';
 
 export interface StatisticsItem {
   color: string;
@@ -25,24 +20,18 @@ export interface StatisticsItem {
 
 export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>> = () => {
   const {token} = useUser();
-  const [data, setData] = useState<StatisticsItem[]>([]);
+  const [data, setData] = useState<{ data: any[] } | null>(null);
   const [error, setError] = useState(null);
   const [isLoading, setLoading] = useState(true);
-  const DATES = [
-    { month: 9, year: 2021, title: 'September' },
-    { month: 10, year: 2021, title: 'October' },
-    { month: 11, year: 2021, title: 'November' },
-  ];
 
-  const [indexDate, setIndexDate] = useState(1);
-  const { colors: { textPrimary } } = useTheme();
+  const [indexDate, setIndexDate] = useState(0);
 
-  const getStatisticsInit = async () => {
+  const getAvailableDates = async () => {
     setLoading(true);
-    setData([]);
     try {
-      const categories = await getStatistics(DATES[indexDate], token);
-      setData(categories)
+      const result = await getAvailableMonths(token);
+      setData(result as any);
+      setIndexDate(result.data.length - 1);
     } catch (error) {
       setError(error);
     } finally {
@@ -51,8 +40,22 @@ export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>
   };
 
   useEffect(() => {
-    void getStatisticsInit();
-  }, [indexDate]);
+    void getAvailableDates();
+  }, []);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <TextVariant variant="subheadlineBold">{error}</TextVariant>;
+  }
+
+  if (!data) {
+    return null;
+  }
+
+  const { data: dates } = data;
 
   const setPrevMonth = () => {
     if (indexDate === 0) {
@@ -62,56 +65,20 @@ export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>
   };
 
   const setNextMonth = () => {
-    if (indexDate === DATES.length - 1) {
+    if (indexDate === dates.length - 1) {
       return;
     }
     setIndexDate(indexDate + 1);
   };
 
-  const renderContent = () => {
-    if (isLoading) {
-      return <Loader />;
-    }
-
-    if (error) {
-      return <TextVariant variant="subheadlineBold">{error}</TextVariant>;
-    }
-
-    return (
-      <CategoriesList data={data} month={DATES[indexDate].month} year={DATES[indexDate].year} />
-    )
-  }
-
   return (
     <View style={{ flex: 1 }}>
-      <PieChartWrapper>
-        <NavigateButton onPress={setPrevMonth}>
-          <MaterialIcons name="arrow-back-ios" color={textPrimary} size={24} />
-        </NavigateButton>
-        <PieChart
-          data={data.map(item => {
-            return {
-              color: item.color,
-              value: +item.sum,
-              additionalValue: 1,
-            };
-          })}
-          innerRadius={66}
-          segmentWidth={6}
-          outerSegmentWidth={24}
-        >
-          <ChartSubtitle variant="subheadlineBold">{DATES[indexDate].title}</ChartSubtitle>
-          <ChartTitle variant="bodyBold">
-            {data.length > 0 ? `${separateThousands(data.reduce((sum, item) => sum + +item.sum, 0))} ₽` : ' '}
-          </ChartTitle>
-        </PieChart>
-        <NavigateButton onPress={setNextMonth}>
-          <MaterialIcons name="arrow-forward-ios" color={textPrimary} size={24} />
-        </NavigateButton>
-      </PieChartWrapper>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        {renderContent()}
-      </ScrollView>
+      <StatisticsInfo
+        year={dates[indexDate].year}
+        month={dates[indexDate].month}
+        setNextDate={setNextMonth}
+        setPrevDate={setPrevMonth}
+      />
     </View>
   );
 };
