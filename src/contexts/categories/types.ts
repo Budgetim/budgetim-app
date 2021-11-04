@@ -25,12 +25,22 @@ type EditCategoryAction = Action<'editCategory', {
   category: Category;
 }>
 
+type SetModalVisible = Action<'setModalVisible', {
+  isVisible: boolean;
+}>
+
+type SetModalCategoryId = Action<'setModalCategoryId', {
+  id: number;
+}>
+
 export type CategoriesDispatchAction =
   SetDataAction |
   SetErrorAction |
   DeleteCategoryAction |
   AddCategoryAction |
-  EditCategoryAction;
+  EditCategoryAction |
+  SetModalVisible |
+  SetModalCategoryId;
 
 export type CategoriesDispatch = (action: CategoriesDispatchAction) => void;
 
@@ -38,4 +48,8 @@ export interface CategoriesContextState {
   isLoading: boolean;
   error: string | null;
   data: Category[];
+  modal: {
+    id: number | null;
+    isVisible: boolean;
+  },
 }

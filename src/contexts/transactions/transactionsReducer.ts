@@ -55,6 +55,28 @@ export const transactionsReducer = (state: TransactionsContextState, action: Tra
       };
     }
 
+    case 'setModalVisible': {
+      const { isVisible } = action.payload;
+      return {
+        ...state,
+        modal: {
+          ...state.modal,
+          isVisible,
+        },
+      };
+    }
+
+    case 'setModalTransactionId': {
+      const { id } = action.payload;
+      return {
+        ...state,
+        modal: {
+          ...state.modal,
+          id,
+        },
+      };
+    }
+
     default: {
       throw new Error('Unhandled action type');
     }

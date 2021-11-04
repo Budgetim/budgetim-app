@@ -6,6 +6,7 @@ export const categoriesReducer = (state: CategoriesContextState, action: Categor
     case 'setData': {
       const { data } = action.payload;
       return {
+        ...state,
         isLoading: false,
         error: null,
         data,
@@ -50,6 +51,28 @@ export const categoriesReducer = (state: CategoriesContextState, action: Categor
       return {
         ...state,
         data: [...state.data, category],
+      };
+    }
+
+    case 'setModalVisible': {
+      const { isVisible } = action.payload;
+      return {
+        ...state,
+        modal: {
+          ...state.modal,
+          isVisible,
+        },
+      };
+    }
+
+    case 'setModalCategoryId': {
+      const { id } = action.payload;
+      return {
+        ...state,
+        modal: {
+          ...state.modal,
+          id,
+        },
       };
     }
 

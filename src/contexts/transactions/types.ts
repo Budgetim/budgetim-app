@@ -25,12 +25,22 @@ type EditTransactionAction = Action<'editTransaction', {
   transaction: Transaction;
 }>
 
+type SetModalVisible = Action<'setModalVisible', {
+  isVisible: boolean;
+}>
+
+type SetModalTransactionId = Action<'setModalTransactionId', {
+  id: number;
+}>
+
 export type TransactionsDispatchAction =
   SetDataAction |
   SetErrorAction |
   DeleteTransactionAction |
   AddTransactionAction |
-  EditTransactionAction;
+  EditTransactionAction |
+  SetModalVisible |
+  SetModalTransactionId;
 
 export type TransactionsDispatch = (action: TransactionsDispatchAction) => void;
 
@@ -38,4 +48,8 @@ export interface TransactionsContextState {
   isLoading: boolean;
   error: string | null;
   data: Transaction[];
+  modal: {
+    id: number | null;
+    isVisible: boolean;
+  },
 }

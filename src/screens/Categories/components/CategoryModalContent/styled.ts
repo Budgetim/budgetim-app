@@ -1,23 +1,19 @@
 import styled from 'styled-components/native';
 import { View } from 'react-native';
 import css, { SystemStyleObject } from '@styled-system/css';
-import { TextVariant } from '../TextVariant';
+import { TextVariant } from '../../../../components/TextVariant';
+import Modal from 'react-native-modal';
 
 export const Header = styled(View)(css({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
   p: 4,
-}));
+}))
 
 export const Content = styled(View)(css({
   p: 4,
-}));
-
-export const SectionGroup = styled(View)(css({
-  display: 'flex',
-  flexDirection: 'row',
-}));
+}))
 
 export const Section = styled(View)(css({
   borderRadius: 12,
@@ -26,10 +22,9 @@ export const Section = styled(View)(css({
   mb: 4,
 }));
 
-export const ModalWrapper = styled(View)({
-  flex: 1,
+export const ModalWrapper = styled(Modal as any)({
   justifyContent: 'flex-end',
-  display: 'flex',
+  margin: 0,
 });
 
 export const ModalContent = styled(View)(css({

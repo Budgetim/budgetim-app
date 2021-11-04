@@ -7,7 +7,8 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StackParamList } from '../types';
 
 import { Footer, AddButton, SettingsButton } from './styled';
-import { TransactionModal } from '../../components/TransactionModal';
+import { AddTransactionModal } from './components/AddTransactionModal';
+import { EditTransactionModal } from '../../components/EditTransactionModal';
 import { CategoriesProvider } from '../../contexts/categories';
 import { TransactionsProvider } from '../../contexts/transactions';
 import { TransactionsList } from '../../components/TransactionsList';
@@ -32,11 +33,6 @@ export const Transactions: FC<NativeStackScreenProps<StackParamList, 'Transactio
         <View style={{ flex: 1, display: 'flex' }}>
           <ScrollView contentContainerStyle={{ flex: 1 }}>
             <TransactionsList />
-            <TransactionModal
-              transaction={{ title: '', category: null, price: '0.00', date: null }}
-              visible={modalVisible}
-              setVisible={setModalVisible}
-            />
           </ScrollView>
           <Footer>
             <AddButton onPress={() => setModalVisible(true)}>
@@ -47,6 +43,8 @@ export const Transactions: FC<NativeStackScreenProps<StackParamList, 'Transactio
             </SettingsButton>
           </Footer>
         </View>
+        <EditTransactionModal />
+        <AddTransactionModal visible={modalVisible} setVisible={setModalVisible} />
       </CategoriesProvider>
     </TransactionsProvider>
   );

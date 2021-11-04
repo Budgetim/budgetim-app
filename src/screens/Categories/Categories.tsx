@@ -7,8 +7,9 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StackParamList } from '../types';
 
 import { CategoriesList } from './components/CategoriesList';
-import { CategoryModal } from './components/CategoryModal';
 import { CategoriesProvider } from '../../contexts/categories';
+import { AddCategoryModal } from './components/AddCategoryModal';
+import { EditCategoryModal } from './components/EditCategoryModal';
 
 export const Categories: FC<NativeStackScreenProps<StackParamList, 'Categories'>> = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -28,11 +29,8 @@ export const Categories: FC<NativeStackScreenProps<StackParamList, 'Categories'>
     <CategoriesProvider>
       <ScrollView contentContainerStyle={{ flex: 1 }}>
         <CategoriesList />
-        <CategoryModal
-          category={{ title: '', description: '', color: '' }}
-          visible={modalVisible}
-          setVisible={setModalVisible}
-        />
+        <AddCategoryModal visible={modalVisible} setVisible={setModalVisible} />
+        <EditCategoryModal />
       </ScrollView>
     </CategoriesProvider>
   );
