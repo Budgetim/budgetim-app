@@ -1,16 +1,12 @@
 import React, { FC } from 'react';
-import {
-  Pressable,
-  ScrollView,
-  Text,
-} from 'react-native';
-// @ts-ignore
-import ColorPalette from 'react-native-color-palette';
+import { Pressable, ScrollView } from 'react-native';
+
 import { Input } from '../../../../components/Input';
 
 import { Header, Content, Section, ModalContent, ButtonText, ModalWrapper } from './styled';
 import { CategoryModalContentProps } from './types';
 import { colors } from '../../../../constants/colors';
+import { ColorPicker } from './ColorPicker';
 
 export const CategoryModalContent: FC<CategoryModalContentProps> = (props) => {
   const {
@@ -37,7 +33,7 @@ export const CategoryModalContent: FC<CategoryModalContentProps> = (props) => {
       <ModalContent>
         <Header>
           <Pressable onPress={onClose}>
-            <ButtonText variant="subheadlineRegular">cancel</ButtonText>
+            <ButtonText variant="subheadlineRegular">Cancel</ButtonText>
           </Pressable>
           <Pressable
             onPress={() => {
@@ -45,7 +41,7 @@ export const CategoryModalContent: FC<CategoryModalContentProps> = (props) => {
               onClose();
             }}
           >
-            <ButtonText variant="subheadlineBold">save</ButtonText>
+            <ButtonText variant="subheadlineBold">Done</ButtonText>
           </Pressable>
         </Header>
         <ScrollView>
@@ -67,11 +63,10 @@ export const CategoryModalContent: FC<CategoryModalContentProps> = (props) => {
               />
             </Section>
             <Section>
-              <ColorPalette
-                onChange={(color: string) => setColor(color)}
+              <ColorPicker
+                onChange={color => setColor(color)}
                 value={color}
                 colors={colors}
-                icon={<Text style={{ color: '#fff' }}>✔</Text>}
               />
             </Section>
           </Content>

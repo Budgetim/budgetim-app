@@ -12,12 +12,13 @@ export const PieChartWrapper = styled(View)(css({
   padding: 5,
 }));
 
-export const NavigateButton = styled(TouchableOpacity)(css({
+export const NavigateButton = styled(TouchableOpacity)(({ disabled }) => css({
   height: 150,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   flex: '1 1 auto',
+  opacity: disabled ? 0.3 : 1,
 }));
 
 export const ChartSubtitle = styled(TextVariant)(css({

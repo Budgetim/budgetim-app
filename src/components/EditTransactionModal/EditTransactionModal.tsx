@@ -3,20 +3,20 @@ import { useUser } from '../../contexts/app';
 import { editTransaction } from '../../api/transaction/editTransaction';
 import { useTransactionsDispatch, useTransactionsState } from '../../contexts/transactions';
 import { TransactionModalContent } from '../TransactionModalContent';
+import { Transaction } from '../../types';
+import { useModalsDispatch, useModalsState } from '../../contexts/modals';
 
 export const EditTransactionModal: FC = () => {
-  const { modal: { isVisible, id }, data } = useTransactionsState();
-  const transaction = data.find(item => item.id === id);
+  const { data } = useTransactionsState();
+  const { transaction: { isVisible, id } } = useModalsState();
+  const transaction = data.find(item => item.id === id) as Transaction;
 
-  if (id === null || !transaction) {
-    return null;
-  }
-
-  const [title, setTitle] = useState(transaction.title);
-  const [price, setPrice] = useState(transaction.price);
-  const [categoryId, setCategoryId] = useState(transaction.category?.id || null);
-  const [date, setDate] = useState(new Date(transaction.date));
+  const [title, setTitle] = useState(transaction?.title || '');
+  const [price, setPrice] = useState(transaction?.price || '0.00');
+  const [categoryId, setCategoryId] = useState(transaction?.category?.id || null);
+  const [date, setDate] = useState(new Date(transaction?.date) || new Date());
   const dispatch = useTransactionsDispatch();
+  const modalsDispatch = useModalsDispatch();
   const { token } = useUser();
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export const EditTransactionModal: FC = () => {
   }, [isVisible]);
 
   const closeModal = () => {
-    dispatch({ type: 'setModalVisible', payload: { isVisible: false } });
+    modalsDispatch({ type: 'setTransactionModalVisible', payload: { isVisible: false } });
   };
 
   const onEdit = async () => {

@@ -58,16 +58,10 @@ export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>
   const { data: dates } = data;
 
   const setPrevMonth = () => {
-    if (indexDate === 0) {
-      return;
-    }
     setIndexDate(indexDate - 1);
   };
 
   const setNextMonth = () => {
-    if (indexDate === dates.length - 1) {
-      return;
-    }
     setIndexDate(indexDate + 1);
   };
 
@@ -76,8 +70,8 @@ export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>
       <StatisticsInfo
         year={dates[indexDate].year}
         month={dates[indexDate].month}
-        setNextDate={setNextMonth}
-        setPrevDate={setPrevMonth}
+        setNextDate={indexDate !== dates.length - 1 ? setNextMonth : undefined}
+        setPrevDate={indexDate !== 0 ? setPrevMonth : undefined}
       />
     </View>
   );

@@ -1,5 +1,5 @@
-import React, { FC, useState, useLayoutEffect } from 'react';
-import { ScrollView, TouchableOpacity, View } from 'react-native';
+import React, { FC, useState, useLayoutEffect, useEffect } from 'react';
+import { Dimensions, ScrollView, TextInput, TouchableOpacity, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useTheme } from 'styled-components/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -12,6 +12,7 @@ import { EditTransactionModal } from '../../components/EditTransactionModal';
 import { CategoriesProvider } from '../../contexts/categories';
 import { TransactionsProvider } from '../../contexts/transactions';
 import { TransactionsList } from '../../components/TransactionsList';
+import { ModalsProvider } from '../../contexts/modals';
 
 export const Transactions: FC<NativeStackScreenProps<StackParamList, 'Transactions'>> = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -27,24 +28,28 @@ export const Transactions: FC<NativeStackScreenProps<StackParamList, 'Transactio
     });
   }, [navigation]);
 
+  // height: Dimensions.get('window').height
+
   return (
     <TransactionsProvider>
       <CategoriesProvider>
-        <View style={{ flex: 1, display: 'flex' }}>
-          <ScrollView contentContainerStyle={{ flex: 1 }}>
-            <TransactionsList />
-          </ScrollView>
-          <Footer>
-            <AddButton onPress={() => setModalVisible(true)}>
-              <AntDesign name="pluscircle" color={textPrimary} size={40} />
-            </AddButton>
-            <SettingsButton onPress={() => navigation.navigate('Settings')}>
-              <AntDesign name="setting" color={textPrimary} size={28} />
-            </SettingsButton>
-          </Footer>
-        </View>
-        <EditTransactionModal />
-        <AddTransactionModal visible={modalVisible} setVisible={setModalVisible} />
+        <ModalsProvider>
+          <View style={{ flex: 1 }}>
+            <ScrollView contentContainerStyle={{ flex: 1 }}>
+              <TransactionsList />
+            </ScrollView>
+            <Footer>
+              <AddButton onPress={() => setModalVisible(true)}>
+                <AntDesign name="pluscircle" color={textPrimary} size={40} />
+              </AddButton>
+              <SettingsButton onPress={() => navigation.navigate('Settings')}>
+                <AntDesign name="setting" color={textPrimary} size={28} />
+              </SettingsButton>
+            </Footer>
+          </View>
+          <EditTransactionModal />
+          <AddTransactionModal visible={modalVisible} setVisible={setModalVisible} />
+        </ModalsProvider>
       </CategoriesProvider>
     </TransactionsProvider>
   );

@@ -6,7 +6,7 @@ export const TransactionsStateContext = createContext<TransactionsContextState |
 export const useTransactionsState = () => {
   const context = useContext(TransactionsStateContext);
   if (context === undefined) {
-    throw new Error('useTransactionsState must be used within a TransactionsProvider');
+    throw new Error('useModalsState must be used within a ModalsProvider');
   }
   return context;
 };

@@ -6,7 +6,7 @@ export const TransactionsDispatchContext = createContext<TransactionsDispatch | 
 export const useTransactionsDispatch = () => {
   const context = useContext(TransactionsDispatchContext);
   if (context === undefined) {
-    throw new Error('useCategoriesDispatch must be used within a TransactionsProvider');
+    throw new Error('useCategoriesDispatch must be used within a ModalsProvider');
   }
   return context;
 };

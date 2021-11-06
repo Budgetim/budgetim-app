@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useMemo } from 'react';
 
 import { useUser } from '../../contexts/app';
 import { getTransactions } from '../../api/transaction/getTransactions';
@@ -6,6 +6,7 @@ import { TransactionGroups } from './components/TransactionGroups';
 import { TextVariant } from '../TextVariant';
 import { useTransactionsState, useTransactionsDispatch } from '../../contexts/transactions';
 import { Loader } from '../Loader';
+import { useIsFocused } from '@react-navigation/native';
 
 interface TransactionsListProps {
   category?: number;
@@ -14,22 +15,28 @@ interface TransactionsListProps {
 }
 
 export const TransactionsList: FC<TransactionsListProps> = ({ category, month, year }) => {
-  const { data, isLoading, error } = useTransactionsState();
+  const { isLoading, error } = useTransactionsState();
   const dispatch = useTransactionsDispatch();
   const { token } = useUser();
-
-  const getData = async () => {
-    try {
-      const transactions = await getTransactions({ year, month, category }, token);
-      dispatch({ type: 'setData', payload: { data: transactions }});
-    } catch (error) {
-      dispatch({ type: 'setError', payload: { error }});
-    }
-  }
+  const isFocused = useIsFocused();
 
   useEffect(() => {
-    getData();
-  }, [month, category]);
+    if (isFocused) {
+      const getData = async () => {
+        try {
+          const transactions = await getTransactions({ year, month, category }, token);
+          dispatch({ type: 'setData', payload: { data: transactions }});
+        } catch (error) {
+          dispatch({ type: 'setError', payload: { error }});
+        }
+      };
+      getData();
+    }
+  }, [month, category, isFocused]);
+
+  if (!isFocused) {
+    return null;
+  }
 
   if (error) {
     return <TextVariant variant="bodyRegular">{error}</TextVariant>
@@ -40,6 +47,6 @@ export const TransactionsList: FC<TransactionsListProps> = ({ category, month, y
   }
 
   return (
-    <TransactionGroups data={data} />
+    <TransactionGroups />
   );
 };

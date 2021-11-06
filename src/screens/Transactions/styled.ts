@@ -9,6 +9,10 @@ export const Footer = styled(View)(css({
   height: 70,
   display: 'flex',
   flexDirection: 'row',
+  // position: 'absolute',
+  // width: '100%',
+  // bottom: 90,
+  // left: 0,
 }));
 
 export const Button = styled(TouchableOpacity)(css({

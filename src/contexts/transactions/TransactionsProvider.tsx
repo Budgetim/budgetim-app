@@ -10,11 +10,8 @@ export const TransactionsProvider: FC = ({ children }) => {
   const initialState: TransactionsContextState = {
     isLoading: true,
     data: [],
+    dataByDate: [],
     error: null,
-    modal: {
-      id: null,
-      isVisible: false,
-    }
   };
 
   const [state, dispatch] = useReducer(transactionsReducer, initialState);

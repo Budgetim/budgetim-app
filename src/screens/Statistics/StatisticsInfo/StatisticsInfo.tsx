@@ -17,8 +17,8 @@ import { CategoriesList } from '../CategoriesList';
 export interface StatisticsInfoProps {
   year: number;
   month: number;
-  setNextDate: () => {};
-  setPrevDate: () => {};
+  setNextDate?: () => {};
+  setPrevDate?: () => {};
 }
 
 export interface StatisticsItem {
@@ -71,7 +71,7 @@ export const StatisticsInfo: FC<StatisticsInfoProps> = ({ month, year, setNextDa
   return (
     <View style={{ flex: 1 }}>
       <PieChartWrapper>
-        <NavigateButton onPress={setPrevDate}>
+        <NavigateButton onPress={setPrevDate} disabled={!setPrevDate}>
           <MaterialIcons name="arrow-back-ios" color={textPrimary} size={24} />
         </NavigateButton>
         <PieChart
@@ -91,7 +91,7 @@ export const StatisticsInfo: FC<StatisticsInfoProps> = ({ month, year, setNextDa
             {data.length > 0 ? `${separateThousands(data.reduce((sum, item) => sum + +item.sum, 0))} ₽` : ' '}
           </ChartTitle>
         </PieChart>
-        <NavigateButton onPress={setNextDate}>
+        <NavigateButton onPress={setNextDate} disabled={!setNextDate}>
           <MaterialIcons name="arrow-forward-ios" color={textPrimary} size={24} />
         </NavigateButton>
       </PieChartWrapper>

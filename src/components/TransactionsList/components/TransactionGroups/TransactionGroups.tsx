@@ -1,38 +1,21 @@
 import React, { FC } from 'react';
-import format from 'date-fns/format';
-import locale from 'date-fns/locale/en-US';
 import { SectionList } from 'react-native';
 
 import { TitleWrapper, Title } from './styled';
-import { TransactionGroupsProps } from './types';
 import { Card } from '../Card';
-import { Transaction } from '../../../../types';
+import { useTransactionsState } from '../../../../contexts/transactions';
 
-export const TransactionGroups: FC<TransactionGroupsProps> = ({ data }) => {
-  const expandedData: { title: string, data: Transaction[] }[] = [];
-
-  data.forEach(transaction => {
-    const date = format(new Date(transaction.date), 'yyyy-MM-dd');
-    const findedTransaction = expandedData.find(({ title }) => title === date)
-    if (findedTransaction) {
-      findedTransaction.data.push(transaction);
-    } else {
-      expandedData.push({ title: date, data: [transaction] });
-    }
-  });
-
-  const Item = (transaction: Transaction) => (
-    <Card key={transaction.id} {...transaction} />
-  );
+export const TransactionGroups: FC = () => {
+  const { dataByDate } = useTransactionsState();
 
   return (
     <SectionList
-      sections={expandedData}
-      keyExtractor={(item, index) => `${item.id}${index}`}
-      renderItem={({ item }) => <Item {...item} />}
+      sections={dataByDate}
+      keyExtractor={(item) => `${item.id}`}
+      renderItem={({ item }) => <Card {...item} />}
       renderSectionHeader={({ section: { title } }) => (
         <TitleWrapper>
-          <Title variant="title2Bold">{format(new Date(title), 'd MMMM', { locale })}</Title>
+          <Title variant="title2Bold">{title}</Title>
         </TitleWrapper>
       )}
     />

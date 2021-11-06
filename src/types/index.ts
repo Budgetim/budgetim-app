@@ -19,3 +19,8 @@ export interface User {
   name: string;
   token: string;
 }
+
+export interface Action<T extends string, P extends unknown> {
+  type: T;
+  payload: P;
+}

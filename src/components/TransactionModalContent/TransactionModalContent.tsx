@@ -37,7 +37,7 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = (props)
       <ModalContent>
         <Header>
           <Pressable onPress={onClose}>
-            <ButtonText variant="subheadlineRegular">cancel</ButtonText>
+            <ButtonText variant="subheadlineRegular">Cancel</ButtonText>
           </Pressable>
           <Pressable
             onPress={() => {
@@ -45,7 +45,7 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = (props)
               onSave();
             }}
           >
-            <ButtonText variant="subheadlineBold">save</ButtonText>
+            <ButtonText variant="subheadlineBold">Done</ButtonText>
           </Pressable>
         </Header>
         <ScrollView>

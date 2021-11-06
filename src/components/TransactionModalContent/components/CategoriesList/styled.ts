@@ -29,3 +29,15 @@ export const Circle = styled(View)<ColorProps>(css({
 export const Category = styled(TextVariant)<{ isSelected: boolean }>(props => css({
   color: props.isSelected ? 'systemBlue' : 'textPrimary',
 }), color);
+
+export const ShowMoreWrapper = styled(TouchableOpacity)(css({
+  py: 4,
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+}));
+
+export const ShowMoreText = styled(TextVariant)(css({
+  color: 'textPrimary',
+  ml: 1,
+}));

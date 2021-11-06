@@ -4,16 +4,17 @@ import { useTheme } from 'styled-components/native';
 import { useUser } from '../../../../contexts/app';
 import { useCategoriesDispatch, useCategoriesState } from '../../../../contexts/categories';
 
-import { Category, CategoryWrapper, Categories, Circle } from './styled';
+import { Category, CategoryWrapper, Categories, Circle, ShowMoreWrapper, ShowMoreText } from './styled';
 import { CategoriesListProps } from './types';
 import { getCategories } from '../../../../api/category/getCategories';
 import { TextVariant } from '../../../TextVariant';
 import { Loader } from '../../../Loader';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export const CategoriesList: FC<CategoriesListProps> = ({ activeCategoryId, setCategoryId }) => {
   const { data, error, isLoading } = useCategoriesState();
   const [showAll, setShowAll] = useState(false);
-  const { colors: { systemGray05 } } = useTheme();
+  const { colors: { systemGray05, textPrimary } } = useTheme();
   const { token } = useUser();
   const dispatch = useCategoriesDispatch();
 
@@ -56,11 +57,12 @@ export const CategoriesList: FC<CategoriesListProps> = ({ activeCategoryId, setC
           </CategoryWrapper>
         );
       })}
-      <CategoryWrapper hasBorder={false} onPress={() => setShowAll(!showAll)}>
-        <Category isSelected={false} variant="subheadlineRegular">
-          {showAll ? 'hide' : 'more'}
-        </Category>
-      </CategoryWrapper>
+      <ShowMoreWrapper onPress={() => setShowAll(!showAll)}>
+        <Ionicons name={showAll ? 'chevron-up-outline' : 'chevron-down-outline'} color={textPrimary} size={17} />
+        <ShowMoreText variant="subheadlineRegular">
+          {showAll ? 'hide' : 'show more'}
+        </ShowMoreText>
+      </ShowMoreWrapper>
     </Categories>
   );
 };
