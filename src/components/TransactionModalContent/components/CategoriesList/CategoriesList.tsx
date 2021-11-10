@@ -57,12 +57,12 @@ export const CategoriesList: FC<CategoriesListProps> = ({ activeCategoryId, setC
           </CategoryWrapper>
         );
       })}
-      <ShowMoreWrapper onPress={() => setShowAll(!showAll)}>
-        <Ionicons name={showAll ? 'chevron-up-outline' : 'chevron-down-outline'} color={textPrimary} size={17} />
-        <ShowMoreText variant="subheadlineRegular">
-          {showAll ? 'hide' : 'show more'}
-        </ShowMoreText>
-      </ShowMoreWrapper>
+      {!showAll && (
+        <ShowMoreWrapper onPress={() => setShowAll(true)}>
+          <Ionicons name={showAll ? 'chevron-up-outline' : 'chevron-down-outline'} color={textPrimary} size={17} />
+          <ShowMoreText variant="subheadlineRegular">show more</ShowMoreText>
+        </ShowMoreWrapper>
+      )}
     </Categories>
   );
 };

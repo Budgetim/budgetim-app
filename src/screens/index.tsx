@@ -13,6 +13,7 @@ import { StackParamList } from './types';
 import { Statistics } from './Statistics';
 import { Personal } from './Personal';
 import { TransactionsByCategory } from './TransactionsByCategory';
+import { PasswordReset } from './PasswordReset';
 
 const Stack = createStackNavigator<StackParamList>();
 
@@ -53,6 +54,11 @@ export const Screens = () => {
             name="CreateAccount"
             component={CreateAccount}
             options={{ title: 'Create account' }}
+          />
+          <Stack.Screen
+            name="PasswordReset"
+            component={PasswordReset}
+            options={{ title: 'Password reset' }}
           />
         </>
       ) : (

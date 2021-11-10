@@ -8,9 +8,19 @@ import { TransactionsList } from '../../components/TransactionsList';
 import { CategoriesProvider } from '../../contexts/categories';
 import { EditTransactionModal } from '../../components/EditTransactionModal';
 import { ModalsProvider } from '../../contexts/modals';
+import format from 'date-fns/format';
+import locale from 'date-fns/locale/en-US';
 
-export const TransactionsByCategory: FC<NativeStackScreenProps<StackParamList, 'TransactionsByCategory'>> = ({ route }) => {
-  const { category, month, year } = route.params;
+export const TransactionsByCategory: FC<NativeStackScreenProps<StackParamList, 'TransactionsByCategory'>> = ({ route, navigation }) => {
+  const { category, month, year, categoryTitle } = route.params;
+
+  const date = format(new Date(year, month - 1, 1), 'MMMM', { locale });
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      title: `${categoryTitle} (${date})`
+    });
+  }, [navigation]);
 
   return (
     <TransactionsProvider>

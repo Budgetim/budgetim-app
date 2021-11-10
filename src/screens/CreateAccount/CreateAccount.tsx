@@ -15,23 +15,31 @@ export const CreateAccount: FC<NativeStackScreenProps<StackParamList, 'CreateAcc
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const dispatch = useAppDispatch();
 
   const action = async () => {
-    const _user = await register({ name, email, password });
-    if (_user) { // TODO: нормальная обработка успешной регистрации
+    setIsLoading(true);
+    try {
+      await register({ name, email, password });
       const user = await authentificate({ email, password });
       if (user.email === email) {
         dispatch({ type: 'setUser', payload: { user } });
         await SecureStore.setItemAsync('userToken', user.token);
       }
+    } catch (e) {
+      setError('The entered data is incorrect');
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <User
       title="Create account"
-      message="Nec nihil affert partiendo ne, quo no iisque etiam tacimates sed conceptam."
+      message="Enter your information"
+      error={error}
       form={(
         <>
           <InputWithBorder
@@ -57,6 +65,7 @@ export const CreateAccount: FC<NativeStackScreenProps<StackParamList, 'CreateAcc
       button={{
         text: 'Register',
         action,
+        withLoader: isLoading,
       }}
       footer={(
         <>

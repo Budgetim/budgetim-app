@@ -17,6 +17,7 @@ export const CategoriesList: FC<CategoriesListProps> = ({ data, month, year }) =
             key={item.id}
             onPress={() => navigation.navigate('TransactionsByCategory', {
               category: item.id,
+              categoryTitle: item.title,
               month,
               year,
             })}
