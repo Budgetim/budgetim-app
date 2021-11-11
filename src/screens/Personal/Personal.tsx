@@ -1,11 +1,13 @@
 import React, { FC } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import * as SecureStore from 'expo-secure-store';
+import { TouchableOpacity } from 'react-native';
+
+import { useAppDispatch } from '../../contexts/app';
+import { GroupList } from '../../components/GroupList';
 
 import { StackParamList } from '../types';
-import { useAppDispatch } from '../../contexts/app';
-import { Container, Link } from './styled';
-import { TouchableOpacity } from 'react-native';
+import { Container, Link, SignOutButton } from './styled';
 
 export const Personal: FC<NativeStackScreenProps<StackParamList, 'Personal'>> = () => {
   const dispatch = useAppDispatch();
@@ -17,9 +19,17 @@ export const Personal: FC<NativeStackScreenProps<StackParamList, 'Personal'>> = 
 
   return (
     <Container>
-      <TouchableOpacity onPress={logOut}>
-        <Link variant="bodyRegular">Выйти</Link>
-      </TouchableOpacity>
+      <GroupList
+        data={[
+          {
+            title: 'Change password',
+            onPress: () => {},
+          },
+        ]}
+      />
+      <SignOutButton onPress={logOut}>
+        <Link variant="bodyRegular">Sign out</Link>
+      </SignOutButton>
     </Container>
   );
 };

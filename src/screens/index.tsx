@@ -14,6 +14,7 @@ import { Statistics } from './Statistics';
 import { Personal } from './Personal';
 import { TransactionsByCategory } from './TransactionsByCategory';
 import { PasswordReset } from './PasswordReset';
+import { Currency } from './Currency';
 
 const Stack = createStackNavigator<StackParamList>();
 
@@ -79,6 +80,12 @@ export const Screens = () => {
             options={{ title: 'Statistics' }}
           />
           <Stack.Screen
+            name="TransactionsByCategory"
+            component={TransactionsByCategory}
+            options={{ title: 'TransactionsByCategory' }}
+          />
+
+          <Stack.Screen
             name="Settings"
             component={Settings}
             options={{ title: 'Settings' }}
@@ -89,9 +96,9 @@ export const Screens = () => {
             options={{ title: 'Personal' }}
           />
           <Stack.Screen
-            name="TransactionsByCategory"
-            component={TransactionsByCategory}
-            options={{ title: 'TransactionsByCategory' }}
+            name="Currency"
+            component={Currency}
+            options={{ title: 'Currency' }}
           />
         </>
       )}

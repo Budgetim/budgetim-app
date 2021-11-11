@@ -4,9 +4,5 @@ import css from '@styled-system/css';
 
 export const Container = styled(ScrollView)(css({
   px: 4,
-  py: 8,
-}));
-
-export const ListWrapper = styled(ScrollView)(css({
-  mb: 8,
+  py: 9,
 }));

@@ -4,10 +4,10 @@ import css from '@styled-system/css';
 import { TextVariant } from '../TextVariant';
 import { color, ColorProps } from 'styled-system';
 
-export const List = styled(FlatList)(css({
+export const List = styled(FlatList)<ColorProps>(css({
   bg: 'systemGray06',
   borderRadius: 12,
-})) as unknown as typeof FlatList;
+}), color) as unknown as typeof FlatList;
 
 export const Item = styled(TouchableOpacity)(css({
   pl: 4,
@@ -15,6 +15,13 @@ export const Item = styled(TouchableOpacity)(css({
   flexDirection: 'row',
   alignItems: 'center',
 }));
+
+export const Circle = styled(View)<ColorProps>(css({
+  width: 10,
+  height: 10,
+  borderRadius: 5,
+  mr: 3,
+}), color);
 
 export const TextContent = styled(View)<{ borderBottom: boolean }>(({ borderBottom }) => css({
   ...(borderBottom ? {
@@ -25,27 +32,12 @@ export const TextContent = styled(View)<{ borderBottom: boolean }>(({ borderBott
   flexDirection: 'row',
   alignItems: 'center',
   flex: 1,
-  py: 3,
+  py: 2,
   pr: 4,
 }));
-
-export const MainIconWrapper = styled(View)<ColorProps>(css({
-  width: 28,
-  height: 28,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  borderRadius: 6,
-  mr: 3,
-}), color);
 
 export const Text = styled(TextVariant)(css({
   color: 'textPrimary',
   flex: 1,
-  mr: 2,
-}));
-
-export const Variant = styled(TextVariant)(css({
-  color: 'systemGray01',
   mr: 2,
 }));
