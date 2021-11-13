@@ -36,8 +36,19 @@ export const TextContent = styled(View)<{ borderBottom: boolean }>(({ borderBott
   pr: 4,
 }));
 
-export const Text = styled(TextVariant)(css({
-  color: 'textPrimary',
+export const TextWrap = styled(View)(css({
   flex: 1,
   mr: 2,
+  display: 'flex',
+  flexDirection: 'row',
+}));
+
+
+export const Text = styled(TextVariant)(css({
+  color: 'textPrimary',
+}));
+
+export const Unit = styled(TextVariant)(css({
+  mr: 2,
+  color: 'textPrimary',
 }));

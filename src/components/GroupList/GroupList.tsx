@@ -16,21 +16,21 @@ export const GroupList: FC<GroupListProps> = ({ data }) => {
     if (type === 'categories') {
       return (
         <MainIconWrapper bg="#2196F3">
-          <FontAwesome5 name="chart-pie" color={textPrimary} size={18} />
+          <FontAwesome5 name="chart-pie" color="#fff" size={18} />
         </MainIconWrapper>
       );
     }
     if (type === 'person') {
       return (
         <MainIconWrapper bg="#9E9E9E">
-          <Ionicons name="person" color={textPrimary} size={18} />
+          <Ionicons name="person" color="#fff" size={18} />
         </MainIconWrapper>
       );
     }
     if (type === 'currency') {
       return (
         <MainIconWrapper bg="#4CAF50">
-          <Ionicons name="ios-logo-usd" color={textPrimary} size={18} />
+          <Ionicons name="ios-logo-usd" color="#fff" size={18} />
         </MainIconWrapper>
       );
     }

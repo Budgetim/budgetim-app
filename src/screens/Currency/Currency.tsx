@@ -1,29 +1,66 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { StackParamList } from '../types';
 import { Container } from './styled';
 import { SelectList } from '../../components/SelectList';
+import { Loader } from '../../components/Loader';
+import { TextVariant } from '../../components/TextVariant';
+import { getCurrencies } from '../../api/currency/getCurrencies';
+import { Currency as CurrencyType } from '../../types';
+import { useUserDispatch, useUserState } from '../../contexts/user';
+import { updateCurrency } from '../../api/user/updateCurrency';
 
 export const Currency: FC<NativeStackScreenProps<StackParamList, 'Currency'>> = () => {
-  const [currentId, setCurrentId] = useState(0);
+  const { currency, token } = useUserState();
+  const [data, setData] = useState<CurrencyType[] | null>(null);
+  const [error, setError] = useState(null);
+  const [isLoading, setLoading] = useState(true);
+  const dispatch = useUserDispatch();
+
+  const getData = async () => {
+    setLoading(true);
+    try {
+      const result = await getCurrencies();
+      setData(result);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    void getData();
+  }, []);
+
+  const setCurrency = async (id: number) => {
+    const user = await updateCurrency({ currencyId: id }, token);
+    dispatch({ type: 'setUser', payload: { user } });
+  }
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <TextVariant variant="subheadlineBold">{error}</TextVariant>;
+  }
+
+  if (!data) {
+    return null;
+  }
 
   return (
     <Container>
       <SelectList
-        onSelect={(id) => setCurrentId(id)}
-        data={[
-          {
-            id: 0,
-            title: 'USD',
-            isActive: 0 === currentId,
-          },
-          {
-            id: 1,
-            title: 'Rub',
-            isActive: 1 === currentId,
-          },
-        ]}
+        onSelect={(id) => setCurrency(id)}
+        data={data.map(item => {
+          return {
+            ...item,
+            isActive: item.id === currency?.id,
+          };
+        })}
       />
     </Container>
   );

@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useMemo } from 'react';
 
-import { useUser } from '../../contexts/app';
+import { useUserState } from '../../contexts/user';
 import { getTransactions } from '../../api/transaction/getTransactions';
 import { TransactionGroups } from './components/TransactionGroups';
 import { TextVariant } from '../TextVariant';
@@ -17,7 +17,7 @@ interface TransactionsListProps {
 export const TransactionsList: FC<TransactionsListProps> = ({ category, month, year }) => {
   const { isLoading, error } = useTransactionsState();
   const dispatch = useTransactionsDispatch();
-  const { token } = useUser();
+  const { token } = useUserState();
   const isFocused = useIsFocused();
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useTheme } from 'styled-components/native';
 
-import { useUser } from '../../../../contexts/app';
+import { useUserState } from '../../../../contexts/user';
 import { useCategoriesDispatch, useCategoriesState } from '../../../../contexts/categories';
 
 import { Wrapper, ShowMoreWrapper, ShowMoreText } from './styled';
@@ -16,7 +16,7 @@ export const CategoriesList: FC<CategoriesListProps> = ({ activeCategoryId, setC
   const { data, error, isLoading } = useCategoriesState();
   const [showAll, setShowAll] = useState(false);
   const { colors: { systemGray05, textPrimary, bgPrimary } } = useTheme();
-  const { token } = useUser();
+  const { token } = useUserState();
   const dispatch = useCategoriesDispatch();
 
   const getData = async () => {

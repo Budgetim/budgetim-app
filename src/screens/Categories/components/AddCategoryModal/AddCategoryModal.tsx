@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { useUser } from '../../../../contexts/app';
+import { useUserState } from '../../../../contexts/user';
 import { CategoryModalProps } from './types';
 import { addCategory } from '../../../../api/category/addCategory';
 import { useCategoriesDispatch } from '../../../../contexts/categories';
@@ -11,7 +11,7 @@ export const AddCategoryModal: FC<CategoryModalProps> = (props) => {
   const [description, setDescription] = useState<string | null>(null);
   const [color, setColor] = useState<string | null>(null);
   const dispatch = useCategoriesDispatch();
-  const { token } = useUser();
+  const { token } = useUserState();
 
   useEffect(() => {
     if (visible) {

@@ -3,7 +3,7 @@ import Swipeout from 'react-native-swipeout';
 
 import { Category } from '../../../../types';
 
-import { useUser } from '../../../../contexts/app';
+import { useUserState } from '../../../../contexts/user';
 
 import { useTheme } from 'styled-components/native';
 import { deleteCategory } from '../../../../api/category/deleteCategory';
@@ -14,7 +14,7 @@ export const Card: FC<Category> = (props) => {
   const { title, color, description, id } = props;
   const { colors: { bgPrimary, systemRed, textPrimary }} = useTheme();
   const dispatch = useCategoriesDispatch();
-  const { token } = useUser();
+  const { token } = useUserState();
 
   const onDelete = async () => {
     await deleteCategory(id, token);

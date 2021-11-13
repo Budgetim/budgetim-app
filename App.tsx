@@ -3,7 +3,7 @@ import { KeyboardAvoidingView, Platform, useColorScheme } from 'react-native';
 import { NavigationContainer, DarkTheme, DefaultTheme } from '@react-navigation/native';
 import { ThemeProvider } from 'styled-components';
 
-import { AppProvider } from './src/contexts/app';
+import { UserProvider } from './src/contexts/user';
 import colors from './src/theme/colors';
 import space from './src/theme/space';
 import typography from './src/theme/typography';
@@ -14,7 +14,7 @@ export default function App() {
   const navigationTheme = scheme === 'dark' ? DarkTheme : DefaultTheme;
   return (
     <ThemeProvider theme={{ colors: scheme === 'dark' ? colors.dark : colors.light, space, typography }}>
-      <AppProvider>
+      <UserProvider>
         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
           <NavigationContainer
             theme={{
@@ -30,7 +30,7 @@ export default function App() {
             <Screens />
           </NavigationContainer>
         </KeyboardAvoidingView>
-      </AppProvider>
+      </UserProvider>
     </ThemeProvider>
   );
 };

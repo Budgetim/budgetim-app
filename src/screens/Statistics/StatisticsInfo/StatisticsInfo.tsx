@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { ScrollView, View } from 'react-native';
 import format from 'date-fns/format';
 
-import { useUser } from '../../../contexts/app';
+import { useUserState } from '../../../contexts/user';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { getStatistics } from '../../../api/category/getStatistics';
@@ -30,7 +30,7 @@ export interface StatisticsItem {
 }
 
 export const StatisticsInfo: FC<StatisticsInfoProps> = ({ month, year, setNextDate, setPrevDate }) => {
-  const {token} = useUser();
+  const { token, currency } = useUserState();
   const [data, setData] = useState<StatisticsItem[]>([]);
   const [error, setError] = useState(null);
   const [isLoading, setLoading] = useState(true);
@@ -88,7 +88,7 @@ export const StatisticsInfo: FC<StatisticsInfoProps> = ({ month, year, setNextDa
         >
           <ChartSubtitle variant="subheadlineBold">{format(new Date(year, month - 1), 'MMM yyyy')}</ChartSubtitle>
           <ChartTitle variant="bodyBold">
-            {data.length > 0 ? `${separateThousands(data.reduce((sum, item) => sum + +item.sum, 0))} ₽` : ' '}
+            {data.length > 0 ? `${separateThousands(data.reduce((sum, item) => sum + +item.sum, 0))} ${currency?.unit || ''}` : ' '}
           </ChartTitle>
         </PieChart>
         <NavigateButton onPress={setNextDate} disabled={!setNextDate}>

@@ -13,11 +13,18 @@ export interface Category {
   description: string | null;
 }
 
+export interface Currency {
+  id: number;
+  title: string;
+  unit: string;
+}
+
 export interface User {
   id: number;
   email: string;
   name: string;
   token: string;
+  currency: Currency;
 }
 
 export interface Action<T extends string, P extends unknown> {

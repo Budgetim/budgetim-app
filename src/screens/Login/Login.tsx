@@ -5,7 +5,7 @@ import * as SecureStore from 'expo-secure-store';
 import { User } from '../../layouts/User';
 import { InputWithBorder } from '../../components/InputWithBorder';
 import { authentificate } from '../../api/user/authentificate';
-import { useAppDispatch } from '../../contexts/app';
+import { useUserDispatch } from '../../contexts/user';
 import { StackParamList } from '../types';
 
 import { FooterLink, ForgotLink } from './styled';
@@ -15,7 +15,7 @@ export const Login: FC<NativeStackScreenProps<StackParamList, 'Login'>> = ({ nav
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const dispatch = useAppDispatch();
+  const dispatch = useUserDispatch();
 
   const auth = async () => {
     setIsLoading(true);

@@ -1,6 +1,7 @@
 import { Transaction } from '../../types';
 import { authHeader } from '../../helpers/authHeader';
 import format from 'date-fns/format';
+import { formatNumberForServer } from '../../utils/formatNumberForServer';
 
 interface EditTransactionParams {
   id: number;
@@ -11,6 +12,7 @@ interface EditTransactionParams {
 }
 
 export const editTransaction = async (params: EditTransactionParams, token: string | null): Promise<Transaction> => {
+  const { price } = params;
   try {
     const response = await fetch('https://api.budgetim.ru/transaction/edit', {
       method: 'POST',
@@ -18,9 +20,14 @@ export const editTransaction = async (params: EditTransactionParams, token: stri
         'Content-Type': 'application/json',
         ...authHeader(token),
       },
-      body: JSON.stringify({ ...params, date: format(params.date, 'yyyy-MM-dd')}),
+      body: JSON.stringify({
+        ...params,
+        price: formatNumberForServer(price),
+        date: format(params.date, 'yyyy-MM-dd'),
+      }),
     });
-    return await response.json() as Transaction;
+    const transaction = await response.json() as Transaction;
+    return transaction;
   } catch (error: unknown) {
     console.error(error);
     throw (error as object).toString();

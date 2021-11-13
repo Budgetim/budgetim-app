@@ -10,4 +10,5 @@ export interface TransactionModalContentProps {
   visible: boolean;
   onClose: () => void;
   onSave: () => void;
+  isLoading: boolean;
 }

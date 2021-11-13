@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { Pressable, ScrollView, Keyboard } from 'react-native';
+import { Pressable, ScrollView, Keyboard, ActivityIndicator } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 import { Input } from '../Input';
@@ -8,6 +8,7 @@ import { Header, Content, Section, SectionGroup, ModalContent, ButtonText, Modal
 import { TransactionModalContentProps } from './types';
 import { CategoriesList } from './components/CategoriesList';
 import { PopularNames } from './components/PopularNames';
+import { formatNumberWithSign } from '../../utils/formatNumberWithSign';
 
 export const TransactionModalContent: FC<TransactionModalContentProps> = (props) => {
   const {
@@ -22,6 +23,7 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = (props)
     visible,
     onClose,
     onSave,
+    isLoading,
   } = props;
   const [focusedTitle, setFocusedTitle] = useState(false);
 
@@ -40,12 +42,11 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = (props)
             <ButtonText variant="subheadlineRegular">Cancel</ButtonText>
           </Pressable>
           <Pressable
-            onPress={() => {
-              onClose();
-              onSave();
-            }}
+            style={{ display: 'flex', flexDirection: 'row' }}
+            onPress={onSave}
           >
             <ButtonText variant="subheadlineBold">Done</ButtonText>
+            {isLoading && <ActivityIndicator style={{ marginLeft: 4 }} />}
           </Pressable>
         </Header>
         <ScrollView>
@@ -56,7 +57,7 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = (props)
                   variant="subheadlineRegular"
                   defaultValue={title}
                   onChangeText={setTitle}
-                  placeholder="название"
+                  placeholder="title"
                   onFocus={() => setFocusedTitle(true)}
                   onBlur={() => setFocusedTitle(false)}
                 />
@@ -64,11 +65,13 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = (props)
               <Section style={{ width: 120 }}>
                 <Input
                   variant="subheadlineRegular"
-                  defaultValue={price === '0.00' ? '' : (+price).toString()}
-                  onChangeText={price => {
-                    setPrice(price);
+                  onChangeText={p => {
+                    if (p === '' || /^((\d|\s)+),?(\d{1,2})?$/.test(p)) {
+                      setPrice(formatNumberWithSign(p));
+                    }
                   }}
-                  placeholder="сумма"
+                  value={formatNumberWithSign(price)}
+                  placeholder="price"
                   keyboardType="numeric"
                   autoFocus
                 />

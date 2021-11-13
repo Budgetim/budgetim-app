@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { StackParamList } from '../types';
-import { useUser } from '../../contexts/app';
+import { useUserState } from '../../contexts/user';
 
 import { TextVariant } from '../../components/TextVariant';
 import { Loader } from '../../components/Loader';
@@ -19,7 +19,7 @@ export interface StatisticsItem {
 }
 
 export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>> = () => {
-  const {token} = useUser();
+  const { token } = useUserState();
   const [data, setData] = useState<{ data: any[] } | null>(null);
   const [error, setError] = useState(null);
   const [isLoading, setLoading] = useState(true);

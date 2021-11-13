@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { useUser } from '../../contexts/app';
+import { useUserState } from '../../contexts/user';
 import { editTransaction } from '../../api/transaction/editTransaction';
 import { useTransactionsDispatch, useTransactionsState } from '../../contexts/transactions';
 import { TransactionModalContent } from '../TransactionModalContent';
@@ -11,13 +11,14 @@ export const EditTransactionModal: FC = () => {
   const { transaction: { isVisible, id } } = useModalsState();
   const transaction = data.find(item => item.id === id) as Transaction;
 
+  const [isLading, setIsLoading] = useState(false);
   const [title, setTitle] = useState(transaction?.title || '');
-  const [price, setPrice] = useState(transaction?.price || '0.00');
+  const [price, setPrice] = useState(transaction?.price || '');
   const [categoryId, setCategoryId] = useState(transaction?.category?.id || null);
   const [date, setDate] = useState(new Date(transaction?.date) || new Date());
   const dispatch = useTransactionsDispatch();
   const modalsDispatch = useModalsDispatch();
-  const { token } = useUser();
+  const { token } = useUserState();
 
   useEffect(() => {
     if (isVisible) {
@@ -33,8 +34,11 @@ export const EditTransactionModal: FC = () => {
   };
 
   const onEdit = async () => {
+    setIsLoading(true);
     const transaction = await editTransaction({ id, title, categoryId, price, date }, token);
     dispatch({ type: 'editTransaction', payload: { transaction }});
+    setIsLoading(false);
+    closeModal();
   }
 
   return (
@@ -50,6 +54,7 @@ export const EditTransactionModal: FC = () => {
       visible={isVisible}
       onClose={closeModal}
       onSave={onEdit}
+      isLoading={isLading}
     />
   );
 };

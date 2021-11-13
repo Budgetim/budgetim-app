@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as SecureStore from 'expo-secure-store';
 
-import { useAppDispatch, useUser } from '../contexts/app';
+import { useUserDispatch, useUserState } from '../contexts/user';
 
 import { Transactions } from './Transactions';
 import { Categories } from './Categories';
@@ -15,14 +15,15 @@ import { Personal } from './Personal';
 import { TransactionsByCategory } from './TransactionsByCategory';
 import { PasswordReset } from './PasswordReset';
 import { Currency } from './Currency';
+import { Loader } from '../components/Loader';
+import { getUser } from '../api/user/getUser';
 
 const Stack = createStackNavigator<StackParamList>();
 
 export const Screens = () => {
-  const user = useUser();
-  const { token } = user;
-
-  const dispatch = useAppDispatch();
+  const [isLoading, setIsLoading] = useState(true);
+  const { token } = useUserState();
+  const dispatch = useUserDispatch();
 
   useEffect(() => {
     const bootstrapAsync = async () => {
@@ -35,12 +36,27 @@ export const Screens = () => {
       }
 
       if (userToken) {
-        dispatch({ type: 'restoreToken', payload: { token: userToken } });
+        const user = await getUser(userToken);
+        dispatch({
+          type: 'setUser',
+          payload: {
+            user: {
+              ...user,
+              token: userToken,
+            },
+          }
+        });
       }
+
+      setIsLoading(false);
     };
 
     void bootstrapAsync();
   }, []);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <Stack.Navigator>
@@ -103,5 +119,5 @@ export const Screens = () => {
         </>
       )}
     </Stack.Navigator>
-  )
+  );
 };

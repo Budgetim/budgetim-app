@@ -1,6 +1,7 @@
 export interface DataItem {
   id: number;
   title: string;
+  unit?: string;
   color?: string;
   isActive: boolean;
 }

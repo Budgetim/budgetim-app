@@ -16,7 +16,7 @@ export const Container = styled(View)(css({
 
 export const CircleButton = styled(TouchableOpacity)<{ active: boolean }>(({ active }) => css({
   borderRadius: SIZE / 2,
-  borderColor: active ? 'systemGray03' : null,
+  borderColor: active ? 'systemGray03' : 'bgPrimary',
   borderWidth: LINE_WIDTH,
   width: SIZE,
   height: SIZE,

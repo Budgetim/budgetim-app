@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 
-import { useUser } from '../../../../contexts/app';
+import { useUserState } from '../../../../contexts/user';
 import { editCategory } from '../../../../api/category/editCategory';
 import { useCategoriesDispatch, useCategoriesState } from '../../../../contexts/categories';
 import { CategoryModalContent } from '../CategoryModalContent';
@@ -17,7 +17,7 @@ export const EditCategoryModal: FC = () => {
   const [description, setDescription] = useState(category.description);
   const [color, setColor] = useState(category.color);
   const dispatch = useCategoriesDispatch();
-  const { token } = useUser();
+  const { token } = useUserState();
 
   useEffect(() => {
     if (isVisible) {

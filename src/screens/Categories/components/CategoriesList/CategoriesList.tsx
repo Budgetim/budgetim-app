@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { useUser } from '../../../../contexts/app';
+import { useUserState } from '../../../../contexts/user';
 import { FlatList } from 'react-native';
 import { getCategories } from '../../../../api/category/getCategories';
 import { Card } from '../Card';
@@ -10,7 +10,7 @@ import { Loader } from '../../../../components/Loader';
 export const CategoriesList: FC = () => {
   const { data, isLoading, error } = useCategoriesState();
   const dispatch = useCategoriesDispatch();
-  const { token } = useUser();
+  const { token } = useUserState();
 
   const getData = async () => {
     try {

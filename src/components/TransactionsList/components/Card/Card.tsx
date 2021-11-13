@@ -4,7 +4,7 @@ import { useTheme } from 'styled-components/native';
 
 import { Transaction } from '../../../../types';
 
-import { useUser } from '../../../../contexts/app';
+import { useUserState } from '../../../../contexts/user';
 import { deleteTransaction } from '../../../../api/transaction/deleteTransaction';
 import { TransactionCard } from '../../../TransactionCard';
 
@@ -17,7 +17,7 @@ export const Card: FC<Transaction> = memo((props) => {
   const { colors: { bgPrimary, systemRed, textPrimary }} = useTheme();
   const modalsDispatch = useModalsDispatch();
   const transactionsDispatch = useTransactionsDispatch();
-  const { token } = useUser();
+  const { token, currency } = useUserState();
 
   const onDelete = async () => {
     await deleteTransaction(id, token);
@@ -28,7 +28,7 @@ export const Card: FC<Transaction> = memo((props) => {
     <Swipeout
       backgroundColor={bgPrimary}
       right={[{
-        text: 'удалить',
+        text: 'Delete',
         color: textPrimary,
         backgroundColor: systemRed,
         onPress: onDelete,
@@ -42,7 +42,7 @@ export const Card: FC<Transaction> = memo((props) => {
         title={title}
         subTitle={category.title || 'no category'}
         tagColor={category.color}
-        label={`${separateThousands(+price)} ₽`}
+        label={`${separateThousands(+price)} ${currency?.unit || ''}`}
       />
     </Swipeout>
   );

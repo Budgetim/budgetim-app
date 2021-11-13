@@ -9,7 +9,7 @@ import { StackParamList } from '../types';
 import { FooterLink } from './styled';
 import { authentificate } from '../../api/user/authentificate';
 import * as SecureStore from 'expo-secure-store';
-import { useAppDispatch } from '../../contexts/app';
+import { useUserDispatch } from '../../contexts/user';
 
 export const CreateAccount: FC<NativeStackScreenProps<StackParamList, 'CreateAccount'>> = ({ navigation }) => {
   const [name, setName] = useState('');
@@ -17,9 +17,9 @@ export const CreateAccount: FC<NativeStackScreenProps<StackParamList, 'CreateAcc
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const dispatch = useAppDispatch();
+  const dispatch = useUserDispatch();
 
-  const action = async () => {
+  const onRegister = async () => {
     setIsLoading(true);
     try {
       await register({ name, email, password });
@@ -64,7 +64,7 @@ export const CreateAccount: FC<NativeStackScreenProps<StackParamList, 'CreateAcc
       )}
       button={{
         text: 'Register',
-        action,
+        action: onRegister,
         withLoader: isLoading,
       }}
       footer={(
