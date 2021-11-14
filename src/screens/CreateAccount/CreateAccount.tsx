@@ -53,12 +53,14 @@ export const CreateAccount: FC<NativeStackScreenProps<StackParamList, 'CreateAcc
             defaultValue={email}
             onChangeText={setEmail}
             placeholder="Email"
+            autoCompleteType="email"
           />
           <InputWithBorder
             variant="bodyRegular"
             defaultValue={password}
             onChangeText={setPassword}
             placeholder="Password"
+            secureTextEntry
           />
         </>
       )}

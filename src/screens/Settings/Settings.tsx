@@ -4,7 +4,6 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StackParamList } from '../types';
 import { Container, ListWrapper } from './styled';
 import { GroupList } from '../../components/GroupList';
-import { useUser } from '../../contexts/user';
 import { useUserState } from '../../contexts/user';
 
 export const Settings: FC<NativeStackScreenProps<StackParamList, 'Settings'>> = ({ navigation }) => {

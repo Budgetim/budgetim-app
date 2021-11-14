@@ -7,7 +7,7 @@ import { StackParamList } from '../types';
 
 import { resetPassword } from '../../api/user/resetPassword';
 
-export const PasswordReset: FC<NativeStackScreenProps<StackParamList, 'Login'>> = ({ navigation }) => {
+export const PasswordReset: FC<NativeStackScreenProps<StackParamList, 'PasswordReset'>> = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -36,6 +36,7 @@ export const PasswordReset: FC<NativeStackScreenProps<StackParamList, 'Login'>> 
             defaultValue={email}
             onChangeText={setEmail}
             placeholder="Email"
+            autoCompleteType="email"
           />
         </>
       )}

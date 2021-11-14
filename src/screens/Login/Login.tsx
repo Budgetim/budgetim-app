@@ -44,12 +44,15 @@ export const Login: FC<NativeStackScreenProps<StackParamList, 'Login'>> = ({ nav
             defaultValue={email}
             onChangeText={setEmail}
             placeholder="Email"
+            autoCompleteType="email"
           />
           <InputWithBorder
             variant="bodyRegular"
             defaultValue={password}
             onChangeText={setPassword}
             placeholder="Password"
+            autoCompleteType="password"
+            secureTextEntry
           />
           <ForgotLink variant="bodyBold" onPress={() => navigation.navigate('PasswordReset')}>Forgot password?</ForgotLink>
         </>

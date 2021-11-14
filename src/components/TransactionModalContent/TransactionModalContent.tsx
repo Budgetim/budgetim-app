@@ -45,8 +45,7 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = (props)
             style={{ display: 'flex', flexDirection: 'row' }}
             onPress={onSave}
           >
-            <ButtonText variant="subheadlineBold">Done</ButtonText>
-            {isLoading && <ActivityIndicator style={{ marginLeft: 4 }} />}
+            {isLoading ? <ActivityIndicator /> : <ButtonText variant="subheadlineBold">Done</ButtonText>}
           </Pressable>
         </Header>
         <ScrollView>

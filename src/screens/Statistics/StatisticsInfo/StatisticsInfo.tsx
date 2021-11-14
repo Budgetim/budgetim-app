@@ -95,7 +95,7 @@ export const StatisticsInfo: FC<StatisticsInfoProps> = ({ month, year, setNextDa
           <MaterialIcons name="arrow-forward-ios" color={textPrimary} size={24} />
         </NavigateButton>
       </PieChartWrapper>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }} scrollIndicatorInsets={{ right: 1 }}>
         {renderContent()}
       </ScrollView>
     </View>

@@ -1,21 +1,48 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import * as SecureStore from 'expo-secure-store';
-import { TouchableOpacity } from 'react-native';
 
-import { useUserDispatch } from '../../contexts/user';
+import { useUserDispatch, useUserState } from '../../contexts/user';
 import { GroupList } from '../../components/GroupList';
 
 import { StackParamList } from '../types';
 import { Container, Link, SignOutButton } from './styled';
+import { EditPasswordModal } from './EditPasswordModal';
+import { InputList } from '../../components/InputList';
+import { updatePassword } from '../../api/user/updatePassword';
 
-export const Personal: FC<NativeStackScreenProps<StackParamList, 'Personal'>> = () => {
+export const Personal: FC<NativeStackScreenProps<StackParamList, 'Personal'>> = ({ navigation }) => {
   const dispatch = useUserDispatch();
+  const { token } = useUserState();
+  const [visible, setVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [value, setValue] = useState('');
+
+  const closeModal = () => {
+    setVisible(false);
+  };
 
   const logOut = async () => {
     dispatch({ type: 'setToken', payload: { token: null } });
     await SecureStore.deleteItemAsync('userToken');
   };
+
+  const changePassword = async () => {
+    setIsLoading(true);
+    try {
+      await updatePassword({ password: value }, token);
+    } catch(e) {
+    } finally {
+      setIsLoading(false);
+      closeModal();
+    }
+  }
+
+  useEffect(() => {
+    if (visible) {
+      setValue('');
+    }
+  }, [visible]);
 
   return (
     <Container>
@@ -23,13 +50,31 @@ export const Personal: FC<NativeStackScreenProps<StackParamList, 'Personal'>> = 
         data={[
           {
             title: 'Change password',
-            onPress: () => {},
+            onPress: () => setVisible(true),
           },
         ]}
       />
       <SignOutButton onPress={logOut}>
         <Link variant="bodyRegular">Sign out</Link>
       </SignOutButton>
+      <EditPasswordModal
+        visible={visible}
+        onClose={closeModal}
+        onSave={changePassword}
+        isLoading={isLoading}
+        disable={value.length === 0}
+      >
+        <InputList
+          data={[
+            {
+              title: 'New',
+              placeholder: 'enter password',
+              value,
+              setValue,
+            }
+          ]}
+        />
+      </EditPasswordModal>
     </Container>
   );
 };
