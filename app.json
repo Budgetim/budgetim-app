@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#323030"
+      "backgroundColor": "#FFFFFF"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -19,7 +19,7 @@
     ],
     "ios": {
       "icon": "./assets/icon.png",
-      "backgroundColor": "#323030",
+      "backgroundColor": "#FFFFFF",
       "supportsTablet": true,
       "bundleIdentifier": "budgetim"
     },
