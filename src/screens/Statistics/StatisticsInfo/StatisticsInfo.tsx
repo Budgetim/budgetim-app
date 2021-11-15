@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { ScrollView, View } from 'react-native';
+import { Platform, ScrollView, View } from 'react-native';
 import format from 'date-fns/format';
 
 import { useUserState } from '../../../contexts/user';
@@ -13,6 +13,8 @@ import { useTheme } from 'styled-components/native';
 import { TextVariant } from '../../../components/TextVariant';
 import { Loader } from '../../../components/Loader';
 import { CategoriesList } from '../CategoriesList';
+import { AdMobBanner } from 'expo-ads-admob';
+import { STATISTICS_ADD_ID } from '../../../constants';
 
 export interface StatisticsInfoProps {
   year: number;
@@ -98,6 +100,12 @@ export const StatisticsInfo: FC<StatisticsInfoProps> = ({ month, year, setNextDa
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} scrollIndicatorInsets={{ right: 1 }}>
         {renderContent()}
       </ScrollView>
+      <AdMobBanner
+        adUnitID={Platform.select({
+          ios: STATISTICS_ADD_ID,
+        })}
+        servePersonalizedAds={true}
+      />
     </View>
   );
 };

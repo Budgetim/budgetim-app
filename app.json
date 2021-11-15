@@ -21,7 +21,10 @@
       "icon": "./assets/icon.png",
       "backgroundColor": "#FFFFFF",
       "supportsTablet": true,
-      "bundleIdentifier": "budgetim"
+      "bundleIdentifier": "budgetim",
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-2490800653471089~9366624135"
+      }
     },
     "android": {
       "adaptiveIcon": {

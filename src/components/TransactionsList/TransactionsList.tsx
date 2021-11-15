@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo } from 'react';
+import React, { FC, useEffect } from 'react';
 
 import { useUserState } from '../../contexts/user';
 import { getTransactions } from '../../api/transaction/getTransactions';

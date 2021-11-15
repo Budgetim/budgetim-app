@@ -1,8 +1,9 @@
-import React, { FC, useState, useLayoutEffect, useEffect } from 'react';
-import { Dimensions, ScrollView, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { FC, useState, useLayoutEffect } from 'react';
+import { Platform, ScrollView, TouchableOpacity, View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useTheme } from 'styled-components/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { AdMobBanner } from "expo-ads-admob";
 
 import { StackParamList } from '../types';
 
@@ -13,6 +14,7 @@ import { CategoriesProvider } from '../../contexts/categories';
 import { TransactionsProvider } from '../../contexts/transactions';
 import { TransactionsList } from '../../components/TransactionsList';
 import { ModalsProvider } from '../../contexts/modals';
+import { TRANSACTIONS_ADD_ID } from '../../constants';
 
 export const Transactions: FC<NativeStackScreenProps<StackParamList, 'Transactions'>> = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -28,14 +30,18 @@ export const Transactions: FC<NativeStackScreenProps<StackParamList, 'Transactio
     });
   }, [navigation]);
 
-  // height: Dimensions.get('window').height
-
   return (
     <TransactionsProvider>
       <CategoriesProvider>
         <ModalsProvider>
           <View style={{ flex: 1 }}>
             <ScrollView contentContainerStyle={{ flex: 1 }}>
+              <AdMobBanner
+                adUnitID={Platform.select({
+                  ios: TRANSACTIONS_ADD_ID,
+                })}
+                servePersonalizedAds={true}
+              />
               <TransactionsList />
             </ScrollView>
             <Footer>
