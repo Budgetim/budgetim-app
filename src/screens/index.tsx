@@ -37,16 +37,19 @@ export const Screens = () => {
       }
 
       if (userToken) {
-        const user = await getUser(userToken);
-        dispatch({
-          type: 'setUser',
-          payload: {
-            user: {
-              ...user,
-              token: userToken,
-            },
-          }
-        });
+        try {
+          const user = await getUser(userToken);
+          dispatch({
+            type: 'setUser',
+            payload: {
+              user: {
+                ...user,
+                token: userToken,
+              },
+            }
+          });
+        } catch (error) {
+        }
       }
 
       setIsLoading(false);

@@ -4,6 +4,7 @@ import { useUserState } from '../../../../contexts/user';
 import { editCategory } from '../../../../api/category/editCategory';
 import { useCategoriesDispatch, useCategoriesState } from '../../../../contexts/categories';
 import { CategoryModalContent } from '../CategoryModalContent';
+import { useErrorHandler } from '../../../../hooks/useErrorHandler';
 
 export const EditCategoryModal: FC = () => {
   const { modal: { isVisible, id }, data } = useCategoriesState();
@@ -13,11 +14,14 @@ export const EditCategoryModal: FC = () => {
     return null;
   }
 
+  const [error, setError] = useState(null);
   const [title, setTitle] = useState(category.title);
   const [description, setDescription] = useState(category.description);
   const [color, setColor] = useState(category.color);
   const dispatch = useCategoriesDispatch();
   const { token } = useUserState();
+
+  useErrorHandler(error);
 
   useEffect(() => {
     if (isVisible) {
@@ -32,8 +36,12 @@ export const EditCategoryModal: FC = () => {
   }
 
   const onEdit = async () => {
-    const category = await editCategory({ id, description, title, color }, token);
-    dispatch({ type: 'editCategory', payload: { category } });
+    try {
+      const category = await editCategory({ id, description, title, color }, token);
+      dispatch({ type: 'editCategory', payload: { category } });
+    } catch (error) {
+      setError(error);
+    }
   }
 
   return (

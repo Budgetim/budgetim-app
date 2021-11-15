@@ -3,6 +3,7 @@ import { Pressable, ScrollView, Keyboard, ActivityIndicator } from 'react-native
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 import { Input } from '../Input';
+import en from '../../lang/en.json';
 
 import { Header, Content, Section, SectionGroup, ModalContent, ButtonText, ModalWrapper, NameSection } from './styled';
 import { TransactionModalContentProps } from './types';
@@ -39,13 +40,13 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = (props)
       <ModalContent>
         <Header>
           <Pressable onPress={onClose}>
-            <ButtonText variant="subheadlineRegular">Cancel</ButtonText>
+            <ButtonText variant="subheadlineRegular">{en.common.action.cancel}</ButtonText>
           </Pressable>
           <Pressable
             style={{ display: 'flex', flexDirection: 'row' }}
             onPress={onSave}
           >
-            {isLoading ? <ActivityIndicator /> : <ButtonText variant="subheadlineBold">Done</ButtonText>}
+            {isLoading ? <ActivityIndicator /> : <ButtonText variant="subheadlineBold">{en.common.action.done}</ButtonText>}
           </Pressable>
         </Header>
         <ScrollView>
@@ -56,7 +57,7 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = (props)
                   variant="subheadlineRegular"
                   defaultValue={title}
                   onChangeText={setTitle}
-                  placeholder="title"
+                  placeholder={en.transactions.form.title}
                   onFocus={() => setFocusedTitle(true)}
                   onBlur={() => setFocusedTitle(false)}
                 />
@@ -70,7 +71,7 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = (props)
                     }
                   }}
                   value={formatNumberWithSign(price)}
-                  placeholder="price"
+                  placeholder={en.transactions.form.price}
                   keyboardType="numeric"
                   autoFocus
                 />

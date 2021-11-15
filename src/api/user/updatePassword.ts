@@ -7,7 +7,6 @@ interface UpdatePasswordParams {
 
 export const updatePassword = async (params: UpdatePasswordParams, token: string | null): Promise<User> => {
   try {
-
     const response = await fetch('https://api.budgetim.ru/users/updatePassword', {
       method: 'POST',
       headers: {
@@ -16,6 +15,9 @@ export const updatePassword = async (params: UpdatePasswordParams, token: string
       },
       body: JSON.stringify(params),
     });
+    if (response.status === 403) {
+      throw 403;
+    }
     return await response.json() as User;
   } catch (error: unknown) {
     console.error(error);

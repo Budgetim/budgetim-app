@@ -4,16 +4,20 @@ import { addTransaction } from '../../../../api/transaction/addTransaction';
 import { AddTransactionModalProps } from './types';
 import { useTransactionsDispatch } from '../../../../contexts/transactions';
 import { TransactionModalContent } from '../../../../components/TransactionModalContent';
+import { useErrorHandler } from '../../../../hooks/useErrorHandler';
 
 export const AddTransactionModal: FC<AddTransactionModalProps> = (props) => {
   const { visible, setVisible } = props;
   const [title, setTitle] = useState('');
   const [price, setPrice] = useState('');
+  const [error, setError] = useState(null);
   const [categoryId, setCategoryId] = useState<null | number>(null);
   const [isLading, setIsLoading] = useState(false);
   const [date, setDate] = useState(new Date());
   const dispatch = useTransactionsDispatch();
   const { token } = useUserState();
+
+  useErrorHandler(error);
 
   useEffect(() => {
     if (visible) {
@@ -26,10 +30,15 @@ export const AddTransactionModal: FC<AddTransactionModalProps> = (props) => {
 
   const onAdd = async () => {
     setIsLoading(true);
-    const transaction = await addTransaction({ title, categoryId, price, date }, token);
-    dispatch({ type: 'addTransaction', payload: { transaction }});
-    setIsLoading(false);
-    setVisible(false);
+    try {
+      const transaction = await addTransaction({ title, categoryId, price, date }, token);
+      dispatch({ type: 'addTransaction', payload: { transaction }});
+    } catch (error) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
+      setVisible(false);
+    }
   }
 
   return (

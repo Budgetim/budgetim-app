@@ -1,6 +1,7 @@
-import React, { FC, memo } from 'react';
+import React, { FC, memo, useState } from 'react';
 import Swipeout from 'react-native-swipeout';
 import { useTheme } from 'styled-components/native';
+import en from '../../../../lang/en.json';
 
 import { Transaction } from '../../../../types';
 
@@ -11,6 +12,7 @@ import { TransactionCard } from '../../../TransactionCard';
 import { separateThousands } from '../../../../utils/separateThousands';
 import { useTransactionsDispatch } from '../../../../contexts/transactions';
 import { useModalsDispatch } from '../../../../contexts/modals';
+import { useErrorHandler } from '../../../../hooks/useErrorHandler';
 
 export const Card: FC<Transaction> = memo((props) => {
   const { title, category, price, id } = props;
@@ -18,17 +20,24 @@ export const Card: FC<Transaction> = memo((props) => {
   const modalsDispatch = useModalsDispatch();
   const transactionsDispatch = useTransactionsDispatch();
   const { token, currency } = useUserState();
+  const [error, setError] = useState(null);
+
+  useErrorHandler(error);
 
   const onDelete = async () => {
-    await deleteTransaction(id, token);
-    transactionsDispatch({ type: 'deleteTransaction', payload: { id }})
+    try {
+      await deleteTransaction(id, token);
+      transactionsDispatch({ type: 'deleteTransaction', payload: { id }})
+    } catch (error) {
+      setError(error);
+    }
   };
 
   return (
     <Swipeout
       backgroundColor={bgPrimary}
       right={[{
-        text: 'Delete',
+        text: en.common.action.delete,
         color: textPrimary,
         backgroundColor: systemRed,
         onPress: onDelete,
@@ -40,7 +49,7 @@ export const Card: FC<Transaction> = memo((props) => {
           modalsDispatch({ type: 'setTransactionModalVisible', payload: { isVisible: true } });
         }}
         title={title}
-        subTitle={category.title || 'no category'}
+        subTitle={category.title || en.transactions.emptyCategory}
         tagColor={category.color}
         label={`${separateThousands(+price)} ${currency?.unit || ''}`}
       />

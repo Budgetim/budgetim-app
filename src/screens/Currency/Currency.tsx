@@ -10,6 +10,7 @@ import { getCurrencies } from '../../api/currency/getCurrencies';
 import { Currency as CurrencyType } from '../../types';
 import { useUserDispatch, useUserState } from '../../contexts/user';
 import { updateCurrency } from '../../api/user/updateCurrency';
+import { useErrorHandler } from '../../hooks/useErrorHandler';
 
 export const Currency: FC<NativeStackScreenProps<StackParamList, 'Currency'>> = () => {
   const { currency, token } = useUserState();
@@ -17,6 +18,8 @@ export const Currency: FC<NativeStackScreenProps<StackParamList, 'Currency'>> = 
   const [error, setError] = useState(null);
   const [isLoading, setLoading] = useState(true);
   const dispatch = useUserDispatch();
+
+  useErrorHandler(error);
 
   const getData = async () => {
     setLoading(true);
@@ -35,8 +38,12 @@ export const Currency: FC<NativeStackScreenProps<StackParamList, 'Currency'>> = 
   }, []);
 
   const setCurrency = async (id: number) => {
-    const user = await updateCurrency({ currencyId: id }, token);
-    dispatch({ type: 'setUser', payload: { user } });
+    try {
+      const user = await updateCurrency({ currencyId: id }, token);
+      dispatch({ type: 'setUser', payload: { user } });
+    } catch (error) {
+      setError(error);
+    }
   }
 
   if (isLoading) {

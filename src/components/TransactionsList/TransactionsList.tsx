@@ -7,6 +7,7 @@ import { TextVariant } from '../TextVariant';
 import { useTransactionsState, useTransactionsDispatch } from '../../contexts/transactions';
 import { Loader } from '../Loader';
 import { useIsFocused } from '@react-navigation/native';
+import { useErrorHandler } from '../../hooks/useErrorHandler';
 
 interface TransactionsListProps {
   category?: number;
@@ -19,6 +20,8 @@ export const TransactionsList: FC<TransactionsListProps> = ({ category, month, y
   const dispatch = useTransactionsDispatch();
   const { token } = useUserState();
   const isFocused = useIsFocused();
+
+  useErrorHandler(error);
 
   useEffect(() => {
     if (isFocused) {

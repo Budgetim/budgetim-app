@@ -18,6 +18,9 @@ export const editCategory = async (params: EditCategoryParams, token: string | n
       },
       body: JSON.stringify(params),
     });
+    if (response.status === 403) {
+      throw 403;
+    }
     return await response.json() as Category;
   } catch (error: unknown) {
     console.error(error);

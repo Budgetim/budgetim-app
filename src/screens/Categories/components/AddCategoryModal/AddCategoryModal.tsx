@@ -4,14 +4,18 @@ import { CategoryModalProps } from './types';
 import { addCategory } from '../../../../api/category/addCategory';
 import { useCategoriesDispatch } from '../../../../contexts/categories';
 import { CategoryModalContent } from '../CategoryModalContent';
+import { useErrorHandler } from '../../../../hooks/useErrorHandler';
 
 export const AddCategoryModal: FC<CategoryModalProps> = (props) => {
   const { visible, setVisible } = props;
   const [title, setTitle] = useState('');
+  const [error, setError] = useState(null);
   const [description, setDescription] = useState<string | null>(null);
   const [color, setColor] = useState<string | null>(null);
   const dispatch = useCategoriesDispatch();
   const { token } = useUserState();
+
+  useErrorHandler(error);
 
   useEffect(() => {
     if (visible) {
@@ -25,9 +29,13 @@ export const AddCategoryModal: FC<CategoryModalProps> = (props) => {
     setVisible(false);
   }
 
-  const onEdit = async () => {
-    const category = await addCategory({ description, title, color }, token);
-    dispatch({ type: 'addCategory', payload: { category } });
+  const onAdd = async () => {
+    try {
+      const category = await addCategory({ description, title, color }, token);
+      dispatch({ type: 'addCategory', payload: { category } });
+    } catch (error) {
+      setError(error);
+    }
   }
 
   return (
@@ -40,7 +48,7 @@ export const AddCategoryModal: FC<CategoryModalProps> = (props) => {
       setColor={setColor}
       visible={visible}
       onClose={onClose}
-      onSave={onEdit}
+      onSave={onAdd}
     />
   );
 };

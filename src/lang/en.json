@@ -16,7 +16,12 @@
     "title": "Password reset"
   },
   "transactions": {
-    "title": "Transactions"
+    "title": "Transactions",
+    "emptyCategory": "no category",
+    "form": {
+      "title": "title",
+      "price": "price"
+    }
   },
   "categories": {
     "title": "Categories",

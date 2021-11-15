@@ -6,6 +6,9 @@ export const getAvailableMonths = async (token: string | null): Promise<{ data: 
     const response = await fetch(`https://api.budgetim.ru/transaction/availableMonths`, {
       headers: authHeader(token),
     });
+    if (response.status === 403) {
+      throw 403;
+    }
     const dates = await response.json() as { data: any[] };
     return dates;
   } catch (error: unknown) {

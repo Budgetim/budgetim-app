@@ -15,6 +15,7 @@ import { Loader } from '../../../components/Loader';
 import { CategoriesList } from '../CategoriesList';
 import { AdMobBanner } from 'expo-ads-admob';
 import { STATISTICS_ADD_ID } from '../../../constants';
+import { useErrorHandler } from '../../../hooks/useErrorHandler';
 
 export interface StatisticsInfoProps {
   year: number;
@@ -38,6 +39,8 @@ export const StatisticsInfo: FC<StatisticsInfoProps> = ({ month, year, setNextDa
   const [isLoading, setLoading] = useState(true);
 
   const { colors: { textPrimary } } = useTheme();
+
+  useErrorHandler(error);
 
   const getStatisticsInit = async () => {
     setLoading(true);

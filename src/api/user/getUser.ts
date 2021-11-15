@@ -8,6 +8,9 @@ export const getUser = async (token: string | null): Promise<User> => {
     const response = await fetch(`https://api.budgetim.ru/users`, {
       headers: authHeader(token),
     });
+    if (response.status === 403) {
+      throw 403;
+    }
     const user = await response.json() as User;
     return user;
   } catch (error: unknown) {

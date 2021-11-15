@@ -11,6 +11,7 @@ import { TextVariant } from '../../../TextVariant';
 import { Loader } from '../../../Loader';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { SelectList } from '../../../SelectList';
+import { useErrorHandler } from '../../../../hooks/useErrorHandler';
 
 export const CategoriesList: FC<CategoriesListProps> = ({ activeCategoryId, setCategoryId }) => {
   const { data, error, isLoading } = useCategoriesState();
@@ -18,6 +19,8 @@ export const CategoriesList: FC<CategoriesListProps> = ({ activeCategoryId, setC
   const { colors: { systemGray05, textPrimary, bgPrimary } } = useTheme();
   const { token } = useUserState();
   const dispatch = useCategoriesDispatch();
+
+  useErrorHandler(error);
 
   const getData = async () => {
     try {

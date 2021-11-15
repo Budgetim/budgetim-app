@@ -10,6 +10,7 @@ import { Container, Link, SignOutButton } from './styled';
 import { EditPasswordModal } from './EditPasswordModal';
 import { InputList } from '../../components/InputList';
 import { updatePassword } from '../../api/user/updatePassword';
+import { useErrorHandler } from '../../hooks/useErrorHandler';
 
 export const Personal: FC<NativeStackScreenProps<StackParamList, 'Personal'>> = ({ navigation }) => {
   const dispatch = useUserDispatch();
@@ -17,14 +18,17 @@ export const Personal: FC<NativeStackScreenProps<StackParamList, 'Personal'>> = 
   const [visible, setVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [value, setValue] = useState('');
+  const [error, setError] = useState(null);
+
+  useErrorHandler(error);
 
   const closeModal = () => {
     setVisible(false);
   };
 
   const logOut = async () => {
-    dispatch({ type: 'setToken', payload: { token: null } });
     await SecureStore.deleteItemAsync('userToken');
+    dispatch({ type: 'setToken', payload: { token: null } });
   };
 
   const changePassword = async () => {
@@ -32,6 +36,7 @@ export const Personal: FC<NativeStackScreenProps<StackParamList, 'Personal'>> = 
     try {
       await updatePassword({ password: value }, token);
     } catch(e) {
+      setError(e);
     } finally {
       setIsLoading(false);
       closeModal();

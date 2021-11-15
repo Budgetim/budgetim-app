@@ -18,6 +18,10 @@ export const getStatistics = async (params: GetStatisticsParams, token: string |
       body: JSON.stringify(params),
     });
 
+    if (response.status === 403) {
+      throw 403;
+    }
+
     return await response.json() as StatisticsItem[];
   } catch (error: unknown) {
     console.error(error);

@@ -26,6 +26,9 @@ export const editTransaction = async (params: EditTransactionParams, token: stri
         date: format(params.date, 'yyyy-MM-dd'),
       }),
     });
+    if (response.status === 403) {
+      throw 403;
+    }
     const transaction = await response.json() as Transaction;
     return transaction;
   } catch (error: unknown) {

@@ -2,7 +2,7 @@ import { authHeader } from '../../helpers/authHeader';
 
 export const deleteCategory = async (id: number, token: string | null) => {
   try {
-    await fetch('https://api.budgetim.ru/categories/delete', {
+    const response = await fetch('https://api.budgetim.ru/categories/delete', {
       method: 'POST',
       headers: {
         ...authHeader(token),
@@ -10,6 +10,9 @@ export const deleteCategory = async (id: number, token: string | null) => {
       },
       body: JSON.stringify({ id }),
     });
+    if (response.status === 403) {
+      throw 403;
+    }
   } catch (error: unknown) {
     console.error(error);
     throw (error as object).toString();

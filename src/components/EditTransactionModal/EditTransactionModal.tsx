@@ -5,6 +5,7 @@ import { useTransactionsDispatch, useTransactionsState } from '../../contexts/tr
 import { TransactionModalContent } from '../TransactionModalContent';
 import { Transaction } from '../../types';
 import { useModalsDispatch, useModalsState } from '../../contexts/modals';
+import { useErrorHandler } from '../../hooks/useErrorHandler';
 
 export const EditTransactionModal: FC = () => {
   const { data } = useTransactionsState();
@@ -12,6 +13,7 @@ export const EditTransactionModal: FC = () => {
   const transaction = data.find(item => item.id === id) as Transaction;
 
   const [isLading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [title, setTitle] = useState(transaction?.title || '');
   const [price, setPrice] = useState(transaction?.price || '');
   const [categoryId, setCategoryId] = useState(transaction?.category?.id || null);
@@ -19,6 +21,8 @@ export const EditTransactionModal: FC = () => {
   const dispatch = useTransactionsDispatch();
   const modalsDispatch = useModalsDispatch();
   const { token } = useUserState();
+
+  useErrorHandler(error);
 
   useEffect(() => {
     if (isVisible) {
@@ -35,10 +39,15 @@ export const EditTransactionModal: FC = () => {
 
   const onEdit = async () => {
     setIsLoading(true);
-    const transaction = await editTransaction({ id, title, categoryId, price, date }, token);
-    dispatch({ type: 'editTransaction', payload: { transaction }});
-    setIsLoading(false);
-    closeModal();
+    try {
+      const transaction = await editTransaction({ id, title, categoryId, price, date }, token);
+      dispatch({ type: 'editTransaction', payload: { transaction }});
+    } catch (error) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
+      closeModal();
+    }
   }
 
   return (

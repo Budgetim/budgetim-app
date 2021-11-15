@@ -14,6 +14,10 @@ export const getTransactions = async (params: GetTransactionsParams, token: stri
     const response = await fetch(`https://api.budgetim.ru/transaction?${serialize(params)}`, {
       headers: authHeader(token),
     });
+
+    if (response.status === 403) {
+      throw 403;
+    }
     const transactions = await response.json() as Transaction[];
     return transactions;
   } catch (error: unknown) {

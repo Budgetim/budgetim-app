@@ -9,6 +9,7 @@ import { TextVariant } from '../../components/TextVariant';
 import { Loader } from '../../components/Loader';
 import { getAvailableMonths } from '../../api/transaction/getAvailableMonths';
 import { StatisticsInfo } from './StatisticsInfo';
+import { useErrorHandler } from '../../hooks/useErrorHandler';
 
 export interface StatisticsItem {
   color: string;
@@ -25,6 +26,8 @@ export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>
   const [isLoading, setLoading] = useState(true);
 
   const [indexDate, setIndexDate] = useState(0);
+
+  useErrorHandler(error);
 
   const getAvailableDates = async () => {
     setLoading(true);
