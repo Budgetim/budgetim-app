@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
-import { Platform, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import format from 'date-fns/format';
 import locale from 'date-fns/locale/en-US';
-import { AdMobBanner } from 'expo-ads-admob';
 
 import { StackParamList } from '../types';
 import { TransactionsProvider } from '../../contexts/transactions';
@@ -11,7 +10,6 @@ import { TransactionsList } from '../../components/TransactionsList';
 import { CategoriesProvider } from '../../contexts/categories';
 import { EditTransactionModal } from '../../components/EditTransactionModal';
 import { ModalsProvider } from '../../contexts/modals';
-import { TRANSACTIONS_BY_CATEGORY_ADD_ID } from '../../constants';
 
 export const TransactionsByCategory: FC<NativeStackScreenProps<StackParamList, 'TransactionsByCategory'>> = ({ route, navigation }) => {
   const { category, month, year, categoryTitle } = route.params;
@@ -30,12 +28,6 @@ export const TransactionsByCategory: FC<NativeStackScreenProps<StackParamList, '
         <ModalsProvider>
           <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={{ flex: 1 }}>
             <TransactionsList category={category} month={month} year={year} />
-            <AdMobBanner
-              adUnitID={Platform.select({
-                ios: TRANSACTIONS_BY_CATEGORY_ADD_ID,
-              })}
-              servePersonalizedAds={true}
-            />
           </ScrollView>
           <EditTransactionModal />
         </ModalsProvider>

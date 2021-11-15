@@ -13,31 +13,7 @@ interface AddParams {
 export const addTransaction = async (params: AddParams, token: string | null): Promise<Transaction> => {
   const { price } = params;
   try {
-    // const fn = async () => {
-    //   const response = await fetch('https://api.budgetim.ru/transaction/add', {
-    //     method: 'POST',
-    //     headers: {
-    //       ...authHeader(token),
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //       ...params,
-    //       price: formatNumberForServer(price),
-    //       date: format(params.date, 'yyyy-MM-dd'),
-    //     }),
-    //   });
-    //   const transaction = await response.json() as Transaction;
-    //
-    //   return new Promise((resolve => {
-    //     setTimeout(() => {
-    //       resolve(transaction);
-    //     }, 2000);
-    //   }))
-    // }
-    //
-    // const res = await fn();
-    // return res;
-
+    // await new Promise(resolve => setTimeout(resolve, 3000));
     const response = await fetch('https://api.budgetim.ru/transaction/add', {
       method: 'POST',
       headers: {

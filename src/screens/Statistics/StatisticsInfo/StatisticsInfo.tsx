@@ -72,6 +72,12 @@ export const StatisticsInfo: FC<StatisticsInfoProps> = ({ month, year, setNextDa
 
   return (
     <View style={{ flex: 1 }}>
+      <AdMobBanner
+        adUnitID={Platform.select({
+          ios: STATISTICS_ADD_ID,
+        })}
+        servePersonalizedAds={true}
+      />
       <PieChartWrapper>
         <NavigateButton onPress={setPrevDate} disabled={!setPrevDate}>
           <MaterialIcons name="arrow-back-ios" color={textPrimary} size={24} />
@@ -100,12 +106,6 @@ export const StatisticsInfo: FC<StatisticsInfoProps> = ({ month, year, setNextDa
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} scrollIndicatorInsets={{ right: 1 }}>
         {renderContent()}
       </ScrollView>
-      <AdMobBanner
-        adUnitID={Platform.select({
-          ios: STATISTICS_ADD_ID,
-        })}
-        servePersonalizedAds={true}
-      />
     </View>
   );
 };

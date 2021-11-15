@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { Pressable, ScrollView } from 'react-native';
 
 import { Input } from '../../../../components/Input';
+import en from '../../../../lang/en.json';
 
 import { Header, Content, Section, ModalContent, ButtonText, ModalWrapper } from './styled';
 import { CategoryModalContentProps } from './types';
@@ -33,7 +34,7 @@ export const CategoryModalContent: FC<CategoryModalContentProps> = (props) => {
       <ModalContent>
         <Header>
           <Pressable onPress={onClose}>
-            <ButtonText variant="subheadlineRegular">Cancel</ButtonText>
+            <ButtonText variant="subheadlineRegular">{en.common.action.cancel}</ButtonText>
           </Pressable>
           <Pressable
             onPress={() => {
@@ -41,7 +42,7 @@ export const CategoryModalContent: FC<CategoryModalContentProps> = (props) => {
               onClose();
             }}
           >
-            <ButtonText variant="subheadlineBold">Done</ButtonText>
+            <ButtonText variant="subheadlineBold">{en.common.action.done}</ButtonText>
           </Pressable>
         </Header>
         <ScrollView>
@@ -51,7 +52,7 @@ export const CategoryModalContent: FC<CategoryModalContentProps> = (props) => {
                 variant="subheadlineRegular"
                 defaultValue={title}
                 onChangeText={setTitle}
-                placeholder="название"
+                placeholder={en.categories.form.name}
               />
             </Section>
             <Section>
@@ -59,7 +60,7 @@ export const CategoryModalContent: FC<CategoryModalContentProps> = (props) => {
                 variant="subheadlineRegular"
                 defaultValue={description || ''}
                 onChangeText={setDescription}
-                placeholder="описание"
+                placeholder={en.categories.form.description}
               />
             </Section>
             <Section>

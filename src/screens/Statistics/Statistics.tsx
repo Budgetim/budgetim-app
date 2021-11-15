@@ -30,7 +30,7 @@ export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>
     setLoading(true);
     try {
       const result = await getAvailableMonths(token);
-      setData(result as any);
+      setData(result);
       setIndexDate(result.data.length - 1);
     } catch (error) {
       setError(error);
@@ -56,6 +56,15 @@ export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>
   }
 
   const { data: dates } = data;
+
+  if (!dates.length) {
+    // TODO: заглушка
+    return (
+      <View>
+        <TextVariant variant="bodyRegular">No data to build statistics</TextVariant>
+      </View>
+    );
+  }
 
   const setPrevMonth = () => {
     setIndexDate(indexDate - 1);

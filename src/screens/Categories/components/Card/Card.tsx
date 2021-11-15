@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import Swipeout from 'react-native-swipeout';
 
 import { Category } from '../../../../types';
+import en from '../../../../lang/en.json';
 
 import { useUserState } from '../../../../contexts/user';
 
@@ -25,7 +26,7 @@ export const Card: FC<Category> = (props) => {
     <Swipeout
       backgroundColor={bgPrimary}
       right={[{
-        text: 'удалить',
+        text: en.common.action.delete,
         color: textPrimary,
         backgroundColor: systemRed,
         onPress: onDelete,

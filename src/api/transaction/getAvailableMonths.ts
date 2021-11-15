@@ -1,30 +1,12 @@
-import { Transaction } from '../../types';
 import { authHeader } from '../../helpers/authHeader';
-import { serialize } from '../../utils/serialize';
 
-export const getAvailableMonths = async (token: string | null): Promise<Transaction[]> => {
+export const getAvailableMonths = async (token: string | null): Promise<{ data: any[] }> => {
   try {
-    // const fn = async () => {
-    //   const response = await fetch(`https://api.budgetim.ru/transaction?${serialize(params)}`, {
-    //     headers: authHeader(token),
-    //   });
-    //
-    //   const result = await response.json() as Transaction[];
-    //
-    //   return new Promise((resolve => {
-    //     setTimeout(() => {
-    //       resolve(result);
-    //     }, 5000);
-    //   }))
-    // }
-    //
-    // const res = await fn();
-    // return res;
-
+    // await new Promise(resolve => setTimeout(resolve, 3000));
     const response = await fetch(`https://api.budgetim.ru/transaction/availableMonths`, {
       headers: authHeader(token),
     });
-    const dates = await response.json() as any;
+    const dates = await response.json() as { data: any[] };
     return dates;
   } catch (error: unknown) {
     console.error(error);

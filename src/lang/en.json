@@ -1,0 +1,40 @@
+{
+  "common": {
+    "action": {
+      "delete": "Delete",
+      "cancel": "Cancel",
+      "done": "Done"
+    }
+  },
+  "login": {
+    "title": "Login"
+  },
+  "createAccount": {
+    "title": "Create account"
+  },
+  "passwordReset": {
+    "title": "Password reset"
+  },
+  "transactions": {
+    "title": "Transactions"
+  },
+  "categories": {
+    "title": "Categories",
+    "form": {
+      "name": "name",
+      "description": "description"
+    }
+  },
+  "statistics": {
+    "title": "Statistics"
+  },
+  "settings": {
+    "title": "Settings",
+    "personal": {
+      "title": "Personal"
+    },
+    "currency": {
+      "title": "Currency"
+    }
+  }
+}
