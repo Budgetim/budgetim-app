@@ -14,11 +14,11 @@ import ru from './src/lang/ru.json';
 import en from './src/lang/en.json';
 
 i18n.translations = {
-  en,
-  'en-RU': en,
-  ru,
+  'en': en,
+  'ru': ru,
   'ru-RU': ru,
 };
+i18n.defaultLocale = 'en';
 i18n.locale = Localization.locale;
 
 export default function App() {
