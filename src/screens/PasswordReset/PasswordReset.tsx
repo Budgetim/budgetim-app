@@ -1,10 +1,10 @@
 import React, { FC, useState } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import i18n from 'i18n-js';
 
 import { User } from '../../layouts/User';
 import { InputWithBorder } from '../../components/InputWithBorder';
 import { StackParamList } from '../types';
-
 import { resetPassword } from '../../api/user/resetPassword';
 
 export const PasswordReset: FC<NativeStackScreenProps<StackParamList, 'PasswordReset'>> = ({ navigation }) => {
@@ -18,7 +18,7 @@ export const PasswordReset: FC<NativeStackScreenProps<StackParamList, 'PasswordR
       await resetPassword({ email });
       navigation.navigate('Login');
     } catch (e) {
-      setError('Incorrect email');
+      setError(i18n.t('passwordReset.message.error'));
     } finally {
       setIsLoading(false);
     }
@@ -26,8 +26,8 @@ export const PasswordReset: FC<NativeStackScreenProps<StackParamList, 'PasswordR
 
   return (
     <User
-      title="Forgot password?"
-      message="Enter your email. We will send you a new password by email"
+      title={i18n.t('passwordReset.mainTitle')}
+      message={i18n.t('passwordReset.subTitle')}
       error={error}
       form={(
         <>
@@ -35,13 +35,13 @@ export const PasswordReset: FC<NativeStackScreenProps<StackParamList, 'PasswordR
             variant="bodyRegular"
             defaultValue={email}
             onChangeText={setEmail}
-            placeholder="Email"
+            placeholder={i18n.t('passwordReset.form.email')}
             autoCompleteType="email"
           />
         </>
       )}
       button={{
-        text: 'Reset',
+        text: i18n.t('passwordReset.form.submit'),
         action: reset,
         withLoader: isLoading,
       }}

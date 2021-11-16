@@ -1,16 +1,17 @@
 import React, { FC, useEffect, useState } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import * as SecureStore from 'expo-secure-store';
+import i18n from 'i18n-js';
 
 import { useUserDispatch, useUserState } from '../../contexts/user';
 import { GroupList } from '../../components/GroupList';
-
-import { StackParamList } from '../types';
-import { Container, Link, SignOutButton } from './styled';
-import { EditPasswordModal } from './EditPasswordModal';
 import { InputList } from '../../components/InputList';
 import { updatePassword } from '../../api/user/updatePassword';
 import { useErrorHandler } from '../../hooks/useErrorHandler';
+import { StackParamList } from '../types';
+
+import { Container, Link, SignOutButton } from './styled';
+import { EditPasswordModal } from './EditPasswordModal';
 
 export const Personal: FC<NativeStackScreenProps<StackParamList, 'Personal'>> = ({ navigation }) => {
   const dispatch = useUserDispatch();
@@ -54,13 +55,13 @@ export const Personal: FC<NativeStackScreenProps<StackParamList, 'Personal'>> = 
       <GroupList
         data={[
           {
-            title: 'Change password',
+            title: i18n.t('settings.personal.action.changePassword'),
             onPress: () => setVisible(true),
           },
         ]}
       />
       <SignOutButton onPress={logOut}>
-        <Link variant="bodyRegular">Sign out</Link>
+        <Link variant="bodyRegular">{i18n.t('settings.personal.action.signOut')}</Link>
       </SignOutButton>
       <EditPasswordModal
         visible={visible}
@@ -72,8 +73,8 @@ export const Personal: FC<NativeStackScreenProps<StackParamList, 'Personal'>> = 
         <InputList
           data={[
             {
-              title: 'New',
-              placeholder: 'enter password',
+              title: i18n.t('settings.personal.form.password.name'),
+              placeholder: i18n.t('settings.personal.form.password.placeholder'),
               value,
               setValue,
             }

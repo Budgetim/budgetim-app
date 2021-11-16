@@ -3,31 +3,72 @@
     "action": {
       "delete": "Delete",
       "cancel": "Cancel",
+      "change": "Change",
       "done": "Done"
     }
   },
   "login": {
-    "title": "Login"
+    "title": "Login",
+    "subTitle": "Welcome back, sign in to continue",
+    "form": {
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in"
+    },
+    "link": {
+      "passwordReset": "Forgot password?",
+      "createAccount": "Create account"
+    },
+    "message": {
+      "accountQuestion": "Don't have an account?",
+      "error": "Wrong email or password"
+    }
   },
   "createAccount": {
-    "title": "Create account"
+    "title": "Create account",
+    "subTitle": "Enter your information",
+    "form": {
+      "email": "Email",
+      "name": "Name",
+      "password": "Password",
+      "submit": "Register"
+    },
+    "link": {
+      "signIn": "Sign in"
+    },
+    "message": {
+      "accountQuestion": "Already have an account?",
+      "error": "The entered data is incorrect"
+    }
   },
   "passwordReset": {
-    "title": "Password reset"
+    "title": "Password reset",
+    "mainTitle": "Forgot password?",
+    "subTitle": "Enter your email. We will send you a new password by email",
+    "form": {
+      "email": "Email",
+      "submit": "Reset"
+    },
+    "message": {
+      "error": "Incorrect email"
+    }
   },
   "transactions": {
     "title": "Transactions",
     "emptyCategory": "no category",
     "form": {
-      "title": "title",
-      "price": "price"
+      "title": "Title",
+      "price": "Price"
     }
   },
   "categories": {
     "title": "Categories",
     "form": {
-      "name": "name",
-      "description": "description"
+      "name": "Name",
+      "description": "Description"
+    },
+    "action": {
+      "more": "Show more"
     }
   },
   "statistics": {
@@ -36,7 +77,20 @@
   "settings": {
     "title": "Settings",
     "personal": {
-      "title": "Personal"
+      "title": "Personal",
+      "action": {
+        "changePassword": "Change password",
+        "signOut": "Sign out"
+      },
+      "form": {
+        "password": {
+          "name": "New",
+          "placeholder": "enter password"
+        }
+      }
+    },
+    "categories": {
+      "title": "Categories"
     },
     "currency": {
       "title": "Currency"

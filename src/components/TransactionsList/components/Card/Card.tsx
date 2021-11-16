@@ -1,7 +1,6 @@
 import React, { FC, memo, useState } from 'react';
 import Swipeout from 'react-native-swipeout';
 import { useTheme } from 'styled-components/native';
-import en from '../../../../lang/en.json';
 
 import { Transaction } from '../../../../types';
 
@@ -13,6 +12,7 @@ import { separateThousands } from '../../../../utils/separateThousands';
 import { useTransactionsDispatch } from '../../../../contexts/transactions';
 import { useModalsDispatch } from '../../../../contexts/modals';
 import { useErrorHandler } from '../../../../hooks/useErrorHandler';
+import i18n from 'i18n-js';
 
 export const Card: FC<Transaction> = memo((props) => {
   const { title, category, price, id } = props;
@@ -37,7 +37,7 @@ export const Card: FC<Transaction> = memo((props) => {
     <Swipeout
       backgroundColor={bgPrimary}
       right={[{
-        text: en.common.action.delete,
+        text: i18n.t('common.action.delete'),
         color: textPrimary,
         backgroundColor: systemRed,
         onPress: onDelete,
@@ -49,7 +49,7 @@ export const Card: FC<Transaction> = memo((props) => {
           modalsDispatch({ type: 'setTransactionModalVisible', payload: { isVisible: true } });
         }}
         title={title}
-        subTitle={category.title || en.transactions.emptyCategory}
+        subTitle={category.title || i18n.t('transactions.emptyCategory')}
         tagColor={category.color}
         label={`${separateThousands(+price)} ${currency?.unit || ''}`}
       />

@@ -1,12 +1,12 @@
 import React, { FC, useState } from 'react';
 import Swipeout from 'react-native-swipeout';
+import i18n from 'i18n-js';
+import { useTheme } from 'styled-components/native';
 
 import { Category } from '../../../../types';
-import en from '../../../../lang/en.json';
 
 import { useUserState } from '../../../../contexts/user';
 
-import { useTheme } from 'styled-components/native';
 import { deleteCategory } from '../../../../api/categories/deleteCategory';
 import { useCategoriesDispatch } from '../../../../contexts/categories';
 import { CategoryCard } from '../../../../components/CategoryCard';
@@ -34,7 +34,7 @@ export const Card: FC<Category> = (props) => {
     <Swipeout
       backgroundColor={bgPrimary}
       right={[{
-        text: en.common.action.delete,
+        text: i18n.t('common.action.delete'),
         color: textPrimary,
         backgroundColor: systemRed,
         onPress: onDelete,

@@ -1,17 +1,19 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useTheme } from 'styled-components/native';
+import i18n from 'i18n-js';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { useUserState } from '../../../../contexts/user';
 import { useCategoriesDispatch, useCategoriesState } from '../../../../contexts/categories';
 
-import { Wrapper, ShowMoreWrapper, ShowMoreText } from './styled';
-import { CategoriesListProps } from './types';
 import { getCategories } from '../../../../api/categories/getCategories';
 import { TextVariant } from '../../../TextVariant';
 import { Loader } from '../../../Loader';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import { SelectList } from '../../../SelectList';
 import { useErrorHandler } from '../../../../hooks/useErrorHandler';
+
+import { Wrapper, ShowMoreWrapper, ShowMoreText } from './styled';
+import { CategoriesListProps } from './types';
 
 export const CategoriesList: FC<CategoriesListProps> = ({ activeCategoryId, setCategoryId }) => {
   const { data, error, isLoading } = useCategoriesState();
@@ -62,7 +64,7 @@ export const CategoriesList: FC<CategoriesListProps> = ({ activeCategoryId, setC
       {!showAll && data.length > 6 && (
         <ShowMoreWrapper onPress={() => setShowAll(true)}>
           <Ionicons name={showAll ? 'chevron-up-outline' : 'chevron-down-outline'} color={textPrimary} size={17} />
-          <ShowMoreText variant="subheadlineRegular">show more</ShowMoreText>
+          <ShowMoreText variant="subheadlineRegular">{i18n.t('categories.action.more')}</ShowMoreText>
         </ShowMoreWrapper>
       )}
     </Wrapper>

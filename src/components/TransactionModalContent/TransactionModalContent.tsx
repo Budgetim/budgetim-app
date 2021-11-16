@@ -1,15 +1,15 @@
 import React, { FC, useState } from 'react';
 import { Pressable, ScrollView, Keyboard, ActivityIndicator } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import i18n from 'i18n-js';
 
 import { Input } from '../Input';
-import en from '../../lang/en.json';
+import { formatNumberWithSign } from '../../utils/formatNumberWithSign';
 
 import { Header, Content, Section, SectionGroup, ModalContent, ButtonText, ModalWrapper, NameSection } from './styled';
 import { TransactionModalContentProps } from './types';
 import { CategoriesList } from './components/CategoriesList';
 import { PopularNames } from './components/PopularNames';
-import { formatNumberWithSign } from '../../utils/formatNumberWithSign';
 
 export const TransactionModalContent: FC<TransactionModalContentProps> = (props) => {
   const {
@@ -40,13 +40,13 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = (props)
       <ModalContent>
         <Header>
           <Pressable onPress={onClose}>
-            <ButtonText variant="subheadlineRegular">{en.common.action.cancel}</ButtonText>
+            <ButtonText variant="subheadlineRegular">{i18n.t('common.action.cancel')}</ButtonText>
           </Pressable>
           <Pressable
             style={{ display: 'flex', flexDirection: 'row' }}
             onPress={onSave}
           >
-            {isLoading ? <ActivityIndicator /> : <ButtonText variant="subheadlineBold">{en.common.action.done}</ButtonText>}
+            {isLoading ? <ActivityIndicator /> : <ButtonText variant="subheadlineBold">{i18n.t('common.action.done')}</ButtonText>}
           </Pressable>
         </Header>
         <ScrollView>
@@ -57,7 +57,7 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = (props)
                   variant="subheadlineRegular"
                   defaultValue={title}
                   onChangeText={setTitle}
-                  placeholder={en.transactions.form.title}
+                  placeholder={i18n.t('transactions.form.title')}
                   onFocus={() => setFocusedTitle(true)}
                   onBlur={() => setFocusedTitle(false)}
                 />
@@ -71,7 +71,7 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = (props)
                     }
                   }}
                   value={formatNumberWithSign(price)}
-                  placeholder={en.transactions.form.price}
+                  placeholder={i18n.t('transactions.form.price')}
                   keyboardType="numeric"
                   autoFocus
                 />

@@ -1,10 +1,12 @@
 import React, { FC } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import i18n from 'i18n-js';
 
 import { StackParamList } from '../types';
-import { Container, ListWrapper } from './styled';
 import { GroupList } from '../../components/GroupList';
 import { useUserState } from '../../contexts/user';
+
+import { Container, ListWrapper } from './styled';
 
 export const Settings: FC<NativeStackScreenProps<StackParamList, 'Settings'>> = ({ navigation }) => {
   const { currency } = useUserState();
@@ -15,7 +17,7 @@ export const Settings: FC<NativeStackScreenProps<StackParamList, 'Settings'>> = 
         <GroupList
           data={[
             {
-              title: 'Personal',
+              title: i18n.t('settings.personal.title'),
               type: 'person',
               onPress: () => navigation.navigate('Personal'),
             },
@@ -26,12 +28,12 @@ export const Settings: FC<NativeStackScreenProps<StackParamList, 'Settings'>> = 
         <GroupList
           data={[
             {
-              title: 'Categories',
+              title: i18n.t('settings.categories.title'),
               type: 'categories',
               onPress: () => navigation.navigate('Categories'),
             },
             {
-              title: 'Currency',
+              title: i18n.t('settings.currency.title'),
               type: 'currency',
               variant: currency?.title,
               onPress: () => navigation.navigate('Currency'),

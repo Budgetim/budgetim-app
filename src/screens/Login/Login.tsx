@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import * as SecureStore from 'expo-secure-store';
+import i18n from 'i18n-js';
 
 import { User } from '../../layouts/User';
 import { InputWithBorder } from '../../components/InputWithBorder';
@@ -26,7 +27,7 @@ export const Login: FC<NativeStackScreenProps<StackParamList, 'Login'>> = ({ nav
         await SecureStore.setItemAsync('userToken', user.token);
       }
     } catch (error) {
-      setError('Wrong email or password');
+      setError(i18n.t('login.message.error'));
     } finally {
       setIsLoading(false);
     }
@@ -34,8 +35,8 @@ export const Login: FC<NativeStackScreenProps<StackParamList, 'Login'>> = ({ nav
 
   return (
     <User
-      title="Login"
-      message="Welcome back, sign in to continue"
+      title={i18n.t('login.title')}
+      message={i18n.t('login.subTitle')}
       error={error}
       form={(
         <>
@@ -43,29 +44,29 @@ export const Login: FC<NativeStackScreenProps<StackParamList, 'Login'>> = ({ nav
             variant="bodyRegular"
             defaultValue={email}
             onChangeText={setEmail}
-            placeholder="Email"
+            placeholder={i18n.t('login.form.email')}
             autoCompleteType="email"
           />
           <InputWithBorder
             variant="bodyRegular"
             defaultValue={password}
             onChangeText={setPassword}
-            placeholder="Password"
+            placeholder={i18n.t('login.form.password')}
             autoCompleteType="password"
             secureTextEntry
           />
-          <ForgotLink variant="bodyBold" onPress={() => navigation.navigate('PasswordReset')}>Forgot password?</ForgotLink>
+          <ForgotLink variant="bodyBold" onPress={() => navigation.navigate('PasswordReset')}>{i18n.t('login.link.passwordReset')}</ForgotLink>
         </>
       )}
       button={{
-        text: 'Sign in',
+        text: i18n.t('login.form.submit'),
         action: auth,
         withLoader: isLoading,
       }}
       footer={(
         <>
-          Don’t have an account?{' '}
-          <FooterLink variant="bodyBold" onPress={() => navigation.navigate('CreateAccount')}>Create account</FooterLink>
+          {i18n.t('login.message.accountQuestion')}{' '}
+          <FooterLink variant="bodyBold" onPress={() => navigation.navigate('CreateAccount')}>{i18n.t('login.link.createAccount')}</FooterLink>
         </>
       )}
     />

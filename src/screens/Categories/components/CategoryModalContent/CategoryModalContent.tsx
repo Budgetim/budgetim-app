@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { Pressable, ScrollView } from 'react-native';
+import i18n from 'i18n-js';
 
 import { Input } from '../../../../components/Input';
-import en from '../../../../lang/en.json';
 
 import { Header, Content, Section, ModalContent, ButtonText, ModalWrapper } from './styled';
 import { CategoryModalContentProps } from './types';
@@ -34,7 +34,7 @@ export const CategoryModalContent: FC<CategoryModalContentProps> = (props) => {
       <ModalContent>
         <Header>
           <Pressable onPress={onClose}>
-            <ButtonText variant="subheadlineRegular">{en.common.action.cancel}</ButtonText>
+            <ButtonText variant="subheadlineRegular">{i18n.t('common.action.cancel')}</ButtonText>
           </Pressable>
           <Pressable
             onPress={() => {
@@ -42,7 +42,7 @@ export const CategoryModalContent: FC<CategoryModalContentProps> = (props) => {
               onClose();
             }}
           >
-            <ButtonText variant="subheadlineBold">{en.common.action.done}</ButtonText>
+            <ButtonText variant="subheadlineBold">{i18n.t('common.action.done')}</ButtonText>
           </Pressable>
         </Header>
         <ScrollView>
@@ -52,7 +52,7 @@ export const CategoryModalContent: FC<CategoryModalContentProps> = (props) => {
                 variant="subheadlineRegular"
                 defaultValue={title}
                 onChangeText={setTitle}
-                placeholder={en.categories.form.name}
+                placeholder={i18n.t('categories.form.name')}
               />
             </Section>
             <Section>
@@ -60,7 +60,7 @@ export const CategoryModalContent: FC<CategoryModalContentProps> = (props) => {
                 variant="subheadlineRegular"
                 defaultValue={description || ''}
                 onChangeText={setDescription}
-                placeholder={en.categories.form.description}
+                placeholder={i18n.t('categories.form.description')}
               />
             </Section>
             <Section>

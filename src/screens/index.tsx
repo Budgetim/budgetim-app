@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as SecureStore from 'expo-secure-store';
+import i18n from 'i18n-js';
 
-import en from '../lang/en.json';
 import { useUserDispatch, useUserState } from '../contexts/user';
 
 import { Transactions } from './Transactions';
@@ -70,17 +70,17 @@ export const Screens = () => {
           <Stack.Screen
             name="Login"
             component={Login}
-            options={{ title: en.login.title }}
+            options={{ title: i18n.t('login.title') }}
           />
           <Stack.Screen
             name="CreateAccount"
             component={CreateAccount}
-            options={{ title: en.createAccount.title }}
+            options={{ title: i18n.t('createAccount.title') }}
           />
           <Stack.Screen
             name="PasswordReset"
             component={PasswordReset}
-            options={{ title: en.passwordReset.title }}
+            options={{ title: i18n.t('passwordReset.title') }}
           />
         </>
       ) : (
@@ -88,17 +88,17 @@ export const Screens = () => {
           <Stack.Screen
             name="Transactions"
             component={Transactions}
-            options={{ title: en.transactions.title }}
+            options={{ title: i18n.t('transactions.title') }}
           />
           <Stack.Screen
             name="Categories"
             component={Categories}
-            options={{ title: en.categories.title }}
+            options={{ title: i18n.t('categories.title') }}
           />
           <Stack.Screen
             name="Statistics"
             component={Statistics}
-            options={{ title: en.statistics.title }}
+            options={{ title: i18n.t('statistics.title') }}
           />
           <Stack.Screen
             name="TransactionsByCategory"
@@ -108,17 +108,17 @@ export const Screens = () => {
           <Stack.Screen
             name="Settings"
             component={Settings}
-            options={{ title: en.settings.title }}
+            options={{ title: i18n.t('settings.title') }}
           />
           <Stack.Screen
             name="Personal"
             component={Personal}
-            options={{ title: en.settings.personal.title }}
+            options={{ title: i18n.t('settings.personal.title') }}
           />
           <Stack.Screen
             name="Currency"
             component={Currency}
-            options={{ title: en.settings.currency.title }}
+            options={{ title: i18n.t('settings.currency.title') }}
           />
         </>
       )}

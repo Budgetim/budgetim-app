@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { Pressable, ScrollView, ActivityIndicator } from 'react-native';
+import i18n from 'i18n-js';
 
 import { TextVariant } from '../../../components/TextVariant';
 
@@ -28,15 +29,15 @@ export const EditPasswordModal: FC<EditPasswordModalProps> = (props) => {
       <ModalContent>
         <Header>
           <Pressable onPress={onClose}>
-            <ButtonText variant="subheadlineRegular">Cancel</ButtonText>
+            <ButtonText variant="subheadlineRegular">{i18n.t('common.action.cancel')}</ButtonText>
           </Pressable>
-          <TextVariant variant="subheadlineRegular">Change password</TextVariant>
+          <TextVariant variant="subheadlineRegular">{i18n.t('settings.personal.action.changePassword')}</TextVariant>
           <Pressable
             style={{ display: 'flex', flexDirection: 'row' }}
             onPress={onSave}
             disabled={disable}
           >
-            {isLoading ? <ActivityIndicator /> : <ButtonText variant="subheadlineBold" disable={disable}>Change</ButtonText>}
+            {isLoading ? <ActivityIndicator /> : <ButtonText variant="subheadlineBold" disable={disable}>{i18n.t('common.action.change')}</ButtonText>}
           </Pressable>
         </Header>
         <ScrollView>

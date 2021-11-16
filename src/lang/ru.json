@@ -1,0 +1,99 @@
+{
+  "common": {
+    "action": {
+      "delete": "Удалить",
+      "cancel": "Отмена",
+      "change": "Изменить",
+      "done": "Готово"
+    }
+  },
+  "login": {
+    "title": "Войти",
+    "subTitle": "Войдите снова, чтобы продолжить",
+    "form": {
+      "email": "Email",
+      "password": "Пароль",
+      "submit": "Войти"
+    },
+    "link": {
+      "passwordReset": "Забыли пароль?",
+      "createAccount": "Создать аккаунт"
+    },
+    "message": {
+      "accountQuestion": "Нет аккаунта?",
+      "error": "Неправильный email или пароль"
+    }
+  },
+  "createAccount": {
+    "title": "Создание аккаунта",
+    "subTitle": "Введите информацию о себе",
+    "form": {
+      "email": "Email",
+      "name": "Имя",
+      "password": "Пароль",
+      "submit": "Зарегестрироваться"
+    },
+    "link": {
+      "signIn": "Войти"
+    },
+    "message": {
+      "accountQuestion": "Уже есть аккаунт?",
+      "error": "Вы ввели неправильные данные"
+    }
+  },
+  "passwordReset": {
+    "title": "Сброс пароля",
+    "mainTitle": "Забыли пароль?",
+    "subTitle": "Введите ваш email. Мы вышлем вам новый пароль на почту",
+    "form": {
+      "email": "Email",
+      "submit": "Сбросить"
+    },
+    "message": {
+      "error": "Неправильный email"
+    }
+  },
+  "transactions": {
+    "title": "Транзакции",
+    "emptyCategory": "без категории",
+    "form": {
+      "title": "Название",
+      "price": "Цена"
+    }
+  },
+  "categories": {
+    "title": "Категории",
+    "form": {
+      "name": "Название",
+      "description": "Описание"
+    },
+    "action": {
+      "more": "Показать все"
+    }
+  },
+  "statistics": {
+    "title": "Статистика"
+  },
+  "settings": {
+    "title": "Настройки",
+    "personal": {
+      "title": "Персональные",
+      "action": {
+        "changePassword": "Изменить пароль",
+        "signOut": "Выйти"
+      },
+      "form": {
+        "password": {
+          "name": "Новый",
+          "placeholder": "введите пароль"
+        }
+      }
+    },
+    "categories": {
+      "title": "Категории"
+    },
+    "currency": {
+      "title": "Валюта"
+    }
+  }
+}
