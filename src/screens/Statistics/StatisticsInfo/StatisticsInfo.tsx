@@ -5,7 +5,7 @@ import format from 'date-fns/format';
 import { useUserState } from '../../../contexts/user';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { getStatistics } from '../../../api/category/getStatistics';
+import { getStatistics } from '../../../api/categories/getStatistics';
 import { separateThousands } from '../../../utils/separateThousands';
 import { PieChartWrapper, ChartTitle, ChartSubtitle, NavigateButton } from './styled';
 import { PieChart } from '../../../components/PieChart';

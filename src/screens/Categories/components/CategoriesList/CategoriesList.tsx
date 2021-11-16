@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import { useUserState } from '../../../../contexts/user';
 import { FlatList } from 'react-native';
-import { getCategories } from '../../../../api/category/getCategories';
+import { getCategories } from '../../../../api/categories/getCategories';
 import { Card } from '../Card';
 import { TextVariant } from '../../../../components/TextVariant';
 import { useCategoriesState, useCategoriesDispatch } from '../../../../contexts/categories';

@@ -1,16 +1,15 @@
 import { Category } from '../../types';
 import { authHeader } from '../../helpers/authHeader';
 
-interface EditCategoryParams {
-  id: number;
+interface AddParams {
   title: string;
   description: string | null;
   color: string | null;
 }
 
-export const editCategory = async (params: EditCategoryParams, token: string | null): Promise<Category> => {
+export const addCategory = async (params: AddParams, token: string | null): Promise<Category> => {
   try {
-    const response = await fetch('https://api.budgetim.ru/categories/edit', {
+    const response = await fetch('https://api.budgetim.ru/categories', {
       method: 'POST',
       headers: {
         ...authHeader(token),
@@ -18,9 +17,11 @@ export const editCategory = async (params: EditCategoryParams, token: string | n
       },
       body: JSON.stringify(params),
     });
+
     if (response.status === 403) {
       throw 403;
     }
+
     return await response.json() as Category;
   } catch (error: unknown) {
     console.error(error);

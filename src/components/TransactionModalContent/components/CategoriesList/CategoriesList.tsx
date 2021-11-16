@@ -6,7 +6,7 @@ import { useCategoriesDispatch, useCategoriesState } from '../../../../contexts/
 
 import { Wrapper, ShowMoreWrapper, ShowMoreText } from './styled';
 import { CategoriesListProps } from './types';
-import { getCategories } from '../../../../api/category/getCategories';
+import { getCategories } from '../../../../api/categories/getCategories';
 import { TextVariant } from '../../../TextVariant';
 import { Loader } from '../../../Loader';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -59,7 +59,7 @@ export const CategoriesList: FC<CategoriesListProps> = ({ activeCategoryId, setC
           }
         })}
       />
-      {!showAll && (
+      {!showAll && data.length > 6 && (
         <ShowMoreWrapper onPress={() => setShowAll(true)}>
           <Ionicons name={showAll ? 'chevron-up-outline' : 'chevron-down-outline'} color={textPrimary} size={17} />
           <ShowMoreText variant="subheadlineRegular">show more</ShowMoreText>

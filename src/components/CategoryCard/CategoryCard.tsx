@@ -8,7 +8,7 @@ import { Container, Circle, Content, SubTitle, Title, ContentWrapper, Label } fr
 
 export const CategoryCard: FC<CategoryCardProps> = (props) => {
   const { colors } = useTheme();
-  const { title = 'no category', description, label, tagColor, onPress } = props;
+  const { title = 'no categories', description, label, tagColor, onPress } = props;
   const color = tagColor ? tagColor.toLowerCase() : colors[CATEGORY_COLOR_DEFAULT];
 
   return (

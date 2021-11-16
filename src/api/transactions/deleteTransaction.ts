@@ -2,13 +2,12 @@ import { authHeader } from '../../helpers/authHeader';
 
 export const deleteTransaction = async (id: number, token: string | null) => {
   try {
-    const response = await fetch('https://api.budgetim.ru/transaction/delete', {
-      method: 'POST',
+    const response = await fetch(`https://api.budgetim.ru/transactions/${id}`, {
+      method: 'DELETE',
       headers: {
         ...authHeader(token),
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ id }),
     });
     if (response.status === 403) {
       throw 403;

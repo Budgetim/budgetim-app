@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useUserState } from '../../../../contexts/user';
 import { CategoryModalProps } from './types';
-import { addCategory } from '../../../../api/category/addCategory';
+import { addCategory } from '../../../../api/categories/addCategory';
 import { useCategoriesDispatch } from '../../../../contexts/categories';
 import { CategoryModalContent } from '../CategoryModalContent';
 import { useErrorHandler } from '../../../../hooks/useErrorHandler';

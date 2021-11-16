@@ -7,7 +7,7 @@ import { useUserState } from '../../contexts/user';
 
 import { TextVariant } from '../../components/TextVariant';
 import { Loader } from '../../components/Loader';
-import { getAvailableMonths } from '../../api/transaction/getAvailableMonths';
+import { getAvailableMonths } from '../../api/transactions/getAvailableMonths';
 import { StatisticsInfo } from './StatisticsInfo';
 import { useErrorHandler } from '../../hooks/useErrorHandler';
 

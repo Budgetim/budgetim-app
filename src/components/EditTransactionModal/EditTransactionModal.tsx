@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useUserState } from '../../contexts/user';
-import { editTransaction } from '../../api/transaction/editTransaction';
+import { editTransaction } from '../../api/transactions/editTransaction';
 import { useTransactionsDispatch, useTransactionsState } from '../../contexts/transactions';
 import { TransactionModalContent } from '../TransactionModalContent';
 import { Transaction } from '../../types';

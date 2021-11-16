@@ -6,7 +6,7 @@ import { Container } from './styled';
 import { SelectList } from '../../components/SelectList';
 import { Loader } from '../../components/Loader';
 import { TextVariant } from '../../components/TextVariant';
-import { getCurrencies } from '../../api/currency/getCurrencies';
+import { getCurrencies } from '../../api/currencies/getCurrencies';
 import { Currency as CurrencyType } from '../../types';
 import { useUserDispatch, useUserState } from '../../contexts/user';
 import { updateCurrency } from '../../api/user/updateCurrency';

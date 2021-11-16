@@ -7,7 +7,7 @@ import en from '../../../../lang/en.json';
 import { useUserState } from '../../../../contexts/user';
 
 import { useTheme } from 'styled-components/native';
-import { deleteCategory } from '../../../../api/category/deleteCategory';
+import { deleteCategory } from '../../../../api/categories/deleteCategory';
 import { useCategoriesDispatch } from '../../../../contexts/categories';
 import { CategoryCard } from '../../../../components/CategoryCard';
 import { useErrorHandler } from '../../../../hooks/useErrorHandler';

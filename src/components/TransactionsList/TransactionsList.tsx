@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
 
 import { useUserState } from '../../contexts/user';
-import { getTransactions } from '../../api/transaction/getTransactions';
+import { getTransactions } from '../../api/transactions/getTransactions';
 import { TransactionGroups } from './components/TransactionGroups';
 import { TextVariant } from '../TextVariant';
 import { useTransactionsState, useTransactionsDispatch } from '../../contexts/transactions';

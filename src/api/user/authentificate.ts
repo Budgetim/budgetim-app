@@ -15,9 +15,9 @@ export const authentificate = async (params: AuthentificateParams): Promise<User
       },
       body: JSON.stringify(params),
     });
-    return await response.json() as User;
+    const user = await response.json() as User;
+    return user;
   } catch (error: unknown) {
-    console.error(error);
     throw (error as object).toString();
   }
 };

@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useUserState } from '../../../../contexts/user';
-import { addTransaction } from '../../../../api/transaction/addTransaction';
+import { addTransaction } from '../../../../api/transactions/addTransaction';
 import { AddTransactionModalProps } from './types';
 import { useTransactionsDispatch } from '../../../../contexts/transactions';
 import { TransactionModalContent } from '../../../../components/TransactionModalContent';

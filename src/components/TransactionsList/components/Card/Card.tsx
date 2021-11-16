@@ -6,7 +6,7 @@ import en from '../../../../lang/en.json';
 import { Transaction } from '../../../../types';
 
 import { useUserState } from '../../../../contexts/user';
-import { deleteTransaction } from '../../../../api/transaction/deleteTransaction';
+import { deleteTransaction } from '../../../../api/transactions/deleteTransaction';
 import { TransactionCard } from '../../../TransactionCard';
 
 import { separateThousands } from '../../../../utils/separateThousands';

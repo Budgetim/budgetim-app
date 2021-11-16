@@ -12,18 +12,18 @@ interface EditTransactionParams {
 }
 
 export const editTransaction = async (params: EditTransactionParams, token: string | null): Promise<Transaction> => {
-  const { price } = params;
+  const { id, price, ...restBody } = params;
   try {
-    const response = await fetch('https://api.budgetim.ru/transaction/edit', {
-      method: 'POST',
+    const response = await fetch(`https://api.budgetim.ru/transactions/${id}`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         ...authHeader(token),
       },
       body: JSON.stringify({
-        ...params,
+        ...restBody,
         price: formatNumberForServer(price),
-        date: format(params.date, 'yyyy-MM-dd'),
+        date: format(restBody.date, 'yyyy-MM-dd'),
       }),
     });
     if (response.status === 403) {
