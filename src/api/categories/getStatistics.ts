@@ -1,5 +1,5 @@
 import { authHeader } from '../../helpers/authHeader';
-import { StatisticsItem } from '../../screens/Statistics/Statistics';
+import { StatisticsItem } from '../../screens/Statistics/StatisticsInfo';
 
 interface GetStatisticsParams {
   month: number;

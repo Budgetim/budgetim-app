@@ -18,14 +18,15 @@ i18n.translations = {
   'ru': ru,
   'ru-RU': ru,
 };
-i18n.defaultLocale = 'en';
+
 i18n.locale = Localization.locale;
+i18n.fallbacks = true;
 
 export default function App() {
   const scheme = useColorScheme();
   const navigationTheme = scheme === 'dark' ? DarkTheme : DefaultTheme;
   return (
-    <ThemeProvider theme={{ colors: scheme === 'dark' ? colors.dark : colors.light, space, typography }}>
+    <ThemeProvider theme={{ colors: scheme === 'dark' ? colors.dark : colors.light, space, typography, scheme }}>
       <UserProvider>
         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
           <NavigationContainer

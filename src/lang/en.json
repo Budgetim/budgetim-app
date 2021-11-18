@@ -72,7 +72,13 @@
     }
   },
   "statistics": {
-    "title": "Statistics"
+    "title": "Statistics",
+    "categories": {
+      "title": "By categories"
+    },
+    "months": {
+      "title": "By months"
+    }
   },
   "settings": {
     "title": "Settings",

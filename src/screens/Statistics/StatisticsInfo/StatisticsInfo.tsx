@@ -8,7 +8,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { getStatistics } from '../../../api/categories/getStatistics';
 import { separateThousands } from '../../../utils/separateThousands';
 import { PieChartWrapper, ChartTitle, ChartSubtitle, NavigateButton } from './styled';
-import { PieChart } from '../../../components/PieChart';
+import { PieChart } from '../../../charts/PieChart';
 import { useTheme } from 'styled-components/native';
 import { TextVariant } from '../../../components/TextVariant';
 import { Loader } from '../../../components/Loader';

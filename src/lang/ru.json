@@ -72,7 +72,13 @@
     }
   },
   "statistics": {
-    "title": "Статистика"
+    "title": "Статистика",
+    "categories": {
+      "title": "По категориям"
+    },
+    "months": {
+      "title": "По месяцам"
+    }
   },
   "settings": {
     "title": "Настройки",

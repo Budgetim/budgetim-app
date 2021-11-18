@@ -11,6 +11,7 @@ export default {
     systemGray06: '#F2F2F7',
     systemBlue: '#007AFF',
     systemRed: '#FF3B30',
+    systemGreen: '#32D74B',
     navigationBar: '#F9F9F9',
   },
   dark: {
@@ -25,6 +26,7 @@ export default {
     systemGray06: '#1C1C1E',
     systemBlue: '#0A84FF',
     systemRed: '#FF453A',
+    systemGreen: '#34C759',
     navigationBar: '#1D1D1D',
   }
 };

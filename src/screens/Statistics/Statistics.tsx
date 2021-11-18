@@ -1,90 +1,30 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { View } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import i18n from 'i18n-js';
 
+import { SelectGroup } from '../../components/SelectGroup';
 import { StackParamList } from '../types';
-import { useUserState } from '../../contexts/user';
 
-import { TextVariant } from '../../components/TextVariant';
-import { Loader } from '../../components/Loader';
-import { getAvailableMonths } from '../../api/transactions/getAvailableMonths';
-import { StatisticsInfo } from './StatisticsInfo';
-import { useErrorHandler } from '../../hooks/useErrorHandler';
-
-export interface StatisticsItem {
-  color: string;
-  description: string;
-  id: number;
-  sum: string;
-  title: string;
-}
+import { ByMonths } from './ByMonths';
+import { ByCategories } from './ByCategories';
 
 export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>> = () => {
-  const { token } = useUserState();
-  const [data, setData] = useState<{ data: any[] } | null>(null);
-  const [error, setError] = useState(null);
-  const [isLoading, setLoading] = useState(true);
-
-  const [indexDate, setIndexDate] = useState(0);
-
-  useErrorHandler(error);
-
-  const getAvailableDates = async () => {
-    setLoading(true);
-    try {
-      const result = await getAvailableMonths(token);
-      setData(result);
-      setIndexDate(result.data.length - 1);
-    } catch (error) {
-      setError(error);
-    } finally {
-      setLoading(false)
-    }
-  };
-
-  useEffect(() => {
-    void getAvailableDates();
-  }, []);
-
-  if (isLoading) {
-    return <Loader />;
-  }
-
-  if (error) {
-    return <TextVariant variant="subheadlineBold">{error}</TextVariant>;
-  }
-
-  if (!data) {
-    return null;
-  }
-
-  const { data: dates } = data;
-
-  if (!dates.length) {
-    // TODO: заглушка
-    return (
-      <View>
-        <TextVariant variant="bodyRegular">No data to build statistics</TextVariant>
-      </View>
-    );
-  }
-
-  const setPrevMonth = () => {
-    setIndexDate(indexDate - 1);
-  };
-
-  const setNextMonth = () => {
-    setIndexDate(indexDate + 1);
-  };
-
+  const [activeMode, setActiveMode] = useState(0);
   return (
     <View style={{ flex: 1 }}>
-      <StatisticsInfo
-        year={dates[indexDate].year}
-        month={dates[indexDate].month}
-        setNextDate={indexDate !== dates.length - 1 ? setNextMonth : undefined}
-        setPrevDate={indexDate !== 0 ? setPrevMonth : undefined}
-      />
+      <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', marginTop: 12 }}>
+        <SelectGroup
+          activeIndex={activeMode}
+          onChangeIndex={setActiveMode}
+          data={[
+            { title: i18n.t('statistics.categories.title') },
+            { title: i18n.t('statistics.months.title') },
+          ]}
+        />
+      </View>
+      {activeMode === 0 && <ByCategories />}
+      {activeMode === 1 && <ByMonths />}
     </View>
-  );
+  )
 };

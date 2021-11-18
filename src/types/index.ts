@@ -31,3 +31,5 @@ export interface Action<T extends string, P extends unknown> {
   type: T;
   payload: P;
 }
+
+export type Trend = 'NEGATIVE' | 'POSITIVE' | 'NEUTRAL';

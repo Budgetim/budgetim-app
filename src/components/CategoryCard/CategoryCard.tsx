@@ -8,7 +8,7 @@ import { Container, Circle, Content, SubTitle, Title, ContentWrapper, Label } fr
 
 export const CategoryCard: FC<CategoryCardProps> = (props) => {
   const { colors } = useTheme();
-  const { title = 'no categories', description, label, tagColor, onPress } = props;
+  const { title = 'no categories', description, label, chart, tagColor, onPress } = props;
   const color = tagColor ? tagColor.toLowerCase() : colors[CATEGORY_COLOR_DEFAULT];
 
   return (
@@ -19,6 +19,7 @@ export const CategoryCard: FC<CategoryCardProps> = (props) => {
           <Title variant="subheadlineRegular" numberOfLines={1}>{title}</Title>
           {!!description && <SubTitle variant="subheadlineRegular" numberOfLines={1}>{description}</SubTitle>}
         </ContentWrapper>
+        {chart}
         {label && <Label variant="subheadlineBold">{label}</Label>}
       </Content>
     </Container>

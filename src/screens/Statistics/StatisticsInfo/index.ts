@@ -1,1 +1,1 @@
-export { StatisticsInfo } from './StatisticsInfo';
+export { StatisticsInfo, StatisticsItem } from './StatisticsInfo';

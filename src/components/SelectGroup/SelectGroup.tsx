@@ -4,7 +4,7 @@ import { List, Button, Title } from './styled';
 
 export const SelectGroup: FC<SelectGroupProps> = ({ data, onChangeIndex, activeIndex }) => {
   return (
-    <List horizontal>
+    <List>
       {data.map((item, index) => {
         return (
           <Button
