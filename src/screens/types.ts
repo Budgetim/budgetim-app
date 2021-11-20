@@ -1,4 +1,7 @@
 export type StackParamList = {
+  Loading: undefined;
+  Error: undefined;
+
   Login: undefined;
   CreateAccount: undefined;
   PasswordReset: undefined;

@@ -4,7 +4,7 @@ import { authHeader } from '../../helpers/authHeader';
 export const getCategories = async (token: string | null): Promise<Category[]> => {
   try {
     // await new Promise(resolve => setTimeout(resolve, 3000));
-    const response = await fetch('https://api.budgetim.ru/categories', {
+    const response = await fetch('http://api.budgetim.ru/categories', {
       headers: authHeader(token),
     });
     if (response.status === 403) {

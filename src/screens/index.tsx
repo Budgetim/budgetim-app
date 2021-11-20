@@ -13,16 +13,18 @@ import { CreateAccount } from './CreateAccount';
 import { StackParamList } from './types';
 import { Statistics } from './Statistics';
 import { Personal } from './Personal';
+import { Loading } from './Loading';
+import { Error } from './Error';
 import { TransactionsByCategory } from './TransactionsByCategory';
 import { PasswordReset } from './PasswordReset';
 import { Currency } from './Currency';
-import { Loader } from '../components/Loader';
 import { getUser } from '../api/user/getUser';
 
 const Stack = createStackNavigator<StackParamList>();
 
 export const Screens = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const { token } = useUserState();
   const dispatch = useUserDispatch();
 
@@ -49,7 +51,7 @@ export const Screens = () => {
             }
           });
         } catch (error) {
-
+          setError('error');
         }
       }
 
@@ -59,69 +61,85 @@ export const Screens = () => {
     void bootstrapAsync();
   }, []);
 
+  let screens;
+
   if (isLoading) {
-    return <Loader />;
+    screens = (
+      <Stack.Screen
+        name="Loading"
+        component={Loading}
+        options={{ title: 'Loading...' }}
+      />
+    )
+  } else if (error) {
+    screens = (
+      <Stack.Screen
+        name="Error"
+        component={Error}
+        options={{ title: 'Error' }}
+      />
+    )
+  } else if (token === null) {
+    screens = (
+      <>
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{ title: i18n.t('login.title') }}
+        />
+        <Stack.Screen
+          name="CreateAccount"
+          component={CreateAccount}
+          options={{ title: i18n.t('createAccount.title') }}
+        />
+        <Stack.Screen
+          name="PasswordReset"
+          component={PasswordReset}
+          options={{ title: i18n.t('passwordReset.title') }}
+        />
+      </>
+    );
+  } else {
+    screens = (
+      <>
+        <Stack.Screen
+          name="Transactions"
+          component={Transactions}
+          options={{ title: i18n.t('transactions.title') }}
+        />
+        <Stack.Screen
+          name="Categories"
+          component={Categories}
+          options={{ title: i18n.t('categories.title') }}
+        />
+        <Stack.Screen
+          name="Statistics"
+          component={Statistics}
+          options={{ title: i18n.t('statistics.title') }}
+        />
+        <Stack.Screen
+          name="TransactionsByCategory"
+          component={TransactionsByCategory}
+        />
+
+        <Stack.Screen
+          name="Settings"
+          component={Settings}
+          options={{ title: i18n.t('settings.title') }}
+        />
+        <Stack.Screen
+          name="Personal"
+          component={Personal}
+          options={{ title: i18n.t('settings.personal.title') }}
+        />
+        <Stack.Screen
+          name="Currency"
+          component={Currency}
+          options={{ title: i18n.t('settings.currency.title') }}
+        />
+      </>
+    );
   }
 
-  return (
-    <Stack.Navigator>
-      {token === null ? (
-        <>
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{ title: i18n.t('login.title') }}
-          />
-          <Stack.Screen
-            name="CreateAccount"
-            component={CreateAccount}
-            options={{ title: i18n.t('createAccount.title') }}
-          />
-          <Stack.Screen
-            name="PasswordReset"
-            component={PasswordReset}
-            options={{ title: i18n.t('passwordReset.title') }}
-          />
-        </>
-      ) : (
-        <>
-          <Stack.Screen
-            name="Transactions"
-            component={Transactions}
-            options={{ title: i18n.t('transactions.title') }}
-          />
-          <Stack.Screen
-            name="Categories"
-            component={Categories}
-            options={{ title: i18n.t('categories.title') }}
-          />
-          <Stack.Screen
-            name="Statistics"
-            component={Statistics}
-            options={{ title: i18n.t('statistics.title') }}
-          />
-          <Stack.Screen
-            name="TransactionsByCategory"
-            component={TransactionsByCategory}
-          />
-
-          <Stack.Screen
-            name="Settings"
-            component={Settings}
-            options={{ title: i18n.t('settings.title') }}
-          />
-          <Stack.Screen
-            name="Personal"
-            component={Personal}
-            options={{ title: i18n.t('settings.personal.title') }}
-          />
-          <Stack.Screen
-            name="Currency"
-            component={Currency}
-            options={{ title: i18n.t('settings.currency.title') }}
-          />
-        </>
-      )}
-    </Stack.Navigator>
-  );
+  return <Stack.Navigator>{screens}</Stack.Navigator>;
 };

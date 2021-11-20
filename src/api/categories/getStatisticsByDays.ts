@@ -1,15 +1,14 @@
-import { Category } from '../../types';
 import { authHeader } from '../../helpers/authHeader';
 
-interface AddParams {
-  title: string;
-  description: string | null;
-  color: string | null;
+interface GetStatisticsByDaysParams {
+  month: number;
+  year: number;
 }
 
-export const addCategory = async (params: AddParams, token: string | null): Promise<Category> => {
+export const getStatisticsByDays = async (params: GetStatisticsByDaysParams, token: string | null): Promise<any[]> => {
   try {
-    const response = await fetch('http://api.budgetim.ru/categories', {
+    // await new Promise(resolve => setTimeout(resolve, 3000));
+    const response = await fetch('http://api.budgetim.ru/categories/allStatistics', {
       method: 'POST',
       headers: {
         ...authHeader(token),
@@ -22,7 +21,7 @@ export const addCategory = async (params: AddParams, token: string | null): Prom
       throw 403;
     }
 
-    return await response.json() as Category;
+    return await response.json() as any[];
   } catch (error: unknown) {
     console.error(error);
     throw (error as object).toString();

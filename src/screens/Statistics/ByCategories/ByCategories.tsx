@@ -1,84 +1,92 @@
-import React, { FC, useCallback, useState } from 'react';
-import i18n from 'i18n-js';
-import { Pressable, ScrollView, View } from 'react-native';
+import React, { FC, useEffect, useState } from 'react';
 
 import { CategoryCard } from '../../../components/CategoryCard';
 import { MicroChart } from '../../../charts/MicroChart';
 import { TextVariant } from '../../../components/TextVariant';
-import { LineChart } from '../../../charts/LineChart';
 
-import {
-  Container,
-  ButtonText,
-  Content,
-  Header,
-  ModalContent,
-  ModalWrapper,
-} from './styled';
+import { Container } from './styled';
+import { useUserState } from '../../../contexts/user';
+import { useErrorHandler } from '../../../hooks/useErrorHandler';
+import { getStatisticsByDays } from '../../../api/categories/getStatisticsByDays';
+import { Loader } from '../../../components/Loader';
+import { Modal } from './Modal';
 
 export const ByCategories: FC = () => {
   const [visible, setVisible] = useState(false);
-  const [width, setWidth] = useState(0);
+  const [activeCategoryId, setActiveCategoryId] = useState(null);
+  const { token } = useUserState();
+  const [data, setData] = useState<any[] | null>(null);
+  const [error, setError] = useState(null);
+  const [isLoading, setLoading] = useState(true);
+
+  useErrorHandler(error);
+
+  const getData = async () => {
+    setLoading(true);
+    try {
+      const result = await getStatisticsByDays({ month: 11, year: 2021 }, token);
+      setData(result);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false)
+    }
+  };
+
+  useEffect(() => {
+    void getData();
+  }, [])
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <TextVariant variant="subheadlineBold">{error}</TextVariant>;
+  }
+
+  if (!data) {
+    return null;
+  }
 
   const onClose = () => {
     setVisible(false);
   };
 
-  const getRandom = useCallback(() => {
-    const arr = [];
-    for (let i = 0; i < 25; i++) {
-      arr.push(Math.round(Math.random() * 9));
+  const groups: any[] = [];
+  data?.forEach((item) => {
+    const foundedGroup = groups.find(group => group.id === item.id);
+    if (foundedGroup) {
+      foundedGroup.data.push(+item.sum);
+    } else {
+      groups.push({
+        id: item.id,
+        description: item.description,
+        title: item.title,
+        color: item.color,
+        data: [+item.sum],
+      });
     }
-    return arr;
-  }, []);
+  });
 
   return (
     <Container>
-      {new Array(15).fill(0).map((item, index) => {
+      {groups.map((item) => {
         return (
           <CategoryCard
-            key={index}
-            title="Category name"
-            description="Description"
-            tagColor="pink"
-            chart={<MicroChart data={getRandom()} />}
-            onPress={() => setVisible(true)}
+            key={item.id}
+            title={item.title}
+            description={item.description}
+            tagColor={item.color}
+            chart={<MicroChart data={item.data} />}
+            onPress={() => {
+              setActiveCategoryId(item.id);
+              setVisible(true);
+            }}
           />
-        )
+        );
       })}
-      <ModalWrapper
-        isVisible={visible}
-        onBackdropPress={onClose}
-        onSwipeComplete={onClose}
-        swipeDirection="down"
-        avoidKeyboard
-        propagateSwipe
-      >
-        <ModalContent>
-          <Header>
-            <View />
-            <TextVariant variant="bodyRegular">Category name</TextVariant>
-            <Pressable
-              style={{ display: 'flex', flexDirection: 'row' }}
-              onPress={onClose}
-            >
-              <ButtonText variant="subheadlineBold">{i18n.t('common.action.cancel')}</ButtonText>
-            </Pressable>
-          </Header>
-          <ScrollView>
-            <Content onLayout={(event) => setWidth(event.nativeEvent.layout.width)}>
-              {!!width && (
-                <LineChart
-                  data={[5, 4, 5, 2, 5, 4, 3, 8, 2, 0, 10, 5, 3, 5, 2].map(value => ({ value }))}
-                  categories={['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15']}
-                  height={220}
-                  width={width}
-                />
-              )}
-            </Content>
-          </ScrollView>
-        </ModalContent>
-      </ModalWrapper>
+      <Modal visible={visible} onClose={onClose} categoryId={activeCategoryId} />
     </Container>
   );
 }

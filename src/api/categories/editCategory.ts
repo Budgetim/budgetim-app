@@ -11,7 +11,7 @@ interface EditCategoryParams {
 export const editCategory = async (params: EditCategoryParams, token: string | null): Promise<Category> => {
   const { id, ...restBody } = params;
   try {
-    const response = await fetch(`https://api.budgetim.ru/categories/${id}`, {
+    const response = await fetch(`http://api.budgetim.ru/categories/${id}`, {
       method: 'PUT',
       headers: {
         ...authHeader(token),

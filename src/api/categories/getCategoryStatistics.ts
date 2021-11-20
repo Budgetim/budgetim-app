@@ -1,15 +1,14 @@
 import { authHeader } from '../../helpers/authHeader';
 import { StatisticsItem } from '../../screens/Statistics/StatisticsInfo';
 
-interface GetStatisticsParams {
-  month: number;
-  year: number;
+interface GetCategoryStatisticsParams {
+  categoryId: number;
 }
 
-export const getStatistics = async (params: GetStatisticsParams, token: string | null): Promise<StatisticsItem[]> => {
+export const getCategoryStatistics = async (params: GetCategoryStatisticsParams, token: string | null): Promise<StatisticsItem[]> => {
   try {
     // await new Promise(resolve => setTimeout(resolve, 3000));
-    const response = await fetch('http://api.budgetim.ru/categories/statistic', {
+    const response = await fetch('http://api.budgetim.ru/categories/categoryStatistics', {
       method: 'POST',
       headers: {
         ...authHeader(token),

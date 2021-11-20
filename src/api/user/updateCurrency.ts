@@ -7,7 +7,7 @@ interface UpdateCurrencyParams {
 
 export const updateCurrency = async (params: UpdateCurrencyParams, token: string | null): Promise<User> => {
   try {
-    const response = await fetch('https://api.budgetim.ru/users/updateCurrency', {
+    const response = await fetch('http://api.budgetim.ru/users/updateCurrency', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
