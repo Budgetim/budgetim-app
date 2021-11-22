@@ -1,10 +1,9 @@
 import React, { FC } from 'react';
+
 import { DataItemLineChart } from './types';
 import { ChartProvider } from './chartContext/chartContext';
 import { Grid } from './Grid';
 import { SvgChart } from './SvgChart';
-import { VerticalLine } from './VerticalLine';
-import { Lines } from './Lines';
 
 export interface LineChartProps {
   categories: string[];
@@ -18,8 +17,6 @@ export const LineChart: FC<LineChartProps> = props => {
     <ChartProvider {...props}>
       <SvgChart>
         <Grid />
-        <VerticalLine />
-        <Lines />
       </SvgChart>
     </ChartProvider>
   );

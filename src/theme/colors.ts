@@ -13,6 +13,8 @@ export default {
     systemRed: '#FF3B30',
     systemGreen: '#32D74B',
     navigationBar: '#F9F9F9',
+
+    chart01: '#68B1FF',
   },
   dark: {
     bgPrimary: '#000000',
@@ -28,5 +30,7 @@ export default {
     systemRed: '#FF453A',
     systemGreen: '#34C759',
     navigationBar: '#1D1D1D',
+
+    chart01: '#429DFF',
   }
 };
