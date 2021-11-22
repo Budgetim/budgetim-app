@@ -53,25 +53,9 @@ export const ByCategories: FC = () => {
     setVisible(false);
   };
 
-  const groups: any[] = [];
-  data?.forEach((item) => {
-    const foundedGroup = groups.find(group => group.id === item.id);
-    if (foundedGroup) {
-      foundedGroup.data.push(+item.sum);
-    } else {
-      groups.push({
-        id: item.id,
-        description: item.description,
-        title: item.title,
-        color: item.color,
-        data: [+item.sum],
-      });
-    }
-  });
-
   return (
     <Container>
-      {groups.map((item) => {
+      {data.map((item) => {
         return (
           <CategoryCard
             key={item.id}
