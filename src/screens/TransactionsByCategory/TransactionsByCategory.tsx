@@ -14,7 +14,7 @@ import { ModalsProvider } from '../../contexts/modals';
 export const TransactionsByCategory: FC<NativeStackScreenProps<StackParamList, 'TransactionsByCategory'>> = ({ route, navigation }) => {
   const { category, month, year, categoryTitle } = route.params;
 
-  const date = format(new Date(year, month - 1, 1), 'MMMM', { locale });
+  const date = format(new Date(year, month - 1, 1), 'LLLL', { locale });
 
   React.useLayoutEffect(() => {
     navigation.setOptions({

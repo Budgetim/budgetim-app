@@ -6,7 +6,6 @@ import { ChartDispatchAction, ChartContextState, ChartDispatch } from './types';
 import { LineChartProps } from '../LineChart';
 
 const ChartStateContext = createContext<ChartContextState | undefined>(undefined);
-
 const ChartDispatchContext = createContext<ChartDispatch | undefined>(undefined);
 
 const chartReducer = (state: ChartContextState, action: ChartDispatchAction) => {
@@ -40,7 +39,7 @@ export const ChartProvider: FC<LineChartProps> = props => {
   const xScale = d3
     .scaleBand()
     .domain(categories)
-    .range([0, fullWidth]);
+    .range([0, fullWidth - 30]);
 
   const yDomain = getYDomain({ data });
   const yRange = getYRange({ height });
@@ -62,7 +61,9 @@ export const ChartProvider: FC<LineChartProps> = props => {
 
   return (
     <ChartStateContext.Provider value={state}>
-      <ChartDispatchContext.Provider value={dispatch}>{children}</ChartDispatchContext.Provider>
+      <ChartDispatchContext.Provider value={dispatch}>
+        {children}
+      </ChartDispatchContext.Provider>
     </ChartStateContext.Provider>
   );
 };
