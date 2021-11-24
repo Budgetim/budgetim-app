@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import React, { createContext, useReducer, useContext, FC } from 'react';
+import React, { createContext, useReducer, useContext, FC, useEffect } from 'react';
 import { getYDomain } from '../utils/getYDomain';
 import { getYRange } from '../utils/getYRange';
 import { ChartDispatchAction, ChartContextState, ChartDispatch } from './types';
@@ -19,6 +19,12 @@ const chartReducer = (state: ChartContextState, action: ChartDispatchAction) => 
         activeIndex: x !== undefined ? Math.floor(x / colWidth) : undefined,
       };
     }
+
+    case 'updateInitialArg': {
+      const { args } = action.payload;
+      return args;
+    }
+
     default: {
       throw new Error('Unhandled action type');
     }
@@ -48,7 +54,7 @@ export const ChartProvider: FC<LineChartProps> = props => {
     .domain(yDomain)
     .range(yRange);
 
-  const [state, dispatch] = useReducer(chartReducer, {
+  const initialState = {
     activeIndex: undefined,
     xPosition: undefined,
     xScale,
@@ -57,7 +63,17 @@ export const ChartProvider: FC<LineChartProps> = props => {
     categories,
     height,
     colWidth,
-  });
+  };
+
+  const [state, dispatch] = useReducer(chartReducer, initialState);
+
+  useEffect(() => {
+    dispatch({
+      type: 'updateInitialArg',
+      payload: { args: initialState }
+    });
+    // все внешние пропсы, после которых нужно полностью сбросить состояние графика
+  }, [data]);
 
   return (
     <ChartStateContext.Provider value={state}>

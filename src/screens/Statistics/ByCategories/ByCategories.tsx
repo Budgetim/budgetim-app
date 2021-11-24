@@ -54,7 +54,7 @@ export const ByCategories: FC = () => {
   };
 
   return (
-    <Container>
+    <Container scrollIndicatorInsets={{ right: 1 }}>
       {data.map((item) => {
         return (
           <CategoryCard

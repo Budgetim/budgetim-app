@@ -106,6 +106,7 @@ export const SvgChart: FC = ({ children }) => {
       ctx.beginPath();
       path(dataLines);
       ctx.lineWidth = 2;
+      ctx.lineJoin = 'bevel';
       ctx.strokeStyle = chart01;
       ctx.stroke();
 
@@ -125,7 +126,7 @@ export const SvgChart: FC = ({ children }) => {
         ctx.fill();
       }
     }
-  }, [activeIndex]);
+  }, [activeIndex, data]);
 
   return (
     <ChartContainer

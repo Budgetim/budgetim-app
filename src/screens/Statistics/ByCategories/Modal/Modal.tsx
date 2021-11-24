@@ -24,7 +24,7 @@ import format from 'date-fns/format';
 export const Modal: FC<ModalProps> = ({ visible, categoryId, onClose }) => {
   const [width, setWidth] = useState(0);
   const { token } = useUserState();
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<{ title: string; description: string; data: any[] } | null>(null);
   const [error, setError] = useState(null);
   const [isLoading, setLoading] = useState(true);
 
@@ -48,8 +48,38 @@ export const Modal: FC<ModalProps> = ({ visible, categoryId, onClose }) => {
     }
   }, [visible])
 
+  let content = null;
+
   if (isLoading) {
-    return <Loader />;
+    content = <Loader />
+  }
+
+  if (data) {
+    content = (
+      <>
+        <Header>
+          <TextVariant variant="bodyRegular">{data.title}</TextVariant>
+          <Pressable
+            style={{ display: 'flex', flexDirection: 'row' }}
+            onPress={onClose}
+          >
+            <ButtonText variant="subheadlineBold">{i18n.t('common.action.cancel')}</ButtonText>
+          </Pressable>
+        </Header>
+        <ScrollView>
+          <Content onLayout={(event) => setWidth(event.nativeEvent.layout.width)}>
+            {!!width && (
+              <LineChart
+                data={data.data.map(item => ({ value: item.value }))}
+                categories={data.data.map(item => format(new Date(item.date), 'yyyy-MM-dd'))}
+                height={220}
+                width={width}
+              />
+            )}
+          </Content>
+        </ScrollView>
+      </>
+    );
   }
 
   return (
@@ -62,27 +92,7 @@ export const Modal: FC<ModalProps> = ({ visible, categoryId, onClose }) => {
       propagateSwipe
     >
       <ModalContent>
-        <Header>
-          <TextVariant variant="bodyRegular">Category name</TextVariant>
-          <Pressable
-            style={{ display: 'flex', flexDirection: 'row' }}
-            onPress={onClose}
-          >
-            <ButtonText variant="subheadlineBold">{i18n.t('common.action.cancel')}</ButtonText>
-          </Pressable>
-        </Header>
-        <ScrollView>
-          <Content onLayout={(event) => setWidth(event.nativeEvent.layout.width)}>
-            {!!width && (
-              <LineChart
-                data={data.map(item => ({ value: +item.sum }))}
-                categories={data.map(item => format(new Date(item.date), 'yyyy-MM-dd'))}
-                height={220}
-                width={width}
-              />
-            )}
-          </Content>
-        </ScrollView>
+        {content}
       </ModalContent>
     </ModalWrapper>
   );

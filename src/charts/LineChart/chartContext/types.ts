@@ -6,7 +6,12 @@ export interface ChangeXPositionAction {
   payload: { x?: number };
 }
 
-export type ChartDispatchAction = ChangeXPositionAction;
+export interface UpdateInitialArgAction {
+  type: 'updateInitialArg';
+  payload: { args: ChartContextState };
+}
+
+export type ChartDispatchAction = ChangeXPositionAction | UpdateInitialArgAction;
 
 export type ChartDispatch = (action: ChartDispatchAction) => void;
 
