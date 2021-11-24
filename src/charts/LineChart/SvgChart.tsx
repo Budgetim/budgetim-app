@@ -1,26 +1,26 @@
-import React, { FC, useEffect, useRef } from 'react';
-import { GestureResponderEvent, View } from 'react-native';
+import React, { FC, useEffect, useRef, useState } from 'react';
+import { GestureResponderEvent } from 'react-native';
 import { useChartDispatch, useChartState } from './chartContext/chartContext';
 import Canvas from 'react-native-canvas';
 import * as d3 from 'd3';
-import { DataItem } from './types';
-import { getDataLines } from './utils/getDataLines';
 import { useTheme } from 'styled-components/native';
-
-import { TextVariant } from '../../components/TextVariant';
 import format from 'date-fns/format';
 import locale from 'date-fns/locale/en-US';
+
+import { TextVariant } from '../../components/TextVariant';
 import { useUserState } from '../../contexts/user';
 import { separateThousands } from '../../utils/separateThousands';
+import { DataItem } from './types';
+import { getDataLines } from './utils/getDataLines';
 import { ChartContainer, Header, HeaderTitle, PriceLabel, CategoryWrapper, CategoryLabel } from './styled';
 
 export const SvgChart: FC = ({ children }) => {
   const dispatch = useChartDispatch();
   const { currency } = useUserState();
-  const { categories, height, colWidth, xScale, yScale, data, activeIndex } = useChartState();
-  const fullWidth = colWidth * categories.length;
+  const { categories, height, width, xScale, yScale, data, ticks, activeIndex } = useChartState();
   const dataLines = getDataLines({ data, categories });
   const { colors: { chart01, systemGray04 } } = useTheme();
+  const [labelWidth, setLabelWidth] = useState(0);
 
   const handleTouchStart = (e: GestureResponderEvent) => {
     dispatch({
@@ -60,9 +60,9 @@ export const SvgChart: FC = ({ children }) => {
   });
 
   useEffect(() => {
-    if (canvas.current) {
+    if (canvas.current && width > 0) {
       const ctx = canvas.current.getContext('2d');
-      canvas.current.width = fullWidth;
+      canvas.current.width = width;
       canvas.current.height = height;
 
       const path = d3
@@ -80,7 +80,7 @@ export const SvgChart: FC = ({ children }) => {
         .curve(d3.curveLinear)
         .context(ctx);
 
-      ctx.clearRect(0, 0, fullWidth, height);
+      ctx.clearRect(0, 0, width, height);
 
       // area
       ctx.beginPath();
@@ -99,6 +99,17 @@ export const SvgChart: FC = ({ children }) => {
         ctx.lineWidth = 0.5;
         ctx.moveTo(x, 0);
         ctx.lineTo(x, height);
+        ctx.stroke();
+      });
+
+      ticks.forEach(tick => {
+        // ticks separator
+        const y = yScale(tick);
+        ctx.beginPath();
+        ctx.strokeStyle = systemGray04;
+        ctx.lineWidth = 0.5;
+        ctx.moveTo(0, y);
+        ctx.lineTo(width, y);
         ctx.stroke();
       });
 
@@ -126,7 +137,7 @@ export const SvgChart: FC = ({ children }) => {
         ctx.fill();
       }
     }
-  }, [activeIndex, data]);
+  }, [activeIndex, data, width]);
 
   return (
     <ChartContainer
@@ -163,12 +174,13 @@ export const SvgChart: FC = ({ children }) => {
             width={width}
             style={{ transform: [{ translateX: start }]}}
           >
-            <CategoryLabel variant="footnoteRegular">
+            <CategoryLabel variant="footnoteBold">
               {format(new Date(item.year, item.month, 1), 'LLLL', { locale })}
             </CategoryLabel>
           </CategoryWrapper>
         );
       })}
+      {children}
     </ChartContainer>
   );
 };

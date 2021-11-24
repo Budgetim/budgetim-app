@@ -9,14 +9,20 @@ const ChartStateContext = createContext<ChartContextState | undefined>(undefined
 const ChartDispatchContext = createContext<ChartDispatch | undefined>(undefined);
 
 const chartReducer = (state: ChartContextState, action: ChartDispatchAction) => {
-  const { colWidth } = state;
+  const { categories, xScale } = state;
   switch (action.type) {
     case 'changeXPosition': {
       const { x } = action.payload;
+      let activeIndex = x !== undefined ? Math.floor(x / xScale.bandwidth()) : undefined;
+      if (activeIndex !== undefined && activeIndex < 0) {
+        activeIndex = 0;
+      }
+      if (activeIndex !== undefined && activeIndex >= categories.length) {
+        activeIndex = categories.length - 1;
+      }
       return {
         ...state,
-        xPosition: x !== undefined ? Math.floor(x / colWidth) * colWidth + colWidth / 2 : undefined,
-        activeIndex: x !== undefined ? Math.floor(x / colWidth) : undefined,
+        activeIndex,
       };
     }
 
@@ -31,7 +37,7 @@ const chartReducer = (state: ChartContextState, action: ChartDispatchAction) => 
   }
 };
 
-export const ChartProvider: FC<LineChartProps> = props => {
+export const ChartProvider: FC<LineChartProps & { width: number }> = props => {
   const {
     categories,
     height,
@@ -39,13 +45,11 @@ export const ChartProvider: FC<LineChartProps> = props => {
     children,
     width,
   } = props;
-  const fullWidth = width;
-  const colWidth = fullWidth / categories.length;
 
   const xScale = d3
     .scaleBand()
     .domain(categories)
-    .range([0, fullWidth - 30]);
+    .range([0, width]);
 
   const yDomain = getYDomain({ data });
   const yRange = getYRange({ height });
@@ -53,16 +57,17 @@ export const ChartProvider: FC<LineChartProps> = props => {
     .scaleLinear()
     .domain(yDomain)
     .range(yRange);
+  const ticks = yScale.ticks(4);
 
   const initialState = {
     activeIndex: undefined,
-    xPosition: undefined,
     xScale,
     yScale,
     data,
     categories,
     height,
-    colWidth,
+    width,
+    ticks,
   };
 
   const [state, dispatch] = useReducer(chartReducer, initialState);
@@ -73,7 +78,7 @@ export const ChartProvider: FC<LineChartProps> = props => {
       payload: { args: initialState }
     });
     // все внешние пропсы, после которых нужно полностью сбросить состояние графика
-  }, [data]);
+  }, [data, width]);
 
   return (
     <ChartStateContext.Provider value={state}>

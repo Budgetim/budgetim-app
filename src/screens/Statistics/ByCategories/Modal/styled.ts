@@ -8,7 +8,6 @@ export const Header = styled(View)(css({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
-  p: 4,
 }));
 
 export const Content = styled(View)(css({
@@ -26,6 +25,7 @@ export const ModalContent = styled(View)(css({
   shadowOpacity: 0.1,
   shadowRadius: 3,
   height: '80%',
+  p: 4,
 } as SystemStyleObject));
 
 export const ButtonText = styled(TextVariant)(css({

@@ -22,7 +22,6 @@ import { getCategoryStatistics } from '../../../../api/categories/getCategorySta
 import format from 'date-fns/format';
 
 export const Modal: FC<ModalProps> = ({ visible, categoryId, onClose }) => {
-  const [width, setWidth] = useState(0);
   const { token } = useUserState();
   const [data, setData] = useState<{ title: string; description: string; data: any[] } | null>(null);
   const [error, setError] = useState(null);
@@ -67,15 +66,12 @@ export const Modal: FC<ModalProps> = ({ visible, categoryId, onClose }) => {
           </Pressable>
         </Header>
         <ScrollView>
-          <Content onLayout={(event) => setWidth(event.nativeEvent.layout.width)}>
-            {!!width && (
-              <LineChart
-                data={data.data.map(item => ({ value: item.value }))}
-                categories={data.data.map(item => format(new Date(item.date), 'yyyy-MM-dd'))}
-                height={220}
-                width={width}
-              />
-            )}
+          <Content>
+            <LineChart
+              data={data.data.map(item => ({ value: item.value }))}
+              categories={data.data.map(item => format(new Date(item.date), 'yyyy-MM-dd'))}
+              height={220}
+            />
           </Content>
         </ScrollView>
       </>

@@ -20,8 +20,8 @@ type LineChartNextProps = 'data' | 'categories' | 'height';
 
 export interface ChartContextState extends Pick<LineChartProps, LineChartNextProps> {
   activeIndex: number | undefined;
-  xPosition: number | undefined;
   xScale: XScale;
   yScale: YScale;
-  colWidth: number;
+  width: number;
+  ticks: number[];
 }
