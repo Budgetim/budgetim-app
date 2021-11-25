@@ -9,10 +9,12 @@ import { getDataLines } from '../utils/getDataLines';
 import { useChartDispatch, useChartState } from '../chartContext/chartContext';
 
 export const Chart: FC = () => {
+  const staticCanvas = useRef<Canvas>(null);
+  const dynamicCanvas = useRef<Canvas>(null);
   const dispatch = useChartDispatch();
   const { categories, height, width, xScale, yScale, data, ticks, activeIndex, monthsList } = useChartState();
   const dataLines = getDataLines({ data, categories });
-  const { colors: { chart01, systemGray04 } } = useTheme();
+  const { colors: { chart01, systemGray05 } } = useTheme();
 
   const handleTouchStart = (e: GestureResponderEvent) => {
     dispatch({
@@ -32,13 +34,11 @@ export const Chart: FC = () => {
     });
   };
 
-  const canvas = useRef<Canvas>(null);
-
   useEffect(() => {
-    if (canvas.current && width > 0) {
-      const ctx = canvas.current.getContext('2d');
-      canvas.current.width = width;
-      canvas.current.height = height;
+    if (staticCanvas.current) {
+      const ctx = staticCanvas.current.getContext('2d');
+      staticCanvas.current.width = width;
+      staticCanvas.current.height = height;
 
       const path = d3
         .line<DataItem>()
@@ -69,7 +69,7 @@ export const Chart: FC = () => {
         // month separator
         const x = (xScale(item.days[0]) as number);
         ctx.beginPath();
-        ctx.strokeStyle = systemGray04;
+        ctx.strokeStyle = systemGray05;
         ctx.globalAlpha = 1;
         ctx.lineWidth = 0.5;
         ctx.moveTo(x, 0);
@@ -81,7 +81,7 @@ export const Chart: FC = () => {
         // ticks separator
         const y = yScale(tick);
         ctx.beginPath();
-        ctx.strokeStyle = systemGray04;
+        ctx.strokeStyle = systemGray05;
         ctx.lineWidth = 0.5;
         ctx.moveTo(0, y);
         ctx.lineTo(width, y);
@@ -95,12 +95,21 @@ export const Chart: FC = () => {
       ctx.lineJoin = 'bevel';
       ctx.strokeStyle = chart01;
       ctx.stroke();
+    }
+  }, [data, width]);
+
+  useEffect(() => {
+    if (dynamicCanvas.current) {
+      const ctx = dynamicCanvas.current.getContext('2d');
+      dynamicCanvas.current.width = width;
+      dynamicCanvas.current.height = height;
 
       if (activeIndex !== undefined) {
         // hover line
         const x = (xScale(categories[activeIndex]) as number) + xScale.bandwidth() / 2;
         const y = yScale(dataLines[activeIndex].value);
         ctx.beginPath();
+        ctx.strokeStyle = chart01;
         ctx.lineWidth = 1;
         ctx.moveTo(x, 0);
         ctx.lineTo(x, yScale(0));
@@ -108,19 +117,22 @@ export const Chart: FC = () => {
 
         // hover dot
         ctx.beginPath();
+        ctx.fillStyle = chart01;
         ctx.arc(x, y, 4, 0, 2 * Math.PI, false);
         ctx.fill();
       }
     }
-  }, [activeIndex, data, width]);
+  }, [activeIndex]);
 
   return (
     <View
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchStart}
       onTouchEnd={handleTouchCancel}
+      style={{ position: 'relative' }}
     >
-      <Canvas ref={canvas} />
+      <Canvas ref={staticCanvas} style={{ position: 'absolute', top: 0, left: 0 }} />
+      <Canvas ref={dynamicCanvas} />
     </View>
   );
 };

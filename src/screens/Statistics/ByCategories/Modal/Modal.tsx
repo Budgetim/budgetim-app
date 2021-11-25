@@ -1,16 +1,19 @@
 import React, { FC, useEffect, useState } from 'react';
-import i18n from 'i18n-js';
-import { Pressable, ScrollView } from 'react-native';
+import { View } from 'react-native';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import { useTheme } from 'styled-components/native';
 
-import { TextVariant } from '../../../../components/TextVariant';
 import { LineChart } from '../../../../charts/LineChart';
 
 import {
-  ButtonText,
   Content,
+  Title,
+  Titles,
+  Description,
   Header,
   ModalContent,
   ModalWrapper,
+  CloseButton,
 } from './styled';
 
 import { useUserState } from '../../../../contexts/user';
@@ -26,6 +29,7 @@ export const Modal: FC<ModalProps> = ({ visible, categoryId, onClose }) => {
   const [data, setData] = useState<{ title: string; description: string; data: any[] } | null>(null);
   const [error, setError] = useState(null);
   const [isLoading, setLoading] = useState(true);
+  const { colors: { textSecondary }} = useTheme();
 
   useErrorHandler(error);
 
@@ -57,23 +61,23 @@ export const Modal: FC<ModalProps> = ({ visible, categoryId, onClose }) => {
     content = (
       <>
         <Header>
-          <TextVariant variant="bodyRegular">{data.title}</TextVariant>
-          <Pressable
-            style={{ display: 'flex', flexDirection: 'row' }}
-            onPress={onClose}
-          >
-            <ButtonText variant="subheadlineBold">{i18n.t('common.action.cancel')}</ButtonText>
-          </Pressable>
+          <Titles>
+            <Title variant="title2Bold">{data.title}</Title>
+            {data.description && (
+              <Description variant="bodyRegular">{data.description}</Description>
+            )}
+          </Titles>
+          <CloseButton onPress={onClose}>
+            <AntDesign name="closecircle" color={textSecondary} size={28} />
+          </CloseButton>
         </Header>
-        <ScrollView>
-          <Content>
-            <LineChart
-              data={data.data.map(item => ({ value: item.value }))}
-              categories={data.data.map(item => format(new Date(item.date), 'yyyy-MM-dd'))}
-              height={250}
-            />
-          </Content>
-        </ScrollView>
+        <Content>
+          <LineChart
+            data={data.data.map(item => ({ value: item.value }))}
+            categories={data.data.map(item => format(new Date(item.date), 'yyyy-MM-dd'))}
+            height={245}
+          />
+        </Content>
       </>
     );
   }

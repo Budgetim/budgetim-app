@@ -9,7 +9,9 @@ export const Container = styled(View)(css({
 }));
 
 export const Message = styled(TextVariant)(css({
+  mt: 2,
   color: 'textSecondary',
+  textAlign: 'center',
 }));
 
 export const HeaderTitle = styled(TextVariant)(css({

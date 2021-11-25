@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import css, { SystemStyleObject } from '@styled-system/css';
 import Modal from 'react-native-modal';
 import { TextVariant } from '../../../../components/TextVariant';
@@ -7,11 +7,30 @@ import { TextVariant } from '../../../../components/TextVariant';
 export const Header = styled(View)(css({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'space-between',
-  mb: 2,
+  borderBottomWidth: 1,
+  borderColor: 'systemGray04',
+  mb: 1,
+  pb: 2,
+}));
+
+export const Titles = styled(View)(css({
+  flex: 1,
+}));
+
+export const Title = styled(TextVariant)(css({
+  mb: 1,
+}));
+
+export const CloseButton = styled(TouchableOpacity)(css({
+  p: 1,
+  mr: -1,
 }));
 
 export const Content = styled(View)(css({
+}));
+
+export const Description = styled(TextVariant)(css({
+  color: 'textSecondary',
 }));
 
 export const ModalWrapper = styled(Modal as any)({
@@ -28,7 +47,3 @@ export const ModalContent = styled(View)(css({
   height: '80%',
   p: 4,
 } as SystemStyleObject));
-
-export const ButtonText = styled(TextVariant)(css({
-  color: 'systemBlue',
-}))
