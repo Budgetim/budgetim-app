@@ -77,7 +77,8 @@
       "title": "By categories"
     },
     "months": {
-      "title": "By months"
+      "title": "By months",
+      "periodTitle": "Data for the entire period"
     }
   },
   "settings": {

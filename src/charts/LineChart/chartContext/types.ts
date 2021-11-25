@@ -24,4 +24,9 @@ export interface ChartContextState extends Pick<LineChartProps, LineChartNextPro
   yScale: YScale;
   width: number;
   ticks: number[];
+  monthsList: {
+    month: number;
+    year: number,
+    days: string[]
+  }[];
 }

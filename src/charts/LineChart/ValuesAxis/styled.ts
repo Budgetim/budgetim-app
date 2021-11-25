@@ -20,7 +20,6 @@ export const TickText = styled(TickMask)(css({
 }));
 
 export const Container = styled(View)(css({
-  marginTop: '34px',
   position: 'relative',
   borderColor: 'systemGray05',
   borderLeftWidth: 0.5,

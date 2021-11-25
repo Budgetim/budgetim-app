@@ -1,4 +1,4 @@
-import { authHeader } from '../../helpers/authHeader';
+import { authHeader } from '../../utils/authHeader';
 
 export const deleteTransaction = async (id: number, token: string | null) => {
   try {

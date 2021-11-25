@@ -1,4 +1,4 @@
-import { authHeader } from '../../helpers/authHeader';
+import { authHeader } from '../../utils/authHeader';
 
 export const getAvailableMonths = async (token: string | null): Promise<{ data: any[] }> => {
   try {

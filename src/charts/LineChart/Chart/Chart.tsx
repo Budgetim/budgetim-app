@@ -1,26 +1,18 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
-import { GestureResponderEvent } from 'react-native';
-import { useChartDispatch, useChartState } from './chartContext/chartContext';
+import React, { FC, useEffect, useRef } from 'react';
+import { GestureResponderEvent, View } from 'react-native';
 import Canvas from 'react-native-canvas';
 import * as d3 from 'd3';
 import { useTheme } from 'styled-components/native';
-import format from 'date-fns/format';
-import locale from 'date-fns/locale/en-US';
 
-import { TextVariant } from '../../components/TextVariant';
-import { useUserState } from '../../contexts/user';
-import { separateThousands } from '../../utils/separateThousands';
-import { DataItem } from './types';
-import { getDataLines } from './utils/getDataLines';
-import { ChartContainer, Header, HeaderTitle, PriceLabel, CategoryWrapper, CategoryLabel } from './styled';
+import { DataItem } from '../types';
+import { getDataLines } from '../utils/getDataLines';
+import { useChartDispatch, useChartState } from '../chartContext/chartContext';
 
-export const SvgChart: FC = ({ children }) => {
+export const Chart: FC = () => {
   const dispatch = useChartDispatch();
-  const { currency } = useUserState();
-  const { categories, height, width, xScale, yScale, data, ticks, activeIndex } = useChartState();
+  const { categories, height, width, xScale, yScale, data, ticks, activeIndex, monthsList } = useChartState();
   const dataLines = getDataLines({ data, categories });
   const { colors: { chart01, systemGray04 } } = useTheme();
-  const [labelWidth, setLabelWidth] = useState(0);
 
   const handleTouchStart = (e: GestureResponderEvent) => {
     dispatch({
@@ -41,23 +33,6 @@ export const SvgChart: FC = ({ children }) => {
   };
 
   const canvas = useRef<Canvas>(null);
-
-  const monthsList: { month: number; year: number, days: string[] }[] = [];
-  categories.forEach(category => {
-    const date = new Date(category);
-    const month = date.getMonth();
-    const year = date.getFullYear();
-    const foundedMonth = monthsList.find(item => item.month === month && item.year === year);
-    if (!foundedMonth) {
-      monthsList.push({
-        month,
-        year,
-        days: [category]
-      });
-    } else {
-      foundedMonth.days.push(category);
-    }
-  });
 
   useEffect(() => {
     if (canvas.current && width > 0) {
@@ -128,59 +103,24 @@ export const SvgChart: FC = ({ children }) => {
         ctx.beginPath();
         ctx.lineWidth = 1;
         ctx.moveTo(x, 0);
-        ctx.lineTo(x, height);
+        ctx.lineTo(x, yScale(0));
         ctx.stroke();
 
         // hover dot
         ctx.beginPath();
-        ctx.arc(x, y, 3.5, 0, 2 * Math.PI, false);
+        ctx.arc(x, y, 4, 0, 2 * Math.PI, false);
         ctx.fill();
       }
     }
   }, [activeIndex, data, width]);
 
   return (
-    <ChartContainer
+    <View
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchStart}
       onTouchEnd={handleTouchCancel}
     >
-      <Header>
-        {activeIndex !== undefined && (
-          <>
-            <HeaderTitle variant="footnoteBold">
-              {format(new Date(categories[activeIndex]), 'd MMMM yyyy')}
-            </HeaderTitle>
-            <PriceLabel
-              style={{
-                transform: [{ translateX: xScale(categories[activeIndex]) as number }],
-              }}
-            >
-              <TextVariant variant="footnoteBold">
-                {separateThousands(dataLines[activeIndex].value)} {currency?.unit}
-              </TextVariant>
-            </PriceLabel>
-          </>
-        )}
-      </Header>
       <Canvas ref={canvas} />
-      {monthsList.map((item, index) => {
-        const start = xScale(item.days[0]) as number;
-        const end = (xScale(item.days[item.days.length - 1]) as number) + xScale.bandwidth();
-        const width = end - start;
-        return (
-          <CategoryWrapper
-            key={`${item.month}${item.year}`}
-            width={width}
-            style={{ transform: [{ translateX: start }]}}
-          >
-            <CategoryLabel variant="footnoteBold">
-              {format(new Date(item.year, item.month, 1), 'LLLL', { locale })}
-            </CategoryLabel>
-          </CategoryWrapper>
-        );
-      })}
-      {children}
-    </ChartContainer>
+    </View>
   );
 };

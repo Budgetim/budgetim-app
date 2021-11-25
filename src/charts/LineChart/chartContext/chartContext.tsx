@@ -1,9 +1,8 @@
 import * as d3 from 'd3';
+import maxBy from 'lodash/maxBy';
 import React, { createContext, useReducer, useContext, FC, useEffect } from 'react';
-import { getYDomain } from '../utils/getYDomain';
-import { getYRange } from '../utils/getYRange';
 import { ChartDispatchAction, ChartContextState, ChartDispatch } from './types';
-import { LineChartProps } from '../LineChart';
+import { LineChartProps } from '../types';
 
 const ChartStateContext = createContext<ChartContextState | undefined>(undefined);
 const ChartDispatchContext = createContext<ChartDispatch | undefined>(undefined);
@@ -51,13 +50,30 @@ export const ChartProvider: FC<LineChartProps & { width: number }> = props => {
     .domain(categories)
     .range([0, width]);
 
-  const yDomain = getYDomain({ data });
-  const yRange = getYRange({ height });
+  const max = maxBy(data, 'value')?.value || 0;
   const yScale = d3
     .scaleLinear()
-    .domain(yDomain)
-    .range(yRange);
+    .domain([0, max])
+    .range([height - 4, 4]);
+
   const ticks = yScale.ticks(4);
+
+  const monthsList: ChartContextState['monthsList'] = [];
+  categories.forEach(category => {
+    const date = new Date(category);
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    const foundedMonth = monthsList.find(item => item.month === month && item.year === year);
+    if (!foundedMonth) {
+      monthsList.push({
+        month,
+        year,
+        days: [category]
+      });
+    } else {
+      foundedMonth.days.push(category);
+    }
+  });
 
   const initialState = {
     activeIndex: undefined,
@@ -68,6 +84,7 @@ export const ChartProvider: FC<LineChartProps & { width: number }> = props => {
     height,
     width,
     ticks,
+    monthsList,
   };
 
   const [state, dispatch] = useReducer(chartReducer, initialState);

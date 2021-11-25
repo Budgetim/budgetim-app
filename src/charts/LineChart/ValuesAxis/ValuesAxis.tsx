@@ -4,7 +4,7 @@ import { separateThousands } from '../../../utils/separateThousands';
 
 import { TickMask, TickText, TickItem, Container } from './styled';
 
-export const Grid = () => {
+export const ValuesAxis = () => {
   const { yScale, ticks } = useChartState();
 
   return (

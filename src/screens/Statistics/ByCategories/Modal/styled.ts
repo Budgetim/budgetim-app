@@ -8,6 +8,7 @@ export const Header = styled(View)(css({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
+  mb: 2,
 }));
 
 export const Content = styled(View)(css({

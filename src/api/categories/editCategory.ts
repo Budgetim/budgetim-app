@@ -1,5 +1,5 @@
 import { Category } from '../../types';
-import { authHeader } from '../../helpers/authHeader';
+import { authHeader } from '../../utils/authHeader';
 
 interface EditCategoryParams {
   id: number;

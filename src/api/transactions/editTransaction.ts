@@ -1,5 +1,5 @@
 import { Transaction } from '../../types';
-import { authHeader } from '../../helpers/authHeader';
+import { authHeader } from '../../utils/authHeader';
 import format from 'date-fns/format';
 import { formatNumberForServer } from '../../utils/formatNumberForServer';
 

@@ -70,7 +70,7 @@ export const Modal: FC<ModalProps> = ({ visible, categoryId, onClose }) => {
             <LineChart
               data={data.data.map(item => ({ value: item.value }))}
               categories={data.data.map(item => format(new Date(item.date), 'yyyy-MM-dd'))}
-              height={220}
+              height={250}
             />
           </Content>
         </ScrollView>

@@ -1,4 +1,4 @@
-import { authHeader } from '../../helpers/authHeader';
+import { authHeader } from '../../utils/authHeader';
 
 interface GetCategoryStatisticsParams {
   categoryId: number;

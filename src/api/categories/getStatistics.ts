@@ -1,4 +1,4 @@
-import { authHeader } from '../../helpers/authHeader';
+import { authHeader } from '../../utils/authHeader';
 import { StatisticsItem } from '../../screens/Statistics/StatisticsInfo';
 
 interface GetStatisticsParams {

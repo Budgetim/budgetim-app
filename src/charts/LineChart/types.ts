@@ -11,3 +11,9 @@ export interface DataItem {
 
 export type XScale = d3.ScaleBand<string>;
 export type YScale = d3.ScaleLinear<number, number>;
+
+export interface LineChartProps {
+  categories: string[];
+  height: number;
+  data: DataItemLineChart[];
+}

@@ -1,5 +1,5 @@
 import { Category } from '../../types';
-import { authHeader } from '../../helpers/authHeader';
+import { authHeader } from '../../utils/authHeader';
 
 export const getCategories = async (token: string | null): Promise<Category[]> => {
   try {

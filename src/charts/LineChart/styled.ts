@@ -1,33 +1,14 @@
-import styled from 'styled-components/native';
-import { View } from 'react-native';
 import css from '@styled-system/css';
-import { WidthProps } from 'styled-system';
-import { TextVariant } from '../../components/TextVariant';
+import { View } from 'react-native';
+import styled from 'styled-components/native';
 
-export const ChartContainer = styled(View)(css({
-  position: 'relative',
+export const Content = styled(View)(css({
+  display: 'flex',
+  flexDirection: 'row',
+  borderColor: 'systemGray05',
+  borderTopWidth: 0.5,
 }));
 
-export const Header = styled(View)(css({
-  height: 34,
-  position: 'relative'
-}));
-
-export const HeaderTitle = styled(TextVariant)(css({
-  textAlign: 'center'
-}));
-
-export const PriceLabel = styled(View)(css({
-  position: 'absolute',
-  bottom: 0,
-}));
-
-export const CategoryWrapper = styled(View)<WidthProps>(css({
-  position: 'absolute',
-  left: 0,
-  bottom: 0,
-}));
-
-export const CategoryLabel = styled(TextVariant)(css({
-  textAlign: 'center',
+export const ChartWrapper = styled(View)(css({
+  flex: 1,
 }));

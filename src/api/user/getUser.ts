@@ -1,5 +1,5 @@
 import { User } from '../../types';
-import { authHeader } from '../../helpers/authHeader';
+import { authHeader } from '../../utils/authHeader';
 
 export const getUser = async (token: string | null): Promise<User> => {
   try {

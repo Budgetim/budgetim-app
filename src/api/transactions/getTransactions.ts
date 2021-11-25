@@ -1,5 +1,5 @@
 import { Transaction } from '../../types';
-import { authHeader } from '../../helpers/authHeader';
+import { authHeader } from '../../utils/authHeader';
 import { serialize } from '../../utils/serialize';
 
 interface GetTransactionsParams {
