@@ -4,9 +4,9 @@ import { useTheme } from 'styled-components/native';
 import { CATEGORY_COLOR_DEFAULT } from '../../constants';
 
 import { CategoryCardProps } from './types';
-import { Container, Circle, Content, SubTitle, Title, ContentWrapper, Label } from './styled'
+import { Container, Circle, Content, SubTitle, Title, ContentWrapper, Label } from './styled';
 
-export const CategoryCard: FC<CategoryCardProps> = (props) => {
+export const CategoryCard: FC<CategoryCardProps> = props => {
   const { colors } = useTheme();
   const { title = 'no categories', description, label, chart, tagColor, onPress } = props;
   const color = tagColor ? tagColor.toLowerCase() : colors[CATEGORY_COLOR_DEFAULT];
@@ -16,8 +16,14 @@ export const CategoryCard: FC<CategoryCardProps> = (props) => {
       <Circle bg={color} />
       <Content>
         <ContentWrapper>
-          <Title variant="subheadlineRegular" numberOfLines={1}>{title}</Title>
-          {!!description && <SubTitle variant="subheadlineRegular" numberOfLines={1}>{description}</SubTitle>}
+          <Title variant="subheadlineRegular" numberOfLines={1}>
+            {title}
+          </Title>
+          {!!description && (
+            <SubTitle variant="subheadlineRegular" numberOfLines={1}>
+              {description}
+            </SubTitle>
+          )}
         </ContentWrapper>
         {chart}
         {label && <Label variant="subheadlineBold">{label}</Label>}

@@ -1,4 +1,5 @@
 import React, { FC, useEffect } from 'react';
+import { ErrorMessage } from '../../../../components/ErrorMessage';
 import { useUserState } from '../../../../contexts/user';
 import { FlatList } from 'react-native';
 import { getCategories } from '../../../../api/categories/getCategories';
@@ -29,7 +30,7 @@ export const CategoriesList: FC = () => {
   }, []);
 
   if (error) {
-    return <TextVariant variant="bodyRegular">{error}</TextVariant>
+    return <ErrorMessage>{error}</ErrorMessage>
   }
 
   if (isLoading) {

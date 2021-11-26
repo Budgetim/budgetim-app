@@ -31,7 +31,7 @@ export const EditPasswordModal: FC<EditPasswordModalProps> = (props) => {
           <Pressable onPress={onClose}>
             <ButtonText variant="subheadlineRegular">{i18n.t('common.action.cancel')}</ButtonText>
           </Pressable>
-          <TextVariant variant="subheadlineRegular">{i18n.t('settings.personal.action.changePassword')}</TextVariant>
+          <TextVariant variant="subheadlineRegular">{i18n.t('settings.general.action.changePassword')}</TextVariant>
           <Pressable
             style={{ display: 'flex', flexDirection: 'row' }}
             onPress={onSave}

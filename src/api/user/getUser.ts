@@ -3,7 +3,7 @@ import { authHeader } from '../../utils/authHeader';
 
 export const getUser = async (token: string | null): Promise<User> => {
   try {
-    await new Promise(resolve => setTimeout(resolve, 3000));
+    //await new Promise(resolve => setTimeout(resolve, 3000));
 
     const response = await fetch(`http://api.budgetim.ru/users`, {
       headers: authHeader(token),

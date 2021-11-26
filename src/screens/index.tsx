@@ -68,7 +68,7 @@ export const Screens = () => {
       <Stack.Screen
         name="Loading"
         component={Loading}
-        options={{ title: 'Loading...' }}
+        options={{ headerShown: false }}
       />
     )
   } else if (error) {
@@ -76,7 +76,7 @@ export const Screens = () => {
       <Stack.Screen
         name="Error"
         component={Error}
-        options={{ title: 'Error' }}
+        options={{ title: i18n.t('common.state.error') }}
       />
     )
   } else if (token === null) {
@@ -130,7 +130,7 @@ export const Screens = () => {
         <Stack.Screen
           name="Personal"
           component={Personal}
-          options={{ title: i18n.t('settings.personal.title') }}
+          options={{ title: i18n.t('settings.general.title') }}
         />
         <Stack.Screen
           name="Currency"

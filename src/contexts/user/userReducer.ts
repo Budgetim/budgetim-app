@@ -1,3 +1,4 @@
+import { getTitleCurrencyById } from '../../utils/getTitleCurrencyById';
 import { UserContextState, UserDispatchAction } from './types';
 
 export const userReducer = (state: UserContextState, action: UserDispatchAction) => {
@@ -7,6 +8,10 @@ export const userReducer = (state: UserContextState, action: UserDispatchAction)
       return {
         ...state,
         ...user,
+        currency: user.currency && {
+          ...user.currency,
+          title: getTitleCurrencyById(user.currency.id),
+        },
       };
     }
 

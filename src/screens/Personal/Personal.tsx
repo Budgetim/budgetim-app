@@ -55,13 +55,13 @@ export const Personal: FC<NativeStackScreenProps<StackParamList, 'Personal'>> = 
       <GroupList
         data={[
           {
-            title: i18n.t('settings.personal.action.changePassword'),
+            title: i18n.t('settings.general.action.changePassword'),
             onPress: () => setVisible(true),
           },
         ]}
       />
       <SignOutButton onPress={logOut}>
-        <Link variant="bodyRegular">{i18n.t('settings.personal.action.signOut')}</Link>
+        <Link variant="bodyRegular">{i18n.t('settings.general.action.signOut')}</Link>
       </SignOutButton>
       <EditPasswordModal
         visible={visible}
@@ -73,8 +73,8 @@ export const Personal: FC<NativeStackScreenProps<StackParamList, 'Personal'>> = 
         <InputList
           data={[
             {
-              title: i18n.t('settings.personal.form.password.name'),
-              placeholder: i18n.t('settings.personal.form.password.placeholder'),
+              title: i18n.t('settings.general.form.password.name'),
+              placeholder: i18n.t('settings.general.form.password.placeholder'),
               value,
               setValue,
             }

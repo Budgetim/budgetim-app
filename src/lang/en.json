@@ -5,6 +5,12 @@
       "cancel": "Cancel",
       "change": "Change",
       "done": "Done"
+    },
+    "state": {
+      "error": "Error"
+    },
+    "errors": {
+      "notAvailable": "Service is temporarily unavailable"
     }
   },
   "login": {
@@ -83,8 +89,8 @@
   },
   "settings": {
     "title": "Settings",
-    "personal": {
-      "title": "Personal",
+    "general": {
+      "title": "General",
       "action": {
         "changePassword": "Change password",
         "signOut": "Sign out"
@@ -100,7 +106,12 @@
       "title": "Categories"
     },
     "currency": {
-      "title": "Currency"
+      "title": "Currency",
+      "variants": {
+        "usd": "USD",
+        "euro": "Euro",
+        "ruble": "Russian ruble"
+      }
     }
   }
 }

@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { ScrollView, View } from 'react-native';
 import format from 'date-fns/format';
+import { ErrorMessage } from '../../../components/ErrorMessage';
 
 import { useUserState } from '../../../contexts/user';
 
@@ -63,7 +64,7 @@ export const StatisticsInfo: FC<StatisticsInfoProps> = ({ month, year, setNextDa
     }
 
     if (error) {
-      return <TextVariant variant="subheadlineBold">{error}</TextVariant>;
+      return <ErrorMessage>{error}</ErrorMessage>
     }
 
     return (

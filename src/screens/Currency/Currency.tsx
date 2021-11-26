@@ -1,11 +1,12 @@
 import React, { FC, useEffect, useState } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { ErrorMessage } from '../../components/ErrorMessage';
+import { getTitleCurrencyById } from '../../utils/getTitleCurrencyById';
 
 import { StackParamList } from '../types';
 import { Container } from './styled';
 import { SelectList } from '../../components/SelectList';
 import { Loader } from '../../components/Loader';
-import { TextVariant } from '../../components/TextVariant';
 import { getCurrencies } from '../../api/currencies/getCurrencies';
 import { Currency as CurrencyType } from '../../types';
 import { useUserDispatch, useUserState } from '../../contexts/user';
@@ -51,7 +52,7 @@ export const Currency: FC<NativeStackScreenProps<StackParamList, 'Currency'>> = 
   }
 
   if (error) {
-    return <TextVariant variant="subheadlineBold">{error}</TextVariant>;
+    return <ErrorMessage>{error}</ErrorMessage>
   }
 
   if (!data) {
@@ -65,6 +66,7 @@ export const Currency: FC<NativeStackScreenProps<StackParamList, 'Currency'>> = 
         data={data.map(item => {
           return {
             ...item,
+            title: getTitleCurrencyById(item.id),
             isActive: item.id === currency?.id,
           };
         })}

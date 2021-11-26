@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { View } from 'react-native';
+import { ErrorMessage } from '../../../components/ErrorMessage';
 
 import { useUserState } from '../../../contexts/user';
 import { TextVariant } from '../../../components/TextVariant';
@@ -40,7 +41,7 @@ export const ByMonths: FC = () => {
   }
 
   if (error) {
-    return <TextVariant variant="subheadlineBold">{error}</TextVariant>;
+    return <ErrorMessage>{error}</ErrorMessage>
   }
 
   if (!data) {

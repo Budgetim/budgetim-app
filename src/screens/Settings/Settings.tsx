@@ -17,7 +17,7 @@ export const Settings: FC<NativeStackScreenProps<StackParamList, 'Settings'>> = 
         <GroupList
           data={[
             {
-              title: i18n.t('settings.personal.title'),
+              title: i18n.t('settings.general.title'),
               type: 'person',
               onPress: () => navigation.navigate('Personal'),
             },

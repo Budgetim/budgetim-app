@@ -7,6 +7,7 @@ import { useUserState } from '../../../../contexts/user';
 import { useCategoriesDispatch, useCategoriesState } from '../../../../contexts/categories';
 
 import { getCategories } from '../../../../api/categories/getCategories';
+import { ErrorMessage } from '../../../ErrorMessage';
 import { TextVariant } from '../../../TextVariant';
 import { Loader } from '../../../Loader';
 import { SelectList } from '../../../SelectList';
@@ -38,7 +39,7 @@ export const CategoriesList: FC<CategoriesListProps> = ({ activeCategoryId, setC
   }, []);
 
   if (error) {
-    return <TextVariant variant="bodyRegular">{error}</TextVariant>;
+    return <ErrorMessage>{error}</ErrorMessage>
   }
 
   if (isLoading) {

@@ -7,10 +7,13 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useTheme } from 'styled-components/native';
 
 import { GroupListProps, DataItem } from './types';
+
 import { List, Item, TextContent, Text, MainIconWrapper, Variant } from './styled';
 
 export const GroupList: FC<GroupListProps> = ({ data }) => {
-  const { colors: { textPrimary } } = useTheme();
+  const {
+    colors: { textPrimary },
+  } = useTheme();
 
   const getIcon = (type: DataItem['type']) => {
     if (type === 'categories') {
@@ -47,10 +50,8 @@ export const GroupList: FC<GroupListProps> = ({ data }) => {
           <MaterialIcons name="arrow-forward-ios" color={textPrimary} size={16} />
         </TextContent>
       </Item>
-    )
+    );
   };
 
-  return (
-    <List data={data} renderItem={renderItem} />
-  )
-}
+  return <List data={data} renderItem={renderItem} />;
+};

@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 
 import { CategoryCard } from '../../../components/CategoryCard';
 import { MicroChart } from '../../../charts/MicroChart';
+import { ErrorMessage } from '../../../components/ErrorMessage';
 import { TextVariant } from '../../../components/TextVariant';
 
 import { Container } from './styled';
@@ -42,7 +43,7 @@ export const ByCategories: FC = () => {
   }
 
   if (error) {
-    return <TextVariant variant="subheadlineBold">{error}</TextVariant>;
+    return <ErrorMessage>{error}</ErrorMessage>
   }
 
   if (!data) {

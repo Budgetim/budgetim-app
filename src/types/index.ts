@@ -15,8 +15,8 @@ export interface Category {
 
 export interface Currency {
   id: number;
-  title: string;
   unit: string;
+  title: string;
 }
 
 export interface User {

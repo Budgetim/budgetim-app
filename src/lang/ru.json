@@ -5,6 +5,12 @@
       "cancel": "Отмена",
       "change": "Изменить",
       "done": "Готово"
+    },
+    "state": {
+      "error": "Ошибка"
+    },
+    "errors": {
+      "notAvailable": "Сервис временно недоступен"
     }
   },
   "login": {
@@ -83,8 +89,8 @@
   },
   "settings": {
     "title": "Настройки",
-    "personal": {
-      "title": "Персональные",
+    "general": {
+      "title": "Основные",
       "action": {
         "changePassword": "Изменить пароль",
         "signOut": "Выйти"
@@ -100,7 +106,12 @@
       "title": "Категории"
     },
     "currency": {
-      "title": "Валюта"
+      "title": "Валюта",
+      "variants": {
+        "usd": "Доллар",
+        "euro": "Евро",
+        "ruble": "Рубль"
+      }
     }
   }
 }

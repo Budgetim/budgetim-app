@@ -2,8 +2,8 @@ import React, { FC, useEffect } from 'react';
 
 import { useUserState } from '../../contexts/user';
 import { getTransactions } from '../../api/transactions/getTransactions';
+import { ErrorMessage } from '../ErrorMessage';
 import { TransactionGroups } from './components/TransactionGroups';
-import { TextVariant } from '../TextVariant';
 import { useTransactionsState, useTransactionsDispatch } from '../../contexts/transactions';
 import { Loader } from '../Loader';
 import { useIsFocused } from '@react-navigation/native';
@@ -42,7 +42,7 @@ export const TransactionsList: FC<TransactionsListProps> = ({ category, month, y
   }
 
   if (error) {
-    return <TextVariant variant="bodyRegular">{error}</TextVariant>
+    return <ErrorMessage>{error}</ErrorMessage>;
   }
 
   if (isLoading) {
