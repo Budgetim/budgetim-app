@@ -3,6 +3,7 @@ import React, { FC, useEffect, useState } from 'react';
 import format from 'date-fns/format';
 
 import { useUserState } from '../../../contexts/user';
+import { getLocale } from '../../../utils/getLocale';
 import { separateThousands } from '../../../utils/separateThousands';
 import { getDataLines } from '../utils/getDataLines';
 import { useChartState } from '../chartContext/chartContext';
@@ -14,6 +15,7 @@ export const Header: FC = () => {
   const { currency } = useUserState();
   const { categories, xScale, data, activeIndex } = useChartState();
   const dataLines = getDataLines({ data, categories });
+  const locale = getLocale();
 
   useEffect(() => {
     const x = xScale(categories[activeIndex]) || 0;
@@ -26,10 +28,10 @@ export const Header: FC = () => {
       {activeIndex !== undefined ? (
         <>
           <HeaderTitle variant="footnoteBold">
-            {format(new Date(categories[activeIndex]), 'd MMMM yyyy')}
+            {format(new Date(categories[activeIndex]), 'd MMMM yyyy', { locale })}
           </HeaderTitle>
           <PriceLabel
-            onLayout={(event) => setWidth(event.nativeEvent.layout.width)}
+            onLayout={event => setWidth(event.nativeEvent.layout.width)}
             style={{ transform: [{ translateX }] }}
           >
             <PriceText variant="footnoteBold">

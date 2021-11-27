@@ -2,7 +2,7 @@ import React from 'react';
 import { KeyboardAvoidingView, Platform, useColorScheme } from 'react-native';
 import { NavigationContainer, DarkTheme, DefaultTheme } from '@react-navigation/native';
 import { ThemeProvider } from 'styled-components';
-import * as Localization from 'expo-localization';
+import { locale } from 'expo-localization';
 import i18n from 'i18n-js';
 
 import { UserProvider } from './src/contexts/user';
@@ -14,12 +14,12 @@ import ru from './src/lang/ru.json';
 import en from './src/lang/en.json';
 
 i18n.translations = {
-  'en': en,
-  'ru': ru,
+  en: en,
+  ru: ru,
   'ru-RU': ru,
 };
 
-i18n.locale = Localization.locale;
+i18n.locale = locale;
 i18n.fallbacks = true;
 
 export default function App() {
@@ -28,7 +28,7 @@ export default function App() {
   return (
     <ThemeProvider theme={{ colors: scheme === 'dark' ? colors.dark : colors.light, space, typography, scheme }}>
       <UserProvider>
-        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
           <NavigationContainer
             theme={{
               ...navigationTheme,
@@ -46,4 +46,4 @@ export default function App() {
       </UserProvider>
     </ThemeProvider>
   );
-};
+}

@@ -1,6 +1,6 @@
 import compareDesc from 'date-fns/compareDesc';
 import format from 'date-fns/format';
-import locale from 'date-fns/locale/en-US';
+import { getLocale } from '../../utils/getLocale';
 
 import { TransactionsContextState, TransactionsDispatchAction } from './types';
 import { Transaction } from '../../types';
@@ -8,13 +8,14 @@ import { Transaction } from '../../types';
 const currentYear = new Date().getFullYear();
 
 export const expandData = (data: Transaction[]) => {
-  const expandedData: { title: string, date: Date, data: Transaction[] }[] = [];
+  const expandedData: { title: string; date: Date; data: Transaction[] }[] = [];
+  const locale = getLocale();
 
   data.forEach(transaction => {
     const currentDate = new Date(transaction.date);
-    const formatDate = currentDate.getFullYear() === currentYear ? 'd MMMM' : 'd MMMM yyyy'
+    const formatDate = currentDate.getFullYear() === currentYear ? 'd MMMM' : 'd MMMM yyyy';
     const date = format(currentDate, formatDate, { locale });
-    const foundedTransaction = expandedData.find(({ title }) => title === date)
+    const foundedTransaction = expandedData.find(({ title }) => title === date);
     if (foundedTransaction) {
       foundedTransaction.data.push(transaction);
     } else {
@@ -22,17 +23,15 @@ export const expandData = (data: Transaction[]) => {
     }
   });
 
-  expandedData.sort((a, b) => (
-    compareDesc(new Date(a.date), new Date(b.date))
-  ));
+  expandedData.sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
 
   return expandedData.map(group => {
     return {
       title: group.title,
       data: group.data.sort((a, b) => a.id - b.id),
-    }
+    };
   });
-}
+};
 
 export const transactionsReducer = (state: TransactionsContextState, action: TransactionsDispatchAction) => {
   switch (action.type) {
@@ -76,7 +75,7 @@ export const transactionsReducer = (state: TransactionsContextState, action: Tra
     }
 
     case 'addTransaction': {
-      const {transaction} = action.payload;
+      const { transaction } = action.payload;
 
       const updatedData = [...state.data, transaction];
 

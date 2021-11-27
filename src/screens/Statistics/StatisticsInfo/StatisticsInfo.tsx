@@ -7,6 +7,7 @@ import { useUserState } from '../../../contexts/user';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { getStatistics } from '../../../api/categories/getStatistics';
+import { getLocale } from '../../../utils/getLocale';
 import { separateThousands } from '../../../utils/separateThousands';
 import { PieChartWrapper, ChartTitle, ChartSubtitle, NavigateButton } from './styled';
 import { PieChart } from '../../../charts/PieChart';
@@ -36,8 +37,11 @@ export const StatisticsInfo: FC<StatisticsInfoProps> = ({ month, year, setNextDa
   const [data, setData] = useState<StatisticsItem[]>([]);
   const [error, setError] = useState(null);
   const [isLoading, setLoading] = useState(true);
+  const locale = getLocale();
 
-  const { colors: { textPrimary } } = useTheme();
+  const {
+    colors: { textPrimary },
+  } = useTheme();
 
   useErrorHandler(error);
 
@@ -46,11 +50,11 @@ export const StatisticsInfo: FC<StatisticsInfoProps> = ({ month, year, setNextDa
     setData([]);
     try {
       const categories = await getStatistics({ month, year }, token);
-      setData(categories)
+      setData(categories);
     } catch (error) {
       setError(error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -64,12 +68,10 @@ export const StatisticsInfo: FC<StatisticsInfoProps> = ({ month, year, setNextDa
     }
 
     if (error) {
-      return <ErrorMessage>{error}</ErrorMessage>
+      return <ErrorMessage>{error}</ErrorMessage>;
     }
 
-    return (
-      <CategoriesList data={data} month={month} year={year} />
-    )
+    return <CategoriesList data={data} month={month} year={year} />;
   };
 
   return (
@@ -90,9 +92,13 @@ export const StatisticsInfo: FC<StatisticsInfoProps> = ({ month, year, setNextDa
           segmentWidth={6}
           outerSegmentWidth={24}
         >
-          <ChartSubtitle variant="subheadlineBold">{format(new Date(year, month - 1), 'MMM yyyy')}</ChartSubtitle>
+          <ChartSubtitle variant="subheadlineBold">
+            {format(new Date(year, month - 1), 'LLLL yyyy', { locale })}
+          </ChartSubtitle>
           <ChartTitle variant="bodyBold">
-            {data.length > 0 ? `${separateThousands(data.reduce((sum, item) => sum + +item.sum, 0))} ${currency?.unit || ''}` : ' '}
+            {data.length > 0
+              ? `${separateThousands(data.reduce((sum, item) => sum + +item.sum, 0))} ${currency?.unit || ''}`
+              : ' '}
           </ChartTitle>
         </PieChart>
         <NavigateButton onPress={setNextDate} disabled={!setNextDate}>
