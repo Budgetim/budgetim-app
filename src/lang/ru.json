@@ -10,7 +10,8 @@
       "error": "Ошибка"
     },
     "errors": {
-      "notAvailable": "Сервис временно недоступен"
+      "notAvailable": "Сервис временно недоступен",
+      "requiredField": "Обязательно для заполнения"
     }
   },
   "login": {
@@ -44,7 +45,8 @@
     },
     "message": {
       "accountQuestion": "Уже есть аккаунт?",
-      "error": "Вы ввели неправильные данные"
+      "error": "Вы ввели неправильные данные",
+      "incorrectEmail": "Неправильный email адрес"
     }
   },
   "passwordReset": {
@@ -56,7 +58,7 @@
       "submit": "Сбросить"
     },
     "message": {
-      "error": "Неправильный email"
+      "error": "Пользователя с таким email не существует"
     }
   },
   "transactions": {

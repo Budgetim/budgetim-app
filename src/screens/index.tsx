@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as SecureStore from 'expo-secure-store';
 import i18n from 'i18n-js';
+import { TouchableOpacity } from 'react-native';
 
 import { useUserDispatch, useUserState } from '../contexts/user';
 
@@ -48,7 +49,7 @@ export const Screens = () => {
                 ...user,
                 token: userToken,
               },
-            }
+            },
           });
         } catch (error) {
           setError('error');
@@ -64,33 +65,19 @@ export const Screens = () => {
   let screens;
 
   if (isLoading) {
-    screens = (
-      <Stack.Screen
-        name="Loading"
-        component={Loading}
-        options={{ headerShown: false }}
-      />
-    )
+    screens = <Stack.Screen name="Loading" component={Loading} options={{ headerShown: false }} />;
   } else if (error) {
-    screens = (
-      <Stack.Screen
-        name="Error"
-        component={Error}
-        options={{ title: i18n.t('common.state.error') }}
-      />
-    )
+    screens = <Stack.Screen name="Error" component={Error} options={{ title: i18n.t('common.state.error') }} />;
   } else if (token === null) {
     screens = (
       <>
-        <Stack.Screen
-          name="Login"
-          component={Login}
-          options={{ title: i18n.t('login.title') }}
-        />
+        <Stack.Screen name="Login" component={Login} options={{ title: i18n.t('login.title') }} />
         <Stack.Screen
           name="CreateAccount"
           component={CreateAccount}
-          options={{ title: i18n.t('createAccount.title') }}
+          options={{
+            title: i18n.t('createAccount.title'),
+          }}
         />
         <Stack.Screen
           name="PasswordReset"
@@ -102,41 +89,14 @@ export const Screens = () => {
   } else {
     screens = (
       <>
-        <Stack.Screen
-          name="Transactions"
-          component={Transactions}
-          options={{ title: i18n.t('transactions.title') }}
-        />
-        <Stack.Screen
-          name="Categories"
-          component={Categories}
-          options={{ title: i18n.t('categories.title') }}
-        />
-        <Stack.Screen
-          name="Statistics"
-          component={Statistics}
-          options={{ title: i18n.t('statistics.title') }}
-        />
-        <Stack.Screen
-          name="TransactionsByCategory"
-          component={TransactionsByCategory}
-        />
+        <Stack.Screen name="Transactions" component={Transactions} options={{ title: i18n.t('transactions.title') }} />
+        <Stack.Screen name="Categories" component={Categories} options={{ title: i18n.t('categories.title') }} />
+        <Stack.Screen name="Statistics" component={Statistics} options={{ title: i18n.t('statistics.title') }} />
+        <Stack.Screen name="TransactionsByCategory" component={TransactionsByCategory} />
 
-        <Stack.Screen
-          name="Settings"
-          component={Settings}
-          options={{ title: i18n.t('settings.title') }}
-        />
-        <Stack.Screen
-          name="Personal"
-          component={Personal}
-          options={{ title: i18n.t('settings.general.title') }}
-        />
-        <Stack.Screen
-          name="Currency"
-          component={Currency}
-          options={{ title: i18n.t('settings.currency.title') }}
-        />
+        <Stack.Screen name="Settings" component={Settings} options={{ title: i18n.t('settings.title') }} />
+        <Stack.Screen name="Personal" component={Personal} options={{ title: i18n.t('settings.general.title') }} />
+        <Stack.Screen name="Currency" component={Currency} options={{ title: i18n.t('settings.currency.title') }} />
       </>
     );
   }

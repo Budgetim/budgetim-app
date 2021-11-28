@@ -8,9 +8,11 @@ module.exports = {
   rules: {
     'react/prop-types': 'off',
     'react/no-unused-prop-types': 'off',
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', 'ts', 'tsx'] }],
   },
-  plugins: ['prettier'],
+  plugins: ['prettier', 'import'],
   parserOptions: {
     project: './tsconfig.json',
   },
+  parser: '@typescript-eslint/parser',
 };

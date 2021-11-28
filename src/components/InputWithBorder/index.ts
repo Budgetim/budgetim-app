@@ -1,1 +1,1 @@
-export { InputWithBorder } from './styled';
+export { InputWithBorder } from './InputWithBorder';

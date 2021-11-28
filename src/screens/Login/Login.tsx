@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import * as SecureStore from 'expo-secure-store';
 import i18n from 'i18n-js';
@@ -17,6 +17,10 @@ export const Login: FC<NativeStackScreenProps<StackParamList, 'Login'>> = ({ nav
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const dispatch = useUserDispatch();
+
+  useEffect(() => {
+    setError(null);
+  }, [email, password]);
 
   const auth = async () => {
     setIsLoading(true);
@@ -38,7 +42,7 @@ export const Login: FC<NativeStackScreenProps<StackParamList, 'Login'>> = ({ nav
       title={i18n.t('login.title')}
       message={i18n.t('login.subTitle')}
       error={error}
-      form={(
+      form={
         <>
           <InputWithBorder
             variant="bodyRegular"
@@ -55,20 +59,24 @@ export const Login: FC<NativeStackScreenProps<StackParamList, 'Login'>> = ({ nav
             autoCompleteType="password"
             secureTextEntry
           />
-          <ForgotLink variant="bodyBold" onPress={() => navigation.navigate('PasswordReset')}>{i18n.t('login.link.passwordReset')}</ForgotLink>
+          <ForgotLink variant="bodyBold" onPress={() => navigation.navigate('PasswordReset')}>
+            {i18n.t('login.link.passwordReset')}
+          </ForgotLink>
         </>
-      )}
+      }
       button={{
         text: i18n.t('login.form.submit'),
         action: auth,
         withLoader: isLoading,
       }}
-      footer={(
+      footer={
         <>
           {i18n.t('login.message.accountQuestion')}{' '}
-          <FooterLink variant="bodyBold" onPress={() => navigation.navigate('CreateAccount')}>{i18n.t('login.link.createAccount')}</FooterLink>
+          <FooterLink variant="bodyBold" onPress={() => navigation.navigate('CreateAccount')}>
+            {i18n.t('login.link.createAccount')}
+          </FooterLink>
         </>
-      )}
+      }
     />
   );
 };
