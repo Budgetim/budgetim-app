@@ -1,9 +1,10 @@
+import i18n from 'i18n-js';
 import React, { FC, useEffect, useState } from 'react';
 
 import { CategoryCard } from '../../../components/CategoryCard';
 import { MicroChart } from '../../../charts/MicroChart';
 import { ErrorMessage } from '../../../components/ErrorMessage';
-import { TextVariant } from '../../../components/TextVariant';
+import { NoDataMessage } from '../../../components/NoDataMessage';
 
 import { Container } from './styled';
 import { useUserState } from '../../../contexts/user';
@@ -30,24 +31,24 @@ export const ByCategories: FC = () => {
     } catch (error) {
       setError(error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     void getData();
-  }, [])
+  }, []);
 
   if (isLoading) {
     return <Loader />;
   }
 
   if (error) {
-    return <ErrorMessage>{error}</ErrorMessage>
+    return <ErrorMessage>{error}</ErrorMessage>;
   }
 
-  if (!data) {
-    return null;
+  if (!data?.length) {
+    return <NoDataMessage>{i18n.t('statistics.messages.noData')} 👀</NoDataMessage>;
   }
 
   const onClose = () => {
@@ -56,7 +57,7 @@ export const ByCategories: FC = () => {
 
   return (
     <Container scrollIndicatorInsets={{ right: 1 }}>
-      {data.map((item) => {
+      {data.map(item => {
         return (
           <CategoryCard
             key={item.id}
@@ -74,4 +75,4 @@ export const ByCategories: FC = () => {
       <Modal visible={visible} onClose={onClose} categoryId={activeCategoryId} />
     </Container>
   );
-}
+};

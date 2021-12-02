@@ -67,6 +67,9 @@
     "form": {
       "title": "Title",
       "price": "Price"
+    },
+    "messages": {
+      "addFirst": "Click on the button plus to add transaction"
     }
   },
   "categories": {
@@ -77,6 +80,9 @@
     },
     "action": {
       "more": "Show more"
+    },
+    "messages": {
+      "addFirst": "Click on the button plus to add category"
     }
   },
   "statistics": {
@@ -87,6 +93,9 @@
     "months": {
       "title": "By months",
       "periodTitle": "Data for the entire period"
+    },
+    "messages": {
+      "noData": "No data to show statistics"
     }
   },
   "settings": {

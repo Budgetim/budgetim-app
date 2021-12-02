@@ -46,7 +46,7 @@
     "message": {
       "accountQuestion": "Уже есть аккаунт?",
       "error": "Вы ввели неправильные данные",
-      "incorrectEmail": "Неправильный email адрес"
+      "incorrectEmail": "Некорректный email адрес"
     }
   },
   "passwordReset": {
@@ -67,6 +67,9 @@
     "form": {
       "title": "Название",
       "price": "Цена"
+    },
+    "messages": {
+      "addFirst": "Нажмите на кнопку плюс, чтобы добавить первую транзакцию"
     }
   },
   "categories": {
@@ -77,6 +80,9 @@
     },
     "action": {
       "more": "Показать все"
+    },
+    "messages": {
+      "addFirst": "Нажмите на кнопку плюс, чтобы добавить категорию расходов"
     }
   },
   "statistics": {
@@ -87,6 +93,9 @@
     "months": {
       "title": "По месяцам",
       "periodTitle": "Данные за весь период"
+    },
+    "messages": {
+      "noData": "Нет данных для построения статистики"
     }
   },
   "settings": {

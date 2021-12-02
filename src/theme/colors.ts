@@ -15,6 +15,7 @@ export default {
     navigationBar: '#F9F9F9',
 
     chart01: '#68B1FF',
+    tag01: '#FFF1D9',
   },
   dark: {
     bgPrimary: '#000000',
@@ -32,5 +33,6 @@ export default {
     navigationBar: '#1D1D1D',
 
     chart01: '#429DFF',
-  }
+    tag01: '#CEB379',
+  },
 };

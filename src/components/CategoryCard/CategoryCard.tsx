@@ -1,3 +1,4 @@
+import i18n from 'i18n-js';
 import React, { FC } from 'react';
 import { useTheme } from 'styled-components/native';
 
@@ -8,7 +9,7 @@ import { Container, Circle, Content, SubTitle, Title, ContentWrapper, Label } fr
 
 export const CategoryCard: FC<CategoryCardProps> = props => {
   const { colors } = useTheme();
-  const { title = 'no categories', description, label, chart, tagColor, onPress } = props;
+  const { title, description, label, chart, tagColor, onPress } = props;
   const color = tagColor ? tagColor.toLowerCase() : colors[CATEGORY_COLOR_DEFAULT];
 
   return (
@@ -17,7 +18,7 @@ export const CategoryCard: FC<CategoryCardProps> = props => {
       <Content>
         <ContentWrapper>
           <Title variant="subheadlineRegular" numberOfLines={1}>
-            {title}
+            {title || i18n.t('transactions.emptyCategory')}
           </Title>
           {!!description && (
             <SubTitle variant="subheadlineRegular" numberOfLines={1}>

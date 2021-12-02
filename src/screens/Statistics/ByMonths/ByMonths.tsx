@@ -1,9 +1,9 @@
+import i18n from 'i18n-js';
 import React, { FC, useEffect, useState } from 'react';
-import { View } from 'react-native';
 import { ErrorMessage } from '../../../components/ErrorMessage';
+import { NoDataMessage } from '../../../components/NoDataMessage';
 
 import { useUserState } from '../../../contexts/user';
-import { TextVariant } from '../../../components/TextVariant';
 import { Loader } from '../../../components/Loader';
 import { getAvailableMonths } from '../../../api/transactions/getAvailableMonths';
 import { StatisticsInfo } from '../StatisticsInfo';
@@ -28,7 +28,7 @@ export const ByMonths: FC = () => {
     } catch (error) {
       setError(error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -41,7 +41,7 @@ export const ByMonths: FC = () => {
   }
 
   if (error) {
-    return <ErrorMessage>{error}</ErrorMessage>
+    return <ErrorMessage>{error}</ErrorMessage>;
   }
 
   if (!data) {
@@ -51,12 +51,7 @@ export const ByMonths: FC = () => {
   const { data: dates } = data;
 
   if (!dates.length) {
-    // TODO: заглушка
-    return (
-      <View>
-        <TextVariant variant="bodyRegular">No data to build statistics</TextVariant>
-      </View>
-    );
+    return <NoDataMessage>{i18n.t('statistics.messages.noData')} 👀</NoDataMessage>;
   }
 
   const setPrevMonth = () => {

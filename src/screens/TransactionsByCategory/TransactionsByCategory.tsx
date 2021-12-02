@@ -1,3 +1,4 @@
+import i18n from 'i18n-js';
 import React, { FC } from 'react';
 import { ScrollView } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -22,7 +23,7 @@ export const TransactionsByCategory: FC<NativeStackScreenProps<StackParamList, '
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      title: `${categoryTitle} (${date})`,
+      title: `${categoryTitle || i18n.t('transactions.emptyCategory')} (${date})`,
     });
   }, [navigation]);
 

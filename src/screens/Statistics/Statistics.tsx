@@ -17,14 +17,11 @@ export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>
         <SelectGroup
           activeIndex={activeMode}
           onChangeIndex={setActiveMode}
-          data={[
-            { title: i18n.t('statistics.categories.title') },
-            { title: i18n.t('statistics.months.title') },
-          ]}
+          data={[{ title: i18n.t('statistics.categories.title') }, { title: i18n.t('statistics.months.title') }]}
         />
       </View>
       {activeMode === 0 && <ByCategories />}
       {activeMode === 1 && <ByMonths />}
     </View>
-  )
+  );
 };

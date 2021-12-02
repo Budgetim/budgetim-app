@@ -28,9 +28,10 @@ export const TransactionsList: FC<TransactionsListProps> = ({ category, month, y
       const getData = async () => {
         try {
           const transactions = await getTransactions({ year, month, category }, token);
-          dispatch({ type: 'setData', payload: { data: transactions }});
+          console.log({ month, category, transactions });
+          dispatch({ type: 'setData', payload: { data: transactions } });
         } catch (error) {
-          dispatch({ type: 'setError', payload: { error }});
+          dispatch({ type: 'setError', payload: { error } });
         }
       };
       getData();
@@ -49,7 +50,5 @@ export const TransactionsList: FC<TransactionsListProps> = ({ category, month, y
     return <Loader />;
   }
 
-  return (
-    <TransactionGroups />
-  );
+  return <TransactionGroups />;
 };

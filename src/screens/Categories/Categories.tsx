@@ -13,12 +13,17 @@ import { EditCategoryModal } from './components/EditCategoryModal';
 
 export const Categories: FC<NativeStackScreenProps<StackParamList, 'Categories'>> = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const { colors: { systemBlue } } = useTheme();
+  const {
+    colors: { systemBlue },
+  } = useTheme();
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity onPress={() => setModalVisible(true)} style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 4, paddingBottom: 4 }}>
+        <TouchableOpacity
+          onPress={() => setModalVisible(true)}
+          style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 4, paddingBottom: 4 }}
+        >
           <Feather name="plus" color={systemBlue} size={24} />
         </TouchableOpacity>
       ),
