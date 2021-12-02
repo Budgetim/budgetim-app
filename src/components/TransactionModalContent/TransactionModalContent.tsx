@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Pressable, ScrollView, Keyboard, ActivityIndicator } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import i18n from 'i18n-js';
@@ -11,7 +11,7 @@ import { TransactionModalContentProps } from './types';
 import { CategoriesList } from './components/CategoriesList';
 import { PopularNames } from './components/PopularNames';
 
-export const TransactionModalContent: FC<TransactionModalContentProps> = (props) => {
+export const TransactionModalContent: FC<TransactionModalContentProps> = props => {
   const {
     title,
     setTitle,
@@ -27,6 +27,19 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = (props)
     isLoading,
   } = props;
   const [focusedTitle, setFocusedTitle] = useState(false);
+  const [titleError, setTitleError] = useState(false);
+
+  useEffect(() => {
+    setTitleError(false);
+  }, [title]);
+
+  const submit = () => {
+    if (title) {
+      onSave();
+    } else {
+      setTitleError(true);
+    }
+  };
 
   return (
     <ModalWrapper
@@ -42,17 +55,18 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = (props)
           <Pressable onPress={onClose}>
             <ButtonText variant="subheadlineRegular">{i18n.t('common.action.cancel')}</ButtonText>
           </Pressable>
-          <Pressable
-            style={{ display: 'flex', flexDirection: 'row' }}
-            onPress={onSave}
-          >
-            {isLoading ? <ActivityIndicator /> : <ButtonText variant="subheadlineBold">{i18n.t('common.action.done')}</ButtonText>}
+          <Pressable style={{ display: 'flex', flexDirection: 'row' }} onPress={submit}>
+            {isLoading ? (
+              <ActivityIndicator />
+            ) : (
+              <ButtonText variant="subheadlineBold">{i18n.t('common.action.done')}</ButtonText>
+            )}
           </Pressable>
         </Header>
         <ScrollView>
           <Content>
             <SectionGroup>
-              <NameSection>
+              <NameSection error={titleError}>
                 <Input
                   variant="subheadlineRegular"
                   defaultValue={title}
@@ -78,10 +92,7 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = (props)
               </Section>
             </SectionGroup>
             <Section>
-              <CategoriesList
-                activeCategoryId={categoryId}
-                setCategoryId={setCategoryId}
-              />
+              <CategoriesList activeCategoryId={categoryId} setCategoryId={setCategoryId} />
             </Section>
             <Section>
               <DateTimePicker
@@ -100,7 +111,7 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = (props)
         {focusedTitle && (
           <PopularNames
             str={title}
-            selectTitle={(name) => {
+            selectTitle={name => {
               setTitle(name);
               Keyboard.dismiss();
             }}

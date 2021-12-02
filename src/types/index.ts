@@ -7,7 +7,7 @@ export interface Transaction {
 }
 
 export interface Category {
-  id: number;
+  id: number | null;
   title: string;
   color: string | null;
   description: string | null;

@@ -34,7 +34,7 @@ export const CreateAccount: FC<NativeStackScreenProps<StackParamList, 'CreateAcc
     try {
       await register({ name, email, password });
       const user = await authentificate({ email, password });
-      if (user.email === email) {
+      if (user.email === email.toLowerCase()) {
         dispatch({ type: 'setUser', payload: { user } });
         await SecureStore.setItemAsync('userToken', user.token);
       }

@@ -13,9 +13,9 @@ export const authentificate = async (params: AuthentificateParams): Promise<User
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(params),
+      body: JSON.stringify({ ...params, email: params.email.toLowerCase() }),
     });
-    const user = await response.json() as User;
+    const user = (await response.json()) as User;
     return user;
   } catch (error: unknown) {
     throw (error as object).toString();

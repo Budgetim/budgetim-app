@@ -10,7 +10,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { useErrorHandler } from '../../hooks/useErrorHandler';
 
 interface TransactionsListProps {
-  category?: number;
+  category?: number | null;
   month?: number;
   year?: number;
 }
@@ -28,7 +28,6 @@ export const TransactionsList: FC<TransactionsListProps> = ({ category, month, y
       const getData = async () => {
         try {
           const transactions = await getTransactions({ year, month, category }, token);
-          console.log({ month, category, transactions });
           dispatch({ type: 'setData', payload: { data: transactions } });
         } catch (error) {
           dispatch({ type: 'setError', payload: { error } });

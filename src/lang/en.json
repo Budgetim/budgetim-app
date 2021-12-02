@@ -63,7 +63,7 @@
   },
   "transactions": {
     "title": "Transactions",
-    "emptyCategory": "no category",
+    "emptyCategory": "No category",
     "form": {
       "title": "Title",
       "price": "Price"

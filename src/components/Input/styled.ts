@@ -5,8 +5,9 @@ import typography from '../../theme/typography';
 import { variant } from 'styled-system';
 
 export const Input = styled(TextInput)<{ variant: keyof typeof typography }>(
-  ({ theme }) => (variant({
-    variants: theme.typography,
-  })),
-  css({ color: 'textPrimary' })
+  ({ theme }) =>
+    variant({
+      variants: theme.typography,
+    }),
+  css({ color: 'textPrimary' }),
 );

@@ -63,7 +63,7 @@
   },
   "transactions": {
     "title": "Транзакции",
-    "emptyCategory": "без категории",
+    "emptyCategory": "Без категории",
     "form": {
       "title": "Название",
       "price": "Цена"

@@ -1,20 +1,11 @@
+import i18n from 'i18n-js';
 import React, { FC, useEffect, useState } from 'react';
-import { View } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useTheme } from 'styled-components/native';
 
 import { LineChart } from '../../../../charts/LineChart';
 
-import {
-  Content,
-  Title,
-  Titles,
-  Description,
-  Header,
-  ModalContent,
-  ModalWrapper,
-  CloseButton,
-} from './styled';
+import { Content, Title, Titles, Description, Header, ModalContent, ModalWrapper, CloseButton } from './styled';
 
 import { useUserState } from '../../../../contexts/user';
 import { useErrorHandler } from '../../../../hooks/useErrorHandler';
@@ -29,7 +20,9 @@ export const Modal: FC<ModalProps> = ({ visible, categoryId, onClose }) => {
   const [data, setData] = useState<{ title: string; description: string; data: any[] } | null>(null);
   const [error, setError] = useState(null);
   const [isLoading, setLoading] = useState(true);
-  const { colors: { textSecondary }} = useTheme();
+  const {
+    colors: { textSecondary },
+  } = useTheme();
 
   useErrorHandler(error);
 
@@ -41,7 +34,7 @@ export const Modal: FC<ModalProps> = ({ visible, categoryId, onClose }) => {
     } catch (error) {
       setError(error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -49,12 +42,12 @@ export const Modal: FC<ModalProps> = ({ visible, categoryId, onClose }) => {
     if (visible) {
       void getData();
     }
-  }, [visible])
+  }, [visible]);
 
   let content = null;
 
   if (isLoading) {
-    content = <Loader />
+    content = <Loader />;
   }
 
   if (data) {
@@ -62,10 +55,8 @@ export const Modal: FC<ModalProps> = ({ visible, categoryId, onClose }) => {
       <>
         <Header>
           <Titles>
-            <Title variant="title2Bold">{data.title}</Title>
-            {data.description && (
-              <Description variant="bodyRegular">{data.description}</Description>
-            )}
+            <Title variant="title2Bold">{data.title || i18n.t('transactions.emptyCategory')}</Title>
+            {data.description && <Description variant="bodyRegular">{data.description}</Description>}
           </Titles>
           <CloseButton onPress={onClose}>
             <AntDesign name="closecircle" color={textSecondary} size={28} />
@@ -91,9 +82,7 @@ export const Modal: FC<ModalProps> = ({ visible, categoryId, onClose }) => {
       avoidKeyboard
       propagateSwipe
     >
-      <ModalContent>
-        {content}
-      </ModalContent>
+      <ModalContent>{content}</ModalContent>
     </ModalWrapper>
   );
-}
+};

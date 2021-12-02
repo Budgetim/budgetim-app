@@ -11,11 +11,11 @@ export const resetPassword = async (params: RegisterParams): Promise<User> => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(params),
+      body: JSON.stringify({ email: params.email.toLowerCase() }),
     });
-    return await response.json() as User;
+    return (await response.json()) as User;
   } catch (error: unknown) {
     console.error(error);
     throw (error as object).toString();
   }
-}
+};

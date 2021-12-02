@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Pressable, ScrollView } from 'react-native';
 import i18n from 'i18n-js';
 
@@ -9,18 +9,23 @@ import { CategoryModalContentProps } from './types';
 import { colors } from '../../../../constants/colors';
 import { ColorPicker } from './ColorPicker';
 
-export const CategoryModalContent: FC<CategoryModalContentProps> = (props) => {
-  const {
-    visible,
-    onClose,
-    title,
-    setTitle,
-    description,
-    setDescription,
-    color,
-    setColor,
-    onSave,
-  } = props;
+export const CategoryModalContent: FC<CategoryModalContentProps> = props => {
+  const { visible, onClose, title, setTitle, description, setDescription, color, setColor, onSave } = props;
+
+  const [titleError, setTitleError] = useState(false);
+
+  useEffect(() => {
+    setTitleError(false);
+  }, [title]);
+
+  const submit = () => {
+    if (title) {
+      onSave();
+      onClose();
+    } else {
+      setTitleError(true);
+    }
+  };
 
   return (
     <ModalWrapper
@@ -36,18 +41,13 @@ export const CategoryModalContent: FC<CategoryModalContentProps> = (props) => {
           <Pressable onPress={onClose}>
             <ButtonText variant="subheadlineRegular">{i18n.t('common.action.cancel')}</ButtonText>
           </Pressable>
-          <Pressable
-            onPress={() => {
-              onSave();
-              onClose();
-            }}
-          >
+          <Pressable onPress={submit}>
             <ButtonText variant="subheadlineBold">{i18n.t('common.action.done')}</ButtonText>
           </Pressable>
         </Header>
         <ScrollView>
           <Content>
-            <Section>
+            <Section error={titleError}>
               <Input
                 variant="subheadlineRegular"
                 defaultValue={title}
@@ -64,11 +64,7 @@ export const CategoryModalContent: FC<CategoryModalContentProps> = (props) => {
               />
             </Section>
             <Section>
-              <ColorPicker
-                onChange={color => setColor(color)}
-                value={color}
-                colors={colors}
-              />
+              <ColorPicker onChange={color => setColor(color)} value={color} colors={colors} />
             </Section>
           </Content>
         </ScrollView>
