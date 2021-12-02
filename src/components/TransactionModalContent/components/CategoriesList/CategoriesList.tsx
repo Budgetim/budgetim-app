@@ -59,6 +59,8 @@ export const CategoriesList: FC<CategoriesListProps> = ({ activeCategoryId, setC
     },
   ];
 
+  console.log(targetData);
+
   return (
     <Wrapper>
       <SelectList
@@ -66,7 +68,7 @@ export const CategoriesList: FC<CategoriesListProps> = ({ activeCategoryId, setC
         onSelect={id => {
           setCategoryId(id);
         }}
-        data={targetData.slice(0, showAll ? data.length : 6).map(item => {
+        data={targetData.slice(0, showAll ? targetData.length : 6).map(item => {
           return {
             id: item.id,
             title: item.title,

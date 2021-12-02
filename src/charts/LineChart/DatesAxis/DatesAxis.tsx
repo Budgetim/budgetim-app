@@ -21,7 +21,7 @@ export const DatesAxis = () => {
             width={width}
             style={{ transform: [{ translateX: start }] }}
           >
-            <CategoryLabel variant="footnoteBold">
+            <CategoryLabel variant="footnoteBold" numberOfLines={1}>
               {format(new Date(item.year, item.month, 1), 'LLLL', { locale })}
             </CategoryLabel>
           </CategoryWrapper>

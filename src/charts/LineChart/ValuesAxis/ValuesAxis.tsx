@@ -11,24 +11,18 @@ export const ValuesAxis = () => {
     <Container>
       {ticks.map(tick => {
         return (
-          <TickMask
-            key={tick}
-            variant="footnoteBold"
-            style={{ opacity: 0 }}
-          >
+          <TickMask key={tick} variant="footnoteBold" style={{ opacity: 0 }}>
             {separateThousands(tick)}
           </TickMask>
-        )
+        );
       })}
       {ticks.map(tick => {
         return (
-          <TickItem key={tick} style={{ transform: [{ translateY: yScale(tick) }]}}>
-            <TickText variant="footnoteBold">
-              {separateThousands(tick)}
-            </TickText>
+          <TickItem key={tick} style={{ transform: [{ translateY: yScale(tick) }] }}>
+            <TickText variant="footnoteBold">{separateThousands(tick)}</TickText>
           </TickItem>
-        )
+        );
       })}
     </Container>
-  )
-}
+  );
+};

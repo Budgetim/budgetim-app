@@ -10,7 +10,7 @@ import { ByMonths } from './ByMonths';
 import { ByCategories } from './ByCategories';
 
 export const Statistics: FC<NativeStackScreenProps<StackParamList, 'Statistics'>> = () => {
-  const [activeMode, setActiveMode] = useState(0);
+  const [activeMode, setActiveMode] = useState(1);
   return (
     <View style={{ flex: 1 }}>
       <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', marginTop: 12 }}>
