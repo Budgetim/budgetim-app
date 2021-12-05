@@ -59,8 +59,6 @@ export const CategoriesList: FC<CategoriesListProps> = ({ activeCategoryId, setC
     },
   ];
 
-  console.log(targetData);
-
   return (
     <Wrapper>
       <SelectList

@@ -30,6 +30,7 @@ export const Modal: FC<ModalProps> = ({ visible, categoryId, onClose }) => {
     setLoading(true);
     try {
       const result = await getCategoryStatistics({ categoryId }, token);
+      console.log(result);
       setData(result);
     } catch (error) {
       setError(error);
@@ -64,7 +65,7 @@ export const Modal: FC<ModalProps> = ({ visible, categoryId, onClose }) => {
         </Header>
         <Content>
           <LineChart
-            data={data.data.map(item => ({ value: item.value }))}
+            data={data.data.map(item => ({ value: +item.value }))}
             categories={data.data.map(item => format(new Date(item.date), 'yyyy-MM-dd'))}
             height={245}
           />

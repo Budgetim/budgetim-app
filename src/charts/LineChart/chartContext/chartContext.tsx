@@ -37,18 +37,9 @@ const chartReducer = (state: ChartContextState, action: ChartDispatchAction) => 
 };
 
 export const ChartProvider: FC<LineChartProps & { width: number }> = props => {
-  const {
-    categories,
-    height,
-    data,
-    children,
-    width,
-  } = props;
+  const { categories, height, data, children, width } = props;
 
-  const xScale = d3
-    .scaleBand()
-    .domain(categories)
-    .range([0, width]);
+  const xScale = d3.scaleBand().domain(categories).range([0, width]);
 
   const max = maxBy(data, 'value')?.value || 0;
   const yScale = d3
@@ -56,6 +47,7 @@ export const ChartProvider: FC<LineChartProps & { width: number }> = props => {
     .domain([0, max])
     .range([height - 4, 4]);
 
+  console.log({ data, max });
   const ticks = yScale.ticks(4);
 
   const monthsList: ChartContextState['monthsList'] = [];
@@ -68,7 +60,7 @@ export const ChartProvider: FC<LineChartProps & { width: number }> = props => {
       monthsList.push({
         month,
         year,
-        days: [category]
+        days: [category],
       });
     } else {
       foundedMonth.days.push(category);
@@ -92,16 +84,14 @@ export const ChartProvider: FC<LineChartProps & { width: number }> = props => {
   useEffect(() => {
     dispatch({
       type: 'updateInitialArg',
-      payload: { args: initialState }
+      payload: { args: initialState },
     });
     // все внешние пропсы, после которых нужно полностью сбросить состояние графика
   }, [data, width]);
 
   return (
     <ChartStateContext.Provider value={state}>
-      <ChartDispatchContext.Provider value={dispatch}>
-        {children}
-      </ChartDispatchContext.Provider>
+      <ChartDispatchContext.Provider value={dispatch}>{children}</ChartDispatchContext.Provider>
     </ChartStateContext.Provider>
   );
 };

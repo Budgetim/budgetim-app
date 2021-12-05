@@ -26,7 +26,8 @@ export const ByCategories: FC = () => {
   const getData = async () => {
     setLoading(true);
     try {
-      const result = await getStatisticsByDays({ month: 11, year: 2021 }, token);
+      const result = await getStatisticsByDays(token);
+      console.log(result);
       setData(result);
     } catch (error) {
       setError(error);
