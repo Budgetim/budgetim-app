@@ -14,7 +14,7 @@ interface EditTransactionParams {
 export const editTransaction = async (params: EditTransactionParams, token: string | null): Promise<Transaction> => {
   const { id, price, ...restBody } = params;
   try {
-    const response = await fetch(`http://api.budgetim.ru/transactions/${id}`, {
+    const response = await fetch(`https://api.budgetim.ru/transactions/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -29,10 +29,10 @@ export const editTransaction = async (params: EditTransactionParams, token: stri
     if (response.status === 403) {
       throw 403;
     }
-    const transaction = await response.json() as Transaction;
+    const transaction = (await response.json()) as Transaction;
     return transaction;
   } catch (error: unknown) {
     console.error(error);
     throw (error as object).toString();
   }
-}
+};

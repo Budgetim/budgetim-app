@@ -2,11 +2,11 @@ import { authHeader } from '../../utils/authHeader';
 
 export const deleteTransaction = async (id: number, token: string | null) => {
   try {
-    const response = await fetch(`http://api.budgetim.ru/transactions/${id}`, {
+    const response = await fetch(`https://api.budgetim.ru/transactions/${id}`, {
       method: 'DELETE',
       headers: {
         ...authHeader(token),
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
     });
     if (response.status === 403) {
@@ -16,4 +16,4 @@ export const deleteTransaction = async (id: number, token: string | null) => {
     console.error(error);
     throw (error as object).toString();
   }
-}
+};

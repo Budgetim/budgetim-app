@@ -11,7 +11,7 @@ interface GetTransactionsParams {
 export const getTransactions = async (params: GetTransactionsParams, token: string | null): Promise<Transaction[]> => {
   try {
     // await new Promise(resolve => setTimeout(resolve, 3000));
-    const response = await fetch(`http://api.budgetim.ru/transactions?${serialize(params)}`, {
+    const response = await fetch(`https://api.budgetim.ru/transactions?${serialize(params)}`, {
       headers: authHeader(token),
     });
 

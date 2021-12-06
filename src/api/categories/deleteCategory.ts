@@ -2,7 +2,7 @@ import { authHeader } from '../../utils/authHeader';
 
 export const deleteCategory = async (id: number, token: string | null) => {
   try {
-    const response = await fetch(`http://api.budgetim.ru/categories/${id}`, {
+    const response = await fetch(`https://api.budgetim.ru/categories/${id}`, {
       method: 'DELETE',
       headers: {
         ...authHeader(token),
@@ -16,4 +16,4 @@ export const deleteCategory = async (id: number, token: string | null) => {
     console.error(error);
     throw (error as object).toString();
   }
-}
+};

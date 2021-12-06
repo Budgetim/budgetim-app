@@ -4,7 +4,7 @@ import { statisticsByDays } from './__mocks__/statisticsByDays';
 export const getStatisticsByDays = async (token: string | null): Promise<any[]> => {
   try {
     // await new Promise(resolve => setTimeout(resolve, 3000));
-    const response = await fetch('http://api.budgetim.ru/categories/allStatistics', {
+    const response = await fetch('https://api.budgetim.ru/categories/allStatistics', {
       method: 'POST',
       headers: {
         ...authHeader(token),

@@ -6,7 +6,7 @@ interface RegisterParams {
 
 export const resetPassword = async (params: RegisterParams): Promise<User> => {
   try {
-    const response = await fetch('http://api.budgetim.ru/users/resetPassword', {
+    const response = await fetch('https://api.budgetim.ru/users/resetPassword', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

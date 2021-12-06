@@ -11,7 +11,7 @@ interface EditCategoryParams {
 export const editCategory = async (params: EditCategoryParams, token: string | null): Promise<Category> => {
   const { id, ...restBody } = params;
   try {
-    const response = await fetch(`http://api.budgetim.ru/categories/${id}`, {
+    const response = await fetch(`https://api.budgetim.ru/categories/${id}`, {
       method: 'PUT',
       headers: {
         ...authHeader(token),
@@ -22,9 +22,9 @@ export const editCategory = async (params: EditCategoryParams, token: string | n
     if (response.status === 403) {
       throw 403;
     }
-    return await response.json() as Category;
+    return (await response.json()) as Category;
   } catch (error: unknown) {
     console.error(error);
     throw (error as object).toString();
   }
-}
+};
