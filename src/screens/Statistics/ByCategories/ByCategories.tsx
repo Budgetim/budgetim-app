@@ -27,7 +27,6 @@ export const ByCategories: FC = () => {
     setLoading(true);
     try {
       const result = await getStatisticsByDays(token);
-      console.log(result);
       setData(result);
     } catch (error) {
       setError(error);

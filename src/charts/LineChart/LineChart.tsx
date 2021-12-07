@@ -14,7 +14,7 @@ export const LineChart: FC<LineChartProps> = props => {
     <ChartProvider {...props} width={width}>
       <Header />
       <Content>
-        <ChartWrapper onLayout={(event) => setWidth(event.nativeEvent.layout.width)}>
+        <ChartWrapper onLayout={event => setWidth(event.nativeEvent.layout.width)}>
           <Chart />
         </ChartWrapper>
         <ValuesAxis />

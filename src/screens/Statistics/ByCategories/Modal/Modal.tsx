@@ -30,7 +30,6 @@ export const Modal: FC<ModalProps> = ({ visible, categoryId, onClose }) => {
     setLoading(true);
     try {
       const result = await getCategoryStatistics({ categoryId }, token);
-      console.log(result);
       setData(result);
     } catch (error) {
       setError(error);
