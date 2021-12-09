@@ -56,7 +56,7 @@ export const Modal: FC<ModalProps> = ({ visible, categoryId, onClose }) => {
         <Header>
           <Titles>
             <Title variant="title2Bold">{data.title || i18n.t('transactions.emptyCategory')}</Title>
-            {data.description && <Description variant="bodyRegular">{data.description}</Description>}
+            {data.description ? <Description variant="bodyRegular">{data.description}</Description> : null}
           </Titles>
           <CloseButton onPress={onClose}>
             <AntDesign name="closecircle" color={textSecondary} size={28} />

@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "budgetim",
+    "name": "Budgetim",
     "slug": "budgetim",
-    "version": "1.0.2",
+    "version": "1.0.4",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
