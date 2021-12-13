@@ -8,7 +8,9 @@ import { DataItem, SelectListProps } from './types';
 import { List, Item, TextContent, TextWrap, Text, Unit, Circle } from './styled';
 
 export const SelectList: FC<SelectListProps> = ({ data, onSelect, backgroundColor }) => {
-  const { colors: { systemBlue, systemGray06 } } = useTheme();
+  const {
+    colors: { systemBlue, systemGray06 },
+  } = useTheme();
 
   const renderItem: ListRenderItem<DataItem> = ({ item, index }) => {
     return (
@@ -19,13 +21,11 @@ export const SelectList: FC<SelectListProps> = ({ data, onSelect, backgroundColo
             {item.unit && <Unit variant="bodyBold">{item.unit}</Unit>}
             <Text variant="bodyRegular">{item.title}</Text>
           </TextWrap>
-          <Feather name="check" color={item.isActive ? systemBlue : (backgroundColor || systemGray06)} size={28} />
+          <Feather name="check" color={item.isActive ? systemBlue : backgroundColor || systemGray06} size={28} />
         </TextContent>
       </Item>
-    )
+    );
   };
 
-  return (
-    <List data={data} renderItem={renderItem} bg={backgroundColor || systemGray06} />
-  )
-}
+  return <List data={data} renderItem={renderItem} bg={backgroundColor || systemGray06} />;
+};

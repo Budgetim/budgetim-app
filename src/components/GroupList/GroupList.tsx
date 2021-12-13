@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 
 import { ListRenderItem } from 'react-native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useTheme } from 'styled-components/native';
+import { ArrowRightIcon } from '../../icons/ArrowRightIcon';
 
 import { GroupListProps, DataItem } from './types';
 
@@ -47,7 +47,7 @@ export const GroupList: FC<GroupListProps> = ({ data }) => {
         <TextContent borderBottom={index !== data.length - 1}>
           <Text variant="bodyRegular">{item.title}</Text>
           {item.variant && <Variant variant="bodyRegular">{item.variant}</Variant>}
-          <MaterialIcons name="arrow-forward-ios" color={textPrimary} size={16} />
+          <ArrowRightIcon color={textPrimary} size={16} />
         </TextContent>
       </Item>
     );
