@@ -1,8 +1,8 @@
 import React, { FC, useState } from 'react';
 import { ScrollView, TouchableOpacity } from 'react-native';
 import { useTheme } from 'styled-components/native';
-import Feather from 'react-native-vector-icons/Feather';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { PlusIcon } from '../../icons/PlusIcon';
 
 import { StackParamList } from '../types';
 
@@ -24,7 +24,7 @@ export const Categories: FC<NativeStackScreenProps<StackParamList, 'Categories'>
           onPress={() => setModalVisible(true)}
           style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 4, paddingBottom: 4 }}
         >
-          <Feather name="plus" color={systemBlue} size={24} />
+          <PlusIcon color={systemBlue} size={24} />
         </TouchableOpacity>
       ),
     });

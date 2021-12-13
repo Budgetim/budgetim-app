@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 
 import { ListRenderItem } from 'react-native';
-import Feather from 'react-native-vector-icons/Feather';
 import { useTheme } from 'styled-components/native';
+import { CheckIcon } from '../../icons/CheckIcon';
 
 import { DataItem, SelectListProps } from './types';
 import { List, Item, TextContent, TextWrap, Text, Unit, Circle } from './styled';
@@ -21,7 +21,7 @@ export const SelectList: FC<SelectListProps> = ({ data, onSelect, backgroundColo
             {item.unit && <Unit variant="bodyBold">{item.unit}</Unit>}
             <Text variant="bodyRegular">{item.title}</Text>
           </TextWrap>
-          <Feather name="check" color={item.isActive ? systemBlue : backgroundColor || systemGray06} size={28} />
+          <CheckIcon color={item.isActive ? systemBlue : backgroundColor || systemGray06} size={28} />
         </TextContent>
       </Item>
     );
