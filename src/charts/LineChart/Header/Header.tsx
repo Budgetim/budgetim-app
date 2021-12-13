@@ -18,9 +18,11 @@ export const Header: FC = () => {
   const locale = getLocale();
 
   useEffect(() => {
-    const x = xScale(categories[activeIndex]) || 0;
-    const calculatedX = x - width / 2;
-    setTranslateX(calculatedX < 0 ? 0 : calculatedX);
+    if (activeIndex !== undefined) {
+      const x = (xScale(categories[activeIndex]) as number) + xScale.bandwidth() / 2;
+      const calculatedX = x - width / 2;
+      setTranslateX(calculatedX < 0 ? 0 : calculatedX);
+    }
   }, [activeIndex, width]);
 
   return (
