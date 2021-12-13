@@ -1,13 +1,13 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useTheme } from 'styled-components/native';
 import i18n from 'i18n-js';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import { CATEGORY_COLOR_DEFAULT } from '../../../../constants';
 
 import { useUserState } from '../../../../contexts/user';
 import { useCategoriesDispatch, useCategoriesState } from '../../../../contexts/categories';
 
 import { getCategories } from '../../../../api/categories/getCategories';
+import { ArrowDownIcon } from '../../../../icons/ArrowDownIcon';
 import { ErrorMessage } from '../../../ErrorMessage';
 import { Loader } from '../../../Loader';
 import { SelectList } from '../../../SelectList';
@@ -77,7 +77,7 @@ export const CategoriesList: FC<CategoriesListProps> = ({ activeCategoryId, setC
       />
       {!showAll && targetData.length > 6 && (
         <ShowMoreWrapper onPress={() => setShowAll(true)}>
-          <Ionicons name={showAll ? 'chevron-up-outline' : 'chevron-down-outline'} color={textPrimary} size={17} />
+          <ArrowDownIcon color={textPrimary} size={12} />
           <ShowMoreText variant="subheadlineRegular">{i18n.t('categories.action.more')}</ShowMoreText>
         </ShowMoreWrapper>
       )}

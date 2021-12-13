@@ -1,8 +1,10 @@
 import React, { FC, useState, useLayoutEffect } from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useTheme } from 'styled-components/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { ChartPieIcon } from '../../icons/ChartPieIcon';
+import { PlusCircleIcon } from '../../icons/PlusCircleIcon';
+import { SettingIcon } from '../../icons/SettingIcon';
 
 import { StackParamList } from '../types';
 
@@ -16,13 +18,18 @@ import { ModalsProvider } from '../../contexts/modals';
 
 export const Transactions: FC<NativeStackScreenProps<StackParamList, 'Transactions'>> = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const { colors: { textPrimary } } = useTheme();
+  const {
+    colors: { textPrimary },
+  } = useTheme();
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity onPress={() => navigation.navigate('Statistics')} style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 4, paddingBottom: 4 }}>
-          <AntDesign name="piechart" color={textPrimary} size={16} />
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Statistics')}
+          style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 4, paddingBottom: 4 }}
+        >
+          <ChartPieIcon color={textPrimary} size={16} />
         </TouchableOpacity>
       ),
     });
@@ -38,10 +45,10 @@ export const Transactions: FC<NativeStackScreenProps<StackParamList, 'Transactio
             </ScrollView>
             <Footer>
               <AddButton onPress={() => setModalVisible(true)}>
-                <AntDesign name="pluscircle" color={textPrimary} size={40} />
+                <PlusCircleIcon color={textPrimary} size={44} />
               </AddButton>
               <SettingsButton onPress={() => navigation.navigate('Settings')}>
-                <AntDesign name="setting" color={textPrimary} size={28} />
+                <SettingIcon color={textPrimary} size={30} />
               </SettingsButton>
             </Footer>
           </View>
@@ -51,4 +58,4 @@ export const Transactions: FC<NativeStackScreenProps<StackParamList, 'Transactio
       </CategoriesProvider>
     </TransactionsProvider>
   );
-}
+};
