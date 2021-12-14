@@ -30,7 +30,7 @@ export const Categories: FC<NativeStackScreenProps<StackParamList, 'Categories'>
   }, [navigation]);
 
   return (
-    <ScrollView contentContainerStyle={{ flex: 1 }}>
+    <ScrollView contentContainerStyle={{ flex: 1, paddingBottom: 40 }}>
       <CategoriesList />
       <AddCategoryModal visible={modalVisible} setVisible={setModalVisible} />
       <EditCategoryModal />
