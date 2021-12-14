@@ -336,6 +336,6 @@ export const categoryStatistics = {
     ...item,
     value: (150 + Math.random() * 1250).toFixed(),
   })),
-  description: 'Детское питание, готовая еда, овощи',
-  title: 'Продукты',
+  description: 'Drinks, sweet, fast food',
+  title: 'Food',
 };
