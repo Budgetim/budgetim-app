@@ -1,22 +1,23 @@
 import { CategoriesContextState, CategoriesDispatchAction } from './types';
 
 export const categoriesReducer = (state: CategoriesContextState, action: CategoriesDispatchAction) => {
-
   switch (action.type) {
     case 'setData': {
       const { data } = action.payload;
       return {
         ...state,
         isLoading: false,
+        dataLoaded: true,
         error: null,
         data,
       };
     }
 
     case 'setError': {
-      const {error} = action.payload;
+      const { error } = action.payload;
       return {
         ...state,
+        data: null,
         isLoading: false,
         error,
       };

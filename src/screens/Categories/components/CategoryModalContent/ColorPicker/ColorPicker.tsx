@@ -10,8 +10,8 @@ export const ColorPicker: FC<ColorPickerProps> = ({ colors, value, onChange }) =
           <CircleButton key={color} active={value === color} onPress={() => onChange(color)}>
             <Circle bg={color} />
           </CircleButton>
-        )
+        );
       })}
     </Container>
   );
-}
+};

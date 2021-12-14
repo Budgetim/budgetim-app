@@ -79,7 +79,8 @@
       "description": "Description"
     },
     "action": {
-      "more": "Show more"
+      "more": "Show more",
+      "add": "Add new"
     },
     "messages": {
       "addFirst": "Click on the button plus to add category"

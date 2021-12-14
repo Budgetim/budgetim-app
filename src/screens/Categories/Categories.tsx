@@ -7,7 +7,6 @@ import { PlusIcon } from '../../icons/PlusIcon';
 import { StackParamList } from '../types';
 
 import { CategoriesList } from './components/CategoriesList';
-import { CategoriesProvider } from '../../contexts/categories';
 import { AddCategoryModal } from './components/AddCategoryModal';
 import { EditCategoryModal } from './components/EditCategoryModal';
 
@@ -31,12 +30,10 @@ export const Categories: FC<NativeStackScreenProps<StackParamList, 'Categories'>
   }, [navigation]);
 
   return (
-    <CategoriesProvider>
-      <ScrollView contentContainerStyle={{ flex: 1 }}>
-        <CategoriesList />
-        <AddCategoryModal visible={modalVisible} setVisible={setModalVisible} />
-        <EditCategoryModal />
-      </ScrollView>
-    </CategoriesProvider>
+    <ScrollView contentContainerStyle={{ flex: 1 }}>
+      <CategoriesList />
+      <AddCategoryModal visible={modalVisible} setVisible={setModalVisible} />
+      <EditCategoryModal />
+    </ScrollView>
   );
 };
