@@ -47,7 +47,6 @@ export const ChartProvider: FC<LineChartProps & { width: number }> = props => {
     .domain([0, max])
     .range([height - 4, 4]);
 
-  console.log({ data, max });
   const ticks = yScale.ticks(4);
 
   const monthsList: ChartContextState['monthsList'] = [];

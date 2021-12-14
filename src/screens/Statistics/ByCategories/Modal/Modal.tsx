@@ -1,9 +1,8 @@
 import i18n from 'i18n-js';
 import React, { FC, useEffect, useState } from 'react';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import { useTheme } from 'styled-components/native';
 
 import { LineChart } from '../../../../charts/LineChart';
+import { CloseIcon } from '../../../../icons/CloseIcon';
 
 import { Content, Title, Titles, Description, Header, ModalContent, ModalWrapper, CloseButton } from './styled';
 
@@ -20,9 +19,6 @@ export const Modal: FC<ModalProps> = ({ visible, categoryId, onClose }) => {
   const [data, setData] = useState<{ title: string; description: string; data: any[] } | null>(null);
   const [error, setError] = useState(null);
   const [isLoading, setLoading] = useState(true);
-  const {
-    colors: { textSecondary },
-  } = useTheme();
 
   useErrorHandler(error);
 
@@ -59,7 +55,7 @@ export const Modal: FC<ModalProps> = ({ visible, categoryId, onClose }) => {
             {data.description ? <Description variant="bodyRegular">{data.description}</Description> : null}
           </Titles>
           <CloseButton onPress={onClose}>
-            <AntDesign name="closecircle" color={textSecondary} size={28} />
+            <CloseIcon />
           </CloseButton>
         </Header>
         <Content>

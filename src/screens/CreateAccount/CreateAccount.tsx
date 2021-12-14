@@ -13,6 +13,8 @@ import { useUserDispatch } from '../../contexts/user';
 
 import { FooterLink } from './styled';
 
+import { locale } from 'expo-localization';
+
 export const CreateAccount: FC<NativeStackScreenProps<StackParamList, 'CreateAccount'>> = ({ navigation }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -32,7 +34,7 @@ export const CreateAccount: FC<NativeStackScreenProps<StackParamList, 'CreateAcc
   const onRegister = async () => {
     setIsLoading(true);
     try {
-      await register({ name, email, password });
+      await register({ name, email, password, currencyId: locale === 'ru-RU' ? 1 : 2 });
       const user = await authentificate({ email, password });
       if (user.email === email.toLowerCase()) {
         dispatch({ type: 'setUser', payload: { user } });

@@ -7,6 +7,7 @@ export const getCategories = async (token: string | null): Promise<Category[]> =
     const response = await fetch('https://api.budgetim.ru/categories', {
       headers: authHeader(token),
     });
+
     if (response.status === 403) {
       throw 403;
     }

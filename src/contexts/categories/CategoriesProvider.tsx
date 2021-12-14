@@ -6,15 +6,15 @@ import { CategoriesStateContext } from './useCategoriesState';
 import { CategoriesContextState } from './types';
 
 export const CategoriesProvider: FC = ({ children }) => {
-
   const initialState: CategoriesContextState = {
     isLoading: true,
     data: [],
     error: null,
+    dataLoaded: false,
     modal: {
       id: null,
       isVisible: false,
-    }
+    },
   };
 
   const [state, dispatch] = useReducer(categoriesReducer, initialState);

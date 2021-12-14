@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
 
 import { ListRenderItem } from 'react-native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useTheme } from 'styled-components/native';
+import { ArrowRightIcon } from '../../icons/ArrowRightIcon';
+import { ChartPieIcon } from '../../icons/ChartPieIcon';
+import { PersonIcon } from '../../icons/PersonIcon';
+import { UsdIcon } from '../../icons/UsdIcon';
 
 import { GroupListProps, DataItem } from './types';
 
@@ -19,21 +20,21 @@ export const GroupList: FC<GroupListProps> = ({ data }) => {
     if (type === 'categories') {
       return (
         <MainIconWrapper bg="#2196F3">
-          <FontAwesome5 name="chart-pie" color="#fff" size={18} />
+          <ChartPieIcon color="#fff" size={19} />
         </MainIconWrapper>
       );
     }
     if (type === 'person') {
       return (
         <MainIconWrapper bg="#9E9E9E">
-          <Ionicons name="person" color="#fff" size={18} />
+          <PersonIcon color="#fff" size={18} />
         </MainIconWrapper>
       );
     }
     if (type === 'currency') {
       return (
         <MainIconWrapper bg="#4CAF50">
-          <Ionicons name="ios-logo-usd" color="#fff" size={18} />
+          <UsdIcon color="#fff" size={19} />
         </MainIconWrapper>
       );
     }
@@ -47,7 +48,7 @@ export const GroupList: FC<GroupListProps> = ({ data }) => {
         <TextContent borderBottom={index !== data.length - 1}>
           <Text variant="bodyRegular">{item.title}</Text>
           {item.variant && <Variant variant="bodyRegular">{item.variant}</Variant>}
-          <MaterialIcons name="arrow-forward-ios" color={textPrimary} size={16} />
+          <ArrowRightIcon color={textPrimary} size={16} />
         </TextContent>
       </Item>
     );

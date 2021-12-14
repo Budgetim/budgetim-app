@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as SecureStore from 'expo-secure-store';
 import i18n from 'i18n-js';
-import { TouchableOpacity } from 'react-native';
 
 import { useUserDispatch, useUserState } from '../contexts/user';
 

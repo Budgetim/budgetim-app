@@ -5,14 +5,14 @@ import { ErrorMessage } from '../../../components/ErrorMessage';
 
 import { useUserState } from '../../../contexts/user';
 
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { getStatistics } from '../../../api/categories/getStatistics';
+import { ArrowLeftIcon } from '../../../icons/ArrowLeftIcon';
+import { ArrowRightIcon } from '../../../icons/ArrowRightIcon';
 import { getLocale } from '../../../utils/getLocale';
 import { separateThousands } from '../../../utils/separateThousands';
 import { PieChartWrapper, ChartTitle, ChartSubtitle, NavigateButton } from './styled';
 import { PieChart } from '../../../charts/PieChart';
 import { useTheme } from 'styled-components/native';
-import { TextVariant } from '../../../components/TextVariant';
 import { Loader } from '../../../components/Loader';
 import { CategoriesList } from '../CategoriesList';
 import { useErrorHandler } from '../../../hooks/useErrorHandler';
@@ -20,8 +20,8 @@ import { useErrorHandler } from '../../../hooks/useErrorHandler';
 export interface StatisticsInfoProps {
   year: number;
   month: number;
-  setNextDate?: () => {};
-  setPrevDate?: () => {};
+  setNextDate?: () => void;
+  setPrevDate?: () => void;
 }
 
 export interface StatisticsItem {
@@ -78,7 +78,7 @@ export const StatisticsInfo: FC<StatisticsInfoProps> = ({ month, year, setNextDa
     <View style={{ flex: 1 }}>
       <PieChartWrapper>
         <NavigateButton onPress={setPrevDate} disabled={!setPrevDate}>
-          <MaterialIcons name="arrow-back-ios" color={textPrimary} size={24} />
+          <ArrowLeftIcon color={textPrimary} size={24} />
         </NavigateButton>
         <PieChart
           data={data.map(item => {
@@ -102,7 +102,7 @@ export const StatisticsInfo: FC<StatisticsInfoProps> = ({ month, year, setNextDa
           </ChartTitle>
         </PieChart>
         <NavigateButton onPress={setNextDate} disabled={!setNextDate}>
-          <MaterialIcons name="arrow-forward-ios" color={textPrimary} size={24} />
+          <ArrowRightIcon color={textPrimary} size={24} />
         </NavigateButton>
       </PieChartWrapper>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} scrollIndicatorInsets={{ right: 1 }}>

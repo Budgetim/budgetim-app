@@ -11,7 +11,7 @@ import { Loader } from '../../../../components/Loader';
 import { useErrorHandler } from '../../../../hooks/useErrorHandler';
 
 export const CategoriesList: FC = () => {
-  const { data, isLoading, error } = useCategoriesState();
+  const { data, dataLoaded, isLoading, error } = useCategoriesState();
   const dispatch = useCategoriesDispatch();
   const { token } = useUserState();
 
@@ -27,7 +27,9 @@ export const CategoriesList: FC = () => {
   };
 
   useEffect(() => {
-    void getData();
+    if (!dataLoaded) {
+      void getData();
+    }
   }, []);
 
   if (error) {

@@ -8,7 +8,6 @@ import { getLocale } from '../../utils/getLocale';
 import { StackParamList } from '../types';
 import { TransactionsProvider } from '../../contexts/transactions';
 import { TransactionsList } from '../../components/TransactionsList';
-import { CategoriesProvider } from '../../contexts/categories';
 import { EditTransactionModal } from '../../components/EditTransactionModal';
 import { ModalsProvider } from '../../contexts/modals';
 
@@ -29,14 +28,12 @@ export const TransactionsByCategory: FC<NativeStackScreenProps<StackParamList, '
 
   return (
     <TransactionsProvider>
-      <CategoriesProvider>
-        <ModalsProvider>
-          <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={{ flex: 1 }}>
-            <TransactionsList category={category} month={month} year={year} />
-          </ScrollView>
-          <EditTransactionModal />
-        </ModalsProvider>
-      </CategoriesProvider>
+      <ModalsProvider>
+        <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={{ flex: 1 }}>
+          <TransactionsList category={category} month={month} year={year} />
+        </ScrollView>
+        <EditTransactionModal />
+      </ModalsProvider>
     </TransactionsProvider>
   );
 };

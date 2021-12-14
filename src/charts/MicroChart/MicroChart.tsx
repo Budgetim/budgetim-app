@@ -5,7 +5,7 @@ import { getScaleLinear } from '../../utils/getScaleLinear';
 import { MicroChartProps } from './types';
 import { useTheme } from 'styled-components/native';
 
-export const MicroChart: FC<MicroChartProps> = (props) => {
+export const MicroChart: FC<MicroChartProps> = props => {
   const { data, width = 70, height = 25 } = props;
   const allValuesAreEmpty = data.every(value => !value);
 
@@ -13,7 +13,9 @@ export const MicroChart: FC<MicroChartProps> = (props) => {
     return null;
   }
 
-  const { colors: { chart01 }} = useTheme();
+  const {
+    colors: { chart01 },
+  } = useTheme();
 
   const yDomain = extent(data) as [number, number];
   const xScale = getScaleLinear([0, data.length - 1], [0, width]);

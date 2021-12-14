@@ -6,7 +6,7 @@ import { useCategoriesDispatch } from '../../../../contexts/categories';
 import { CategoryModalContent } from '../CategoryModalContent';
 import { useErrorHandler } from '../../../../hooks/useErrorHandler';
 
-export const AddCategoryModal: FC<CategoryModalProps> = (props) => {
+export const AddCategoryModal: FC<CategoryModalProps> = props => {
   const { visible, setVisible } = props;
   const [title, setTitle] = useState('');
   const [error, setError] = useState(null);
@@ -27,7 +27,7 @@ export const AddCategoryModal: FC<CategoryModalProps> = (props) => {
 
   const onClose = () => {
     setVisible(false);
-  }
+  };
 
   const onAdd = async () => {
     try {
@@ -36,6 +36,10 @@ export const AddCategoryModal: FC<CategoryModalProps> = (props) => {
     } catch (error) {
       setError(error);
     }
+  };
+
+  if (!visible) {
+    return null;
   }
 
   return (

@@ -3,26 +3,36 @@ import { View } from 'react-native';
 import css from '@styled-system/css';
 import { TextVariant } from '../../../components/TextVariant';
 
-export const Container = styled(View)(css({
-  height: 40,
-  position: 'relative',
-}));
+export const Container = styled(View)(
+  css({
+    height: 40,
+    position: 'relative',
+  }),
+);
 
-export const Message = styled(TextVariant)(css({
-  mt: 2,
-  color: 'textSecondary',
-  textAlign: 'center',
-}));
+export const Message = styled(TextVariant)(
+  css({
+    mt: 2,
+    color: 'textSecondary',
+    textAlign: 'center',
+  }),
+);
 
-export const HeaderTitle = styled(TextVariant)(css({
-  textAlign: 'center'
-}));
+export const HeaderTitle = styled(TextVariant)(
+  css({
+    textAlign: 'center',
+  }),
+);
 
-export const PriceLabel = styled(View)(css({
-  position: 'absolute',
-  bottom: 1,
-}));
+export const PriceLabel = styled(View)(
+  css({
+    position: 'absolute',
+    bottom: 1,
+  }),
+);
 
-export const PriceText = styled(TextVariant)(css({
-  color: 'chart01',
-}));
+export const PriceText = styled(TextVariant)(
+  css({
+    color: 'chart01',
+  }),
+);
