@@ -22,7 +22,7 @@ export const ShowMoreWrapper = styled(TouchableOpacity)(
 export const ShowMoreText = styled(TextVariant)(
   css({
     color: 'textPrimary',
-    ml: 1,
+    ml: 2,
   }),
 );
 

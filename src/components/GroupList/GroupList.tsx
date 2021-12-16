@@ -13,7 +13,7 @@ import { List, Item, TextContent, Text, MainIconWrapper, Variant } from './style
 
 export const GroupList: FC<GroupListProps> = ({ data }) => {
   const {
-    colors: { textPrimary },
+    colors: { textSecondary },
   } = useTheme();
 
   const getIcon = (type: DataItem['type']) => {
@@ -48,7 +48,7 @@ export const GroupList: FC<GroupListProps> = ({ data }) => {
         <TextContent borderBottom={index !== data.length - 1}>
           <Text variant="bodyRegular">{item.title}</Text>
           {item.variant && <Variant variant="bodyRegular">{item.variant}</Variant>}
-          <ArrowRightIcon color={textPrimary} size={16} />
+          <ArrowRightIcon color={textSecondary} size={14} />
         </TextContent>
       </Item>
     );

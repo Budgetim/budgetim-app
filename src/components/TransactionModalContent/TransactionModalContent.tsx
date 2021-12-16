@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { Pressable, ScrollView, Keyboard, ActivityIndicator } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import i18n from 'i18n-js';
+import { locale } from 'expo-localization';
 
 import { Input } from '../Input';
 import { formatNumberWithSign } from '../../utils/formatNumberWithSign';
@@ -96,6 +97,7 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = props =
             </Section>
             <Section>
               <DateTimePicker
+                locale={locale}
                 value={date}
                 mode="date"
                 display="spinner"

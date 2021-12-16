@@ -13,12 +13,16 @@ export const Container = styled(ScrollView)(
 
 export const SignOutButton = styled(TouchableOpacity)(
   css({
+    p: 3,
     mt: 9,
+    bg: 'systemGray06',
+    borderRadius: 12,
   }),
 );
 
 export const Link = styled(TextVariant)(
   css({
     color: 'systemRed',
+    textAlign: 'center',
   }),
 );
