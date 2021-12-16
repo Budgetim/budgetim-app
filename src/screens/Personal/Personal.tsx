@@ -13,7 +13,7 @@ import { StackParamList } from '../types';
 import { Container, Link, SignOutButton } from './styled';
 import { EditPasswordModal } from './EditPasswordModal';
 
-export const Personal: FC<NativeStackScreenProps<StackParamList, 'Personal'>> = ({ navigation }) => {
+export const Personal: FC<NativeStackScreenProps<StackParamList, 'Personal'>> = () => {
   const dispatch = useUserDispatch();
   const { token } = useUserState();
   const [visible, setVisible] = useState(false);
@@ -36,13 +36,13 @@ export const Personal: FC<NativeStackScreenProps<StackParamList, 'Personal'>> = 
     setIsLoading(true);
     try {
       await updatePassword({ password: value }, token);
-    } catch(e) {
+    } catch (e) {
       setError(e);
     } finally {
       setIsLoading(false);
       closeModal();
     }
-  }
+  };
 
   useEffect(() => {
     if (visible) {
@@ -77,7 +77,7 @@ export const Personal: FC<NativeStackScreenProps<StackParamList, 'Personal'>> = 
               placeholder: i18n.t('settings.general.form.password.placeholder'),
               value,
               setValue,
-            }
+            },
           ]}
         />
       </EditPasswordModal>
