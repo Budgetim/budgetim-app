@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Pressable, ScrollView, Keyboard, ActivityIndicator } from 'react-native';
+import { Pressable, ScrollView, Keyboard, ActivityIndicator, TouchableHighlight } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import i18n from 'i18n-js';
 import { locale } from 'expo-localization';
@@ -65,50 +65,52 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = props =
           </Pressable>
         </Header>
         <ScrollView>
-          <Content>
-            <SectionGroup>
-              <NameSection error={titleError}>
-                <Input
-                  variant="subheadlineRegular"
-                  defaultValue={title}
-                  onChangeText={setTitle}
-                  placeholder={i18n.t('transactions.form.title')}
-                  onFocus={() => setFocusedTitle(true)}
-                  onBlur={() => setFocusedTitle(false)}
-                />
-              </NameSection>
-              <Section style={{ width: 120 }}>
-                <Input
-                  variant="subheadlineRegular"
-                  onChangeText={p => {
-                    if (p === '' || /^((\d|\s)+),?(\d{1,2})?$/.test(p)) {
-                      setPrice(formatNumberWithSign(p));
-                    }
+          <TouchableHighlight>
+            <Content>
+              <SectionGroup>
+                <NameSection error={titleError}>
+                  <Input
+                    variant="subheadlineRegular"
+                    defaultValue={title}
+                    onChangeText={setTitle}
+                    placeholder={i18n.t('transactions.form.title')}
+                    onFocus={() => setFocusedTitle(true)}
+                    onBlur={() => setFocusedTitle(false)}
+                  />
+                </NameSection>
+                <Section style={{ width: 120 }}>
+                  <Input
+                    variant="subheadlineRegular"
+                    onChangeText={p => {
+                      if (p === '' || /^((\d|\s)+),?(\d{1,2})?$/.test(p)) {
+                        setPrice(formatNumberWithSign(p));
+                      }
+                    }}
+                    value={formatNumberWithSign(price)}
+                    placeholder={i18n.t('transactions.form.price')}
+                    keyboardType="numeric"
+                    autoFocus
+                  />
+                </Section>
+              </SectionGroup>
+              <Section>
+                <CategoriesList activeCategoryId={categoryId} setCategoryId={setCategoryId} />
+              </Section>
+              <Section>
+                <DateTimePicker
+                  locale={locale}
+                  value={date}
+                  mode="date"
+                  display="spinner"
+                  onChange={(event, selectedDate) => {
+                    const currentDate = selectedDate || date;
+                    setDate(currentDate);
                   }}
-                  value={formatNumberWithSign(price)}
-                  placeholder={i18n.t('transactions.form.price')}
-                  keyboardType="numeric"
-                  autoFocus
+                  maximumDate={new Date()}
                 />
               </Section>
-            </SectionGroup>
-            <Section>
-              <CategoriesList activeCategoryId={categoryId} setCategoryId={setCategoryId} />
-            </Section>
-            <Section>
-              <DateTimePicker
-                locale={locale}
-                value={date}
-                mode="date"
-                display="spinner"
-                onChange={(event, selectedDate) => {
-                  const currentDate = selectedDate || date;
-                  setDate(currentDate);
-                }}
-                maximumDate={new Date()}
-              />
-            </Section>
-          </Content>
+            </Content>
+          </TouchableHighlight>
         </ScrollView>
         {focusedTitle && (
           <PopularNames
