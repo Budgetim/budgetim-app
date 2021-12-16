@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
-import { TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { View } from 'react-native';
 import css from '@styled-system/css';
 import { TextVariant } from '../../../TextVariant';
 

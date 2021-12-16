@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
-import { FlatList, TouchableOpacity, View } from 'react-native';
+import { FlatList, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import css from '@styled-system/css';
 import { TextVariant } from '../TextVariant';
 import { color, ColorProps } from 'styled-system';

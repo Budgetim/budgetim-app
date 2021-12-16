@@ -1,5 +1,6 @@
 import React, { FC, useState, useLayoutEffect } from 'react';
-import { ScrollView, TouchableOpacity, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useTheme } from 'styled-components/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ChartPieIcon } from '../../icons/ChartPieIcon';

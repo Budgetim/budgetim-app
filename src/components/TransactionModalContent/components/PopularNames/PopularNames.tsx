@@ -9,18 +9,14 @@ export const PopularNames: FC<PopularNamesProps> = ({ str, selectTitle }) => {
   const { data } = useTransactionsState();
   const names = getPopularNames(data, str);
   return (
-   <Container>
-     {names.map((name, index, array) => {
-       return (
-         <Item
-           key={name}
-           borderRight={index !== array.length - 1}
-           onPress={() => selectTitle(name)}
-         >
-           <TextVariant variant="bodyRegular">{name}</TextVariant>
-         </Item>
-       );
-     })}
-   </Container>
+    <Container>
+      {names.map((name, index, array) => {
+        return (
+          <Item key={name} borderRight={index !== array.length - 1} onPress={() => selectTitle(name)}>
+            <TextVariant variant="bodyRegular">{name}</TextVariant>
+          </Item>
+        );
+      })}
+    </Container>
   );
 };
