@@ -18,12 +18,14 @@ export const CategoriesList: FC<CategoriesListProps> = ({ data, month, year }) =
         return (
           <CategoryCard
             key={item.id}
-            onPress={() => navigation.navigate('TransactionsByCategory', {
-              category: item.id,
-              categoryTitle: item.title,
-              month,
-              year,
-            })}
+            onPress={() =>
+              navigation.navigate('TransactionsByCategory', {
+                category: item.id,
+                categoryTitle: item.title,
+                month,
+                year,
+              })
+            }
             title={item.title}
             description={item.description}
             label={`${separateThousands(+item.sum)} ${currency?.unit || ''}`}

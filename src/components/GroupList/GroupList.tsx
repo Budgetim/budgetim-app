@@ -4,6 +4,7 @@ import { ListRenderItem } from 'react-native';
 import { useTheme } from 'styled-components/native';
 import { ArrowRightIcon } from '../../icons/ArrowRightIcon';
 import { ChartPieIcon } from '../../icons/ChartPieIcon';
+import { LineChartIcon } from '../../icons/LineChartIcon';
 import { PersonIcon } from '../../icons/PersonIcon';
 import { UsdIcon } from '../../icons/UsdIcon';
 
@@ -21,6 +22,13 @@ export const GroupList: FC<GroupListProps> = ({ data }) => {
       return (
         <MainIconWrapper bg="#2196F3">
           <ChartPieIcon color="#fff" size={19} />
+        </MainIconWrapper>
+      );
+    }
+    if (type === 'periods') {
+      return (
+        <MainIconWrapper bg="#4CAF50">
+          <LineChartIcon color="#fff" size={19} />
         </MainIconWrapper>
       );
     }

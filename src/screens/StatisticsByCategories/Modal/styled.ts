@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import css, { SystemStyleObject } from '@styled-system/css';
 import Modal from 'react-native-modal';
-import { TextVariant } from '../../../../components/TextVariant';
+import { TextVariant } from '../../../components/TextVariant';
 
 export const Header = styled(View)(
   css({
@@ -35,7 +35,7 @@ export const CloseButton = styled(TouchableOpacity)(
   }),
 );
 
-export const Content = styled(View)(css({ mb: 4 }));
+export const Content = styled(View)(css({ mb: 12 }));
 
 export const Description = styled(TextVariant)(
   css({
@@ -55,8 +55,8 @@ export const ModalContent = styled(View)(
     borderTopRightRadius: 12,
     shadowOpacity: 0.1,
     shadowRadius: 3,
-    height: '80%',
-    p: 4,
+    pt: 4,
+    px: 4,
   } as SystemStyleObject),
 );
 

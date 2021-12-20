@@ -4,6 +4,8 @@ import * as SecureStore from 'expo-secure-store';
 import i18n from 'i18n-js';
 
 import { useUserDispatch, useUserState } from '../contexts/user';
+import { StatisticsByCategories } from './StatisticsByCategories';
+import { StatisticsByDates } from './StatisticsByDates';
 
 import { Transactions } from './Transactions';
 import { Categories } from './Categories';
@@ -91,6 +93,16 @@ export const Screens = () => {
         <Stack.Screen name="Transactions" component={Transactions} options={{ title: i18n.t('transactions.title') }} />
         <Stack.Screen name="Categories" component={Categories} options={{ title: i18n.t('categories.title') }} />
         <Stack.Screen name="Statistics" component={Statistics} options={{ title: i18n.t('statistics.title') }} />
+        <Stack.Screen
+          name="StatisticsByCategories"
+          component={StatisticsByCategories}
+          options={{ title: i18n.t('statistics.categories.title') }}
+        />
+        <Stack.Screen
+          name="StatisticsByDates"
+          component={StatisticsByDates}
+          options={{ title: i18n.t('statistics.periods.title') }}
+        />
         <Stack.Screen name="TransactionsByCategory" component={TransactionsByCategory} />
 
         <Stack.Screen name="Settings" component={Settings} options={{ title: i18n.t('settings.title') }} />

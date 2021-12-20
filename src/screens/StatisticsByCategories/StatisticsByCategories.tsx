@@ -1,19 +1,21 @@
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import i18n from 'i18n-js';
 import React, { FC, useEffect, useState } from 'react';
 
-import { CategoryCard } from '../../../components/CategoryCard';
-import { MicroChart } from '../../../charts/MicroChart';
-import { ErrorMessage } from '../../../components/ErrorMessage';
-import { NoDataMessage } from '../../../components/NoDataMessage';
+import { CategoryCard } from '../../components/CategoryCard';
+import { MicroChart } from '../../charts/MicroChart';
+import { ErrorMessage } from '../../components/ErrorMessage';
+import { NoDataMessage } from '../../components/NoDataMessage';
+import { StackParamList } from '../types';
 
 import { Container } from './styled';
-import { useUserState } from '../../../contexts/user';
-import { useErrorHandler } from '../../../hooks/useErrorHandler';
-import { getStatisticsByDays } from '../../../api/categories/getStatisticsByDays';
-import { Loader } from '../../../components/Loader';
+import { useUserState } from '../../contexts/user';
+import { useErrorHandler } from '../../hooks/useErrorHandler';
+import { getStatisticsByDays } from '../../api/categories/getStatisticsByDays';
+import { Loader } from '../../components/Loader';
 import { Modal } from './Modal';
 
-export const ByCategories: FC = () => {
+export const StatisticsByCategories: FC<NativeStackScreenProps<StackParamList, 'StatisticsByCategories'>> = () => {
   const [visible, setVisible] = useState(false);
   const [activeCategoryId, setActiveCategoryId] = useState(null);
   const { token } = useUserState();

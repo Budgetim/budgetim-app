@@ -1,1 +1,0 @@
-export { ByCategories } from './ByCategories';

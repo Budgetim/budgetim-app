@@ -10,14 +10,6 @@ export const Container = styled(View)(
   }),
 );
 
-export const Message = styled(TextVariant)(
-  css({
-    mt: 2,
-    color: 'textSecondary',
-    textAlign: 'center',
-  }),
-);
-
 export const HeaderTitle = styled(TextVariant)(
   css({
     textAlign: 'center',
@@ -34,5 +26,14 @@ export const PriceLabel = styled(View)(
 export const PriceText = styled(TextVariant)(
   css({
     color: 'chart01',
+  }),
+);
+
+export const Selectors = styled(View)(
+  css({
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    pb: 1,
   }),
 );

@@ -1,7 +1,11 @@
+import { AdMobBanner } from 'expo-ads-admob';
+import Constants from 'expo-constants';
+import i18n from 'i18n-js';
 import React, { FC, useEffect, useState } from 'react';
 import { ScrollView, View } from 'react-native';
 import format from 'date-fns/format';
 import { ErrorMessage } from '../../../components/ErrorMessage';
+import { TabsGroup } from '../../../components/TabsGroup';
 
 import { useUserState } from '../../../contexts/user';
 
@@ -31,6 +35,10 @@ export interface StatisticsItem {
   sum: string;
   title: string;
 }
+
+const testID = 'ca-app-pub-3940256099942544/6300978111';
+const productionID = 'ca-app-pub-2490800653471089/1630088977';
+const adUnitID = Constants.isDevice && !__DEV__ ? productionID : testID;
 
 export const StatisticsInfo: FC<StatisticsInfoProps> = ({ month, year, setNextDate, setPrevDate }) => {
   const { token, currency } = useUserState();
@@ -108,6 +116,7 @@ export const StatisticsInfo: FC<StatisticsInfoProps> = ({ month, year, setNextDa
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} scrollIndicatorInsets={{ right: 1 }}>
         {renderContent()}
       </ScrollView>
+      <AdMobBanner adUnitID={adUnitID} servePersonalizedAds />
     </View>
   );
 };

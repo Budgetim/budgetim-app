@@ -3,8 +3,8 @@ import i18n from 'i18n-js';
 import React, { FC, useEffect, useState } from 'react';
 import Constants from 'expo-constants';
 
-import { LineChart } from '../../../../charts/LineChart';
-import { CloseIcon } from '../../../../icons/CloseIcon';
+import { LineChart } from '../../../charts/LineChart';
+import { CloseIcon } from '../../../icons/CloseIcon';
 
 import {
   Content,
@@ -18,12 +18,12 @@ import {
   AdMobContainer,
 } from './styled';
 
-import { useUserState } from '../../../../contexts/user';
-import { useErrorHandler } from '../../../../hooks/useErrorHandler';
-import { Loader } from '../../../../components/Loader';
+import { useUserState } from '../../../contexts/user';
+import { useErrorHandler } from '../../../hooks/useErrorHandler';
+import { Loader } from '../../../components/Loader';
 
 import { ModalProps } from './types';
-import { getCategoryStatistics } from '../../../../api/categories/getCategoryStatistics';
+import { getCategoryStatistics } from '../../../api/categories/getCategoryStatistics';
 import format from 'date-fns/format';
 
 const testID = 'ca-app-pub-3940256099942544/6300978111';
@@ -32,9 +32,18 @@ const adUnitID = Constants.isDevice && !__DEV__ ? productionID : testID;
 
 export const Modal: FC<ModalProps> = ({ visible, categoryId, onClose }) => {
   const { token } = useUserState();
+  const [activeModeIndex, setActiveModeIndex] = useState(0);
   const [data, setData] = useState<{ title: string; description: string; data: any[] } | null>(null);
   const [error, setError] = useState(null);
   const [isLoading, setLoading] = useState(true);
+
+  const modes = [
+    { title: i18n.t('statistics.categories.period.7d'), count: 7 },
+    { title: i18n.t('statistics.categories.period.2w'), count: 14 },
+    { title: i18n.t('statistics.categories.period.4w'), count: 28 },
+    { title: i18n.t('statistics.categories.period.8w'), count: 56 },
+    { title: i18n.t('statistics.categories.period.12w'), count: 94 },
+  ];
 
   useErrorHandler(error);
 
@@ -79,9 +88,14 @@ export const Modal: FC<ModalProps> = ({ visible, categoryId, onClose }) => {
         </Header>
         <Content>
           <LineChart
-            data={data.data.map(item => ({ value: +item.value }))}
-            categories={data.data.map(item => format(new Date(item.date), 'yyyy-MM-dd'))}
+            data={data.data.slice(-modes[activeModeIndex].count).map(item => ({ value: +item.value }))}
+            categories={data.data
+              .slice(-modes[activeModeIndex].count)
+              .map(item => format(new Date(item.date), 'yyyy-MM-dd'))}
             height={245}
+            modes={modes}
+            activeModeIndex={activeModeIndex}
+            setActiveModeIndex={setActiveModeIndex}
           />
         </Content>
         <AdMobContainer>
