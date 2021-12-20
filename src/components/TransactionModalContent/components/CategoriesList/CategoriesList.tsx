@@ -80,16 +80,17 @@ export const CategoriesList: FC<CategoriesListProps> = ({ activeCategoryId, setC
           };
         })}
       />
-      {!showAll && targetData.length > 6 && (
+      {!showAll && targetData.length > 6 ? (
         <ShowMoreWrapper onPress={() => setShowAll(true)}>
           <ArrowDownIcon color={textPrimary} size={10} />
           <ShowMoreText variant="subheadlineRegular">{i18n.t('categories.action.more')}</ShowMoreText>
         </ShowMoreWrapper>
+      ) : (
+        <AddButton onPress={() => setCategoryModalVisible(true)}>
+          <PlusCircleIcon color={systemBlue} size={24} />
+          <AddText variant="subheadlineRegular">{i18n.t('categories.action.add')}</AddText>
+        </AddButton>
       )}
-      <AddButton onPress={() => setCategoryModalVisible(true)}>
-        <PlusCircleIcon color={systemBlue} size={24} />
-        <AddText variant="subheadlineRegular">{i18n.t('categories.action.add')}</AddText>
-      </AddButton>
       <AddCategoryModal visible={categoryModalVisible} setVisible={setCategoryModalVisible} />
     </Wrapper>
   );

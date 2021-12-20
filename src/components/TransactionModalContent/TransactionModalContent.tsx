@@ -96,19 +96,17 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = props =
               <Section>
                 <CategoriesList activeCategoryId={categoryId} setCategoryId={setCategoryId} />
               </Section>
-              <Section>
-                <DateTimePicker
-                  locale={locale}
-                  value={date}
-                  mode="date"
-                  display="spinner"
-                  onChange={(event, selectedDate) => {
-                    const currentDate = selectedDate || date;
-                    setDate(currentDate);
-                  }}
-                  maximumDate={new Date()}
-                />
-              </Section>
+              <DateTimePicker
+                locale={locale}
+                value={date}
+                mode="date"
+                display="spinner"
+                onChange={(event, selectedDate) => {
+                  const currentDate = selectedDate || date;
+                  setDate(currentDate);
+                }}
+                maximumDate={new Date()}
+              />
             </Content>
           </TouchableHighlight>
         </ScrollView>

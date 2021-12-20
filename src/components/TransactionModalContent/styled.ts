@@ -60,7 +60,7 @@ export const ModalContent = styled(View)(
     borderTopRightRadius: 12,
     shadowOpacity: 0.1,
     shadowRadius: 3,
-    maxHeight: '80%',
+    maxHeight: '85%',
   } as SystemStyleObject),
 );
 
