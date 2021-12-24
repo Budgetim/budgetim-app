@@ -1,22 +1,10 @@
-import { AdMobBanner } from 'expo-ads-admob';
 import i18n from 'i18n-js';
 import React, { FC, useEffect, useState } from 'react';
-import Constants from 'expo-constants';
 
 import { LineChart } from '../../../charts/LineChart';
 import { CloseIcon } from '../../../icons/CloseIcon';
 
-import {
-  Content,
-  Title,
-  Titles,
-  Description,
-  Header,
-  ModalContent,
-  ModalWrapper,
-  CloseButton,
-  AdMobContainer,
-} from './styled';
+import { Content, Title, Titles, Description, Header, ModalContent, ModalWrapper, CloseButton } from './styled';
 
 import { useUserState } from '../../../contexts/user';
 import { useErrorHandler } from '../../../hooks/useErrorHandler';
@@ -25,10 +13,6 @@ import { Loader } from '../../../components/Loader';
 import { ModalProps } from './types';
 import { getCategoryStatistics } from '../../../api/categories/getCategoryStatistics';
 import format from 'date-fns/format';
-
-const testID = 'ca-app-pub-3940256099942544/6300978111';
-const productionID = 'ca-app-pub-2490800653471089/3524938818';
-const adUnitID = Constants.isDevice && !__DEV__ ? productionID : testID;
 
 export const Modal: FC<ModalProps> = ({ visible, categoryId, onClose }) => {
   const { token } = useUserState();
@@ -98,9 +82,6 @@ export const Modal: FC<ModalProps> = ({ visible, categoryId, onClose }) => {
             setActiveModeIndex={setActiveModeIndex}
           />
         </Content>
-        <AdMobContainer>
-          <AdMobBanner adUnitID={adUnitID} servePersonalizedAds />
-        </AdMobContainer>
       </>
     );
   }

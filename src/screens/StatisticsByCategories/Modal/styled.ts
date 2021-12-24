@@ -59,9 +59,3 @@ export const ModalContent = styled(View)(
     px: 4,
   } as SystemStyleObject),
 );
-
-export const AdMobContainer = styled(View)(
-  css({
-    mx: -4,
-  }),
-);

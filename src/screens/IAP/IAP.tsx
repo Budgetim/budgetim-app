@@ -7,7 +7,7 @@ import { Container } from './styled';
 
 export const IAP: FC<NativeStackScreenProps<StackParamList, 'IAP'>> = () => {
   const getProducts = async () => {
-    await InAppPurchases.connectAsync();
+    //await InAppPurchases.connectAsync();
     //const res = await InAppPurchases.getProductsAsync(['AD335DGA3GEB']);
     //console.log(res);
   };
