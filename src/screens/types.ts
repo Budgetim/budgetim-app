@@ -21,4 +21,5 @@ export type StackParamList = {
   Settings: undefined;
   Personal: undefined;
   Currency: undefined;
+  IAP: undefined;
 };

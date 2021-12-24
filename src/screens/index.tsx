@@ -4,6 +4,7 @@ import * as SecureStore from 'expo-secure-store';
 import i18n from 'i18n-js';
 
 import { useUserDispatch, useUserState } from '../contexts/user';
+import { IAP } from './IAP';
 import { StatisticsByCategories } from './StatisticsByCategories';
 import { StatisticsByDates } from './StatisticsByDates';
 
@@ -108,6 +109,7 @@ export const Screens = () => {
         <Stack.Screen name="Settings" component={Settings} options={{ title: i18n.t('settings.title') }} />
         <Stack.Screen name="Personal" component={Personal} options={{ title: i18n.t('settings.general.title') }} />
         <Stack.Screen name="Currency" component={Currency} options={{ title: i18n.t('settings.currency.title') }} />
+        <Stack.Screen name="IAP" component={IAP} options={{ title: 'in-app' }} />
       </>
     );
   }
