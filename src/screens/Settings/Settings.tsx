@@ -38,10 +38,10 @@ export const Settings: FC<NativeStackScreenProps<StackParamList, 'Settings'>> = 
               variant: currency?.title,
               onPress: () => navigation.navigate('Currency'),
             },
-            {
-              title: 'iap',
-              onPress: () => navigation.navigate('IAP'),
-            },
+            // {
+            //   title: 'iap',
+            //   onPress: () => navigation.navigate('IAP'),
+            // },
           ]}
         />
       </ListWrapper>

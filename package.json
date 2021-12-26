@@ -1,9 +1,8 @@
 {
-  "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "start": "react-native start",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
     "web": "expo start --web",
     "eject": "expo eject",
     "lint": "eslint --ext .js,.ts,.jsx,.tsx src App.tsx"
@@ -19,24 +18,28 @@
     "d3": "^7.1.1",
     "date-fns": "^2.24.0",
     "expo": "~42.0.1",
-    "expo-in-app-purchases": "^12.1.0",
+    "expo-in-app-purchases": "~11.0.1",
     "expo-localization": "~10.2.0",
     "expo-secure-store": "^10.2.0",
+    "expo-splash-screen": "~0.11.2",
     "expo-status-bar": "~1.0.4",
+    "expo-updates": "~0.8.1",
     "i18n-js": "^3.8.0",
     "lodash": "^4.17.21",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
+    "react-native": "~0.63.4",
     "react-native-canvas": "^0.1.38",
     "react-native-color-picker-ios": "^0.1.2",
     "react-native-date-picker": "^4.0.0",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-modal": "^13.0.0",
+    "react-native-reanimated": "~2.2.0",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
     "react-native-svg": "^12.1.1",
     "react-native-swipeout": "^2.3.6",
+    "react-native-unimodules": "0.14.10",
     "react-native-web": "~0.13.12",
     "react-native-webview": "^11.14.3",
     "styled-components": "^5.3.1",
@@ -71,5 +74,7 @@
     "prettier": "^2.5.0",
     "typescript": "~4.0.0"
   },
-  "private": true
+  "private": true,
+  "name": "budgetim-app",
+  "version": "1.0.0"
 }
