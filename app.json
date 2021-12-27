@@ -2,7 +2,7 @@
   "expo": {
     "name": "Budgetim",
     "slug": "budgetim",
-    "version": "1.1.1",
+    "version": "1.2.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -22,6 +22,7 @@
       "backgroundColor": "#FFFFFF",
       "supportsTablet": true,
       "bundleIdentifier": "CB867UQP6U.budgetim",
+      "buildNumber": "1.2.0",
       "config": {
         "googleMobileAdsAppId": "ca-app-pub-2490800653471089~9366624135"
       }
