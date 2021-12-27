@@ -8,7 +8,7 @@ export const TabsGroup: FC<SelectGroupProps> = ({ data, onChangeIndex, activeInd
       {data.map((item, index) => {
         return (
           <ButtonWrapper key={index}>
-            <Button onPress={() => onChangeIndex(index)}>
+            <Button onPress={() => onChangeIndex(index)} disabled={!!item?.disabled}>
               <Title active={index === activeIndex} variant="subheadlineBold">
                 {item.title}
               </Title>

@@ -26,7 +26,7 @@ export const Modal: FC<ModalProps> = ({ visible, categoryId, onClose }) => {
     { title: i18n.t('statistics.categories.period.2w'), count: 14 },
     { title: i18n.t('statistics.categories.period.4w'), count: 28 },
     { title: i18n.t('statistics.categories.period.8w'), count: 56 },
-    { title: i18n.t('statistics.categories.period.12w'), count: 94 },
+    { title: i18n.t('statistics.categories.period.12w'), count: 84 },
   ];
 
   useErrorHandler(error);

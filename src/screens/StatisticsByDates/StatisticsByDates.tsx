@@ -75,8 +75,8 @@ export const StatisticsByDates: FC<NativeStackScreenProps<StackParamList, 'Stati
           activeIndex={activeMode}
           onChangeIndex={setActiveMode}
           data={[
-            { title: i18n.t('statistics.periods.variants.days') },
-            { title: i18n.t('statistics.periods.variants.weeks') },
+            { title: i18n.t('statistics.periods.variants.days'), disabled: true },
+            { title: i18n.t('statistics.periods.variants.weeks'), disabled: true },
             { title: i18n.t('statistics.periods.variants.months') },
           ]}
         />
