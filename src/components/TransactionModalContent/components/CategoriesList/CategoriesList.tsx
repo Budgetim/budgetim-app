@@ -7,6 +7,7 @@ import { useUserState } from '../../../../contexts/user';
 import { useCategoriesDispatch, useCategoriesState } from '../../../../contexts/categories';
 
 import { getCategories } from '../../../../api/categories/getCategories';
+import { usePrevious } from '../../../../hooks/usePrevious';
 import { ArrowDownIcon } from '../../../../icons/ArrowDownIcon';
 import { PlusCircleIcon } from '../../../../icons/PlusCircleIcon';
 import { AddCategoryModal } from '../../../../screens/Categories/components/AddCategoryModal';
@@ -20,6 +21,7 @@ import { CategoriesListProps } from './types';
 
 export const CategoriesList: FC<CategoriesListProps> = ({ activeCategoryId, setCategoryId }) => {
   const { data, dataLoaded, error, isLoading } = useCategoriesState();
+  const prevData = usePrevious(data);
   const [categoryModalVisible, setCategoryModalVisible] = useState(false);
   const [showAll, setShowAll] = useState(false);
   const {
@@ -39,6 +41,15 @@ export const CategoriesList: FC<CategoriesListProps> = ({ activeCategoryId, setC
       dispatch({ type: 'setError', payload: { error } });
     }
   };
+
+  useEffect(() => {
+    // установление только что добавленной категории
+    const currentDataLength = data.length;
+    const prevDataLength = prevData?.length || 0;
+    if (currentDataLength > 0 && currentDataLength === prevDataLength + 1) {
+      setCategoryId(data[currentDataLength - 1].id);
+    }
+  }, [data]);
 
   useEffect(() => {
     if (!dataLoaded) {
