@@ -31,7 +31,7 @@ export const Login: FC<NativeStackScreenProps<StackParamList, 'Login'>> = ({ nav
     setIsLoading(true);
     try {
       const user = await authentificate({ email, password });
-      if (user.email === email) {
+      if (user.email === email.toLowerCase()) {
         dispatch({ type: 'setUser', payload: { user } });
         await SecureStore.setItemAsync('userToken', user.token);
       }

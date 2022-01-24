@@ -1,7 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import i18n from 'i18n-js';
 import React, { FC, useEffect, useState } from 'react';
-import { View } from 'react-native';
 import { ErrorMessage } from '../../components/ErrorMessage';
 import { NoDataMessage } from '../../components/NoDataMessage';
 import { TabsGroup } from '../../components/TabsGroup';
@@ -70,17 +69,17 @@ export const StatisticsByDates: FC<NativeStackScreenProps<StackParamList, 'Stati
 
   return (
     <Container>
-      <Tabs>
-        <TabsGroup
-          activeIndex={activeMode}
-          onChangeIndex={setActiveMode}
-          data={[
-            { title: i18n.t('statistics.periods.variants.days'), disabled: true },
-            { title: i18n.t('statistics.periods.variants.weeks'), disabled: true },
-            { title: i18n.t('statistics.periods.variants.months') },
-          ]}
-        />
-      </Tabs>
+      {/*<Tabs>*/}
+      {/*  <TabsGroup*/}
+      {/*    activeIndex={activeMode}*/}
+      {/*    onChangeIndex={setActiveMode}*/}
+      {/*    data={[*/}
+      {/*      { title: i18n.t('statistics.periods.variants.days'), disabled: true },*/}
+      {/*      { title: i18n.t('statistics.periods.variants.weeks'), disabled: true },*/}
+      {/*      { title: i18n.t('statistics.periods.variants.months') },*/}
+      {/*    ]}*/}
+      {/*  />*/}
+      {/*</Tabs>*/}
       <StatisticsInfo
         year={dates[indexDate].year}
         month={dates[indexDate].month}

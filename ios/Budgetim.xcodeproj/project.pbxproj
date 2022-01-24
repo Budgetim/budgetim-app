@@ -15,6 +15,7 @@
 		8E4487B10D954C21A2AAD9AD /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7822A148D5654B1FA2C49571 /* noop-file.swift */; };
 		970AE7A1015B7E265CEB30D0 /* libPods-Budgetim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB04ACCD7E993B92F8ECA7C0 /* libPods-Budgetim.a */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
+		CEEEE1DC278077E800EA6818 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEEEE1DB278077E800EA6818 /* StoreKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = Budgetim/SplashScreen.storyboard; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
 		CB04ACCD7E993B92F8ECA7C0 /* libPods-Budgetim.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Budgetim.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEEEE1DB278077E800EA6818 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		DE504035EB5E0D07A0809F4C /* Pods-Budgetim.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Budgetim.debug.xcconfig"; path = "Target Support Files/Pods-Budgetim/Pods-Budgetim.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -43,6 +45,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				970AE7A1015B7E265CEB30D0 /* libPods-Budgetim.a in Frameworks */,
+				CEEEE1DC278077E800EA6818 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +73,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CEEEE1DB278077E800EA6818 /* StoreKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				CB04ACCD7E993B92F8ECA7C0 /* libPods-Budgetim.a */,

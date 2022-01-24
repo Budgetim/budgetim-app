@@ -24,7 +24,7 @@ export const getCategoryStatistics = async (
       throw 403;
     }
 
-    //return categoryStatistics;
+    // return categoryStatistics;
     return (await response.json()) as any;
   } catch (error: unknown) {
     console.error(error);

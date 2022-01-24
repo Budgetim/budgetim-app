@@ -59,8 +59,8 @@ export const IAP: FC<NativeStackScreenProps<StackParamList, 'IAP'>> = () => {
   };
 
   const getProducts = async () => {
-    const { responseCode, results } = await InAppPurchases.getProductsAsync(IAP_SKUS);
-    console.log({ responseCode, results });
+    const res = await InAppPurchases.getProductsAsync(IAP_SKUS);
+    const { responseCode, results } = res;
     if (responseCode === InAppPurchases.IAPResponseCode.OK) {
       return results;
     } else {

@@ -48,6 +48,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>App requires access to your camera to allow you to take a photo of your ID to process your request</string>
 	<key>RCTRootViewBackgroundColor</key>
 	<integer>4294967295</integer>
 	<key>UILaunchStoryboardName</key>
