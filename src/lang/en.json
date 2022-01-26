@@ -89,11 +89,22 @@
   "statistics": {
     "title": "Statistics",
     "categories": {
-      "title": "By categories"
+      "title": "Categories",
+      "period": {
+        "7d": "7 days",
+        "2w": "2 wk",
+        "4w": "4 wk",
+        "8w": "8 wk",
+        "12w": "12 wk"
+      }
     },
-    "months": {
-      "title": "By months",
-      "periodTitle": "Data for the entire period"
+    "periods": {
+      "title": "Periods",
+      "variants": {
+        "days": "Days",
+        "weeks": "Weeks",
+        "months": "Months"
+      }
     },
     "messages": {
       "noData": "No data to show statistics"

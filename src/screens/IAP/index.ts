@@ -1,0 +1,1 @@
+export { IAP } from './IAP';

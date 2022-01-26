@@ -9,6 +9,8 @@ export type StackParamList = {
   Transactions: undefined;
   Categories: undefined;
   Statistics: undefined;
+  StatisticsByCategories: undefined;
+  StatisticsByDates: undefined;
   TransactionsByCategory: {
     category: number;
     categoryTitle: string;
@@ -19,4 +21,5 @@ export type StackParamList = {
   Settings: undefined;
   Personal: undefined;
   Currency: undefined;
+  IAP: undefined;
 };

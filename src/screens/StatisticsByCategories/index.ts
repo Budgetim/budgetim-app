@@ -1,0 +1,1 @@
+export { StatisticsByCategories } from './StatisticsByCategories';

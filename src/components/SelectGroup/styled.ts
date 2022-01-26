@@ -9,8 +9,23 @@ export const List = styled(View)(
     borderRadius: 8,
     display: 'flex',
     flexDirection: 'row',
-    p: '2px',
     backgroundColor: 'systemGray06',
+    alignItems: 'center',
+  }),
+);
+
+export const Separator = styled(View)<{ visible: boolean }>(({ visible }) =>
+  css({
+    height: 16,
+    backgroundColor: visible ? 'systemGray04' : 'systemGray06',
+    width: 1,
+  }),
+);
+
+export const Item = styled(View)(
+  css({
+    flexShrink: 1,
+    flexGrow: 1,
   }),
 );
 
@@ -18,9 +33,8 @@ export const Button = styled(TouchableOpacity)<{ active: boolean }>(({ active })
   css({
     bg: active ? 'systemGray03' : 'systemGray06',
     borderRadius: 8,
-    py: 1,
-    px: 4,
+    p: 1,
   }),
 );
 
-export const Title = styled(TextVariant)(css({}));
+export const Title = styled(TextVariant)(css({ textAlign: 'center' }));

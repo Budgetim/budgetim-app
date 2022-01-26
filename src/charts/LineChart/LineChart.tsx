@@ -12,7 +12,7 @@ export const LineChart: FC<LineChartProps> = props => {
   const [width, setWidth] = useState(0);
   return (
     <ChartProvider {...props} width={width}>
-      <Header />
+      <Header {...props} />
       <Content>
         <ChartWrapper onLayout={event => setWidth(event.nativeEvent.layout.width)}>
           <Chart />

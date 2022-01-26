@@ -1,15 +1,16 @@
-import i18n from 'i18n-js';
 import React, { FC, useEffect, useState } from 'react';
 import format from 'date-fns/format';
+import { SelectGroup } from '../../../components/SelectGroup';
 
 import { useUserState } from '../../../contexts/user';
 import { getLocale } from '../../../utils/getLocale';
 import { separateThousands } from '../../../utils/separateThousands';
+import { LineChartProps } from '../types';
 import { getDataLines } from '../utils/getDataLines';
 import { useChartState } from '../chartContext/chartContext';
-import { Container, HeaderTitle, PriceLabel, Message, PriceText } from './styled';
+import { Container, HeaderTitle, PriceLabel, PriceText, Selectors } from './styled';
 
-export const Header: FC = () => {
+export const Header: FC<LineChartProps> = ({ modes, activeModeIndex, setActiveModeIndex }) => {
   const [width, setWidth] = useState(0);
   const [translateX, setTranslateX] = useState(0);
   const { currency } = useUserState();
@@ -42,7 +43,9 @@ export const Header: FC = () => {
           </PriceLabel>
         </>
       ) : (
-        <Message variant="subheadlineBold">{i18n.t('statistics.months.periodTitle')}</Message>
+        <Selectors>
+          <SelectGroup activeIndex={activeModeIndex} onChangeIndex={setActiveModeIndex} data={modes} />
+        </Selectors>
       )}
     </Container>
   );

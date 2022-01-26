@@ -1,0 +1,1 @@
+export { TabsGroup } from './TabsGroup';
