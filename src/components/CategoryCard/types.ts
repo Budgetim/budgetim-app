@@ -5,6 +5,6 @@ export interface CategoryCardProps {
   description?: string | null;
   chart?: ReactNode;
   label?: string;
-  tagColor?: string | null;
+  tagColor: string;
   onPress?: () => void;
 }

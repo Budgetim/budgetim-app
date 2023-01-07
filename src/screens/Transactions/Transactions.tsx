@@ -26,7 +26,7 @@ export const Transactions: FC<NativeStackScreenProps<StackParamList, 'Transactio
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity
-          onPress={() => navigation.navigate('Statistics')}
+          onPress={() => navigation.navigate('StatisticsByDates')}
           style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 4, paddingBottom: 4 }}
         >
           <ChartPieIcon color={textPrimary} size={16} />
@@ -46,7 +46,7 @@ export const Transactions: FC<NativeStackScreenProps<StackParamList, 'Transactio
             <AddButton onPress={() => setModalVisible(true)}>
               <PlusCircleIcon color={textPrimary} size={44} />
             </AddButton>
-            <SettingsButton onPress={() => navigation.navigate('Settings')}>
+            <SettingsButton onPress={() => navigation.navigate('Categories')}>
               <SettingIcon color={textPrimary} size={30} />
             </SettingsButton>
           </Footer>

@@ -27,10 +27,10 @@ export const TransactionsByCategory: FC<NativeStackScreenProps<StackParamList, '
   }, [navigation]);
 
   return (
-    <TransactionsProvider>
+    <TransactionsProvider category={category} month={month} year={year}>
       <ModalsProvider>
         <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={{ flex: 1 }}>
-          <TransactionsList category={category} month={month} year={year} />
+          <TransactionsList />
         </ScrollView>
         <EditTransactionModal />
       </ModalsProvider>

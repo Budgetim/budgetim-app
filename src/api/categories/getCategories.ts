@@ -1,19 +1,9 @@
 import { Category } from '../../types';
-import { authHeader } from '../../utils/authHeader';
+import { db } from '../../db';
+import { CategoryModel } from '../../db/category';
 
-export const getCategories = async (token: string | null): Promise<Category[]> => {
-  try {
-    // await new Promise(resolve => setTimeout(resolve, 3000));
-    const response = await fetch('https://api.budgetim.ru/categories', {
-      headers: authHeader(token),
-    });
-
-    if (response.status === 403) {
-      throw 403;
-    }
-    return (await response.json()) as Category[];
-  } catch (error: unknown) {
-    console.error(error);
-    throw (error as object).toString();
-  }
+export const getCategories = async (): Promise<Category[]> => {
+  const categoryModel = new CategoryModel(db);
+  const categories = await categoryModel.getCategories();
+  return categories;
 };

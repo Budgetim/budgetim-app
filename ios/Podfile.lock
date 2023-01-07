@@ -236,6 +236,10 @@ PODS:
     - React-Core
   - react-native-safe-area-context (3.2.0):
     - React-Core
+  - react-native-sqlite-2 (3.6.2):
+    - React-Core
+  - react-native-sqlite-storage (6.0.1):
+    - React-Core
   - react-native-webview (11.14.3):
     - React-Core
   - React-RCTActionSheet (0.63.4):
@@ -298,8 +302,6 @@ PODS:
     - React-Core (= 0.63.4)
     - React-cxxreact (= 0.63.4)
     - React-jsi (= 0.63.4)
-  - RNAppleAuthentication (2.1.5):
-    - React-Core
   - RNDateTimePicker (3.5.2):
     - React-Core
   - RNGestureHandler (1.10.3):
@@ -397,6 +399,8 @@ DEPENDENCIES:
   - react-native-color-picker-ios (from `../node_modules/react-native-color-picker-ios`)
   - react-native-date-picker (from `../node_modules/react-native-date-picker`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-sqlite-2 (from `../node_modules/react-native-sqlite-2`)
+  - react-native-sqlite-storage (from `../node_modules/react-native-sqlite-storage`)
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -408,7 +412,6 @@ DEPENDENCIES:
   - React-RCTText (from `../node_modules/react-native/Libraries/Text`)
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - "RNAppleAuthentication (from `../node_modules/@invertase/react-native-apple-authentication`)"
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
@@ -495,6 +498,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-date-picker"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-sqlite-2:
+    :path: "../node_modules/react-native-sqlite-2"
+  react-native-sqlite-storage:
+    :path: "../node_modules/react-native-sqlite-storage"
   react-native-webview:
     :path: "../node_modules/react-native-webview"
   React-RCTActionSheet:
@@ -517,8 +524,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/Vibration"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
-  RNAppleAuthentication:
-    :path: "../node_modules/@invertase/react-native-apple-authentication"
   RNDateTimePicker:
     :path: "../node_modules/@react-native-community/datetimepicker"
   RNGestureHandler:
@@ -577,6 +582,8 @@ SPEC CHECKSUMS:
   react-native-color-picker-ios: 2e23dbcbfd3506c7560632c58b7e130b6015fbeb
   react-native-date-picker: da6c4f85945a2c087c569c7ac52851819ed24218
   react-native-safe-area-context: f0906bf8bc9835ac9a9d3f97e8bde2a997d8da79
+  react-native-sqlite-2: 21c4a9d439e92193a8712c68492731c014671b53
+  react-native-sqlite-storage: f6d515e1c446d1e6d026aa5352908a25d4de3261
   react-native-webview: b83cf1aa6b4453fe53ffcc5896c36cdf37f0383f
   React-RCTActionSheet: 89a0ca9f4a06c1f93c26067af074ccdce0f40336
   React-RCTAnimation: 1bde3ecc0c104c55df246eda516e0deb03c4e49b
@@ -588,7 +595,6 @@ SPEC CHECKSUMS:
   React-RCTText: 5c51df3f08cb9dedc6e790161195d12bac06101c
   React-RCTVibration: ae4f914cfe8de7d4de95ae1ea6cc8f6315d73d9d
   ReactCommon: 73d79c7039f473b76db6ff7c6b159c478acbbb3b
-  RNAppleAuthentication: 63c2127ace11985b94f852fc480eb84145653712
   RNDateTimePicker: 7658208086d86d09e1627b5c34ba0cf237c60140
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNReanimated: e5040efc7c90da0b190a6525fcfc7e1e75973b21
@@ -606,4 +612,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 300a57d23570e510d51fdf1d86bc4484176b95dd
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3

@@ -2,29 +2,23 @@ export interface Transaction {
   id: number;
   title: string;
   category: Category;
-  price: string;
+  currency: Currency;
+  price: number;
   date: string;
 }
 
 export interface Category {
-  id: number | null;
+  id: number;
   title: string;
-  color: string | null;
+  color: string;
   description: string | null;
 }
 
 export interface Currency {
   id: number;
-  unit: string;
-  title: string;
-}
-
-export interface User {
-  id: number;
-  email: string;
-  name: string;
-  token: string;
-  currency: Currency;
+  code: string;
+  symbol: string;
+  position: 'L' | 'R';
 }
 
 export interface Action<T extends string, P extends unknown> {

@@ -1,5 +1,6 @@
 import { Category } from '../../types';
-import { authHeader } from '../../utils/authHeader';
+import { db } from '../../screens';
+import { CategoryModel } from '../../db/category';
 
 interface EditCategoryParams {
   id: number;
@@ -8,23 +9,9 @@ interface EditCategoryParams {
   color: string | null;
 }
 
-export const editCategory = async (params: EditCategoryParams, token: string | null): Promise<Category> => {
-  const { id, ...restBody } = params;
-  try {
-    const response = await fetch(`https://api.budgetim.ru/categories/${id}`, {
-      method: 'PUT',
-      headers: {
-        ...authHeader(token),
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(restBody),
-    });
-    if (response.status === 403) {
-      throw 403;
-    }
-    return (await response.json()) as Category;
-  } catch (error: unknown) {
-    console.error(error);
-    throw (error as object).toString();
-  }
+export const editCategory = async (params: EditCategoryParams): Promise<Category> => {
+  const categoryModel = new CategoryModel(db);
+  await categoryModel.editCategory(params);
+  const category = await categoryModel.getCategory(params.id);
+  return category;
 };

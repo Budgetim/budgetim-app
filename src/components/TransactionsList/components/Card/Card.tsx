@@ -1,58 +1,40 @@
-import React, { FC, memo, useState } from 'react';
-import Swipeout from 'react-native-swipeout';
-import { useTheme } from 'styled-components/native';
-
+import React, { FC, memo } from 'react';
 import { Transaction } from '../../../../types';
-
-import { useUserState } from '../../../../contexts/user';
 import { deleteTransaction } from '../../../../api/transactions/deleteTransaction';
 import { TransactionCard } from '../../../TransactionCard';
-
 import { separateThousands } from '../../../../utils/separateThousands';
 import { useTransactionsDispatch } from '../../../../contexts/transactions';
 import { useModalsDispatch } from '../../../../contexts/modals';
-import { useErrorHandler } from '../../../../hooks/useErrorHandler';
 import i18n from 'i18n-js';
+import { SwipeableRow } from '../SwipeableRow';
 
-export const Card: FC<Transaction> = memo((props) => {
-  const { title, category, price, id } = props;
-  const { colors: { bgPrimary, systemRed, textPrimary }} = useTheme();
+export const Card: FC<Transaction> = memo(props => {
+  const { title, category, currency, price, id } = props;
   const modalsDispatch = useModalsDispatch();
   const transactionsDispatch = useTransactionsDispatch();
-  const { token, currency } = useUserState();
-  const [error, setError] = useState(null);
-
-  useErrorHandler(error);
 
   const onDelete = async () => {
-    try {
-      await deleteTransaction(id, token);
-      transactionsDispatch({ type: 'deleteTransaction', payload: { id }})
-    } catch (error) {
-      setError(error);
-    }
+    await deleteTransaction(id);
+    transactionsDispatch({ type: 'deleteTransaction', payload: { id } });
   };
 
+  const label =
+    currency.position === 'L'
+      ? `${currency.symbol} ${separateThousands(price)}`
+      : `${separateThousands(price)} ${currency.symbol}`;
+
   return (
-    <Swipeout
-      backgroundColor={bgPrimary}
-      right={[{
-        text: i18n.t('common.action.delete'),
-        color: textPrimary,
-        backgroundColor: systemRed,
-        onPress: onDelete,
-      }]}
-    >
+    <SwipeableRow onPress={onDelete}>
       <TransactionCard
         onPress={() => {
-          modalsDispatch({ type: 'setModalTransactionId', payload: { id }});
+          modalsDispatch({ type: 'setModalTransactionId', payload: { id } });
           modalsDispatch({ type: 'setTransactionModalVisible', payload: { isVisible: true } });
         }}
         title={title}
         subTitle={category.title || i18n.t('transactions.emptyCategory')}
         tagColor={category.color}
-        label={`${separateThousands(+price)} ${currency?.unit || ''}`}
+        label={label}
       />
-    </Swipeout>
+    </SwipeableRow>
   );
 });

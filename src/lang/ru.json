@@ -14,53 +14,6 @@
       "requiredField": "Обязательно для заполнения"
     }
   },
-  "login": {
-    "title": "Войти",
-    "subTitle": "Войдите снова, чтобы продолжить",
-    "form": {
-      "email": "Email",
-      "password": "Пароль",
-      "submit": "Войти"
-    },
-    "link": {
-      "passwordReset": "Забыли пароль?",
-      "createAccount": "Создать аккаунт"
-    },
-    "message": {
-      "accountQuestion": "Нет аккаунта?",
-      "error": "Неправильный email или пароль"
-    }
-  },
-  "createAccount": {
-    "title": "Создание аккаунта",
-    "subTitle": "Введите информацию о себе",
-    "form": {
-      "email": "Email",
-      "name": "Имя",
-      "password": "Пароль",
-      "submit": "Зарегестрироваться"
-    },
-    "link": {
-      "signIn": "Войти"
-    },
-    "message": {
-      "accountQuestion": "Уже есть аккаунт?",
-      "error": "Вы ввели неправильные данные",
-      "incorrectEmail": "Некорректный email адрес"
-    }
-  },
-  "passwordReset": {
-    "title": "Сброс пароля",
-    "mainTitle": "Забыли пароль?",
-    "subTitle": "Введите ваш email. Мы вышлем вам новый пароль на почту",
-    "form": {
-      "email": "Email",
-      "submit": "Сбросить"
-    },
-    "message": {
-      "error": "Пользователя с таким email не существует"
-    }
-  },
   "transactions": {
     "title": "Транзакции",
     "emptyCategory": "Без категории",

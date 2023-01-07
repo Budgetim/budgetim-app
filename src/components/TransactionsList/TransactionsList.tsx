@@ -1,53 +1,47 @@
-import React, { FC, useEffect } from 'react';
-
-import { useUserState } from '../../contexts/user';
-import { getTransactions } from '../../api/transactions/getTransactions';
-import { ErrorMessage } from '../ErrorMessage';
-import { TransactionGroups } from './components/TransactionGroups';
-import { useTransactionsState, useTransactionsDispatch } from '../../contexts/transactions';
-import { Loader } from '../Loader';
+import React, { FC } from 'react';
 import { useIsFocused } from '@react-navigation/native';
-import { useErrorHandler } from '../../hooks/useErrorHandler';
+import { useTransactionsState } from '../../contexts/transactions';
+import { Loader } from '../Loader';
+import { ErrorMessage } from '../ErrorMessage';
+import { NoDataMessage } from '../NoDataMessage';
+import i18n from 'i18n-js';
+import { expandData } from '../../contexts/transactions/transactionsReducer';
+import { SectionList } from 'react-native';
+import { Card } from './components/Card';
+import { Title, TitleWrapper } from './styled';
 
-interface TransactionsListProps {
-  category?: number | null;
-  month?: number;
-  year?: number;
-}
-
-export const TransactionsList: FC<TransactionsListProps> = ({ category, month, year }) => {
-  const { isLoading, error } = useTransactionsState();
-  const dispatch = useTransactionsDispatch();
-  const { token } = useUserState();
+export const TransactionsList: FC = () => {
   const isFocused = useIsFocused();
-
-  useErrorHandler(error);
-
-  useEffect(() => {
-    if (isFocused) {
-      const getData = async () => {
-        try {
-          const transactions = await getTransactions({ year, month, category }, token);
-          dispatch({ type: 'setData', payload: { data: transactions } });
-        } catch (error) {
-          dispatch({ type: 'setError', payload: { error } });
-        }
-      };
-      getData();
-    }
-  }, [month, category, isFocused]);
+  const { data, error, isLoading } = useTransactionsState();
 
   if (!isFocused) {
     return null;
-  }
-
-  if (error) {
-    return <ErrorMessage>{error}</ErrorMessage>;
   }
 
   if (isLoading) {
     return <Loader />;
   }
 
-  return <TransactionGroups />;
+  if (error) {
+    return <ErrorMessage>{error}</ErrorMessage>;
+  }
+
+  if (data.length === 0) {
+    return <NoDataMessage>{i18n.t('transactions.messages.addFirst')} ?</NoDataMessage>;
+  }
+
+  const dataByDate = expandData(data);
+
+  return (
+    <SectionList
+      sections={dataByDate}
+      keyExtractor={item => `${item.id}`}
+      renderItem={({ item }) => <Card {...item} />}
+      renderSectionHeader={({ section: { title } }) => (
+        <TitleWrapper>
+          <Title variant="title2Bold">{title}</Title>
+        </TitleWrapper>
+      )}
+    />
+  );
 };

@@ -1,20 +1,32 @@
-import React, { FC, useReducer } from 'react';
+import React, { FC, useEffect, useReducer } from 'react';
 
 import { transactionsReducer } from './transactionsReducer';
 import { TransactionsDispatchContext } from './useTransactionsDispatch';
 import { TransactionsStateContext } from './useTransactionsState';
 import { TransactionsContextState } from './types';
+import { getTransactions } from '../../api/transactions/getTransactions';
 
-export const TransactionsProvider: FC = ({ children }) => {
+interface TransactionsProviderProps {
+  category?: number;
+  month?: number;
+  year?: number;
+}
 
+export const TransactionsProvider: FC<TransactionsProviderProps> = ({ children, category, month, year }) => {
   const initialState: TransactionsContextState = {
     isLoading: true,
     data: [],
-    dataByDate: [],
     error: null,
   };
 
   const [state, dispatch] = useReducer(transactionsReducer, initialState);
+
+  useEffect(() => {
+    (async () => {
+      const transactions = await getTransactions({ year, month, category });
+      dispatch({ type: 'setData', payload: { data: transactions } });
+    })();
+  }, []);
 
   return (
     <TransactionsStateContext.Provider value={state}>

@@ -1,37 +1,33 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import i18n from 'i18n-js';
 import React, { FC, useEffect, useState } from 'react';
-import { ErrorMessage } from '../../components/ErrorMessage';
 import { NoDataMessage } from '../../components/NoDataMessage';
 import { TabsGroup } from '../../components/TabsGroup';
 
-import { useUserState } from '../../contexts/user';
 import { Loader } from '../../components/Loader';
 import { getAvailableMonths } from '../../api/transactions/getAvailableMonths';
 import { StackParamList } from '../types';
 import { StatisticsInfo } from './StatisticsInfo';
-import { useErrorHandler } from '../../hooks/useErrorHandler';
 import { Tabs, Container } from './styled';
+import { getUsedCurrencies } from '../../api/transactions';
+import { Currency } from '../../types';
 
 export const StatisticsByDates: FC<NativeStackScreenProps<StackParamList, 'StatisticsByDates'>> = () => {
-  const { token } = useUserState();
-  const [activeMode, setActiveMode] = useState(2);
+  const [activeMode, setActiveMode] = useState(0);
   const [data, setData] = useState<{ data: any[] } | null>(null);
-  const [error, setError] = useState(null);
+  const [currencies, setCurrencies] = useState<Currency[]>([]);
   const [isLoading, setLoading] = useState(true);
 
   const [indexDate, setIndexDate] = useState(0);
 
-  useErrorHandler(error);
-
   const getAvailableDates = async () => {
     setLoading(true);
     try {
-      const result = await getAvailableMonths(token);
+      const result = await getAvailableMonths();
+      const currenciesData = await getUsedCurrencies();
+      setCurrencies(currenciesData);
       setData(result);
       setIndexDate(result.data.length - 1);
-    } catch (error) {
-      setError(error);
     } finally {
       setLoading(false);
     }
@@ -43,10 +39,6 @@ export const StatisticsByDates: FC<NativeStackScreenProps<StackParamList, 'Stati
 
   if (isLoading) {
     return <Loader />;
-  }
-
-  if (error) {
-    return <ErrorMessage>{error}</ErrorMessage>;
   }
 
   if (!data) {
@@ -69,20 +61,19 @@ export const StatisticsByDates: FC<NativeStackScreenProps<StackParamList, 'Stati
 
   return (
     <Container>
-      {/*<Tabs>*/}
-      {/*  <TabsGroup*/}
-      {/*    activeIndex={activeMode}*/}
-      {/*    onChangeIndex={setActiveMode}*/}
-      {/*    data={[*/}
-      {/*      { title: i18n.t('statistics.periods.variants.days'), disabled: true },*/}
-      {/*      { title: i18n.t('statistics.periods.variants.weeks'), disabled: true },*/}
-      {/*      { title: i18n.t('statistics.periods.variants.months') },*/}
-      {/*    ]}*/}
-      {/*  />*/}
-      {/*</Tabs>*/}
+      {currencies.length > 1 && (
+        <Tabs>
+          <TabsGroup
+            activeIndex={activeMode}
+            onChangeIndex={setActiveMode}
+            data={currencies.map(currency => ({ title: currency.symbol }))}
+          />
+        </Tabs>
+      )}
       <StatisticsInfo
         year={dates[indexDate].year}
         month={dates[indexDate].month}
+        currencyId={currencies[activeMode].id}
         setNextDate={indexDate !== dates.length - 1 ? setNextMonth : undefined}
         setPrevDate={indexDate !== 0 ? setPrevMonth : undefined}
       />

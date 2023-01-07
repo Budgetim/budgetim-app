@@ -5,32 +5,47 @@ interface Action<T extends string, P extends unknown> {
   payload: P;
 }
 
-type SetDataAction = Action<'setData', {
-  data: Transaction[];
-}>
+type SetDataAction = Action<
+  'setData',
+  {
+    data: Transaction[];
+  }
+>;
 
-type SetErrorAction = Action<'setError', {
-  error: string;
-}>
+type SetErrorAction = Action<
+  'setError',
+  {
+    error: string;
+  }
+>;
 
-type DeleteTransactionAction = Action<'deleteTransaction', {
-  id: number;
-}>
+type DeleteTransactionAction = Action<
+  'deleteTransaction',
+  {
+    id: number;
+  }
+>;
 
-type AddTransactionAction = Action<'addTransaction', {
-  transaction: Transaction;
-}>
+type AddTransactionAction = Action<
+  'addTransaction',
+  {
+    transaction: Transaction;
+  }
+>;
 
-type EditTransactionAction = Action<'editTransaction', {
-  transaction: Transaction;
-}>
+type EditTransactionAction = Action<
+  'editTransaction',
+  {
+    transaction: Transaction;
+  }
+>;
 
 export type TransactionsDispatchAction =
-  SetDataAction |
-  SetErrorAction |
-  DeleteTransactionAction |
-  AddTransactionAction |
-  EditTransactionAction;
+  | SetDataAction
+  | SetErrorAction
+  | DeleteTransactionAction
+  | AddTransactionAction
+  | EditTransactionAction;
 
 export type TransactionsDispatch = (action: TransactionsDispatchAction) => void;
 
@@ -38,8 +53,4 @@ export interface TransactionsContextState {
   isLoading: boolean;
   error: string | null;
   data: Transaction[];
-  dataByDate: {
-    title: 'string';
-    data: Transaction[];
-  }[];
 }

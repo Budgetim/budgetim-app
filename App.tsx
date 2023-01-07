@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { KeyboardAvoidingView, Platform, useColorScheme } from 'react-native';
 import { NavigationContainer, DarkTheme, DefaultTheme } from '@react-navigation/native';
 import { ThemeProvider } from 'styled-components';
@@ -6,13 +6,14 @@ import { locale } from 'expo-localization';
 import i18n from 'i18n-js';
 
 import { CategoriesProvider } from './src/contexts/categories';
-import { UserProvider } from './src/contexts/user';
 import colors from './src/theme/colors';
 import space from './src/theme/space';
 import typography from './src/theme/typography';
 import { Screens } from './src/screens';
 import ru from './src/lang/ru.json';
 import en from './src/lang/en.json';
+import { CurrenciesProvider } from './src/contexts/currencies';
+import { init } from './src/db/init';
 
 i18n.translations = {
   en: en,
@@ -26,10 +27,11 @@ i18n.fallbacks = true;
 export default function App() {
   const scheme = useColorScheme();
   const navigationTheme = scheme === 'dark' ? DarkTheme : DefaultTheme;
+  useEffect(init, []);
   return (
     <ThemeProvider theme={{ colors: scheme === 'dark' ? colors.dark : colors.light, space, typography, scheme }}>
-      <UserProvider>
-        <CategoriesProvider>
+      <CategoriesProvider>
+        <CurrenciesProvider>
           <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
             <NavigationContainer
               theme={{
@@ -45,8 +47,8 @@ export default function App() {
               <Screens />
             </NavigationContainer>
           </KeyboardAvoidingView>
-        </CategoriesProvider>
-      </UserProvider>
+        </CurrenciesProvider>
+      </CategoriesProvider>
     </ThemeProvider>
   );
 }

@@ -14,7 +14,7 @@ export const SelectList: FC<SelectListProps> = ({ data, onSelect, backgroundColo
 
   const renderItem: ListRenderItem<DataItem> = ({ item, index }) => {
     return (
-      <Item key={item.id} onPress={() => onSelect(item.id)}>
+      <Item onPress={() => onSelect(item.id)}>
         {item.color && <Circle bg={item.color} />}
         <TextContent borderBottom={index !== data.length - 1}>
           <TextWrap>
@@ -27,5 +27,12 @@ export const SelectList: FC<SelectListProps> = ({ data, onSelect, backgroundColo
     );
   };
 
-  return <List data={data} renderItem={renderItem} bg={backgroundColor || systemGray06} />;
+  return (
+    <List
+      data={data}
+      keyExtractor={(item, index) => `${index}-${item.id}`}
+      renderItem={renderItem}
+      bg={backgroundColor || systemGray06}
+    />
+  );
 };

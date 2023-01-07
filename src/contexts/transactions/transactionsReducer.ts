@@ -42,7 +42,6 @@ export const transactionsReducer = (state: TransactionsContextState, action: Tra
         isLoading: false,
         error: null,
         data,
-        dataByDate: expandData(data),
       };
     }
 
@@ -53,7 +52,6 @@ export const transactionsReducer = (state: TransactionsContextState, action: Tra
       return {
         ...state,
         data: filteredData,
-        dataByDate: expandData(filteredData),
       };
     }
 
@@ -70,7 +68,6 @@ export const transactionsReducer = (state: TransactionsContextState, action: Tra
       return {
         ...state,
         data: updatedData,
-        dataByDate: expandData(updatedData),
       };
     }
 
@@ -82,7 +79,6 @@ export const transactionsReducer = (state: TransactionsContextState, action: Tra
       return {
         ...state,
         data: updatedData,
-        dataByDate: expandData(updatedData),
       };
     }
 

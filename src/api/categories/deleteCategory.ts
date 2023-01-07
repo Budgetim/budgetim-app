@@ -1,19 +1,8 @@
-import { authHeader } from '../../utils/authHeader';
+import { CategoryModel } from '../../db/category';
+import { db } from '../../screens';
 
-export const deleteCategory = async (id: number, token: string | null) => {
-  try {
-    const response = await fetch(`https://api.budgetim.ru/categories/${id}`, {
-      method: 'DELETE',
-      headers: {
-        ...authHeader(token),
-        'Content-Type': 'application/json',
-      },
-    });
-    if (response.status === 403) {
-      throw 403;
-    }
-  } catch (error: unknown) {
-    console.error(error);
-    throw (error as object).toString();
-  }
+export const deleteCategory = async (id: number) => {
+  const categoryModel = new CategoryModel(db);
+  const result = categoryModel.deleteCategory(id);
+  return result;
 };

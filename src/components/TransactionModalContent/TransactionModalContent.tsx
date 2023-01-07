@@ -11,6 +11,10 @@ import { Header, Content, Section, SectionGroup, ModalContent, ButtonText, Modal
 import { TransactionModalContentProps } from './types';
 import { CategoriesList } from './components/CategoriesList';
 import { PopularNames } from './components/PopularNames';
+import { separateThousands } from '../../utils/separateThousands';
+import { SelectList } from '../SelectList';
+import { useTheme } from 'styled-components';
+import { useCurrenciesState } from '../../contexts/currencies';
 
 export const TransactionModalContent: FC<TransactionModalContentProps> = props => {
   const {
@@ -20,6 +24,8 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = props =
     setPrice,
     categoryId,
     setCategoryId,
+    currencyId,
+    setCurrencyId,
     date,
     setDate,
     visible,
@@ -29,6 +35,10 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = props =
   } = props;
   const [focusedTitle, setFocusedTitle] = useState(false);
   const [titleError, setTitleError] = useState(false);
+  const { data: currencies } = useCurrenciesState();
+  const {
+    colors: { bgPrimary },
+  } = useTheme();
 
   useEffect(() => {
     setTitleError(false);
@@ -86,7 +96,7 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = props =
                         setPrice(formatNumberWithSign(p));
                       }
                     }}
-                    value={formatNumberWithSign(price)}
+                    value={separateThousands(price)}
                     placeholder={i18n.t('transactions.form.price')}
                     keyboardType="numeric"
                     autoFocus
@@ -95,6 +105,22 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = props =
               </SectionGroup>
               <Section>
                 <CategoriesList activeCategoryId={categoryId} setCategoryId={setCategoryId} />
+              </Section>
+              <Section>
+                <SelectList
+                  backgroundColor={bgPrimary}
+                  onSelect={id => setCurrencyId(id)}
+                  data={
+                    currencies?.map(currency => {
+                      return {
+                        id: currency.id,
+                        title: currency.code,
+                        unit: currency.symbol,
+                        isActive: currency.id === currencyId,
+                      };
+                    }) || []
+                  }
+                />
               </Section>
               <DateTimePicker
                 locale={locale}

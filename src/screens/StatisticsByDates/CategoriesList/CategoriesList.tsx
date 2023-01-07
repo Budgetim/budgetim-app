@@ -6,10 +6,8 @@ import { CategoryCard } from '../../../components/CategoryCard';
 
 import { CategoriesListProps } from './types';
 import { useNavigation } from '@react-navigation/native';
-import { useUserState } from '../../../contexts/user';
 
-export const CategoriesList: FC<CategoriesListProps> = ({ data, month, year }) => {
-  const { currency } = useUserState();
+export const CategoriesList: FC<CategoriesListProps> = ({ data, month, year, currencySymbol }) => {
   const navigation = useNavigation();
 
   return (
@@ -28,7 +26,7 @@ export const CategoriesList: FC<CategoriesListProps> = ({ data, month, year }) =
             }
             title={item.title}
             description={item.description}
-            label={`${separateThousands(+item.sum)} ${currency?.unit || ''}`}
+            label={`${separateThousands(+item.sum)} ${currencySymbol || ''}`}
             tagColor={item.color}
           />
         );

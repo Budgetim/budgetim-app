@@ -3,8 +3,6 @@ import { ScrollView, View } from 'react-native';
 import format from 'date-fns/format';
 import { ErrorMessage } from '../../../components/ErrorMessage';
 
-import { useUserState } from '../../../contexts/user';
-
 import { getStatistics } from '../../../api/categories/getStatistics';
 import { ArrowLeftIcon } from '../../../icons/ArrowLeftIcon';
 import { ArrowRightIcon } from '../../../icons/ArrowRightIcon';
@@ -15,11 +13,12 @@ import { PieChart } from '../../../charts/PieChart';
 import { useTheme } from 'styled-components/native';
 import { Loader } from '../../../components/Loader';
 import { CategoriesList } from '../CategoriesList';
-import { useErrorHandler } from '../../../hooks/useErrorHandler';
+import { useCurrenciesState } from '../../../contexts/currencies';
 
 export interface StatisticsInfoProps {
   year: number;
   month: number;
+  currencyId: number;
   setNextDate?: () => void;
   setPrevDate?: () => void;
 }
@@ -32,24 +31,22 @@ export interface StatisticsItem {
   title: string;
 }
 
-export const StatisticsInfo: FC<StatisticsInfoProps> = ({ month, year, setNextDate, setPrevDate }) => {
-  const { token, currency } = useUserState();
+export const StatisticsInfo: FC<StatisticsInfoProps> = ({ month, year, currencyId, setNextDate, setPrevDate }) => {
   const [data, setData] = useState<StatisticsItem[]>([]);
   const [error, setError] = useState(null);
   const [isLoading, setLoading] = useState(true);
   const locale = getLocale();
+  const { data: currencies } = useCurrenciesState();
 
   const {
     colors: { textPrimary },
   } = useTheme();
 
-  useErrorHandler(error);
-
   const getStatisticsInit = async () => {
     setLoading(true);
     setData([]);
     try {
-      const categories = await getStatistics({ month, year }, token);
+      const categories = await getStatistics({ month, year, currencyId });
       setData(categories);
     } catch (error) {
       setError(error);
@@ -60,7 +57,9 @@ export const StatisticsInfo: FC<StatisticsInfoProps> = ({ month, year, setNextDa
 
   useEffect(() => {
     void getStatisticsInit();
-  }, [month, year]);
+  }, [month, year, currencyId]);
+
+  const currencySymbol = currencies.find(currency => currency.id === currencyId)!.symbol;
 
   const renderContent = () => {
     if (isLoading) {
@@ -71,7 +70,7 @@ export const StatisticsInfo: FC<StatisticsInfoProps> = ({ month, year, setNextDa
       return <ErrorMessage>{error}</ErrorMessage>;
     }
 
-    return <CategoriesList data={data} month={month} year={year} />;
+    return <CategoriesList data={data} month={month} year={year} currencySymbol={currencySymbol} />;
   };
 
   return (
@@ -97,7 +96,7 @@ export const StatisticsInfo: FC<StatisticsInfoProps> = ({ month, year, setNextDa
           </ChartSubtitle>
           <ChartTitle variant="bodyBold">
             {data.length > 0
-              ? `${separateThousands(data.reduce((sum, item) => sum + +item.sum, 0))} ${currency?.unit || ''}`
+              ? `${separateThousands(data.reduce((sum, item) => sum + +item.sum, 0))} ${currencySymbol}`
               : ' '}
           </ChartTitle>
         </PieChart>

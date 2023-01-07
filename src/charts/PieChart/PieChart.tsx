@@ -9,14 +9,11 @@ import { getEndOfSection } from './utils/math/getEndOfSection';
 import { getPointOnCircle } from './utils/math/getPointOnCircle';
 import { Container, SvgCircle, LabelWrapper } from './styled';
 import { PieChartProps } from './types';
-import { CATEGORY_COLOR_DEFAULT } from '../../constants';
 
 export const PieChart: FC<PieChartProps> = props => {
   const { innerRadius, segmentWidth, outerSegmentWidth, children } = props;
-
   const { colors } = useTheme();
   const { systemGray03, bgPrimary } = colors;
-  const colorDefault = colors[CATEGORY_COLOR_DEFAULT];
 
   // ширина сектора круга
   const scaleWidth = d3
@@ -33,16 +30,8 @@ export const PieChart: FC<PieChartProps> = props => {
   return (
     <Container>
       <SvgCircle width={size} height={size}>
-        <G
-          transform={`translate(${outerRadius + outerSegmentWidth},${outerRadius +
-          outerSegmentWidth})`}
-        >
-          <Arc
-            endAngle={Math.PI * 2}
-            fill={systemGray03}
-            innerRadius={innerRadius}
-            outerRadius={outerRadius}
-          />
+        <G transform={`translate(${outerRadius + outerSegmentWidth},${outerRadius + outerSegmentWidth})`}>
+          <Arc endAngle={Math.PI * 2} fill={systemGray03} innerRadius={innerRadius} outerRadius={outerRadius} />
           <Arc
             endAngle={Math.PI * 2}
             fill={systemGray03}
@@ -57,7 +46,7 @@ export const PieChart: FC<PieChartProps> = props => {
                   <G opacity="0.85">
                     <Arc
                       {...arc}
-                      fill={arc.fill || colorDefault}
+                      fill={arc.fill}
                       innerRadius={outerRadius}
                       outerRadius={outerRadius + (scaleWidth(additionalValue) as number)}
                     />
@@ -65,7 +54,7 @@ export const PieChart: FC<PieChartProps> = props => {
                 )}
                 <Arc
                   {...arc}
-                  fill={arc.fill || colorDefault}
+                  fill={arc.fill}
                   innerRadius={innerRadius}
                   outerRadius={outerRadius}
                   attrs={{ opacity: 1 }}
@@ -74,22 +63,23 @@ export const PieChart: FC<PieChartProps> = props => {
             );
           })}
         </G>
-        {data.length > 1 && data.map(({ lastPart, part  }, index) => {
-          const radianValue = getEndOfSection(lastPart + part);
-          const point = getPointOnCircle({ radius, radianValue });
+        {data.length > 1 &&
+          data.map(({ lastPart, part }, index) => {
+            const radianValue = getEndOfSection(lastPart + part);
+            const point = getPointOnCircle({ radius, radianValue });
 
-          return (
-            <Line
-              key={index}
-              x1={radius}
-              y1={radius}
-              x2={radius + point.x}
-              y2={radius + point.y}
-              stroke={bgPrimary}
-              strokeWidth={0.5}
-            />
-          );
-        })}
+            return (
+              <Line
+                key={index}
+                x1={radius}
+                y1={radius}
+                x2={radius + point.x}
+                y2={radius + point.y}
+                stroke={bgPrimary}
+                strokeWidth={0.5}
+              />
+            );
+          })}
       </SvgCircle>
       {children && (
         <LabelWrapper width={size} height={size}>

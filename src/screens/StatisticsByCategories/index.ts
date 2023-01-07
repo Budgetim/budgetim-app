@@ -1,1 +1,0 @@
-export { StatisticsByCategories } from './StatisticsByCategories';

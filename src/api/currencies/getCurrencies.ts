@@ -1,12 +1,9 @@
 import { Currency } from '../../types';
+import { db } from '../../db';
+import { CurrencyModel } from '../../db/currency';
 
 export const getCurrencies = async (): Promise<Currency[]> => {
-  try {
-    // await new Promise(resolve => setTimeout(resolve, 3000));
-    const response = await fetch('https://api.budgetim.ru/currencies');
-    return (await response.json()) as Currency[];
-  } catch (error: unknown) {
-    console.error(error);
-    throw (error as object).toString();
-  }
+  const currencyModel = new CurrencyModel(db);
+  const currencies = await currencyModel.getCurrencies();
+  return currencies;
 };

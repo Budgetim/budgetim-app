@@ -2,7 +2,7 @@ import { getId } from './getId';
 import { PieChartDataItem } from '../types';
 
 export const getData = (data: PieChartDataItem[]) => {
-  const sum = data.reduce((sum, { value }) => sum + value, 0);
+  const sum = data.reduce((s, { value }) => s + value, 0);
 
   // край предыдущего сектора [0:1]
   let lastPart = 0;
