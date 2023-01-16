@@ -4,11 +4,47 @@ import { db } from '../db';
 import { formatNumberForServer } from '../utils/formatNumberForServer';
 import format from 'date-fns/format';
 
+type TransactionSQL = {
+  categoryColor: string;
+  categoryDescription: string;
+  categoryId: string;
+  categoryTitle: string;
+  currencyCode: string;
+  currencyId: string;
+  currencyPosition: 'R' | 'L';
+  currencySymbol: string;
+  date: string;
+  id: number;
+  price: number;
+  title: string;
+};
+
 export class TransactionModel {
   private db: WebsqlDatabase;
 
   constructor(database: WebsqlDatabase) {
     this.db = database;
+  }
+
+  private getTransactionFormat(transaction: TransactionSQL): Transaction {
+    return {
+      id: transaction.id,
+      title: transaction.title,
+      category: {
+        id: +transaction.categoryId,
+        title: transaction.categoryTitle,
+        color: transaction.categoryColor,
+        description: transaction.categoryDescription,
+      },
+      currency: {
+        id: +transaction.currencyId,
+        code: transaction.currencyCode,
+        symbol: transaction.currencySymbol,
+        position: transaction.currencyPosition,
+      },
+      price: transaction.price,
+      date: transaction.date,
+    };
   }
 
   getTransaction(id: number): Promise<Transaction> {
@@ -21,6 +57,7 @@ export class TransactionModel {
             Transactions.title,
             Categories.title AS categoryTitle,
             Categories.color AS categoryColor,
+            Categories.description AS categoryDescription,
             Transactions.category AS categoryId,
             Currencies.code AS currencyCode,
             Currencies.symbol AS currencySymbol,
@@ -35,25 +72,8 @@ export class TransactionModel {
           `,
           [],
           (_tx, res) => {
-            const item = res.rows._array[0];
-            const transaction = {
-              id: item.id,
-              title: item.title,
-              category: {
-                id: +item.categoryId,
-                title: item.categoryTitle,
-                color: item.categoryColor,
-              },
-              currency: {
-                id: +item.currencyId,
-                code: item.currencyCode,
-                symbol: item.currencySymbol,
-                position: item.currencyPosition,
-              },
-              price: item.price,
-              date: item.date,
-            };
-            resolve(transaction);
+            const transaction: TransactionSQL = res.rows.item(0);
+            resolve(this.getTransactionFormat(transaction));
           },
           (_transaction, error) => {
             console.error(error);
@@ -80,8 +100,8 @@ export class TransactionModel {
         const monthFormat = month < 10 ? `0${month}` : month;
         conditionQuery = `
           WHERE
-            month = "${monthFormat}"
-            AND year = "${year}"
+            strftime('%m', Transactions.date) = "${monthFormat}"
+            AND strftime('%Y', Transactions.date) = "${year}"
             AND Transactions.category = ${category}
         `;
       }
@@ -93,15 +113,14 @@ export class TransactionModel {
             Transactions.title,
             Categories.title AS categoryTitle,
             Categories.color AS categoryColor,
+            Categories.description AS categoryDescription,
             Transactions.category AS categoryId,
             Currencies.code AS currencyCode,
             Currencies.symbol AS currencySymbol,
             Currencies.position AS currencyPosition,
             Transactions.currency AS currencyId,
             Transactions.price,
-            Transactions.date,
-            strftime('%m', Transactions.date) AS month,
-            strftime('%Y', Transactions.date) AS year
+            Transactions.date
           FROM Transactions
           LEFT JOIN Categories ON Transactions.category = Categories.category_id
           LEFT JOIN Currencies ON Transactions.currency = Currencies.currency_id
@@ -109,27 +128,14 @@ export class TransactionModel {
           ORDER BY Transactions.date DESC`,
           [],
           (_tx, res) => {
-            const data = res.rows._array.map(item => ({
-              id: item.id,
-              title: item.title,
-              category: {
-                id: +item.categoryId,
-                title: item.categoryTitle,
-                color: item.categoryColor,
-              },
-              currency: {
-                id: +item.currencyId,
-                code: item.currencyCode,
-                symbol: item.currencySymbol,
-                position: item.currencyPosition,
-              },
-              price: item.price,
-              date: item.date,
-            }));
+            const data: Transaction[] = [];
+            for (let index = 0; index < res.rows.length; index++) {
+              const transaction: TransactionSQL = res.rows.item(index);
+              data.push(this.getTransactionFormat(transaction));
+            }
             resolve(data);
           },
           (_transaction, error) => {
-            console.error(error);
             reject(error.message);
             return true;
           },
@@ -140,7 +146,7 @@ export class TransactionModel {
 
   addTransaction(params: {
     title: string;
-    categoryId: number | null;
+    categoryId: number;
     price: string;
     date: Date;
     currencyId: number;

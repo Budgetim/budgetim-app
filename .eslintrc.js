@@ -8,7 +8,7 @@ module.exports = {
   rules: {
     'react/prop-types': 'off',
     'react/no-unused-prop-types': 'off',
-    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
+    'react/jsx-filename-extension': 'off',
   },
   plugins: ['prettier', 'import'],
   parserOptions: {

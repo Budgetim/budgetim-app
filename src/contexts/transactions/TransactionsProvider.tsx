@@ -23,8 +23,12 @@ export const TransactionsProvider: FC<TransactionsProviderProps> = ({ children, 
 
   useEffect(() => {
     (async () => {
-      const transactions = await getTransactions({ year, month, category });
-      dispatch({ type: 'setData', payload: { data: transactions } });
+      try {
+        const transactions = await getTransactions({ year, month, category });
+        dispatch({ type: 'setData', payload: { data: transactions } });
+      } catch (error) {
+        dispatch({ type: 'setError', payload: { error } });
+      }
     })();
   }, []);
 

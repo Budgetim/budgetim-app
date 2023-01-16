@@ -5,8 +5,8 @@ export interface TransactionModalContentProps {
   setPrice: (price: number) => void;
   categoryId: number | null;
   setCategoryId: (id: number | null) => void;
-  currencyId: number | null;
-  setCurrencyId: (id: number | null) => void;
+  currencyId: number;
+  setCurrencyId: (id: number) => void;
   date: Date;
   setDate: (date: Date) => void;
   visible: boolean;
