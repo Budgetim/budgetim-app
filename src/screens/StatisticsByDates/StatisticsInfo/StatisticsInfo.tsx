@@ -9,7 +9,7 @@ import { ArrowRightIcon } from '../../../icons/ArrowRightIcon';
 import { getLocale } from '../../../utils/getLocale';
 import { separateThousands } from '../../../utils/separateThousands';
 import { PieChartWrapper, ChartTitle, ChartSubtitle, NavigateButton } from './styled';
-import { PieChart } from '../../../charts/PieChart';
+import { PieChart } from '../../../components/PieChart';
 import { useTheme } from 'styled-components/native';
 import { Loader } from '../../../components/Loader';
 import { CategoriesList } from '../CategoriesList';

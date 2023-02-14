@@ -37,6 +37,9 @@
     },
     "messages": {
       "addFirst": "Click on the button plus to add category"
+    },
+    "errors": {
+      "delete": "Impossible to delete category"
     }
   },
   "statistics": {

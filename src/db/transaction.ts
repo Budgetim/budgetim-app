@@ -201,7 +201,7 @@ export class TransactionModel {
           WHERE Transactions.transaction_id in (${params.id}
           )`,
           [],
-          (_tx, res) => {
+          (_tx, _res) => {
             resolve(true);
           },
           (_transaction, error) => {

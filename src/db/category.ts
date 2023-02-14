@@ -1,6 +1,6 @@
 import { WebsqlDatabase } from 'react-native-sqlite-2';
 import { Category } from '../types';
-import { db } from '../db';
+import i18n from 'i18n-js';
 
 export class CategoryModel {
   private db: WebsqlDatabase;
@@ -11,7 +11,7 @@ export class CategoryModel {
 
   getCategories(): Promise<Category[]> {
     return new Promise((resolve, reject) => {
-      db.transaction(txn => {
+      this.db.transaction(txn => {
         txn.executeSql(
           `
           SELECT
@@ -79,7 +79,7 @@ export class CategoryModel {
 
   addCategory(params: { title: string; description: string | null; color: string | null }): Promise<number> {
     return new Promise((resolve, reject) => {
-      db.transaction(txn => {
+      this.db.transaction(txn => {
         txn.executeSql(
           `
           INSERT INTO Categories (title, color, description)
@@ -106,14 +106,14 @@ export class CategoryModel {
     color: string | null;
   }): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      db.transaction(txn => {
+      this.db.transaction(txn => {
         txn.executeSql(
           `
           UPDATE
             Categories SET title = "${params.title}",
             description = "${params.description}",
             color = "${params.color}"
-          WHERE Categories.category_id in (${params.id})
+          WHERE Categories.category_id = ${params.id}
           `,
           [],
           (_tx, res) => {
@@ -130,21 +130,19 @@ export class CategoryModel {
   }
 
   deleteCategory(id: number): Promise<boolean> {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       this.db.transaction(txn => {
         txn.executeSql(
           `
           DELETE FROM Categories
-          WHERE Categories.category_id in (${id})
+          WHERE Categories.category_id = ${id}
           `,
           [],
           (_tx, _res) => {
             resolve(true);
           },
-          (_transaction, error) => {
-            console.error(error);
-            reject(error.message);
-            return true;
+          () => {
+            throw new Error(i18n.t('categories.errors.delete'));
           },
         );
       });

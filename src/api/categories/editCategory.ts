@@ -1,5 +1,5 @@
 import { Category } from '../../types';
-import { db } from '../../screens';
+import { db } from '../../db';
 import { CategoryModel } from '../../db/category';
 
 interface EditCategoryParams {

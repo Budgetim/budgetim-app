@@ -4,7 +4,7 @@ export interface Transaction {
   category: Category;
   currency: Currency;
   price: number;
-  date: string;
+  date: string; // "2023-01-20"
 }
 
 export interface Category {

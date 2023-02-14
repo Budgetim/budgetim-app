@@ -1,5 +1,5 @@
 import { CategoryModel } from '../../db/category';
-import { db } from '../../screens';
+import { db } from '../../db';
 
 export const deleteCategory = async (id: number) => {
   const categoryModel = new CategoryModel(db);

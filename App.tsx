@@ -10,8 +10,8 @@ import colors from './src/theme/colors';
 import space from './src/theme/space';
 import typography from './src/theme/typography';
 import { Screens } from './src/screens';
-import ru from './src/lang/ru.json';
-import en from './src/lang/en.json';
+import ru from './src/constants/lang/ru.json';
+import en from './src/constants/lang/en.json';
 import { CurrenciesProvider } from './src/contexts/currencies';
 import { init } from './src/db/init';
 
