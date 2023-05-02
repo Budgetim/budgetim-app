@@ -12,7 +12,6 @@ import { StackParamList } from '../types';
 import { Footer, AddButton, SettingsButton } from './styled';
 import { AddTransactionModal } from './components/AddTransactionModal';
 import { EditTransactionModal } from '../../components/EditTransactionModal';
-import { TransactionsProvider } from '../../contexts/transactions';
 import { TransactionsList } from '../../components/TransactionsList';
 import { ModalsProvider } from '../../contexts/modals';
 
@@ -36,24 +35,22 @@ export const Transactions: FC<NativeStackScreenProps<StackParamList, 'Transactio
   }, [navigation]);
 
   return (
-    <TransactionsProvider>
-      <ModalsProvider>
-        <View style={{ flex: 1 }}>
-          <ScrollView contentContainerStyle={{ flex: 1 }}>
-            <TransactionsList />
-          </ScrollView>
-          <Footer>
-            <AddButton onPress={() => setModalVisible(true)}>
-              <PlusCircleIcon color={textPrimary} size={44} />
-            </AddButton>
-            <SettingsButton onPress={() => navigation.navigate('Categories')}>
-              <SettingIcon color={textPrimary} size={30} />
-            </SettingsButton>
-          </Footer>
-        </View>
-        <EditTransactionModal />
-        <AddTransactionModal visible={modalVisible} setVisible={setModalVisible} />
-      </ModalsProvider>
-    </TransactionsProvider>
+    <ModalsProvider>
+      <View style={{ flex: 1 }}>
+        <ScrollView contentContainerStyle={{ flex: 1 }}>
+          <TransactionsList />
+        </ScrollView>
+        <Footer>
+          <AddButton onPress={() => setModalVisible(true)}>
+            <PlusCircleIcon color={textPrimary} size={44} />
+          </AddButton>
+          <SettingsButton onPress={() => navigation.navigate('Categories')}>
+            <SettingIcon color={textPrimary} size={30} />
+          </SettingsButton>
+        </Footer>
+      </View>
+      <EditTransactionModal />
+      <AddTransactionModal visible={modalVisible} setVisible={setModalVisible} />
+    </ModalsProvider>
   );
 };

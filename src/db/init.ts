@@ -12,9 +12,9 @@ const errorCallback = (id: string) => (_transaction: SQLTransaction, err: SQLErr
 export const init = () => {
   const data = initData();
   db.transaction(txn => {
-    // txn.executeSql('DROP TABLE IF EXISTS Transactions', [], success, errorCallback('DROP TABLE Transactions'));
-    // txn.executeSql('DROP TABLE IF EXISTS Categories', [], success, errorCallback('DROP TABLE Categories'));
-    // txn.executeSql('DROP TABLE IF EXISTS Currencies', [], success, errorCallback('DROP TABLE Currencies'));
+    txn.executeSql('DROP TABLE IF EXISTS Transactions', [], success, errorCallback('DROP TABLE Transactions'));
+    txn.executeSql('DROP TABLE IF EXISTS Categories', [], success, errorCallback('DROP TABLE Categories'));
+    txn.executeSql('DROP TABLE IF EXISTS Currencies', [], success, errorCallback('DROP TABLE Currencies'));
     txn.executeSql(
       `
         SELECT name FROM sqlite_master WHERE type='table' AND name='Categories';

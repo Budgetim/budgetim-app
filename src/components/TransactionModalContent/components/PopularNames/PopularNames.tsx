@@ -2,12 +2,16 @@ import React, { FC } from 'react';
 import { TextVariant } from '../../../TextVariant';
 import { Container, Item } from './styled';
 import { getPopularNames } from '../../../../utils/getPopularNames';
-import { useTransactionsState } from '../../../../contexts/transactions';
 import { PopularNamesProps } from './types';
+import { useQuery } from '@tanstack/react-query';
+import { getTransactions } from '../../../../api/transactions/getTransactions';
 
 export const PopularNames: FC<PopularNamesProps> = ({ str, selectTitle }) => {
-  const { data } = useTransactionsState();
-  const names = getPopularNames(data, str);
+  const { data } = useQuery({
+    queryKey: ['transactions'],
+    queryFn: () => getTransactions({}),
+  });
+  const names = getPopularNames(data || [], str);
   return (
     <Container>
       {names.map((name, index, array) => {

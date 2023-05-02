@@ -16,7 +16,6 @@ export const Card: FC<Category> = props => {
     //
     try {
       const result = await deleteCategory(id);
-      console.log(result, 'rrress');
       dispatch({ type: 'deleteCategory', payload: { id } });
     } catch (error) {
       Alert.alert(i18n.t('common.state.error'), error);

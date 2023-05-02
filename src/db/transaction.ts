@@ -147,7 +147,7 @@ export class TransactionModel {
   addTransaction(params: {
     title: string;
     categoryId: number;
-    price: string;
+    price: number;
     date: Date;
     currencyId: number;
   }): Promise<number> {
@@ -160,7 +160,7 @@ export class TransactionModel {
             (
               "${params.title}",
               ${params.currencyId},
-              "${formatNumberForServer(params.price)}",
+              "${params.price}",
               "${format(params.date, 'yyyy-MM-dd')}",
               ${params.categoryId ? params.categoryId : 'NULL'}
             )
@@ -205,7 +205,7 @@ export class TransactionModel {
             resolve(true);
           },
           (_transaction, error) => {
-            console.error(error);
+            console.error('transaction model: editTransaction', error);
             reject(error.message);
             return true;
           },

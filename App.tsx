@@ -14,6 +14,9 @@ import ru from './src/constants/lang/ru.json';
 import en from './src/constants/lang/en.json';
 import { CurrenciesProvider } from './src/contexts/currencies';
 import { init } from './src/db/init';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+export const queryClient = new QueryClient();
 
 i18n.translations = {
   en: en,
@@ -30,25 +33,27 @@ export default function App() {
   useEffect(init, []);
   return (
     <ThemeProvider theme={{ colors: scheme === 'dark' ? colors.dark : colors.light, space, typography, scheme }}>
-      <CategoriesProvider>
-        <CurrenciesProvider>
-          <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
-            <NavigationContainer
-              theme={{
-                ...navigationTheme,
-                colors: {
-                  ...navigationTheme.colors,
-                  background: scheme === 'dark' ? '#000000' : '#FFFFFF',
-                  border: scheme === 'dark' ? '#2C2C2E' : '#E5E5EA',
-                  card: scheme === 'dark' ? '#1D1D1D' : '#F9F9F9', // TODO: брать эти цвета из темы
-                },
-              }}
-            >
-              <Screens />
-            </NavigationContainer>
-          </KeyboardAvoidingView>
-        </CurrenciesProvider>
-      </CategoriesProvider>
+      <QueryClientProvider client={queryClient}>
+        <CategoriesProvider>
+          <CurrenciesProvider>
+            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
+              <NavigationContainer
+                theme={{
+                  ...navigationTheme,
+                  colors: {
+                    ...navigationTheme.colors,
+                    background: scheme === 'dark' ? '#000000' : '#FFFFFF',
+                    border: scheme === 'dark' ? '#2C2C2E' : '#E5E5EA',
+                    card: scheme === 'dark' ? '#1D1D1D' : '#F9F9F9', // TODO: брать эти цвета из темы
+                  },
+                }}
+              >
+                <Screens />
+              </NavigationContainer>
+            </KeyboardAvoidingView>
+          </CurrenciesProvider>
+        </CategoriesProvider>
+      </QueryClientProvider>
     </ThemeProvider>
   );
 }

@@ -6,7 +6,6 @@ import format from 'date-fns/format';
 import { getLocale } from '../../utils/getLocale';
 
 import { StackParamList } from '../types';
-import { TransactionsProvider } from '../../contexts/transactions';
 import { TransactionsList } from '../../components/TransactionsList';
 import { EditTransactionModal } from '../../components/EditTransactionModal';
 import { ModalsProvider } from '../../contexts/modals';
@@ -27,13 +26,11 @@ export const TransactionsByCategory: FC<NativeStackScreenProps<StackParamList, '
   }, [navigation]);
 
   return (
-    <TransactionsProvider category={category} month={month} year={year}>
-      <ModalsProvider>
-        <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={{ flex: 1 }}>
-          <TransactionsList />
-        </ScrollView>
-        <EditTransactionModal />
-      </ModalsProvider>
-    </TransactionsProvider>
+    <ModalsProvider>
+      <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={{ flex: 1 }}>
+        <TransactionsList category={category} month={month} year={year} />
+      </ScrollView>
+      <EditTransactionModal />
+    </ModalsProvider>
   );
 };

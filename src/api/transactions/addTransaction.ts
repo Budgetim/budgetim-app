@@ -4,8 +4,8 @@ import { TransactionModel } from '../../db/transaction';
 
 interface AddParams {
   title: string;
-  categoryId: number | null;
-  price: string;
+  categoryId: number;
+  price: number;
   date: Date;
   currencyId: number;
 }
