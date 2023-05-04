@@ -1,15 +1,14 @@
 import React, { FC, useEffect, useState } from 'react';
 import { CategoryModalProps } from './types';
-import { addCategory } from '../../../../api/categories/addCategory';
-import { useCategoriesDispatch } from '../../../../contexts/categories';
 import { CategoryModalContent } from '../CategoryModalContent';
+import { useAddCategory } from '../../../../hooks/categories';
 
 export const AddCategoryModal: FC<CategoryModalProps> = props => {
   const { visible, setVisible } = props;
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState<string | null>(null);
   const [color, setColor] = useState<string | null>(null);
-  const dispatch = useCategoriesDispatch();
+  const addCategory = useAddCategory();
 
   useEffect(() => {
     if (visible) {
@@ -24,8 +23,7 @@ export const AddCategoryModal: FC<CategoryModalProps> = props => {
   };
 
   const onAdd = async () => {
-    const category = await addCategory({ description, title, color });
-    dispatch({ type: 'addCategory', payload: { category } });
+    await addCategory({ description, title, color });
   };
 
   if (!visible) {

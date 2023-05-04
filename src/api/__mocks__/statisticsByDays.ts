@@ -1,4 +1,4 @@
-import { getRandomData } from '../../../utils/getRandomData';
+import { getRandomData } from '../../utils/getRandomData';
 
 export const statisticsByDays = [
   {

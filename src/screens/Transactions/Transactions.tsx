@@ -13,7 +13,6 @@ import { Footer, AddButton, SettingsButton } from './styled';
 import { AddTransactionModal } from './components/AddTransactionModal';
 import { EditTransactionModal } from '../../components/EditTransactionModal';
 import { TransactionsList } from '../../components/TransactionsList';
-import { ModalsProvider } from '../../contexts/modals';
 
 export const Transactions: FC<NativeStackScreenProps<StackParamList, 'Transactions'>> = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -35,7 +34,7 @@ export const Transactions: FC<NativeStackScreenProps<StackParamList, 'Transactio
   }, [navigation]);
 
   return (
-    <ModalsProvider>
+    <>
       <View style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={{ flex: 1 }}>
           <TransactionsList />
@@ -51,6 +50,6 @@ export const Transactions: FC<NativeStackScreenProps<StackParamList, 'Transactio
       </View>
       <EditTransactionModal />
       <AddTransactionModal visible={modalVisible} setVisible={setModalVisible} />
-    </ModalsProvider>
+    </>
   );
 };

@@ -1,6 +1,6 @@
-import { Currency } from '../../types';
-import { db } from '../../db';
-import { CurrencyModel } from '../../db/currency';
+import { Currency } from '../types';
+import { CurrencyModel } from '../db/currency';
+import { db } from '../db';
 
 export const getCurrencies = async (): Promise<Currency[]> => {
   const currencyModel = new CurrencyModel(db);

@@ -7,12 +7,11 @@ import i18n from 'i18n-js';
 import { SectionList } from 'react-native';
 import { Card } from './components/Card';
 import { Title, TitleWrapper } from './styled';
-import { useQuery } from '@tanstack/react-query';
-import { getTransactions } from '../../api/transactions/getTransactions';
 import { Transaction } from '../../types';
 import { getLocale } from '../../utils/getLocale';
 import format from 'date-fns/format';
 import compareDesc from 'date-fns/compareDesc';
+import { useGetTransactions } from '../../hooks/transactions';
 
 const currentYear = new Date().getFullYear();
 
@@ -51,10 +50,7 @@ interface TransactionsListProps {
 export const TransactionsList: FC<TransactionsListProps> = ({ category, month, year }) => {
   const isFocused = useIsFocused();
 
-  const { isLoading, error, data } = useQuery({
-    queryKey: ['transactions'],
-    queryFn: () => getTransactions({ category, month, year }),
-  });
+  const { isLoading, error, data } = useGetTransactions({ category, month, year });
 
   if (!isFocused) {
     return null;

@@ -3,10 +3,10 @@ import { useTheme } from 'styled-components/native';
 import { SelectList } from '../../../SelectList';
 import { Wrapper } from './styled';
 import { CurrenciesListProps } from './types';
-import { useCurrenciesState } from '../../../../contexts/currencies';
+import { useGetCurrencies } from '../../../../hooks/currencies';
 
 export const CurrenciesList: FC<CurrenciesListProps> = ({ activeCurrencyId, setCurrencyId }) => {
-  const { data } = useCurrenciesState();
+  const { data } = useGetCurrencies();
   const {
     colors: { bgPrimary },
   } = useTheme();

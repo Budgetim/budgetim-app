@@ -24,6 +24,28 @@ export const modalsReducer = (state: ModalsContextState, action: ModalsDispatchA
       };
     }
 
+    case 'setCategoryModalVisible': {
+      const { isVisible } = action.payload;
+      return {
+        ...state,
+        category: {
+          ...state.category,
+          isVisible,
+        },
+      };
+    }
+
+    case 'setModalCategoryId': {
+      const { id } = action.payload;
+      return {
+        ...state,
+        category: {
+          ...state.category,
+          id,
+        },
+      };
+    }
+
     default: {
       throw new Error('Unhandled action type');
     }

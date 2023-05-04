@@ -4,11 +4,11 @@ import { ErrorMessage } from '../../../../components/ErrorMessage';
 import { NoDataMessage } from '../../../../components/NoDataMessage';
 import { FlatList } from 'react-native';
 import { Card } from '../Card';
-import { useCategoriesState } from '../../../../contexts/categories';
 import { Loader } from '../../../../components/Loader';
+import { useGetCategories } from '../../../../hooks/categories';
 
 export const CategoriesList: FC = () => {
-  const { data, isLoading, error } = useCategoriesState();
+  const { data, isLoading, error } = useGetCategories();
 
   if (error) {
     return <ErrorMessage>{error}</ErrorMessage>;

@@ -1,9 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useTheme } from 'styled-components/native';
 import i18n from 'i18n-js';
-
-import { useCategoriesState } from '../../../../contexts/categories';
-
 import { usePrevious } from '../../../../hooks/usePrevious';
 import { ArrowDownIcon } from '../../../../icons/ArrowDownIcon';
 import { PlusCircleIcon } from '../../../../icons/PlusCircleIcon';
@@ -13,9 +10,10 @@ import { Loader } from '../../../Loader';
 import { SelectList } from '../../../SelectList';
 import { Wrapper, ShowMoreWrapper, ShowMoreText, AddButton, AddText } from './styled';
 import { CategoriesListProps } from './types';
+import { useGetCategories } from '../../../../hooks/categories';
 
 export const CategoriesList: FC<CategoriesListProps> = ({ activeCategoryId, setCategoryId }) => {
-  const { data, error, isLoading } = useCategoriesState();
+  const { data, error, isLoading } = useGetCategories();
   const prevData = usePrevious(data);
   const [categoryModalVisible, setCategoryModalVisible] = useState(false);
   const [showAll, setShowAll] = useState(false);

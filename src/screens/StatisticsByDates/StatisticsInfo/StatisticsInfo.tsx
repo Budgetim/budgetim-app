@@ -1,9 +1,7 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC } from 'react';
 import { ScrollView, View } from 'react-native';
 import format from 'date-fns/format';
 import { ErrorMessage } from '../../../components/ErrorMessage';
-
-import { getStatistics } from '../../../api/categories/getStatistics';
 import { ArrowLeftIcon } from '../../../icons/ArrowLeftIcon';
 import { ArrowRightIcon } from '../../../icons/ArrowRightIcon';
 import { getLocale } from '../../../utils/getLocale';
@@ -13,7 +11,8 @@ import { PieChart } from '../../../components/PieChart';
 import { useTheme } from 'styled-components/native';
 import { Loader } from '../../../components/Loader';
 import { CategoriesList } from '../CategoriesList';
-import { useCurrenciesState } from '../../../contexts/currencies';
+import { useGetCurrencies } from '../../../hooks/currencies';
+import { useGetStatistics } from '../../../hooks/categories';
 
 export interface StatisticsInfoProps {
   year: number;
@@ -32,32 +31,13 @@ export interface StatisticsItem {
 }
 
 export const StatisticsInfo: FC<StatisticsInfoProps> = ({ month, year, currencyId, setNextDate, setPrevDate }) => {
-  const [data, setData] = useState<StatisticsItem[]>([]);
-  const [error, setError] = useState(null);
-  const [isLoading, setLoading] = useState(true);
   const locale = getLocale();
-  const { data: currencies } = useCurrenciesState();
+  const { data: currencies } = useGetCurrencies();
+  const { data, isLoading, error } = useGetStatistics({ month, year, currencyId });
 
   const {
     colors: { textPrimary },
   } = useTheme();
-
-  const getStatisticsInit = async () => {
-    setLoading(true);
-    setData([]);
-    try {
-      const categories = await getStatistics({ month, year, currencyId });
-      setData(categories);
-    } catch (error) {
-      setError(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    void getStatisticsInit();
-  }, [month, year, currencyId]);
 
   const currencySymbol = currencies.find(currency => currency.id === currencyId)!.symbol;
 

@@ -1,17 +1,11 @@
 import React, { FC, useEffect, useState } from 'react';
-import { editTransaction } from '../../api/transactions/editTransaction';
 import { TransactionModalContent } from '../TransactionModalContent';
 import { Transaction } from '../../types';
 import { useModalsDispatch, useModalsState } from '../../contexts/modals';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { queryClient } from '../../../App';
-import { getTransactions } from '../../api/transactions/getTransactions';
+import { useEditTransaction, useGetTransactions } from '../../hooks/transactions';
 
 export const EditTransactionModal: FC = () => {
-  const { data } = useQuery({
-    queryKey: ['transactions'],
-    queryFn: () => getTransactions({}),
-  });
+  const { data } = useGetTransactions();
   const {
     transaction: { isVisible, id },
   } = useModalsState();
@@ -22,6 +16,7 @@ export const EditTransactionModal: FC = () => {
   const [currencyId, setCurrencyId] = useState(transaction?.currency?.id || null);
   const [date, setDate] = useState(new Date(transaction?.date) || new Date());
   const modalsDispatch = useModalsDispatch();
+  const editTransaction = useEditTransaction();
 
   useEffect(() => {
     if (isVisible) {
@@ -37,15 +32,8 @@ export const EditTransactionModal: FC = () => {
     modalsDispatch({ type: 'setTransactionModalVisible', payload: { isVisible: false } });
   };
 
-  const mutation = useMutation({
-    mutationFn: editTransaction,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['transactions'] });
-    },
-  });
-
   const onEdit = async () => {
-    mutation.mutate({
+    editTransaction({
       id,
       title,
       categoryId,

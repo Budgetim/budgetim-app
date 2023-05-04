@@ -1,22 +1,20 @@
 import React, { FC } from 'react';
 import { Alert } from 'react-native';
 import { Category } from '../../../../types';
-
-import { deleteCategory } from '../../../../api/categories/deleteCategory';
-import { useCategoriesDispatch } from '../../../../contexts/categories';
 import { CategoryCard } from '../../../../components/CategoryCard';
 import { SwipeableRow } from '../../../../components/TransactionsList/components/SwipeableRow';
 import i18n from 'i18n-js';
+import { useDeleteCategory } from '../../../../hooks/categories';
+import { useModalsDispatch } from '../../../../contexts/modals';
 
 export const Card: FC<Category> = props => {
   const { title, color, description, id } = props;
-  const dispatch = useCategoriesDispatch();
+  const dispatch = useModalsDispatch();
+  const deleteCategory = useDeleteCategory();
 
   const onDelete = async () => {
-    //
     try {
-      const result = await deleteCategory(id);
-      dispatch({ type: 'deleteCategory', payload: { id } });
+      await deleteCategory(id);
     } catch (error) {
       Alert.alert(i18n.t('common.state.error'), error);
     }
@@ -26,7 +24,7 @@ export const Card: FC<Category> = props => {
     <SwipeableRow onPress={onDelete}>
       <CategoryCard
         onPress={() => {
-          dispatch({ type: 'setModalVisible', payload: { isVisible: true } });
+          dispatch({ type: 'setCategoryModalVisible', payload: { isVisible: true } });
           dispatch({ type: 'setModalCategoryId', payload: { id } });
         }}
         title={title}

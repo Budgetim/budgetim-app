@@ -3,45 +3,29 @@ import i18n from 'i18n-js';
 import React, { FC, useEffect, useState } from 'react';
 import { NoDataMessage } from '../../components/NoDataMessage';
 import { TabsGroup } from '../../components/TabsGroup';
-
 import { Loader } from '../../components/Loader';
-import { getAvailableMonths } from '../../api/transactions/getAvailableMonths';
+import { useGetAvailableMonths, useGetUsedCurrencies } from '../../hooks/transactions';
 import { StackParamList } from '../types';
 import { StatisticsInfo } from './StatisticsInfo';
 import { Tabs, Container } from './styled';
-import { getUsedCurrencies } from '../../api/transactions';
-import { Currency } from '../../types';
 
 export const StatisticsByDates: FC<NativeStackScreenProps<StackParamList, 'StatisticsByDates'>> = () => {
   const [activeMode, setActiveMode] = useState(0);
-  const [data, setData] = useState<{ data: any[] } | null>(null);
-  const [currencies, setCurrencies] = useState<Currency[]>([]);
-  const [isLoading, setLoading] = useState(true);
-
   const [indexDate, setIndexDate] = useState(0);
-
-  const getAvailableDates = async () => {
-    setLoading(true);
-    try {
-      const result = await getAvailableMonths();
-      const currenciesData = await getUsedCurrencies();
-      setCurrencies(currenciesData);
-      setData(result);
-      setIndexDate(result.data.length - 1);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { data, isLoading: isLoadingData } = useGetAvailableMonths();
+  const { data: currencies, isLoading: isLoadingCurrencies } = useGetUsedCurrencies();
 
   useEffect(() => {
-    void getAvailableDates();
-  }, []);
+    if (data) {
+      setIndexDate(data.data.length - 1);
+    }
+  }, [data]);
 
-  if (isLoading) {
+  if (isLoadingData || isLoadingCurrencies) {
     return <Loader />;
   }
 
-  if (!data) {
+  if (!data || !currencies) {
     return null;
   }
 

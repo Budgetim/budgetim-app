@@ -1,18 +1,19 @@
 import React, { FC, useEffect, useState } from 'react';
-import { editCategory } from '../../../../api/categories/editCategory';
-import { useCategoriesDispatch, useCategoriesState } from '../../../../contexts/categories';
 import { CategoryModalContent } from '../CategoryModalContent';
+import { useEditCategory, useGetCategories } from '../../../../hooks/categories';
+import { useModalsDispatch, useModalsState } from '../../../../contexts/modals';
 
 export const EditCategoryModal: FC = () => {
   const {
-    modal: { isVisible, id },
-    data,
-  } = useCategoriesState();
+    category: { isVisible, id },
+  } = useModalsState();
+  const { data } = useGetCategories();
   const category = data.find(item => item.id === id);
   const [title, setTitle] = useState(category?.title);
   const [description, setDescription] = useState(category?.description);
   const [color, setColor] = useState(category?.color);
-  const dispatch = useCategoriesDispatch();
+  const dispatch = useModalsDispatch();
+  const editCategory = useEditCategory();
 
   useEffect(() => {
     if (isVisible) {
@@ -27,12 +28,11 @@ export const EditCategoryModal: FC = () => {
   }
 
   const onClose = () => {
-    dispatch({ type: 'setModalVisible', payload: { isVisible: false } });
+    dispatch({ type: 'setCategoryModalVisible', payload: { isVisible: false } });
   };
 
   const onEdit = async () => {
-    const category = await editCategory({ id, description, title, color });
-    dispatch({ type: 'editCategory', payload: { category } });
+    await editCategory({ id, description, title, color });
   };
 
   return (

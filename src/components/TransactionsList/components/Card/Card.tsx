@@ -1,27 +1,19 @@
 import React, { FC, memo } from 'react';
 import { Transaction } from '../../../../types';
-import { deleteTransaction } from '../../../../api/transactions/deleteTransaction';
 import { TransactionCard } from '../../../TransactionCard';
 import { separateThousands } from '../../../../utils/separateThousands';
 import { useModalsDispatch } from '../../../../contexts/modals';
 import i18n from 'i18n-js';
 import { SwipeableRow } from '../SwipeableRow';
-import { useMutation } from '@tanstack/react-query';
-import { queryClient } from '../../../../../App';
+import { useDeleteTransaction } from '../../../../hooks/transactions';
 
 export const Card: FC<Transaction> = memo(props => {
   const { title, category, currency, price, id } = props;
   const modalsDispatch = useModalsDispatch();
-
-  const mutation = useMutation({
-    mutationFn: deleteTransaction,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['transactions'] });
-    },
-  });
+  const deleteTransaction = useDeleteTransaction();
 
   const onDelete = async () => {
-    mutation.mutate(id);
+    deleteTransaction(id);
   };
 
   const label =

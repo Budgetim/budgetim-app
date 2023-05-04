@@ -1,11 +1,9 @@
 import React, { FC, useEffect, useState } from 'react';
-import { addTransaction } from '../../../../api/transactions/addTransaction';
 import { AddTransactionModalProps } from './types';
 import { TransactionModalContent } from '../../../../components/TransactionModalContent';
-import { useCurrenciesState } from '../../../../contexts/currencies';
-import { useCategoriesState } from '../../../../contexts/categories';
-import { useMutation } from '@tanstack/react-query';
-import { queryClient } from '../../../../../App';
+import { useAddTransaction } from '../../../../hooks/transactions';
+import { useGetCurrencies } from '../../../../hooks/currencies';
+import { useGetCategories } from '../../../../hooks/categories';
 
 export const AddTransactionModal: FC<AddTransactionModalProps> = props => {
   const { visible, setVisible } = props;
@@ -14,8 +12,8 @@ export const AddTransactionModal: FC<AddTransactionModalProps> = props => {
   const [categoryId, setCategoryId] = useState<null | number>(null);
   const [currencyId, setCurrencyId] = useState<null | number>(null);
   const [date, setDate] = useState(new Date());
-  const { data: currencies } = useCurrenciesState();
-  const { data: categories } = useCategoriesState();
+  const { data: currencies } = useGetCurrencies();
+  const { data: categories } = useGetCategories();
 
   useEffect(() => {
     if (visible) {
@@ -27,15 +25,10 @@ export const AddTransactionModal: FC<AddTransactionModalProps> = props => {
     }
   }, [visible]);
 
-  const mutation = useMutation({
-    mutationFn: addTransaction,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['transactions'] });
-    },
-  });
+  const addTransaction = useAddTransaction();
 
   const onAdd = () => {
-    mutation.mutate({ title, categoryId, price, date, currencyId });
+    addTransaction({ title, categoryId, price, date, currencyId });
     setVisible(false);
   };
 
