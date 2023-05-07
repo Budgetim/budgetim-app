@@ -2,6 +2,7 @@ import { WebsqlDatabase } from 'react-native-sqlite-2';
 import { Transaction } from '../types';
 import { db } from '../db';
 import format from 'date-fns/format';
+import { timeDelay } from '../constants/common';
 
 type TransactionSQL = {
   categoryColor: string;
@@ -74,7 +75,7 @@ export class TransactionModel {
             const transaction: TransactionSQL = res.rows.item(0);
             setTimeout(() => {
               resolve(this.getTransactionFormat(transaction));
-            }, 1000);
+            }, timeDelay);
           },
           (_transaction, error) => {
             reject(error.message);
@@ -133,7 +134,9 @@ export class TransactionModel {
               const transaction: TransactionSQL = res.rows.item(index);
               data.push(this.getTransactionFormat(transaction));
             }
-            resolve(data);
+            setTimeout(() => {
+              resolve(data);
+            }, timeDelay);
           },
           (_transaction, error) => {
             reject(error.message);
@@ -167,7 +170,9 @@ export class TransactionModel {
           `,
           [],
           (_tx, res) => {
-            resolve(res.insertId);
+            setTimeout(() => {
+              resolve(res.insertId);
+            }, timeDelay);
           },
           (_transaction, error) => {
             console.error(error);
@@ -202,7 +207,9 @@ export class TransactionModel {
           )`,
           [],
           (_tx, _res) => {
-            resolve(true);
+            setTimeout(() => {
+              resolve(true);
+            }, timeDelay);
           },
           (_transaction, error) => {
             console.error('transaction model: editTransaction', error);
@@ -224,7 +231,9 @@ export class TransactionModel {
           `,
           [],
           (_tx, _res) => {
-            resolve(true);
+            setTimeout(() => {
+              resolve(true);
+            }, timeDelay);
           },
           (_transaction, error) => {
             console.error(error);
@@ -251,7 +260,9 @@ export class TransactionModel {
               resolve({ data: [] });
             }
             const listMonths = this.getListMonths(range);
-            resolve(listMonths);
+            setTimeout(() => {
+              resolve(listMonths);
+            }, timeDelay);
           },
           (_transaction, error) => {
             console.error(error);
@@ -302,7 +313,9 @@ export class TransactionModel {
           `,
           [],
           (_tx, res) => {
-            resolve(res.rows._array);
+            setTimeout(() => {
+              resolve(res.rows._array);
+            }, timeDelay);
           },
           (_transaction, error) => {
             console.error(error);

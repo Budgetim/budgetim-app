@@ -1,5 +1,5 @@
 import React, { FC, useLayoutEffect } from 'react';
-import { ScrollView, View } from 'react-native';
+import { View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useTheme } from 'styled-components/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -34,9 +34,9 @@ export const Transactions: FC<NativeStackScreenProps<StackParamList, 'Transactio
 
   return (
     <View style={{ flex: 1 }}>
-      <ScrollView contentContainerStyle={{ flex: 1 }}>
+      <View style={{ flex: 1 }}>
         <TransactionsList />
-      </ScrollView>
+      </View>
       <Footer>
         <AddButton onPress={() => modalsDispatch({ type: 'setTransactionModal', payload: undefined })}>
           <PlusCircleIcon color={textPrimary} size={44} />

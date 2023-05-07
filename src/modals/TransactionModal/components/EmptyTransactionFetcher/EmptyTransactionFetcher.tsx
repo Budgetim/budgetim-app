@@ -6,6 +6,7 @@ import { useGetCategories } from '../../../../hooks/categories';
 import { ErrorMessage } from '../../../../components/ErrorMessage';
 import { Loader } from '../../../../components/Loader';
 import i18n from 'i18n-js';
+import { isString } from 'lodash';
 
 interface ContentProps {
   categoryId: number;
@@ -22,12 +23,12 @@ export const Content: FC<ContentProps> = props => {
   const editTransaction = useEditTransaction();
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && transactionId) {
       editTransaction({
         id: transactionId,
         title,
         categoryId,
-        price,
+        price: isString(price) ? 0 : price,
         date,
         currencyId,
       });

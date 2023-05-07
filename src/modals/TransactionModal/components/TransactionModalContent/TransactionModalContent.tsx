@@ -13,6 +13,7 @@ import { PopularNames } from './components/PopularNames';
 import { separateThousands } from '../../../../utils/separateThousands';
 import { CurrenciesList } from './components/CurrenciesList';
 import { formatNumberForServer } from '../../../../utils/formatNumberForServer';
+import { CategoryModal } from '../../../CategoryModal';
 
 export const TransactionModalContent: FC<TransactionModalContentProps> = props => {
   const { title, setTitle, price, setPrice, categoryId, setCategoryId, currencyId, setCurrencyId, date, setDate } =
@@ -84,6 +85,7 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = props =
           }}
         />
       )}
+      <CategoryModal />
     </>
   );
 };

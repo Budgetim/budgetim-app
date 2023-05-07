@@ -18,6 +18,7 @@
   "transactions": {
     "title": "Транзакции",
     "emptyCategory": "Без категории",
+    "emptyTitle": "Без названия",
     "form": {
       "title": "Название",
       "price": "Цена"

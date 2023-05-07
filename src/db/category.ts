@@ -1,6 +1,7 @@
 import { WebsqlDatabase } from 'react-native-sqlite-2';
 import { Category } from '../types';
 import i18n from 'i18n-js';
+import { timeDelay } from '../constants/common';
 
 export class CategoryModel {
   private db: WebsqlDatabase;
@@ -33,7 +34,7 @@ export class CategoryModel {
             }));
             setTimeout(() => {
               resolve(data);
-            }, 1000);
+            }, timeDelay);
           },
           (_transaction, error) => {
             reject(error.message);
@@ -67,7 +68,10 @@ export class CategoryModel {
               color: item.color,
               description: item.description,
             };
-            resolve(category);
+
+            setTimeout(() => {
+              resolve(category);
+            }, timeDelay);
           },
           (_transaction, error) => {
             console.error(error);
@@ -89,7 +93,9 @@ export class CategoryModel {
           `,
           [],
           (_tx, res) => {
-            resolve(res.insertId);
+            setTimeout(() => {
+              resolve(res.insertId);
+            }, timeDelay);
           },
           (_transaction, error) => {
             console.error(error);
@@ -119,7 +125,9 @@ export class CategoryModel {
           `,
           [],
           (_tx, res) => {
-            resolve(true);
+            setTimeout(() => {
+              resolve(true);
+            }, timeDelay);
           },
           (_transaction, error) => {
             console.error(error);
@@ -141,7 +149,9 @@ export class CategoryModel {
           `,
           [],
           (_tx, _res) => {
-            resolve(true);
+            setTimeout(() => {
+              resolve(true);
+            }, timeDelay);
           },
           () => {
             throw new Error(i18n.t('categories.errors.delete'));
@@ -176,7 +186,9 @@ export class CategoryModel {
           `,
           [],
           (_tx, res) => {
-            resolve(res.rows._array);
+            setTimeout(() => {
+              resolve(res.rows._array);
+            }, timeDelay);
           },
           (_transaction, error) => {
             console.error(error);

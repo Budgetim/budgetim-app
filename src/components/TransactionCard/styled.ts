@@ -56,11 +56,7 @@ export const SubTitle = styled(TextVariant)(
   }),
 );
 
-export const Title = styled(TextVariant)(
-  css({
-    color: 'textPrimary',
-  }),
-);
+export const Title = styled(TextVariant)<ColorProps>(color);
 
 export const Label = styled(TextVariant)(
   css({

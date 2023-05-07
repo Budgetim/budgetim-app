@@ -18,6 +18,7 @@
   "transactions": {
     "title": "Transactions",
     "emptyCategory": "No category",
+    "emptyTitle": "Untitled",
     "form": {
       "title": "Title",
       "price": "Price"

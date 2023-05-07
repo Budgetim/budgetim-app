@@ -7,7 +7,6 @@ import en from './src/constants/lang/en.json';
 import { init } from './src/db/init';
 import { Providers } from './src/Providers';
 import { TransactionModal } from './src/modals/TransactionModal';
-import { CategoryModal } from './src/modals/CategoryModal';
 
 i18n.translations = {
   en: en,
@@ -24,7 +23,6 @@ export default function App() {
     <Providers>
       <Screens />
       <TransactionModal />
-      <CategoryModal />
     </Providers>
   );
 }

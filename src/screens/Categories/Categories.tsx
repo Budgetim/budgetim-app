@@ -9,6 +9,7 @@ import { StackParamList } from '../types';
 
 import { CategoriesList } from './components/CategoriesList';
 import { useModalsDispatch } from '../../contexts/modals';
+import { CategoryModal } from '../../modals/CategoryModal';
 export const Categories: FC<NativeStackScreenProps<StackParamList, 'Categories'>> = ({ navigation }) => {
   const {
     colors: { systemBlue },
@@ -31,6 +32,7 @@ export const Categories: FC<NativeStackScreenProps<StackParamList, 'Categories'>
   return (
     <ScrollView contentContainerStyle={{ flex: 1, paddingBottom: 40 }}>
       <CategoriesList />
+      <CategoryModal />
     </ScrollView>
   );
 };

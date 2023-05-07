@@ -42,6 +42,13 @@ export const initData = () => {
           date: format(subDays(currentData, 1), 'yyyy-MM-dd'),
           currency: 1,
         },
+        {
+          title: 'Лекарство',
+          category: 2,
+          price: 29,
+          date: format(subDays(currentData, 3), 'yyyy-MM-dd'),
+          currency: 2,
+        },
       ],
     };
   }
@@ -75,7 +82,14 @@ export const initData = () => {
     ],
     transactions: [
       { title: 'Coffee', category: 1, price: 5, date: format(currentData, 'yyyy-MM-dd'), currency: 2 },
-      { title: 'Обувь', category: 2, price: 199, date: format(subDays(currentData, 1), 'yyyy-MM-dd'), currency: 2 },
+      { title: 'Shoes', category: 2, price: 199, date: format(subDays(currentData, 1), 'yyyy-MM-dd'), currency: 2 },
+      {
+        title: 'Medicine',
+        category: 3,
+        price: 29,
+        date: format(subDays(currentData, 3), 'yyyy-MM-dd'),
+        currency: 2,
+      },
     ],
   };
 };

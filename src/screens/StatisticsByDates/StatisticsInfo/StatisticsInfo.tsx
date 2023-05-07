@@ -39,7 +39,7 @@ export const StatisticsInfo: FC<StatisticsInfoProps> = ({ month, year, currencyI
     colors: { textPrimary },
   } = useTheme();
 
-  const currencySymbol = currencies.find(currency => currency.id === currencyId)!.symbol;
+  const currencySymbol = currencies?.find(currency => currency.id === currencyId)!.symbol || 'nnnn';
 
   const renderContent = () => {
     if (isLoading) {
@@ -52,6 +52,10 @@ export const StatisticsInfo: FC<StatisticsInfoProps> = ({ month, year, currencyI
 
     return <CategoriesList data={data} month={month} year={year} currencySymbol={currencySymbol} />;
   };
+
+  if (!data) {
+    return null;
+  }
 
   return (
     <View style={{ flex: 1 }}>

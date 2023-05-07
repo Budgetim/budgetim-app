@@ -1,6 +1,7 @@
 import { WebsqlDatabase } from 'react-native-sqlite-2';
 import { Currency } from '../types';
 import { db } from '../db';
+import { timeDelay } from '../constants/common';
 
 export class CurrencyModel {
   private db: WebsqlDatabase;
@@ -32,7 +33,7 @@ export class CurrencyModel {
             }));
             setTimeout(() => {
               resolve(data);
-            }, 1000);
+            }, timeDelay);
           },
           (_transaction, error) => {
             reject(error.message);
