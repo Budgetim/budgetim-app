@@ -27,8 +27,7 @@ export const addCategory = async (params: AddCategoryParams): Promise<number> =>
 };
 
 export const deleteCategory = async (id: number) => {
-  const result = categoryModel.deleteCategory(id);
-  return result;
+  await categoryModel.deleteCategory(id);
 };
 
 export interface EditCategoryParams {

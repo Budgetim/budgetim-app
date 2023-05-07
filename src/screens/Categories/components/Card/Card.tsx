@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Alert } from 'react-native';
 import { Category } from '../../../../types';
 import { CategoryCard } from '../../../../components/CategoryCard';
@@ -10,14 +10,16 @@ import { useModalsDispatch } from '../../../../contexts/modals';
 export const Card: FC<Category> = props => {
   const { title, color, description, id } = props;
   const dispatch = useModalsDispatch();
-  const deleteCategory = useDeleteCategory();
+  const { mutate: deleteCategory, isError, error } = useDeleteCategory();
 
-  const onDelete = async () => {
-    try {
-      await deleteCategory(id);
-    } catch (error) {
+  useEffect(() => {
+    if (isError) {
       Alert.alert(i18n.t('common.state.error'), error);
     }
+  }, [isError]);
+
+  const onDelete = () => {
+    deleteCategory(id);
   };
 
   return (

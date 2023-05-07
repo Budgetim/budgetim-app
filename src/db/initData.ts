@@ -44,7 +44,7 @@ export const initData = () => {
         },
         {
           title: 'Лекарство',
-          category: 2,
+          category: 3,
           price: 29,
           date: format(subDays(currentData, 3), 'yyyy-MM-dd'),
           currency: 2,

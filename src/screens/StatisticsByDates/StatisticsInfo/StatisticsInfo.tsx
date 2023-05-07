@@ -39,7 +39,7 @@ export const StatisticsInfo: FC<StatisticsInfoProps> = ({ month, year, currencyI
     colors: { textPrimary },
   } = useTheme();
 
-  const currencySymbol = currencies?.find(currency => currency.id === currencyId)!.symbol || 'nnnn';
+  const currencySymbol = currencies?.find(currency => currency.id === currencyId)!.symbol;
 
   const renderContent = () => {
     if (isLoading) {

@@ -41,7 +41,7 @@ export const useDeleteCategory = () => {
       queryClient.invalidateQueries({ queryKey: ['categories'] });
     },
   });
-  return mutation.mutate;
+  return mutation;
 };
 
 export const useEditCategory = () => {

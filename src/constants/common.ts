@@ -1,1 +1,1 @@
-export const timeDelay = 500;
+export const timeDelay = 0;

@@ -28,7 +28,7 @@ export const Card: FC<Transaction> = memo(props => {
           modalsDispatch({ type: 'setTransactionModal', payload: { id } });
         }}
         title={title}
-        subTitle={category.title || i18n.t('transactions.emptyCategory')}
+        subTitle={category.title || i18n.t('transactions.emptyTitle')}
         tagColor={category.color}
         label={label}
       />

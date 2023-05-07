@@ -29,7 +29,8 @@ export const Content: FC<ContentProps> = ({ category }) => {
     <CategoryModalContent
       title={title}
       setTitle={setTitle}
-      description={setDescription}
+      description={description}
+      setDescription={setDescription}
       color={color}
       setColor={setColor}
     />

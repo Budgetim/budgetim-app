@@ -139,8 +139,8 @@ export class CategoryModel {
     });
   }
 
-  deleteCategory(id: number): Promise<boolean> {
-    return new Promise(resolve => {
+  deleteCategory(id: number): Promise<void> {
+    return new Promise((resolve, reject) => {
       this.db.transaction(txn => {
         txn.executeSql(
           `
@@ -150,11 +150,12 @@ export class CategoryModel {
           [],
           (_tx, _res) => {
             setTimeout(() => {
-              resolve(true);
+              resolve();
             }, timeDelay);
           },
           () => {
-            throw new Error(i18n.t('categories.errors.delete'));
+            reject(i18n.t('categories.errors.delete'));
+            return false;
           },
         );
       });

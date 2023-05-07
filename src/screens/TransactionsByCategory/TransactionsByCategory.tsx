@@ -19,7 +19,7 @@ export const TransactionsByCategory: FC<NativeStackScreenProps<StackParamList, '
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      title: `${categoryTitle || i18n.t('transactions.emptyCategory')} (${date})`,
+      title: `${categoryTitle || i18n.t('transactions.emptyTitle')} (${date})`,
     });
   }, [navigation]);
 

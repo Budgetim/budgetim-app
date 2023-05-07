@@ -37,11 +37,7 @@ export const Content = styled(View)(
   }),
 );
 
-export const Title = styled(TextVariant)(
-  css({
-    color: 'textPrimary',
-  }),
-);
+export const Title = styled(TextVariant)<ColorProps>(color);
 
 export const SubTitle = styled(TextVariant)(
   css({
