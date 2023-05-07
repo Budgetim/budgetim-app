@@ -30,7 +30,9 @@ export class CurrencyModel {
               symbol,
               position,
             }));
-            resolve(data);
+            setTimeout(() => {
+              resolve(data);
+            }, 1000);
           },
           (_transaction, error) => {
             reject(error.message);

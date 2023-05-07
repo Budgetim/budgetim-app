@@ -7,7 +7,6 @@ import { getLocale } from '../../utils/getLocale';
 
 import { StackParamList } from '../types';
 import { TransactionsList } from '../../components/TransactionsList';
-import { EditTransactionModal } from '../../components/EditTransactionModal';
 
 export const TransactionsByCategory: FC<NativeStackScreenProps<StackParamList, 'TransactionsByCategory'>> = ({
   route,
@@ -25,11 +24,8 @@ export const TransactionsByCategory: FC<NativeStackScreenProps<StackParamList, '
   }, [navigation]);
 
   return (
-    <>
-      <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={{ flex: 1 }}>
-        <TransactionsList category={category} month={month} year={year} />
-      </ScrollView>
-      <EditTransactionModal />
-    </>
+    <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={{ flex: 1 }}>
+      <TransactionsList category={category} month={month} year={year} />
+    </ScrollView>
   );
 };

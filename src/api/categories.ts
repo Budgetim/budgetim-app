@@ -3,10 +3,16 @@ import { CategoryModel } from '../db/category';
 import { db } from '../db';
 import { StatisticsItem } from '../screens/StatisticsByDates/StatisticsInfo';
 
+const categoryModel = new CategoryModel(db);
+
 export const getCategories = async (): Promise<Category[]> => {
-  const categoryModel = new CategoryModel(db);
   const categories = await categoryModel.getCategories();
   return categories;
+};
+
+export const getCategory = async (id: number): Promise<Category> => {
+  const category = await categoryModel.getCategory(id);
+  return category;
 };
 
 export interface AddCategoryParams {
@@ -15,15 +21,12 @@ export interface AddCategoryParams {
   color: string | null;
 }
 
-export const addCategory = async (params: AddCategoryParams): Promise<Category> => {
-  const categoryModel = new CategoryModel(db);
+export const addCategory = async (params: AddCategoryParams): Promise<number> => {
   const id = await categoryModel.addCategory(params);
-  const category = await categoryModel.getCategory(id);
-  return category;
+  return id;
 };
 
 export const deleteCategory = async (id: number) => {
-  const categoryModel = new CategoryModel(db);
   const result = categoryModel.deleteCategory(id);
   return result;
 };
@@ -36,7 +39,6 @@ export interface EditCategoryParams {
 }
 
 export const editCategory = async (params: EditCategoryParams): Promise<Category> => {
-  const categoryModel = new CategoryModel(db);
   await categoryModel.editCategory(params);
   const category = await categoryModel.getCategory(params.id);
   return category;
@@ -49,7 +51,6 @@ export interface GetStatisticsParams {
 }
 
 export const getStatistics = async (params: GetStatisticsParams): Promise<StatisticsItem[]> => {
-  const categoryModel = new CategoryModel(db);
   const statistic = await categoryModel.showStatistic(params);
   return statistic;
 };

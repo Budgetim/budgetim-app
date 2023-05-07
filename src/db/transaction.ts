@@ -1,7 +1,6 @@
 import { WebsqlDatabase } from 'react-native-sqlite-2';
 import { Transaction } from '../types';
 import { db } from '../db';
-import { formatNumberForServer } from '../utils/formatNumberForServer';
 import format from 'date-fns/format';
 
 type TransactionSQL = {
@@ -73,10 +72,11 @@ export class TransactionModel {
           [],
           (_tx, res) => {
             const transaction: TransactionSQL = res.rows.item(0);
-            resolve(this.getTransactionFormat(transaction));
+            setTimeout(() => {
+              resolve(this.getTransactionFormat(transaction));
+            }, 1000);
           },
           (_transaction, error) => {
-            console.error(error);
             reject(error.message);
             return true;
           },

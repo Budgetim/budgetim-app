@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useTheme } from 'styled-components/native';
@@ -8,20 +8,18 @@ import { PlusIcon } from '../../icons/PlusIcon';
 import { StackParamList } from '../types';
 
 import { CategoriesList } from './components/CategoriesList';
-import { AddCategoryModal } from './components/AddCategoryModal';
-import { EditCategoryModal } from './components/EditCategoryModal';
-
+import { useModalsDispatch } from '../../contexts/modals';
 export const Categories: FC<NativeStackScreenProps<StackParamList, 'Categories'>> = ({ navigation }) => {
-  const [modalVisible, setModalVisible] = useState(false);
   const {
     colors: { systemBlue },
   } = useTheme();
+  const modalDispatch = useModalsDispatch();
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity
-          onPress={() => setModalVisible(true)}
+          onPress={() => modalDispatch({ type: 'setCategoryModal', payload: undefined })}
           style={{ paddingLeft: 16, paddingRight: 16, paddingTop: 4, paddingBottom: 4 }}
         >
           <PlusIcon color={systemBlue} size={24} />
@@ -33,8 +31,6 @@ export const Categories: FC<NativeStackScreenProps<StackParamList, 'Categories'>
   return (
     <ScrollView contentContainerStyle={{ flex: 1, paddingBottom: 40 }}>
       <CategoriesList />
-      <AddCategoryModal visible={modalVisible} setVisible={setModalVisible} />
-      <EditCategoryModal />
     </ScrollView>
   );
 };

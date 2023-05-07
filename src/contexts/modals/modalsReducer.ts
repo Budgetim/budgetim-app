@@ -2,46 +2,44 @@ import { ModalsContextState, ModalsDispatchAction } from './types';
 
 export const modalsReducer = (state: ModalsContextState, action: ModalsDispatchAction) => {
   switch (action.type) {
-    case 'setTransactionModalVisible': {
-      const { isVisible } = action.payload;
+    case 'setTransactionModal': {
+      const id = action.payload?.id || null;
+      return {
+        ...state,
+        transaction: {
+          id,
+          isVisible: true,
+        },
+      };
+    }
+
+    case 'closeTransactionModal': {
       return {
         ...state,
         transaction: {
           ...state.transaction,
-          isVisible,
+          isVisible: false,
         },
       };
     }
 
-    case 'setModalTransactionId': {
-      const { id } = action.payload;
+    case 'setCategoryModal': {
+      const id = action.payload?.id || null;
       return {
         ...state,
-        transaction: {
-          ...state.transaction,
+        category: {
           id,
+          isVisible: true,
         },
       };
     }
 
-    case 'setCategoryModalVisible': {
-      const { isVisible } = action.payload;
+    case 'closeCategoryModal': {
       return {
         ...state,
         category: {
           ...state.category,
-          isVisible,
-        },
-      };
-    }
-
-    case 'setModalCategoryId': {
-      const { id } = action.payload;
-      return {
-        ...state,
-        category: {
-          ...state.category,
-          id,
+          isVisible: false,
         },
       };
     }

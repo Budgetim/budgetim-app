@@ -24,8 +24,7 @@ export const Card: FC<Category> = props => {
     <SwipeableRow onPress={onDelete}>
       <CategoryCard
         onPress={() => {
-          dispatch({ type: 'setCategoryModalVisible', payload: { isVisible: true } });
-          dispatch({ type: 'setModalCategoryId', payload: { id } });
+          dispatch({ type: 'setCategoryModal', payload: { id } });
         }}
         title={title}
         description={description}

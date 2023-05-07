@@ -1,10 +1,11 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { queryClient } from '../../App';
+import { queryClient } from '../Providers';
 import {
   addCategory,
   deleteCategory,
   editCategory,
   getCategories,
+  getCategory,
   getStatistics,
   GetStatisticsParams,
 } from '../api/categories';
@@ -12,7 +13,14 @@ import {
 export const useGetCategories = () => {
   return useQuery({
     queryKey: ['categories'],
-    queryFn: () => getCategories(),
+    queryFn: getCategories,
+  });
+};
+
+export const useGetCategory = (id: number) => {
+  return useQuery({
+    queryKey: ['categories', id],
+    queryFn: () => getCategory(id),
   });
 };
 
@@ -23,7 +31,7 @@ export const useAddCategory = () => {
       queryClient.invalidateQueries({ queryKey: ['categories'] });
     },
   });
-  return mutation.mutate;
+  return mutation;
 };
 
 export const useDeleteCategory = () => {
@@ -48,7 +56,7 @@ export const useEditCategory = () => {
 
 export const useGetStatistics = (params: GetStatisticsParams) => {
   return useQuery({
-    queryKey: ['statistics'],
+    queryKey: ['statistics', params],
     queryFn: () => getStatistics(params),
   });
 };

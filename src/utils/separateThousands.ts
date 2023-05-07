@@ -3,6 +3,9 @@
  * (5000 -> 5 000)
  * (3.32 -> 3,32)
  * */
-export const separateThousands = (num: number, options?: Intl.NumberFormatOptions) => {
+import { isString } from 'lodash';
+
+export const separateThousands = (num: number | string, options?: Intl.NumberFormatOptions) => {
+  if (isString(num)) return num;
   return num.toLocaleString('ru-RU', options);
 };

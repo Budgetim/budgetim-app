@@ -7,27 +7,35 @@ import {
   GetTransactionsParams,
   getAvailableMonths,
   getUsedCurrencies,
+  getTransactionById,
 } from '../api/transactions';
-import { queryClient } from '../../App';
+import { queryClient } from '../Providers';
 
-export const useGetTransactions = (params?: GetTransactionsParams) => {
+export const useGetTransactions = (params: GetTransactionsParams = {}) => {
   return useQuery({
-    queryKey: ['transactions'],
-    queryFn: () => getTransactions(params || {}),
+    queryKey: ['transactions', params],
+    queryFn: () => getTransactions(params),
+  });
+};
+
+export const useGetTransaction = (id: number) => {
+  return useQuery({
+    queryKey: ['transactions', id],
+    queryFn: () => getTransactionById(id),
   });
 };
 
 export const useGetAvailableMonths = () => {
   return useQuery({
     queryKey: ['avaliableMonths'],
-    queryFn: () => getAvailableMonths(),
+    queryFn: getAvailableMonths,
   });
 };
 
 export const useGetUsedCurrencies = () => {
   return useQuery({
     queryKey: ['usedCurrencies'],
-    queryFn: () => getUsedCurrencies(),
+    queryFn: getUsedCurrencies,
   });
 };
 
@@ -58,5 +66,5 @@ export const useAddTransaction = () => {
       queryClient.invalidateQueries({ queryKey: ['transactions'] });
     },
   });
-  return mutation.mutate;
+  return mutation;
 };

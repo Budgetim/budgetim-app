@@ -1,4 +1,4 @@
-import React, { FC, useState, useLayoutEffect } from 'react';
+import React, { FC, useLayoutEffect } from 'react';
 import { ScrollView, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useTheme } from 'styled-components/native';
@@ -10,15 +10,14 @@ import { SettingIcon } from '../../icons/SettingIcon';
 import { StackParamList } from '../types';
 
 import { Footer, AddButton, SettingsButton } from './styled';
-import { AddTransactionModal } from './components/AddTransactionModal';
-import { EditTransactionModal } from '../../components/EditTransactionModal';
 import { TransactionsList } from '../../components/TransactionsList';
+import { useModalsDispatch } from '../../contexts/modals';
 
 export const Transactions: FC<NativeStackScreenProps<StackParamList, 'Transactions'>> = ({ navigation }) => {
-  const [modalVisible, setModalVisible] = useState(false);
   const {
     colors: { textPrimary },
   } = useTheme();
+  const modalsDispatch = useModalsDispatch();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -34,22 +33,18 @@ export const Transactions: FC<NativeStackScreenProps<StackParamList, 'Transactio
   }, [navigation]);
 
   return (
-    <>
-      <View style={{ flex: 1 }}>
-        <ScrollView contentContainerStyle={{ flex: 1 }}>
-          <TransactionsList />
-        </ScrollView>
-        <Footer>
-          <AddButton onPress={() => setModalVisible(true)}>
-            <PlusCircleIcon color={textPrimary} size={44} />
-          </AddButton>
-          <SettingsButton onPress={() => navigation.navigate('Categories')}>
-            <SettingIcon color={textPrimary} size={30} />
-          </SettingsButton>
-        </Footer>
-      </View>
-      <EditTransactionModal />
-      <AddTransactionModal visible={modalVisible} setVisible={setModalVisible} />
-    </>
+    <View style={{ flex: 1 }}>
+      <ScrollView contentContainerStyle={{ flex: 1 }}>
+        <TransactionsList />
+      </ScrollView>
+      <Footer>
+        <AddButton onPress={() => modalsDispatch({ type: 'setTransactionModal', payload: undefined })}>
+          <PlusCircleIcon color={textPrimary} size={44} />
+        </AddButton>
+        <SettingsButton onPress={() => navigation.navigate('Categories')}>
+          <SettingIcon color={textPrimary} size={30} />
+        </SettingsButton>
+      </Footer>
+    </View>
   );
 };

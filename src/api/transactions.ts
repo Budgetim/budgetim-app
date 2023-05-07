@@ -10,15 +10,14 @@ export interface AddTransactionParams {
   currencyId: number;
 }
 
-export const addTransaction = async (params: AddTransactionParams): Promise<Transaction> => {
-  const transactionModel = new TransactionModel(db);
+const transactionModel = new TransactionModel(db);
+
+export const addTransaction = async (params: AddTransactionParams): Promise<number> => {
   const id = await transactionModel.addTransaction(params);
-  const transaction = await transactionModel.getTransaction(id);
-  return transaction;
+  return id;
 };
 
 export const deleteTransaction = async (id: number) => {
-  const transactionModel = new TransactionModel(db);
   const result = await transactionModel.deleteTransaction(id);
   return result;
 };
@@ -32,15 +31,11 @@ export interface EditTransactionParams {
   currencyId: number;
 }
 
-export const editTransaction = async (params: EditTransactionParams): Promise<Transaction> => {
-  const transactionModel = new TransactionModel(db);
+export const editTransaction = async (params: EditTransactionParams): Promise<void> => {
   await transactionModel.editTransaction(params);
-  const transaction = await transactionModel.getTransaction(params.id);
-  return transaction;
 };
 
 export const getAvailableMonths = async (): Promise<{ data: any[] }> => {
-  const transactionModel = new TransactionModel(db);
   const result = await transactionModel.getAvailableMonths();
   return result;
 };
@@ -52,12 +47,14 @@ export interface GetTransactionsParams {
 }
 
 export const getTransactions = async (params: GetTransactionsParams): Promise<Transaction[]> => {
-  const transaction = new TransactionModel(db);
-  return transaction.getTransactions(params);
+  return transactionModel.getTransactions(params);
+};
+
+export const getTransactionById = async (id: number): Promise<Transaction> => {
+  return transactionModel.getTransaction(id);
 };
 
 export const getUsedCurrencies = async (): Promise<Currency[]> => {
-  const transactionModel = new TransactionModel(db);
   const result = await transactionModel.getUsedCurrencies();
   return result;
 };

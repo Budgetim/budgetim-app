@@ -1,48 +1,36 @@
 import { Action } from '../../types';
 
-type SetTransactionModalVisible = Action<
-  'setTransactionModalVisible',
-  {
-    isVisible: boolean;
-  }
+type SetTransactionModal = Action<
+  'setTransactionModal',
+  | {
+      id: number;
+    }
+  | undefined
 >;
 
-type SetModalTransactionId = Action<
-  'setModalTransactionId',
-  {
-    id: number;
-  }
+type CloseTransactionModal = Action<'closeTransactionModal', undefined>;
+
+type SetCategoryModal = Action<
+  'setCategoryModal',
+  | {
+      id: number;
+    }
+  | undefined
 >;
 
-type SetCategoryModalVisible = Action<
-  'setCategoryModalVisible',
-  {
-    isVisible: boolean;
-  }
->;
+type CloseCategoryModal = Action<'closeCategoryModal', undefined>;
 
-type SetModalCategoryId = Action<
-  'setModalCategoryId',
-  {
-    id: number;
-  }
->;
-
-export type ModalsDispatchAction =
-  | SetTransactionModalVisible
-  | SetModalTransactionId
-  | SetCategoryModalVisible
-  | SetModalCategoryId;
+export type ModalsDispatchAction = SetTransactionModal | CloseTransactionModal | SetCategoryModal | CloseCategoryModal;
 
 export type ModalsDispatch = (action: ModalsDispatchAction) => void;
 
 export interface ModalsContextState {
   transaction: {
-    id: number | null;
+    id: number | null; // если null, то это создание новой транзакции
     isVisible: boolean;
   };
   category: {
-    id: number | null;
+    id: number | null; // если null, то это создание новой категории
     isVisible: boolean;
   };
 }

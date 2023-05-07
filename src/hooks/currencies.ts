@@ -4,6 +4,6 @@ import { getCurrencies } from '../api/currencies';
 export const useGetCurrencies = () => {
   return useQuery({
     queryKey: ['currencies'],
-    queryFn: () => getCurrencies(),
+    queryFn: getCurrencies,
   });
 };

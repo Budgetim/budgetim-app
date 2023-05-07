@@ -31,7 +31,9 @@ export class CategoryModel {
               color: category.color,
               description: category.description,
             }));
-            resolve(data);
+            setTimeout(() => {
+              resolve(data);
+            }, 1000);
           },
           (_transaction, error) => {
             reject(error.message);

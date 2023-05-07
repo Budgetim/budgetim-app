@@ -25,8 +25,7 @@ export const Card: FC<Transaction> = memo(props => {
     <SwipeableRow onPress={onDelete}>
       <TransactionCard
         onPress={() => {
-          modalsDispatch({ type: 'setModalTransactionId', payload: { id } });
-          modalsDispatch({ type: 'setTransactionModalVisible', payload: { isVisible: true } });
+          modalsDispatch({ type: 'setTransactionModal', payload: { id } });
         }}
         title={title}
         subTitle={category.title || i18n.t('transactions.emptyCategory')}
