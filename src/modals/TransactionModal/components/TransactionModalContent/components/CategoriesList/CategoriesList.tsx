@@ -12,6 +12,8 @@ import { CategoriesListProps } from './types';
 import { useGetCategories } from '../../../../../../hooks/categories';
 import { useModalsDispatch } from '../../../../../../contexts/modals';
 
+const MAX_COUNT = 6;
+
 export const CategoriesList: FC<CategoriesListProps> = ({ activeCategoryId, setCategoryId }) => {
   const { data, error, isLoading } = useGetCategories();
   const prevData = usePrevious(data);
@@ -39,6 +41,10 @@ export const CategoriesList: FC<CategoriesListProps> = ({ activeCategoryId, setC
     return <Loader />;
   }
 
+  if (!data) {
+    return null;
+  }
+
   return (
     <Wrapper>
       <SelectList
@@ -46,16 +52,16 @@ export const CategoriesList: FC<CategoriesListProps> = ({ activeCategoryId, setC
         onSelect={id => {
           setCategoryId(id);
         }}
-        data={data.slice(0, showAll ? data.length : 6).map(item => {
+        data={data.slice(0, showAll ? data.length : MAX_COUNT).map(item => {
           return {
             id: item.id,
-            title: item.title,
+            title: item.title || i18n.t('transactions.emptyTitle'),
             color: item.color || systemGray05,
             isActive: item.id === activeCategoryId,
           };
         })}
       />
-      {!showAll && data.length > 6 ? (
+      {!showAll && data.length > MAX_COUNT ? (
         <ShowMoreWrapper onPress={() => setShowAll(true)}>
           <ArrowDownIcon color={textPrimary} size={10} />
           <ShowMoreText variant="subheadlineRegular">{i18n.t('categories.action.more')}</ShowMoreText>

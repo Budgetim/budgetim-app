@@ -1,23 +1,9 @@
 import { WebsqlDatabase } from 'react-native-sqlite-2';
-import { Transaction } from '../types';
+import { AvailableMonth, Transaction } from '../types';
 import { db } from '../db';
 import format from 'date-fns/format';
 import { timeDelay } from '../constants/common';
-
-type TransactionSQL = {
-  categoryColor: string;
-  categoryDescription: string;
-  categoryId: string;
-  categoryTitle: string;
-  currencyCode: string;
-  currencyId: string;
-  currencyPosition: 'R' | 'L';
-  currencySymbol: string;
-  date: string;
-  id: number;
-  price: number;
-  title: string;
-};
+import { MonthsRangeDB, TransactionDB } from './types';
 
 export class TransactionModel {
   private db: WebsqlDatabase;
@@ -26,7 +12,7 @@ export class TransactionModel {
     this.db = database;
   }
 
-  private getTransactionFormat(transaction: TransactionSQL): Transaction {
+  private static transactionFormat(transaction: TransactionDB): Transaction {
     return {
       id: transaction.id,
       title: transaction.title,
@@ -72,9 +58,9 @@ export class TransactionModel {
           `,
           [],
           (_tx, res) => {
-            const transaction: TransactionSQL = res.rows.item(0);
+            const transaction: TransactionDB = res.rows.item(0);
             setTimeout(() => {
-              resolve(this.getTransactionFormat(transaction));
+              resolve(TransactionModel.transactionFormat(transaction));
             }, timeDelay);
           },
           (_transaction, error) => {
@@ -129,11 +115,8 @@ export class TransactionModel {
           ORDER BY Transactions.date DESC`,
           [],
           (_tx, res) => {
-            const data: Transaction[] = [];
-            for (let index = 0; index < res.rows.length; index++) {
-              const transaction: TransactionSQL = res.rows.item(index);
-              data.push(this.getTransactionFormat(transaction));
-            }
+            const transactionsArray = (res.rows as unknown as { _array: TransactionDB[] })._array;
+            const data = transactionsArray.map(transaction => TransactionModel.transactionFormat(transaction));
             setTimeout(() => {
               resolve(data);
             }, timeDelay);
@@ -206,7 +189,7 @@ export class TransactionModel {
           WHERE Transactions.transaction_id in (${params.id}
           )`,
           [],
-          (_tx, _res) => {
+          () => {
             setTimeout(() => {
               resolve(true);
             }, timeDelay);
@@ -230,7 +213,7 @@ export class TransactionModel {
           WHERE Transactions.transaction_id in (${id})
           `,
           [],
-          (_tx, _res) => {
+          () => {
             setTimeout(() => {
               resolve(true);
             }, timeDelay);
@@ -245,7 +228,7 @@ export class TransactionModel {
     });
   }
 
-  getAvailableMonths() {
+  getAvailableMonths(): Promise<AvailableMonth[]> {
     return new Promise((resolve, reject) => {
       this.db.transaction(txn => {
         txn.executeSql(
@@ -255,13 +238,9 @@ export class TransactionModel {
           `,
           [],
           (_tx, result) => {
-            const range = result.rows._array[0] as unknown as { min: string; max: string } | { min: null; max: null };
-            if (!range.min && !range.max) {
-              resolve({ data: [] });
-            }
-            const listMonths = this.getListMonths(range);
+            const range: MonthsRangeDB = result.rows.item(0);
             setTimeout(() => {
-              resolve(listMonths);
+              resolve(TransactionModel.getListMonths(range));
             }, timeDelay);
           },
           (_transaction, error) => {
@@ -274,9 +253,13 @@ export class TransactionModel {
     });
   }
 
-  private getListMonths({ min, max }: { min: string; max: string }) {
-    const startDate = min;
-    const endDate = max;
+  private static getListMonths({ min, max }: MonthsRangeDB): AvailableMonth[] {
+    if (!min && !max) {
+      return [];
+    }
+
+    const startDate = min as string;
+    const endDate = max as string;
 
     const start = startDate.split('-');
     const end = endDate.split('-');
@@ -292,38 +275,6 @@ export class TransactionModel {
         dates.push({ year, month });
       }
     }
-    return { data: dates };
-  }
-
-  getUsedCurrencies(): Promise<any[]> {
-    return new Promise((resolve, reject) => {
-      this.db.transaction(txn => {
-        txn.executeSql(
-          `
-          SELECT
-            Currencies.currency_id AS id,
-            Currencies.code,
-            Currencies.symbol,
-            Currencies.position,
-            (SELECT COUNT(*) FROM Transactions WHERE Transactions.currency = Currencies.currency_id) AS total
-          FROM Transactions
-          INNER JOIN Currencies ON Transactions.currency = Currencies.currency_id
-          GROUP BY Currencies.currency_id
-          ORDER BY total DESC
-          `,
-          [],
-          (_tx, res) => {
-            setTimeout(() => {
-              resolve(res.rows._array);
-            }, timeDelay);
-          },
-          (_transaction, error) => {
-            console.error(error);
-            reject(error.message);
-            return true;
-          },
-        );
-      });
-    });
+    return dates;
   }
 }

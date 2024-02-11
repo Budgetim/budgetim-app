@@ -2,12 +2,22 @@ import { WebsqlDatabase } from 'react-native-sqlite-2';
 import { Category } from '../types';
 import i18n from 'i18n-js';
 import { timeDelay } from '../constants/common';
+import { CategoryDB } from './types';
 
 export class CategoryModel {
   private db: WebsqlDatabase;
 
   constructor(database: WebsqlDatabase) {
     this.db = database;
+  }
+
+  private static categoryFormat(category: CategoryDB): Category {
+    return {
+      id: category.id,
+      title: category.title,
+      color: category.color,
+      description: category.description,
+    };
   }
 
   getCategories(): Promise<Category[]> {
@@ -25,13 +35,9 @@ export class CategoryModel {
           ORDER BY total DESC
           `,
           [],
-          (tx, res) => {
-            const data = res.rows._array.map(category => ({
-              id: category.id,
-              title: category.title,
-              color: category.color,
-              description: category.description,
-            }));
+          (_tx, res) => {
+            const categoriesArray = (res.rows as unknown as { _array: CategoryDB[] })._array;
+            const data = categoriesArray.map(category => CategoryModel.categoryFormat(category));
             setTimeout(() => {
               resolve(data);
             }, timeDelay);
@@ -61,16 +67,9 @@ export class CategoryModel {
           `,
           [],
           (_tx, res) => {
-            const item = res.rows._array[0];
-            const category = {
-              id: item.id,
-              title: item.title,
-              color: item.color,
-              description: item.description,
-            };
-
+            const category: CategoryDB = res.rows.item(0);
             setTimeout(() => {
-              resolve(category);
+              resolve(CategoryModel.categoryFormat(category));
             }, timeDelay);
           },
           (_transaction, error) => {
@@ -124,7 +123,7 @@ export class CategoryModel {
           WHERE Categories.category_id = ${params.id}
           `,
           [],
-          (_tx, res) => {
+          () => {
             setTimeout(() => {
               resolve(true);
             }, timeDelay);
@@ -148,7 +147,7 @@ export class CategoryModel {
           WHERE Categories.category_id = ${id}
           `,
           [],
-          (_tx, _res) => {
+          () => {
             setTimeout(() => {
               resolve();
             }, timeDelay);
@@ -162,7 +161,7 @@ export class CategoryModel {
     });
   }
 
-  showStatistic(params: { month: number; year: number; currencyId: number }): Promise<any[]> {
+  showStatistic(params: { month: number; year: number; currencyId: number }): Promise<Category[]> {
     const monthFormat = params.month < 10 ? `0${params.month}` : params.month;
     return new Promise((resolve, reject) => {
       this.db.transaction(txn => {
@@ -187,8 +186,9 @@ export class CategoryModel {
           `,
           [],
           (_tx, res) => {
+            const categoriesArray = (res.rows as unknown as { _array: CategoryDB[] })._array;
             setTimeout(() => {
-              resolve(res.rows._array);
+              resolve(categoriesArray.map(category => CategoryModel.categoryFormat(category)));
             }, timeDelay);
           },
           (_transaction, error) => {

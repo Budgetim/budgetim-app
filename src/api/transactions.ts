@@ -1,4 +1,4 @@
-import { Currency, Transaction } from '../types';
+import { AvailableMonth, Transaction } from '../types';
 import { TransactionModel } from '../db/transaction';
 import { db } from '../db';
 
@@ -35,7 +35,7 @@ export const editTransaction = async (params: EditTransactionParams): Promise<vo
   await transactionModel.editTransaction(params);
 };
 
-export const getAvailableMonths = async (): Promise<{ data: any[] }> => {
+export const getAvailableMonths = async (): Promise<AvailableMonth[]> => {
   const result = await transactionModel.getAvailableMonths();
   return result;
 };
@@ -52,9 +52,4 @@ export const getTransactions = async (params: GetTransactionsParams): Promise<Tr
 
 export const getTransactionById = async (id: number): Promise<Transaction> => {
   return transactionModel.getTransaction(id);
-};
-
-export const getUsedCurrencies = async (): Promise<Currency[]> => {
-  const result = await transactionModel.getUsedCurrencies();
-  return result;
 };

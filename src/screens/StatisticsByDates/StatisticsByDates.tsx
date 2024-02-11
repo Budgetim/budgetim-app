@@ -17,7 +17,7 @@ export const StatisticsByDates: FC<NativeStackScreenProps<StackParamList, 'Stati
 
   useEffect(() => {
     if (data) {
-      setIndexDate(data.data.length - 1);
+      setIndexDate(data.length - 1);
     }
   }, [data]);
 
@@ -29,9 +29,7 @@ export const StatisticsByDates: FC<NativeStackScreenProps<StackParamList, 'Stati
     return null;
   }
 
-  const { data: dates } = data;
-
-  if (!dates.length) {
+  if (!data.length) {
     return <NoDataMessage>{i18n.t('statistics.messages.noData')} 👀</NoDataMessage>;
   }
 
@@ -55,10 +53,10 @@ export const StatisticsByDates: FC<NativeStackScreenProps<StackParamList, 'Stati
         </Tabs>
       )}
       <StatisticsInfo
-        year={dates[indexDate].year}
-        month={dates[indexDate].month}
+        year={data[indexDate].year}
+        month={data[indexDate].month}
         currencyId={currencies[activeMode].id}
-        setNextDate={indexDate !== dates.length - 1 ? setNextMonth : undefined}
+        setNextDate={indexDate !== data.length - 1 ? setNextMonth : undefined}
         setPrevDate={indexDate !== 0 ? setPrevMonth : undefined}
       />
     </Container>

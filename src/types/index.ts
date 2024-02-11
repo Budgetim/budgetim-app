@@ -1,3 +1,10 @@
+export interface Category {
+  id: number;
+  title: string;
+  color: string;
+  description: string | null;
+}
+
 export interface Transaction {
   id: number;
   title: string;
@@ -7,23 +14,19 @@ export interface Transaction {
   date: string; // "2023-01-20"
 }
 
-export interface Category {
-  id: number;
-  title: string;
-  color: string;
-  description: string | null;
-}
-
 export interface Currency {
   id: number;
   code: string;
-  symbol: string;
   position: 'L' | 'R';
+  symbol: string;
 }
+
+export type AvailableMonth = {
+  month: number;
+  year: number;
+};
 
 export interface Action<T extends string, P extends unknown> {
   type: T;
   payload: P;
 }
-
-export type Trend = 'NEGATIVE' | 'POSITIVE' | 'NEUTRAL';

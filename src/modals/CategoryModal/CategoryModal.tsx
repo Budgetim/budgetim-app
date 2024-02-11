@@ -8,7 +8,6 @@ export const CategoryModal = () => {
   const {
     category: { isVisible, id },
   } = useModalsState();
-
   const modalsDispatch = useModalsDispatch();
 
   const closeModal = () => {

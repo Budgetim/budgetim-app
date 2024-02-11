@@ -22,11 +22,6 @@ export const initData = () => {
           symbol: '€',
           position: 'L',
         },
-        {
-          code: 'TL',
-          symbol: '₺',
-          position: 'R',
-        },
       ],
       categories: [
         { title: 'Еда', color: '#4CAF50', description: 'Кафе, напитки, сладости' },
@@ -68,11 +63,6 @@ export const initData = () => {
         code: 'EUR',
         symbol: '€',
         position: 'L',
-      },
-      {
-        code: 'TL',
-        symbol: '₺',
-        position: 'R',
       },
     ],
     categories: [

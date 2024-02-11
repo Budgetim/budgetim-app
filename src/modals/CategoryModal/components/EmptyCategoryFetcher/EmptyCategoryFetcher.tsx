@@ -4,8 +4,8 @@ import { CategoryModalContent } from '../CategoryModalContent';
 
 export const EmptyCategoryFetcher = () => {
   const [title, setTitle] = useState('');
-  const [description, setDescription] = useState<string | null>(null);
-  const [color, setColor] = useState<string | null>(null);
+  const [description, setDescription] = useState<string>('');
+  const [color, setColor] = useState<string>('');
   const { mutate: addCategory, isSuccess, data: categoryId } = useAddCategory();
   const editCategory = useEditCategory();
 
