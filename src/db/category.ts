@@ -1,8 +1,8 @@
 import { WebsqlDatabase } from 'react-native-sqlite-2';
-import { Category } from '../types';
+import { Category, StatisticsItem } from '../types';
 import i18n from 'i18n-js';
 import { timeDelay } from '../constants/common';
-import { CategoryDB } from './types';
+import { CategoryDB, StatisticsItemDB } from './types';
 
 export class CategoryModel {
   private db: WebsqlDatabase;
@@ -17,6 +17,16 @@ export class CategoryModel {
       title: category.title,
       color: category.color,
       description: category.description,
+    };
+  }
+
+  private static statisticsItemFormat(item: StatisticsItemDB): StatisticsItem {
+    return {
+      color: item.color,
+      description: item.description,
+      id: item.id,
+      sum: item.sum,
+      title: item.title,
     };
   }
 
@@ -161,7 +171,7 @@ export class CategoryModel {
     });
   }
 
-  showStatistic(params: { month: number; year: number; currencyId: number }): Promise<Category[]> {
+  showStatistic(params: { month: number; year: number; currencyId: number }): Promise<StatisticsItem[]> {
     const monthFormat = params.month < 10 ? `0${params.month}` : params.month;
     return new Promise((resolve, reject) => {
       this.db.transaction(txn => {
@@ -186,9 +196,9 @@ export class CategoryModel {
           `,
           [],
           (_tx, res) => {
-            const categoriesArray = (res.rows as unknown as { _array: CategoryDB[] })._array;
+            const statisticsArray = (res.rows as unknown as { _array: StatisticsItemDB[] })._array;
             setTimeout(() => {
-              resolve(categoriesArray.map(category => CategoryModel.categoryFormat(category)));
+              resolve(statisticsArray.map(item => CategoryModel.statisticsItemFormat(item)));
             }, timeDelay);
           },
           (_transaction, error) => {

@@ -6,6 +6,16 @@ export type CategoryDB = {
   total: number;
 };
 
+export type StatisticsItemDB = {
+  color: string;
+  description: string;
+  month: string;
+  year: string;
+  id: number;
+  sum: number;
+  title: string;
+};
+
 export type TransactionDB = {
   categoryColor: string;
   categoryDescription: string;

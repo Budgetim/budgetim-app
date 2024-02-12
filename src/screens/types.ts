@@ -3,6 +3,7 @@ export type StackParamList = {
   Categories: undefined;
   Statistics: undefined;
   StatisticsByDates: undefined;
+  Settings: undefined;
   TransactionsByCategory: {
     category: number;
     categoryTitle: string;

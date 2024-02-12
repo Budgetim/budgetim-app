@@ -6,7 +6,6 @@ import {
   addTransaction,
   GetTransactionsParams,
   getAvailableMonths,
-  getUsedCurrencies,
   getTransactionById,
 } from '../api/transactions';
 import { queryClient } from '../Providers';
@@ -29,13 +28,6 @@ export const useGetAvailableMonths = () => {
   return useQuery({
     queryKey: ['avaliableMonths'],
     queryFn: getAvailableMonths,
-  });
-};
-
-export const useGetUsedCurrencies = () => {
-  return useQuery({
-    queryKey: ['usedCurrencies'],
-    queryFn: getUsedCurrencies,
   });
 };
 

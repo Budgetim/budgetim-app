@@ -1,4 +1,4 @@
-import { StatisticsItem } from '../../Statistics/Statistics';
+import { StatisticsItem } from '../../../types';
 
 export interface CategoriesListProps {
   data: StatisticsItem[];

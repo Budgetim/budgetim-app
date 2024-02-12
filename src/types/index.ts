@@ -26,6 +26,14 @@ export type AvailableMonth = {
   year: number;
 };
 
+export type StatisticsItem = {
+  color: string;
+  description: string;
+  id: number;
+  sum: number;
+  title: string;
+};
+
 export interface Action<T extends string, P extends unknown> {
   type: T;
   payload: P;

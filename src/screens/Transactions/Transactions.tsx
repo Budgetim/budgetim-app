@@ -41,7 +41,7 @@ export const Transactions: FC<NativeStackScreenProps<StackParamList, 'Transactio
         <AddButton onPress={() => modalsDispatch({ type: 'setTransactionModal', payload: undefined })}>
           <PlusCircleIcon color={textPrimary} size={44} />
         </AddButton>
-        <SettingsButton onPress={() => navigation.navigate('Categories')}>
+        <SettingsButton onPress={() => navigation.navigate('Settings')}>
           <SettingIcon color={textPrimary} size={30} />
         </SettingsButton>
       </Footer>

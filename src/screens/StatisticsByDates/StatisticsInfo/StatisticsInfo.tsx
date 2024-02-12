@@ -22,14 +22,6 @@ export interface StatisticsInfoProps {
   setPrevDate?: () => void;
 }
 
-export interface StatisticsItem {
-  color: string;
-  description: string;
-  id: number;
-  sum: string;
-  title: string;
-}
-
 export const StatisticsInfo: FC<StatisticsInfoProps> = ({ month, year, currencyId, setNextDate, setPrevDate }) => {
   const locale = getLocale();
   const { data: currencies } = useGetCurrencies();

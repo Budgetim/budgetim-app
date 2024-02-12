@@ -26,7 +26,7 @@ export const CategoriesList: FC<CategoriesListProps> = ({ data, month, year, cur
             }
             title={item.title}
             description={item.description}
-            label={`${separateThousands(+item.sum)} ${currencySymbol || ''}`}
+            label={`${separateThousands(item.sum)} ${currencySymbol || ''}`}
             tagColor={item.color}
           />
         );

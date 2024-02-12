@@ -4,7 +4,8 @@ import React, { FC, useEffect, useState } from 'react';
 import { NoDataMessage } from '../../components/NoDataMessage';
 import { TabsGroup } from '../../components/TabsGroup';
 import { Loader } from '../../components/Loader';
-import { useGetAvailableMonths, useGetUsedCurrencies } from '../../hooks/transactions';
+import { useGetAvailableMonths } from '../../hooks/transactions';
+import { useGetUsedCurrencies } from '../../hooks/currencies';
 import { StackParamList } from '../types';
 import { StatisticsInfo } from './StatisticsInfo';
 import { Tabs, Container } from './styled';
@@ -25,7 +26,7 @@ export const StatisticsByDates: FC<NativeStackScreenProps<StackParamList, 'Stati
     return <Loader />;
   }
 
-  if (!data || !currencies) {
+  if (!data || !currencies || !data[indexDate]) {
     return null;
   }
 

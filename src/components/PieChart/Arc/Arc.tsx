@@ -13,22 +13,15 @@ interface ArcProps {
 }
 
 export const Arc: FC<ArcProps> = props => {
-  const {
-    startAngle = 0,
-    endAngle,
-    fill = 'none',
-    innerRadius,
-    outerRadius,
-    cornerRadius = 0,
-    attrs,
-  } = props;
+  const { startAngle = 0, endAngle, fill = 'none', innerRadius, outerRadius, cornerRadius = 0, attrs } = props;
 
-  const d = arc().cornerRadius(cornerRadius)({
-    innerRadius,
-    outerRadius,
-    startAngle,
-    endAngle,
-  }) || undefined;
+  const d =
+    arc().cornerRadius(cornerRadius)({
+      innerRadius,
+      outerRadius,
+      startAngle,
+      endAngle,
+    }) || undefined;
 
   return <Path {...{ d, fill, ...attrs }} />;
 };

@@ -1,7 +1,6 @@
-import { Category } from '../types';
+import { Category, StatisticsItem } from '../types';
 import { CategoryModel } from '../db/category';
 import { db } from '../db';
-import { StatisticsItem } from '../screens/StatisticsByDates/StatisticsInfo';
 
 const categoryModel = new CategoryModel(db);
 
