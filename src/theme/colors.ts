@@ -21,7 +21,7 @@ export default {
     bgPrimary: '#000000',
     textPrimary: '#FFFFFF',
     textSecondary: '#636366',
-    systemGray01: '#8E8E93',
+    systemGray01: '#adadad',
     systemGray02: '#636366',
     systemGray03: '#48484A',
     systemGray04: '#3A3A3C',

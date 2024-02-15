@@ -2,9 +2,9 @@ import React, { FC } from 'react';
 import { Svg, Path, G } from 'react-native-svg';
 import { IconProps } from './types';
 
-export const ArrowDownIcon: FC<IconProps> = ({ color, size }) => {
+export const ArrowDownIcon: FC<IconProps> = ({ color, size, style }) => {
   return (
-    <Svg width={size} height={size} viewBox="0 0 18 18">
+    <Svg width={size} height={size} viewBox="0 0 18 18" style={style}>
       <G transform="rotate(-90)">
         <Path
           transform="translate(-15,0)"

@@ -3,14 +3,16 @@ import { useTheme } from 'styled-components/native';
 import i18n from 'i18n-js';
 import { usePrevious } from '../../../../../../hooks/usePrevious';
 import { ArrowDownIcon } from '../../../../../../icons/ArrowDownIcon';
-import { PlusCircleIcon } from '../../../../../../icons/PlusCircleIcon';
 import { ErrorMessage } from '../../../../../../components/ErrorMessage';
 import { Loader } from '../../../../../../components/Loader';
-import { SelectList } from '../../../../../../components/SelectList';
-import { Wrapper, ShowMoreWrapper, ShowMoreText, AddButton, AddText } from './styled';
+import { Wrapper } from './styled';
 import { CategoriesListProps } from './types';
 import { useGetCategories } from '../../../../../../hooks/categories';
 import { useModalsDispatch } from '../../../../../../contexts/modals';
+import { MixedList } from '../../../../../../components/MixedList';
+import { CategoryPreview } from '../../../../../../components/CategoryPreview';
+import { CheckIcon } from '../../../../../../icons/CheckIcon';
+import { PlusIcon } from '../../../../../../icons/PlusIcon';
 
 const MAX_COUNT = 6;
 
@@ -47,31 +49,41 @@ export const CategoriesList: FC<CategoriesListProps> = ({ activeCategoryId, setC
 
   return (
     <Wrapper>
-      <SelectList
+      <MixedList
         backgroundColor={bgPrimary}
-        onSelect={id => {
-          setCategoryId(id);
-        }}
-        data={data.slice(0, showAll ? data.length : MAX_COUNT).map(item => {
-          return {
-            id: item.id,
-            title: item.title || i18n.t('transactions.emptyTitle'),
-            color: item.color || systemGray05,
-            isActive: item.id === activeCategoryId,
-          };
-        })}
+        data={[
+          {
+            id: 'add',
+            title: i18n.t('categories.action.add'),
+            titleColor: 'systemBlue',
+            leftContent: <PlusIcon color={systemBlue} size={24} />,
+            onPress: () => modalDispatch({ type: 'setCategoryModal', payload: undefined }),
+          },
+        ]
+          .concat(
+            data.slice(0, showAll ? data.length : MAX_COUNT).map(item => {
+              return {
+                id: item.id,
+                title: item.title || i18n.t('transactions.emptyTitle'),
+                leftContent: <CategoryPreview color={item.color || systemGray05} />,
+                rightContent: <CheckIcon color={item.id === activeCategoryId ? systemBlue : bgPrimary} size={28} />,
+                onPress: () => setCategoryId(item.id),
+              };
+            }),
+          )
+          .concat(
+            !showAll && data.length > MAX_COUNT
+              ? [
+                  {
+                    title: i18n.t('categories.action.more'),
+                    titleColor: 'systemBlue',
+                    leftContent: <ArrowDownIcon color={systemBlue} size={16} style={{ marginLeft: 3 }} />,
+                    onPress: () => setShowAll(true),
+                  },
+                ]
+              : [],
+          )}
       />
-      {!showAll && data.length > MAX_COUNT ? (
-        <ShowMoreWrapper onPress={() => setShowAll(true)}>
-          <ArrowDownIcon color={textPrimary} size={10} />
-          <ShowMoreText variant="subheadlineRegular">{i18n.t('categories.action.more')}</ShowMoreText>
-        </ShowMoreWrapper>
-      ) : (
-        <AddButton onPress={() => modalDispatch({ type: 'setCategoryModal', payload: undefined })}>
-          <PlusCircleIcon color={systemBlue} size={24} />
-          <AddText variant="subheadlineRegular">{i18n.t('categories.action.add')}</AddText>
-        </AddButton>
-      )}
     </Wrapper>
   );
 };

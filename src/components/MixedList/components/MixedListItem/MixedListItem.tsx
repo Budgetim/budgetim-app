@@ -3,10 +3,11 @@ import React, { FC } from 'react';
 import { Animated, StyleSheet, View } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import i18n from 'i18n-js';
-import { ContentWrapper, InnerItem, LeftContent, Line, MainContent, SubTitle, Title } from './styled';
+import { ContentWrapper, InnerItem, LeftContent, Line, MainContent, SubTitle, Title, RightText } from './styled';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { TextVariant } from '../../../TextVariant';
 import { useTheme } from 'styled-components/native';
+import { ArrowRightIcon } from '../../../../icons/ArrowRightIcon';
 
 const styles = StyleSheet.create({
   actionText: {
@@ -24,14 +25,17 @@ const styles = StyleSheet.create({
 export const MixedListItem: FC<DataItem & { isLast: boolean }> = ({
   onPress,
   leftContent,
+  rightText,
   title,
   titleColor,
   onDelete,
   subtitle,
   isLast,
+  rightContent,
+  hasArrow,
 }) => {
   const {
-    colors: { systemRed },
+    colors: { systemRed, textSecondary },
   } = useTheme();
 
   const renderContent = () => {
@@ -49,6 +53,9 @@ export const MixedListItem: FC<DataItem & { isLast: boolean }> = ({
               </SubTitle>
             )}
           </ContentWrapper>
+          {!!rightText && <RightText variant="bodyRegular">{rightText}</RightText>}
+          {!!rightContent && rightContent}
+          {!!hasArrow && <ArrowRightIcon color={textSecondary} size={14} style={{ marginLeft: 8 }} />}
         </MainContent>
       </InnerItem>
     );

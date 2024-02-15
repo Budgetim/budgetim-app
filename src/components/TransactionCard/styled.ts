@@ -51,7 +51,7 @@ export const LeftContentWrapper = styled(View)(
 
 export const SubTitle = styled(TextVariant)(
   css({
-    color: 'systemGray01',
+    color: 'textSecondary',
     flex: 1,
   }),
 );

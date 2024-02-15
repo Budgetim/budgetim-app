@@ -6,12 +6,15 @@ export interface DataItem {
   titleColor: string;
   subtitle?: string;
   leftContent?: React.ReactNode;
+  rightText?: string;
+  rightContent?: React.ReactNode;
+  hasArrow?: boolean;
   onPress?: () => void;
   onDelete?: () => void;
 }
 
 export interface MixedListProps {
-  title: string;
+  title?: string;
   backgroundColor?: string;
   data: DataItem[];
 }

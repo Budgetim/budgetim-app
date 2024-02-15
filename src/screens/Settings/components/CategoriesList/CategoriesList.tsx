@@ -6,10 +6,10 @@ import { Alert } from 'react-native';
 import { Loader } from '../../../../components/Loader';
 import { useDeleteCategory, useGetCategories } from '../../../../hooks/categories';
 import { MixedList } from '../../../../components/MixedList';
-import { Circle } from './styled';
 import { useTheme } from 'styled-components/native';
 import { useModalsDispatch } from '../../../../contexts/modals';
 import { PlusIcon } from '../../../../icons/PlusIcon';
+import { CategoryPreview } from '../../../../components/CategoryPreview';
 
 export const CategoriesList: FC = () => {
   const {
@@ -43,9 +43,9 @@ export const CategoriesList: FC = () => {
       data={[
         {
           id: 'add',
-          title: 'Добавить',
+          title: i18n.t('categories.action.add'),
           titleColor: 'systemBlue',
-          leftContent: <PlusIcon color={systemBlue} size={24} style={{ marginLeft: -2 }} />,
+          leftContent: <PlusIcon color={systemBlue} size={24} />,
           onPress: () => dispatch({ type: 'setCategoryModal', payload: undefined }),
         },
       ].concat(
@@ -55,7 +55,7 @@ export const CategoriesList: FC = () => {
             title: item.title || i18n.t('transactions.emptyTitle'),
             titleColor: item.title ? 'textPrimary' : 'textSecondary',
             subtitle: item.description,
-            leftContent: <Circle bg={item.color} />,
+            leftContent: <CategoryPreview color={item.color} />,
             onPress: () => dispatch({ type: 'setCategoryModal', payload: { id: item.id } }),
             onDelete: () => deleteCategory(item.id),
           };

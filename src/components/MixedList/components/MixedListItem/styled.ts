@@ -49,7 +49,7 @@ export const Title = styled(TextVariant)<ColorProps>(color);
 
 export const SubTitle = styled(TextVariant)(
   css({
-    color: 'systemGray01',
+    color: 'textSecondary',
     mt: 1,
   }),
 );
@@ -58,5 +58,11 @@ export const ContentWrapper = styled(View)(
   css({
     flex: 1,
     mr: 2,
+  }),
+);
+
+export const RightText = styled(TextVariant)(
+  css({
+    color: 'systemGray01',
   }),
 );
