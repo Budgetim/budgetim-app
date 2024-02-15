@@ -82,4 +82,83 @@ export class CurrencyModel {
       });
     });
   }
+
+  addCurrency(params: { title: string; description: string | null; color: string | null }): Promise<number> {
+    return new Promise((resolve, reject) => {
+      this.db.transaction(txn => {
+        txn.executeSql(
+          `
+          INSERT INTO Currencies (code, symbol, position)
+          VALUES ("${params.title}", "${params.color}", "${params.description}")
+          `,
+          [],
+          (_tx, res) => {
+            setTimeout(() => {
+              resolve(res.insertId);
+            }, timeDelay);
+          },
+          (_transaction, error) => {
+            console.error(error);
+            reject(error.message);
+            return true;
+          },
+        );
+      });
+    });
+  }
+
+  // editCurrency(params: {
+  //   id: number;
+  //   title: string;
+  //   description: string | null;
+  //   color: string | null;
+  // }): Promise<boolean> {
+  //   return new Promise((resolve, reject) => {
+  //     this.db.transaction(txn => {
+  //       txn.executeSql(
+  //         `
+  //         UPDATE
+  //           Categories SET title = "${params.title}",
+  //           description = "${params.description}",
+  //           color = "${params.color}"
+  //         WHERE Categories.category_id = ${params.id}
+  //         `,
+  //         [],
+  //         () => {
+  //           setTimeout(() => {
+  //             resolve(true);
+  //           }, timeDelay);
+  //         },
+  //         (_transaction, error) => {
+  //           console.error(error);
+  //           reject(error.message);
+  //           return true;
+  //         },
+  //       );
+  //     });
+  //   });
+  // }
+  //
+  // deleteCurrency(id: number): Promise<void> {
+  //   return new Promise((resolve, reject) => {
+  //     this.db.transaction(txn => {
+  //       txn.executeSql(
+  //         `
+  //         DELETE FROM Categories
+  //         WHERE Categories.category_id = ${id}
+  //         `,
+  //         [],
+  //         () => {
+  //           setTimeout(() => {
+  //             resolve();
+  //           }, timeDelay);
+  //         },
+  //         () => {
+  //           reject(i18n.t('categories.errors.delete'));
+  //           return false;
+  //         },
+  //       );
+  //     });
+  //   });
+  // }
 }

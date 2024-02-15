@@ -1,6 +1,5 @@
 export type StackParamList = {
   Transactions: undefined;
-  Categories: undefined;
   Statistics: undefined;
   StatisticsByDates: undefined;
   Settings: undefined;
