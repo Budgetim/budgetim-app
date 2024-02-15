@@ -15,6 +15,5 @@ export interface DataItem {
 
 export interface MixedListProps {
   title?: string;
-  backgroundColor?: string;
   data: DataItem[];
 }

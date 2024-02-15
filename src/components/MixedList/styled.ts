@@ -2,7 +2,6 @@ import styled from 'styled-components/native';
 import { FlatList } from 'react-native';
 import css from '@styled-system/css';
 import { TextVariant } from '../TextVariant';
-import { color, ColorProps } from 'styled-system';
 
 export const MainTitle = styled(TextVariant)(
   css({
@@ -13,10 +12,9 @@ export const MainTitle = styled(TextVariant)(
   }),
 );
 
-export const List = styled(FlatList)<ColorProps>(
+export const List = styled(FlatList)(
   css({
     bg: 'systemGray06',
     borderRadius: 12,
   }),
-  color,
-) as unknown as typeof FlatList;
+);

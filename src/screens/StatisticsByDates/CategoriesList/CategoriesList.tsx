@@ -13,7 +13,7 @@ export const CategoriesList: FC<CategoriesListProps> = ({ data, month, year, cur
   return (
     <View>
       <MixedList
-        title={'info'}
+        title={i18n.t('categories.title')}
         data={data.map(item => {
           return {
             id: item.id,

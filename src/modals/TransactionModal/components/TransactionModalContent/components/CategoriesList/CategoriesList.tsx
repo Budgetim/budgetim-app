@@ -21,7 +21,7 @@ export const CategoriesList: FC<CategoriesListProps> = ({ activeCategoryId, setC
   const prevData = usePrevious(data);
   const [showAll, setShowAll] = useState(false);
   const {
-    colors: { systemGray05, textPrimary, bgPrimary, systemBlue },
+    colors: { systemGray05, systemGray06, systemBlue },
   } = useTheme();
   const modalDispatch = useModalsDispatch();
 
@@ -50,7 +50,7 @@ export const CategoriesList: FC<CategoriesListProps> = ({ activeCategoryId, setC
   return (
     <Wrapper>
       <MixedList
-        backgroundColor={bgPrimary}
+        title={i18n.t('categories.title')}
         data={[
           {
             id: 'add',
@@ -66,7 +66,7 @@ export const CategoriesList: FC<CategoriesListProps> = ({ activeCategoryId, setC
                 id: item.id,
                 title: item.title || i18n.t('transactions.emptyTitle'),
                 leftContent: <CategoryPreview color={item.color || systemGray05} />,
-                rightContent: <CheckIcon color={item.id === activeCategoryId ? systemBlue : bgPrimary} size={28} />,
+                rightContent: <CheckIcon color={item.id === activeCategoryId ? systemBlue : systemGray06} size={28} />,
                 onPress: () => setCategoryId(item.id),
               };
             }),

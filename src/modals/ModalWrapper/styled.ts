@@ -12,9 +12,7 @@ export const ModalStyled = styled(Modal)({
 
 export const ModalContent = styled(View)(
   css({
-    bg: 'systemGray06',
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
+    bg: 'bgPrimary',
     shadowOpacity: 0.1,
     shadowRadius: 3,
     height: '85%',
@@ -26,6 +24,11 @@ export const Header = styled(View)(
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-end',
+    bg: 'systemGray06',
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
+    borderColor: 'systemGray05',
+    borderBottomWidth: 0.5,
     p: 4,
   }),
 );
