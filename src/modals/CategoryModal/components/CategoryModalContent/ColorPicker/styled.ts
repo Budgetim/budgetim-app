@@ -13,14 +13,16 @@ export const Container = styled(View)(
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    margin: '-6px',
+    p: 2,
+    bg: 'systemGray06',
+    borderRadius: 12,
   }),
 );
 
 export const CircleButton = styled(TouchableOpacity)<{ active: boolean }>(({ active }) =>
   css({
     borderRadius: SIZE / 2,
-    borderColor: active ? 'systemGray03' : 'bgPrimary',
+    borderColor: active ? 'systemGray02' : 'systemGray06',
     borderWidth: LINE_WIDTH,
     width: SIZE,
     height: SIZE,

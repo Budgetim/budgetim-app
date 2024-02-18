@@ -6,9 +6,10 @@ import i18n from 'i18n-js';
 interface TransactionModalWrapperProps {
   isVisible: boolean;
   onClose: () => void;
+  height?: 'full' | 'shirt';
 }
 
-export const ModalWrapper: FC<TransactionModalWrapperProps> = ({ isVisible, onClose, children }) => {
+export const ModalWrapper: FC<TransactionModalWrapperProps> = ({ isVisible, onClose, height = 'full', children }) => {
   return (
     <ModalStyled
       isVisible={isVisible}
@@ -18,7 +19,7 @@ export const ModalWrapper: FC<TransactionModalWrapperProps> = ({ isVisible, onCl
       avoidKeyboard
       propagateSwipe
     >
-      <ModalContent>
+      <ModalContent isFull={height === 'full'}>
         <Header>
           <Pressable style={{ display: 'flex', flexDirection: 'row' }} onPress={onClose}>
             <ButtonText variant="subheadlineBold">{i18n.t('common.action.close')}</ButtonText>

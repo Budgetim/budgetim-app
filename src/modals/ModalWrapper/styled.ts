@@ -4,18 +4,19 @@ import { View } from 'react-native';
 import css, { SystemStyleObject } from '@styled-system/css';
 import { TextVariant } from '../../components/TextVariant';
 
-export const ModalStyled = styled(Modal)({
-  justifyContent: 'flex-end',
-  margin: 0,
-  height: '80%',
-});
+export const ModalStyled = styled(Modal)(
+  css({
+    justifyContent: 'flex-end',
+    margin: 0,
+  }),
+);
 
-export const ModalContent = styled(View)(
+export const ModalContent = styled(View)<{ isFull: boolean }>(({ isFull }) =>
   css({
     bg: 'bgPrimary',
     shadowOpacity: 0.1,
     shadowRadius: 3,
-    height: '85%',
+    height: isFull ? '85%' : '65%',
   } as SystemStyleObject),
 );
 

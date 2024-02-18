@@ -2,6 +2,7 @@ import { WebsqlDatabase } from 'react-native-sqlite-2';
 import { Currency } from '../types';
 import { timeDelay } from '../constants/common';
 import { CurrencyDB } from './types';
+import i18n from 'i18n-js';
 
 export class CurrencyModel {
   private db: WebsqlDatabase;
@@ -49,6 +50,37 @@ export class CurrencyModel {
     });
   }
 
+  getCurrency(id: number): Promise<Currency> {
+    return new Promise((resolve, reject) => {
+      this.db.transaction(txn => {
+        txn.executeSql(
+          `
+          SELECT
+            currency_id AS id,
+            code,
+            symbol,
+            position,
+            (SELECT COUNT(*) FROM Transactions WHERE Transactions.currency = Currencies.currency_id) AS total
+          FROM Currencies
+          WHERE Currencies.currency_id in (${id})
+          `,
+          [],
+          (_tx, res) => {
+            const currency: CurrencyDB = res.rows.item(0);
+            setTimeout(() => {
+              resolve(CurrencyModel.currencyFormat(currency));
+            }, timeDelay);
+          },
+          (_transaction, error) => {
+            console.error(error);
+            reject(error.message);
+            return true;
+          },
+        );
+      });
+    });
+  }
+
   getUsedCurrencies(): Promise<Currency[]> {
     return new Promise((resolve, reject) => {
       this.db.transaction(txn => {
@@ -83,13 +115,13 @@ export class CurrencyModel {
     });
   }
 
-  addCurrency(params: { title: string; description: string | null; color: string | null }): Promise<number> {
+  addCurrency(params: { code: string; symbol: string }): Promise<number> {
     return new Promise((resolve, reject) => {
       this.db.transaction(txn => {
         txn.executeSql(
           `
           INSERT INTO Currencies (code, symbol, position)
-          VALUES ("${params.title}", "${params.color}", "${params.description}")
+          VALUES ("${params.code}", "${params.symbol}", "R")
           `,
           [],
           (_tx, res) => {
@@ -107,58 +139,52 @@ export class CurrencyModel {
     });
   }
 
-  // editCurrency(params: {
-  //   id: number;
-  //   title: string;
-  //   description: string | null;
-  //   color: string | null;
-  // }): Promise<boolean> {
-  //   return new Promise((resolve, reject) => {
-  //     this.db.transaction(txn => {
-  //       txn.executeSql(
-  //         `
-  //         UPDATE
-  //           Categories SET title = "${params.title}",
-  //           description = "${params.description}",
-  //           color = "${params.color}"
-  //         WHERE Categories.category_id = ${params.id}
-  //         `,
-  //         [],
-  //         () => {
-  //           setTimeout(() => {
-  //             resolve(true);
-  //           }, timeDelay);
-  //         },
-  //         (_transaction, error) => {
-  //           console.error(error);
-  //           reject(error.message);
-  //           return true;
-  //         },
-  //       );
-  //     });
-  //   });
-  // }
-  //
-  // deleteCurrency(id: number): Promise<void> {
-  //   return new Promise((resolve, reject) => {
-  //     this.db.transaction(txn => {
-  //       txn.executeSql(
-  //         `
-  //         DELETE FROM Categories
-  //         WHERE Categories.category_id = ${id}
-  //         `,
-  //         [],
-  //         () => {
-  //           setTimeout(() => {
-  //             resolve();
-  //           }, timeDelay);
-  //         },
-  //         () => {
-  //           reject(i18n.t('categories.errors.delete'));
-  //           return false;
-  //         },
-  //       );
-  //     });
-  //   });
-  // }
+  editCurrency(params: { id: number; code: string; symbol: string }): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      this.db.transaction(txn => {
+        txn.executeSql(
+          `
+          UPDATE
+            Currencies SET code = "${params.code}",
+            symbol = "${params.symbol}"
+          WHERE Currencies.currency_id = ${params.id}
+          `,
+          [],
+          () => {
+            setTimeout(() => {
+              resolve(true);
+            }, timeDelay);
+          },
+          (_transaction, error) => {
+            console.error(error);
+            reject(error.message);
+            return true;
+          },
+        );
+      });
+    });
+  }
+
+  deleteCurrency(id: number): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.db.transaction(txn => {
+        txn.executeSql(
+          `
+          DELETE FROM Currencies
+          WHERE Currencies.currency_id = ${id}
+          `,
+          [],
+          () => {
+            setTimeout(() => {
+              resolve();
+            }, timeDelay);
+          },
+          () => {
+            reject(i18n.t('categories.errors.delete'));
+            return false;
+          },
+        );
+      });
+    });
+  }
 }

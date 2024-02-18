@@ -20,7 +20,23 @@ type SetCategoryModal = Action<
 
 type CloseCategoryModal = Action<'closeCategoryModal', undefined>;
 
-export type ModalsDispatchAction = SetTransactionModal | CloseTransactionModal | SetCategoryModal | CloseCategoryModal;
+type SetCurrencyModal = Action<
+  'setCurrencyModal',
+  | {
+      id: number;
+    }
+  | undefined
+>;
+
+type CloseCurrencyModal = Action<'closeCurrencyModal', undefined>;
+
+export type ModalsDispatchAction =
+  | SetTransactionModal
+  | CloseTransactionModal
+  | SetCategoryModal
+  | CloseCategoryModal
+  | SetCurrencyModal
+  | CloseCurrencyModal;
 
 export type ModalsDispatch = (action: ModalsDispatchAction) => void;
 
@@ -31,6 +47,10 @@ export interface ModalsContextState {
   };
   category: {
     id: number | null; // если null, то это создание новой категории
+    isVisible: boolean;
+  };
+  currency: {
+    id: number | null; // если null, то это создание новой валюты
     isVisible: boolean;
   };
 }

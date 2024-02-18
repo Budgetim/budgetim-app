@@ -26,11 +26,7 @@ export const StatisticsByDates: FC<NativeStackScreenProps<StackParamList, 'Stati
     return <Loader />;
   }
 
-  if (!data || !currencies || !data[indexDate]) {
-    return null;
-  }
-
-  if (!data.length) {
+  if (!data || !currencies || !data.length || !data[indexDate]) {
     return <NoDataMessage>{i18n.t('statistics.messages.noData')} 👀</NoDataMessage>;
   }
 

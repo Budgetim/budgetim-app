@@ -6,7 +6,7 @@ import { locale } from 'expo-localization';
 
 import { Input } from '../../../../components/Input';
 
-import { Content, Section, SectionGroup, NameSection } from './styled';
+import { Content, Section } from './styled';
 import { TransactionModalContentProps } from './types';
 import { CategoriesList } from './components/CategoriesList';
 import { PopularNames } from './components/PopularNames';
@@ -14,12 +14,17 @@ import { separateThousands } from '../../../../utils/separateThousands';
 import { CurrenciesList } from './components/CurrenciesList';
 import { formatNumberForServer } from '../../../../utils/formatNumberForServer';
 import { CategoryModal } from '../../../CategoryModal';
+import { MixedList } from '../../../../components/MixedList';
+import { ModalWrapper } from '../../../ModalWrapper';
+import format from 'date-fns/format';
+import { CurrencyModal } from '../../../CurrencyModal';
 
 export const TransactionModalContent: FC<TransactionModalContentProps> = props => {
   const { title, setTitle, price, setPrice, categoryId, setCategoryId, currencyId, setCurrencyId, date, setDate } =
     props;
   const [focusedTitle, setFocusedTitle] = useState(false);
   const [titleError, setTitleError] = useState(false);
+  const [dateModalIsOpen, setDateModalIsOpen] = useState(false);
 
   useEffect(() => {
     setTitleError(false);
@@ -30,49 +35,51 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = props =
       <ScrollView>
         <TouchableHighlight>
           <Content>
-            <SectionGroup>
-              <NameSection error={titleError}>
-                <Input
-                  variant="subheadlineRegular"
-                  defaultValue={title}
-                  onChangeText={setTitle}
-                  placeholder={i18n.t('transactions.form.title')}
-                  onFocus={() => setFocusedTitle(true)}
-                  onBlur={() => setFocusedTitle(false)}
-                />
-              </NameSection>
-              <Section style={{ width: 120 }}>
-                <Input
-                  variant="subheadlineRegular"
-                  onChangeText={p => {
-                    if (p === '' || /^((\d|\s)+),?(\d{1,2})?$/.test(p)) {
-                      setPrice(+formatNumberForServer(p));
-                    }
-                  }}
-                  value={separateThousands(price)}
-                  placeholder={i18n.t('transactions.form.price')}
-                  keyboardType="numeric"
-                  autoFocus
-                />
-              </Section>
-            </SectionGroup>
+            <Section error={titleError}>
+              <Input
+                variant="subheadlineRegular"
+                defaultValue={title}
+                onChangeText={setTitle}
+                placeholder={i18n.t('transactions.form.title')}
+                onFocus={() => setFocusedTitle(true)}
+                onBlur={() => setFocusedTitle(false)}
+              />
+            </Section>
+            <Section>
+              <Input
+                variant="subheadlineRegular"
+                onChangeText={p => {
+                  if (p === '' || /^((\d|\s)+),?(\d{1,2})?$/.test(p)) {
+                    setPrice(+formatNumberForServer(p));
+                  }
+                }}
+                value={separateThousands(price)}
+                placeholder={i18n.t('transactions.form.price')}
+                keyboardType="numeric"
+                autoFocus
+              />
+            </Section>
+
             <Section>
               <CategoriesList activeCategoryId={categoryId} setCategoryId={setCategoryId} />
             </Section>
             <Section>
               <CurrenciesList activeCurrencyId={currencyId} setCurrencyId={setCurrencyId} />
             </Section>
-            <DateTimePicker
-              locale={locale}
-              value={date}
-              mode="date"
-              display="spinner"
-              onChange={(_event, selectedDate) => {
-                const currentDate = selectedDate || date;
-                setDate(currentDate);
-              }}
-              maximumDate={new Date()}
-            />
+            <Section>
+              <MixedList
+                data={[
+                  {
+                    id: 1,
+                    title: i18n.t('transactions.form.date'),
+                    titleColor: 'textPrimary',
+                    hasArrow: true,
+                    rightText: format(date, 'dd.MM.yyyy'),
+                    onPress: () => setDateModalIsOpen(true),
+                  },
+                ]}
+              />
+            </Section>
           </Content>
         </TouchableHighlight>
       </ScrollView>
@@ -86,6 +93,21 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = props =
         />
       )}
       <CategoryModal />
+      <CurrencyModal />
+      <ModalWrapper isVisible={dateModalIsOpen} onClose={() => setDateModalIsOpen(false)} height="shirt">
+        <DateTimePicker
+          locale={locale}
+          value={date}
+          mode="date"
+          display="inline"
+          onChange={(_event, selectedDate) => {
+            const currentDate = selectedDate || date;
+            setDate(currentDate);
+            setDateModalIsOpen(false);
+          }}
+          maximumDate={new Date()}
+        />
+      </ModalWrapper>
     </>
   );
 };

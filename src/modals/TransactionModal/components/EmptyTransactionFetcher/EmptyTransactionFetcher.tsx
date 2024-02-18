@@ -3,14 +3,12 @@ import { TransactionModalContent } from '../TransactionModalContent';
 import { useAddTransaction, useEditTransaction } from '../../../../hooks/transactions';
 import { useGetCurrencies } from '../../../../hooks/currencies';
 import { useGetCategories } from '../../../../hooks/categories';
-import { ErrorMessage } from '../../../../components/ErrorMessage';
 import { Loader } from '../../../../components/Loader';
-import i18n from 'i18n-js';
 import { isString } from 'lodash';
 
 interface ContentProps {
-  categoryId: number;
-  currencyId: number;
+  categoryId: number | null;
+  currencyId: number | null;
 }
 
 export const Content: FC<ContentProps> = props => {
@@ -63,9 +61,5 @@ export const EmptyTransactionFetcher = () => {
     return <Loader />;
   }
 
-  if (!categories?.length || !currencies?.length) {
-    return <ErrorMessage>{i18n.t('common.state.error')}</ErrorMessage>;
-  }
-
-  return <Content categoryId={categories[0].id} currencyId={currencies[0].id} />;
+  return <Content categoryId={categories?.[0]?.id || null} currencyId={currencies?.[0]?.id || null} />;
 };

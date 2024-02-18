@@ -8,31 +8,15 @@ export const Content = styled(View)(
   }),
 );
 
-export const SectionGroup = styled(View)(
-  css({
-    display: 'flex',
-    flexDirection: 'row',
-  }),
-);
-
 export const Section = styled(View)<{ error?: boolean }>(({ error }) =>
   css({
+    mb: 5,
     borderRadius: 12,
-    bg: 'bgPrimary',
-    p: 4,
-    mb: 4,
     ...(error
       ? {
           borderColor: 'systemRed',
           borderWidth: 0.5,
         }
       : {}),
-  }),
-);
-
-export const NameSection = styled(Section)(
-  css({
-    flex: '1 1 auto',
-    mr: 4,
   }),
 );

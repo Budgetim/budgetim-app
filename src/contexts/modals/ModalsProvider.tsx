@@ -14,6 +14,10 @@ export const ModalsProvider: FC = ({ children }) => {
       id: null,
       isVisible: false,
     },
+    currency: {
+      id: null,
+      isVisible: false,
+    },
   };
 
   const [state, dispatch] = useReducer(modalsReducer, initialState);

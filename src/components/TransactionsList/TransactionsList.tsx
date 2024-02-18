@@ -65,7 +65,7 @@ export const TransactionsList: FC<TransactionsListProps> = ({ category, month, y
   }
 
   if (data.length === 0) {
-    return <NoDataMessage>{i18n.t('transactions.messages.addFirst')} ?</NoDataMessage>;
+    return <NoDataMessage>{i18n.t('transactions.messages.addFirst')}</NoDataMessage>;
   }
 
   const dataByDate = expandData(data);

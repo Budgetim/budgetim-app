@@ -5,7 +5,6 @@ import { usePrevious } from '../../../../../../hooks/usePrevious';
 import { ArrowDownIcon } from '../../../../../../icons/ArrowDownIcon';
 import { ErrorMessage } from '../../../../../../components/ErrorMessage';
 import { Loader } from '../../../../../../components/Loader';
-import { Wrapper } from './styled';
 import { CategoriesListProps } from './types';
 import { useGetCategories } from '../../../../../../hooks/categories';
 import { useModalsDispatch } from '../../../../../../contexts/modals';
@@ -48,42 +47,37 @@ export const CategoriesList: FC<CategoriesListProps> = ({ activeCategoryId, setC
   }
 
   return (
-    <Wrapper>
-      <MixedList
-        title={i18n.t('categories.title')}
-        data={[
-          {
-            id: 'add',
-            title: i18n.t('categories.action.add'),
-            titleColor: 'systemBlue',
-            leftContent: <PlusIcon color={systemBlue} size={24} />,
-            onPress: () => modalDispatch({ type: 'setCategoryModal', payload: undefined }),
-          },
-        ]
-          .concat(
-            data.slice(0, showAll ? data.length : MAX_COUNT).map(item => {
-              return {
-                id: item.id,
-                title: item.title || i18n.t('transactions.emptyTitle'),
-                leftContent: <CategoryPreview color={item.color || systemGray05} />,
-                rightContent: <CheckIcon color={item.id === activeCategoryId ? systemBlue : systemGray06} size={28} />,
-                onPress: () => setCategoryId(item.id),
-              };
-            }),
-          )
-          .concat(
-            !showAll && data.length > MAX_COUNT
-              ? [
-                  {
-                    title: i18n.t('categories.action.more'),
-                    titleColor: 'systemBlue',
-                    leftContent: <ArrowDownIcon color={systemBlue} size={16} style={{ marginLeft: 3 }} />,
-                    onPress: () => setShowAll(true),
-                  },
-                ]
-              : [],
-          )}
-      />
-    </Wrapper>
+    <MixedList
+      title={i18n.t('categories.title')}
+      data={[
+        {
+          id: -1,
+          title: i18n.t('categories.action.add'),
+          titleColor: 'systemBlue',
+          leftContent: <PlusIcon color={systemBlue} size={24} />,
+          onPress: () => modalDispatch({ type: 'setCategoryModal', payload: undefined }),
+        },
+        ...data.slice(0, showAll ? data.length : MAX_COUNT).map(item => {
+          return {
+            id: item.id,
+            title: item.title || i18n.t('transactions.emptyTitle'),
+            leftContent: <CategoryPreview color={item.color || systemGray05} />,
+            rightContent: <CheckIcon color={item.id === activeCategoryId ? systemBlue : systemGray06} size={28} />,
+            onPress: () => setCategoryId(item.id),
+          };
+        }),
+        ...(!showAll && data.length > MAX_COUNT
+          ? [
+              {
+                id: -2,
+                title: i18n.t('categories.action.more'),
+                titleColor: 'systemBlue',
+                leftContent: <ArrowDownIcon color={systemBlue} size={16} style={{ marginLeft: 3 }} />,
+                onPress: () => setShowAll(true),
+              },
+            ]
+          : []),
+      ]}
+    />
   );
 };

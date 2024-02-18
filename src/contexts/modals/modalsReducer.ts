@@ -44,6 +44,27 @@ export const modalsReducer = (state: ModalsContextState, action: ModalsDispatchA
       };
     }
 
+    case 'setCurrencyModal': {
+      const id = action.payload?.id || null;
+      return {
+        ...state,
+        currency: {
+          id,
+          isVisible: true,
+        },
+      };
+    }
+
+    case 'closeCurrencyModal': {
+      return {
+        ...state,
+        currency: {
+          ...state.category,
+          isVisible: false,
+        },
+      };
+    }
+
     default: {
       throw new Error('Unhandled action type');
     }

@@ -1,0 +1,1 @@
+export { EmptyCurrencyFetcher } from './EmptyCurrencyFetcher';

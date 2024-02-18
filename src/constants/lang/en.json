@@ -20,7 +20,8 @@
     "emptyTitle": "Untitled",
     "form": {
       "title": "Title",
-      "price": "Price"
+      "price": "Price",
+      "date": "Date"
     },
     "messages": {
       "addFirst": "Click on the button plus to add transaction"
@@ -36,11 +37,21 @@
       "more": "Show more",
       "add": "Add new"
     },
-    "messages": {
-      "addFirst": "Click on the button plus to add category"
-    },
     "errors": {
       "delete": "Impossible to delete category"
+    }
+  },
+  "currencies": {
+    "title": "Currencies",
+    "form": {
+      "name": "Name",
+      "symbol": "Character (e.g. $)"
+    },
+    "action": {
+      "add": "Add new"
+    },
+    "errors": {
+      "delete": "Impossible to delete currency"
     }
   },
   "statistics": {

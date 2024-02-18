@@ -4,7 +4,7 @@ export interface DataItem {
   id: number;
   title: string;
   titleColor: string;
-  subtitle?: string;
+  subtitle?: string | null;
   leftContent?: React.ReactNode;
   rightText?: string;
   rightContent?: React.ReactNode;
