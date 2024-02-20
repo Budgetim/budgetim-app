@@ -1,9 +1,9 @@
-export interface Category {
+export type Category = {
   id: number;
   title: string;
   color: string;
   description: string | null;
-}
+};
 
 export interface Transaction {
   id: number;
