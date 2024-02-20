@@ -8,17 +8,17 @@ export const initData = () => {
     return {
       currencies: [
         {
-          code: 'RUB',
+          title: 'Рубли',
           symbol: '₽',
           position: 'R',
         },
         {
-          code: 'USD',
+          title: 'Доллары',
           symbol: '$',
           position: 'R',
         },
         {
-          code: 'EUR',
+          title: 'Евро',
           symbol: '€',
           position: 'L',
         },
@@ -50,19 +50,19 @@ export const initData = () => {
   return {
     currencies: [
       {
-        code: 'RUB',
-        symbol: '₽',
-        position: 'R',
-      },
-      {
-        code: 'USD',
+        title: 'Dollars',
         symbol: '$',
         position: 'R',
       },
       {
-        code: 'EUR',
+        title: 'Euros',
         symbol: '€',
         position: 'L',
+      },
+      {
+        title: 'Rubles',
+        symbol: '₽',
+        position: 'R',
       },
     ],
     categories: [
@@ -71,8 +71,8 @@ export const initData = () => {
       { title: 'Health', color: '#F2F2F2', description: 'Medicine, doctors' },
     ],
     transactions: [
-      { title: 'Coffee', category: 1, price: 5, date: format(currentData, 'yyyy-MM-dd'), currency: 2 },
-      { title: 'Shoes', category: 2, price: 199, date: format(subDays(currentData, 1), 'yyyy-MM-dd'), currency: 2 },
+      { title: 'Coffee', category: 1, price: 5, date: format(currentData, 'yyyy-MM-dd'), currency: 1 },
+      { title: 'Shoes', category: 2, price: 199, date: format(subDays(currentData, 1), 'yyyy-MM-dd'), currency: 1 },
       {
         title: 'Medicine',
         category: 3,

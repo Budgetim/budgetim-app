@@ -3,12 +3,16 @@ import { Transaction } from '../../../../types';
 import { TransactionCard } from '../../../TransactionCard';
 import { separateThousands } from '../../../../utils/separateThousands';
 import { useModalsDispatch } from '../../../../contexts/modals';
-import i18n from 'i18n-js';
 import { SwipeableRow } from '../SwipeableRow';
 import { useDeleteTransaction } from '../../../../hooks/transactions';
+import { useTheme } from 'styled-components/native';
+import { getCategoryTitle } from '../../../../utils/getCategoryTitle';
 
 export const Card: FC<Transaction> = memo(props => {
   const { title, category, currency, price, id } = props;
+  const {
+    colors: { systemGray02 },
+  } = useTheme();
   const modalsDispatch = useModalsDispatch();
   const deleteTransaction = useDeleteTransaction();
 
@@ -28,8 +32,8 @@ export const Card: FC<Transaction> = memo(props => {
           modalsDispatch({ type: 'setTransactionModal', payload: { id } });
         }}
         title={title}
-        subTitle={category.title || i18n.t('transactions.emptyTitle')}
-        tagColor={category.color}
+        subTitle={getCategoryTitle(category?.title ?? null)}
+        tagColor={category?.color || systemGray02}
         label={label}
       />
     </SwipeableRow>

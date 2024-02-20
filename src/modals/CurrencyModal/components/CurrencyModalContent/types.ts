@@ -1,6 +1,6 @@
 export interface CurrencyModalContentProps {
-  name: string;
-  setName: (name: string) => void;
+  title: string;
+  setTitle: (title: string) => void;
   symbol: string;
   setSymbol: (symbol: string) => void;
 }

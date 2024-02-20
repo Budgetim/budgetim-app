@@ -3,7 +3,7 @@ import { CurrencyModel } from '../db/currency';
 import { db } from '../db';
 
 export interface AddCurrencyParams {
-  code: string;
+  title: string;
   symbol: string;
 }
 
@@ -35,7 +35,7 @@ export const deleteCurrency = async (id: number) => {
 
 export interface EditCurrencyParams {
   id: number;
-  code: string;
+  title: string;
   symbol: string;
 }
 

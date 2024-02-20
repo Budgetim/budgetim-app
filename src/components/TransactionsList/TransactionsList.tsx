@@ -42,7 +42,7 @@ export const expandData = (data: Transaction[]) => {
 };
 
 interface TransactionsListProps {
-  category?: number;
+  category?: number | null;
   month?: number;
   year?: number;
 }

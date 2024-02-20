@@ -13,7 +13,7 @@ import { PieChartProps } from './types';
 export const PieChart: FC<PieChartProps> = props => {
   const { innerRadius, segmentWidth, outerSegmentWidth, children } = props;
   const { colors } = useTheme();
-  const { systemGray03, bgPrimary } = colors;
+  const { systemGray02, systemGray03, bgPrimary } = colors;
 
   // ширина сектора круга
   const scaleWidth = d3
@@ -46,7 +46,7 @@ export const PieChart: FC<PieChartProps> = props => {
                   <G opacity="0.85">
                     <Arc
                       {...arc}
-                      fill={arc.fill}
+                      fill={arc.fill || systemGray02}
                       innerRadius={outerRadius}
                       outerRadius={outerRadius + (scaleWidth(additionalValue) as number)}
                     />
@@ -54,7 +54,7 @@ export const PieChart: FC<PieChartProps> = props => {
                 )}
                 <Arc
                   {...arc}
-                  fill={arc.fill}
+                  fill={arc.fill || systemGray02}
                   innerRadius={innerRadius}
                   outerRadius={outerRadius}
                   attrs={{ opacity: 1 }}

@@ -43,7 +43,7 @@ export const getAvailableMonths = async (): Promise<AvailableMonth[]> => {
 export interface GetTransactionsParams {
   year?: number;
   month?: number;
-  category?: number;
+  category?: number | null;
 }
 
 export const getTransactions = async (params: GetTransactionsParams): Promise<Transaction[]> => {

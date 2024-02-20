@@ -16,15 +16,17 @@ export class TransactionModel {
     return {
       id: transaction.id,
       title: transaction.title,
-      category: {
-        id: +transaction.categoryId,
-        title: transaction.categoryTitle,
-        color: transaction.categoryColor,
-        description: transaction.categoryDescription,
-      },
+      category: transaction.categoryId
+        ? {
+            id: +transaction.categoryId,
+            title: transaction.categoryTitle as string,
+            color: transaction.categoryColor as string,
+            description: transaction.categoryDescription as string,
+          }
+        : null,
       currency: {
         id: +transaction.currencyId,
-        code: transaction.currencyCode,
+        title: transaction.currencyTitle,
         symbol: transaction.currencySymbol,
         position: transaction.currencyPosition,
       },
@@ -45,7 +47,7 @@ export class TransactionModel {
             Categories.color AS categoryColor,
             Categories.description AS categoryDescription,
             Transactions.category AS categoryId,
-            Currencies.code AS currencyCode,
+            Currencies.title AS currencyTitle,
             Currencies.symbol AS currencySymbol,
             Currencies.position AS currencyPosition,
             Transactions.currency AS currencyId,
@@ -83,13 +85,14 @@ export class TransactionModel {
   }): Promise<Transaction[]> {
     return new Promise((resolve, reject) => {
       let conditionQuery = '';
-      if (year && month && category) {
+      if (year && month) {
         const monthFormat = month < 10 ? `0${month}` : month;
+        const conditionCategory = category ? `Transactions.category = ${category}` : `Transactions.category IS NULL`;
         conditionQuery = `
           WHERE
             strftime('%m', Transactions.date) = "${monthFormat}"
             AND strftime('%Y', Transactions.date) = "${year}"
-            AND Transactions.category = ${category}
+            AND ${conditionCategory}
         `;
       }
       this.db.transaction(txn => {
@@ -102,7 +105,7 @@ export class TransactionModel {
             Categories.color AS categoryColor,
             Categories.description AS categoryDescription,
             Transactions.category AS categoryId,
-            Currencies.code AS currencyCode,
+            Currencies.title AS currencyTitle,
             Currencies.symbol AS currencySymbol,
             Currencies.position AS currencyPosition,
             Transactions.currency AS currencyId,
@@ -173,7 +176,7 @@ export class TransactionModel {
     categoryId: number | null;
     price: number;
     date: Date;
-    currencyId: number;
+    currencyId: number | null;
   }): Promise<boolean> {
     return new Promise((resolve, reject) => {
       db.transaction(txn => {

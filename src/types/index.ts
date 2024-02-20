@@ -8,7 +8,7 @@ export interface Category {
 export interface Transaction {
   id: number;
   title: string;
-  category: Category;
+  category: Category | null;
   currency: Currency;
   price: number;
   date: string; // "2023-01-20"
@@ -16,7 +16,7 @@ export interface Transaction {
 
 export interface Currency {
   id: number;
-  code: string;
+  title: string;
   position: 'L' | 'R';
   symbol: string;
 }
@@ -27,11 +27,11 @@ export type AvailableMonth = {
 };
 
 export type StatisticsItem = {
-  color: string;
-  description: string;
-  id: number;
+  color: string | null;
+  description: string | null;
+  id: number | null;
   sum: number;
-  title: string;
+  title: string | null;
 };
 
 export interface Action<T extends string, P extends unknown> {

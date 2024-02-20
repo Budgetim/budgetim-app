@@ -20,7 +20,7 @@ export const CategoriesList: FC<CategoriesListProps> = ({ activeCategoryId, setC
   const prevData = usePrevious(data);
   const [showAll, setShowAll] = useState(false);
   const {
-    colors: { systemGray05, systemGray06, systemBlue },
+    colors: { systemGray06, systemBlue },
   } = useTheme();
   const modalDispatch = useModalsDispatch();
 
@@ -61,7 +61,8 @@ export const CategoriesList: FC<CategoriesListProps> = ({ activeCategoryId, setC
           return {
             id: item.id,
             title: item.title || i18n.t('transactions.emptyTitle'),
-            leftContent: <CategoryPreview color={item.color || systemGray05} />,
+            titleColor: item.title ? 'textPrimary' : 'textSecondary',
+            leftContent: <CategoryPreview color={item.color} />,
             rightContent: <CheckIcon color={item.id === activeCategoryId ? systemBlue : systemGray06} size={28} />,
             onPress: () => setCategoryId(item.id),
           };

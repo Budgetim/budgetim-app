@@ -1,3 +1,3 @@
 export type CategoryPreviewProps = {
-  color: string;
+  color: string | null;
 };

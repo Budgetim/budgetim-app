@@ -8,21 +8,21 @@ import { Content, Section } from './styled';
 import { CurrencyModalContentProps } from './types';
 
 export const CurrencyModalContent: FC<CurrencyModalContentProps> = props => {
-  const { name, setName, symbol, setSymbol } = props;
-  const [nameError, setNameError] = useState(false);
+  const { title, setTitle, symbol, setSymbol } = props;
+  const [titleError, setTitleError] = useState(false);
 
   useEffect(() => {
-    setNameError(false);
-  }, [name]);
+    setTitleError(false);
+  }, [title]);
 
   return (
     <ScrollView>
       <Content>
-        <Section error={nameError}>
+        <Section error={titleError}>
           <Input
             variant="subheadlineRegular"
-            defaultValue={name}
-            onChangeText={setName}
+            defaultValue={title}
+            onChangeText={setTitle}
             placeholder={i18n.t('currencies.form.name')}
           />
         </Section>

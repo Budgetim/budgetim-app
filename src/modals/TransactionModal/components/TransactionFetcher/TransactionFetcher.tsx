@@ -15,7 +15,7 @@ interface ContentProps {
 export const Content: FC<ContentProps> = ({ transaction }) => {
   const [title, setTitle] = useState(transaction.title);
   const [price, setPrice] = useState(transaction.price);
-  const [categoryId, setCategoryId] = useState(transaction.category.id);
+  const [categoryId, setCategoryId] = useState(transaction.category?.id || null);
   const [currencyId, setCurrencyId] = useState(transaction.currency.id);
   const [date, setDate] = useState(new Date(transaction.date));
   const editTransaction = useEditTransaction();

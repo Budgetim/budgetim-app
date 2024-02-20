@@ -29,7 +29,8 @@ export const CurrenciesList: FC<CurrenciesListProps> = ({ activeCurrencyId, setC
           return {
             id: currency.id,
             title: currency.symbol,
-            subtitle: currency.code,
+            titleColor: currency.symbol ? 'textPrimary' : 'textSecondary',
+            subtitle: currency.title,
             rightContent: <CheckIcon color={currency.id === activeCurrencyId ? systemBlue : systemGray06} size={28} />,
             isActive: currency.id === activeCurrencyId,
             onPress: () => setCurrencyId(currency.id),

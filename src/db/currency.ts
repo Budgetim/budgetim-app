@@ -14,7 +14,7 @@ export class CurrencyModel {
   private static currencyFormat(currency: CurrencyDB): Currency {
     return {
       id: currency.id,
-      code: currency.code,
+      title: currency.title,
       position: currency.position,
       symbol: currency.symbol,
     };
@@ -27,7 +27,7 @@ export class CurrencyModel {
           `
           SELECT
             currency_id AS id,
-            code,
+            title,
             symbol,
             position,
             (SELECT COUNT(*) FROM Transactions WHERE Transactions.currency = Currencies.currency_id) AS total
@@ -57,7 +57,7 @@ export class CurrencyModel {
           `
           SELECT
             currency_id AS id,
-            code,
+            title,
             symbol,
             position,
             (SELECT COUNT(*) FROM Transactions WHERE Transactions.currency = Currencies.currency_id) AS total
@@ -88,7 +88,7 @@ export class CurrencyModel {
           `
           SELECT
             Currencies.currency_id AS id,
-            Currencies.code,
+            Currencies.title,
             Currencies.symbol,
             Currencies.position,
             (SELECT COUNT(*) FROM Transactions WHERE Transactions.currency = Currencies.currency_id) AS total
@@ -115,13 +115,13 @@ export class CurrencyModel {
     });
   }
 
-  addCurrency(params: { code: string; symbol: string }): Promise<number> {
+  addCurrency(params: { title: string; symbol: string }): Promise<number> {
     return new Promise((resolve, reject) => {
       this.db.transaction(txn => {
         txn.executeSql(
           `
-          INSERT INTO Currencies (code, symbol, position)
-          VALUES ("${params.code}", "${params.symbol}", "R")
+          INSERT INTO Currencies (title, symbol, position)
+          VALUES ("${params.title}", "${params.symbol}", "R")
           `,
           [],
           (_tx, res) => {
@@ -139,13 +139,13 @@ export class CurrencyModel {
     });
   }
 
-  editCurrency(params: { id: number; code: string; symbol: string }): Promise<boolean> {
+  editCurrency(params: { id: number; title: string; symbol: string }): Promise<boolean> {
     return new Promise((resolve, reject) => {
       this.db.transaction(txn => {
         txn.executeSql(
           `
           UPDATE
-            Currencies SET code = "${params.code}",
+            Currencies SET title = "${params.title}",
             symbol = "${params.symbol}"
           WHERE Currencies.currency_id = ${params.id}
           `,
@@ -166,7 +166,11 @@ export class CurrencyModel {
   }
 
   deleteCurrency(id: number): Promise<void> {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
+      const currencies = await this.getCurrencies();
+      if (currencies.length === 1) {
+        reject(i18n.t('categories.errors.deleteLast'));
+      }
       this.db.transaction(txn => {
         txn.executeSql(
           `
@@ -175,12 +179,12 @@ export class CurrencyModel {
           `,
           [],
           () => {
-            setTimeout(() => {
+            setTimeout(async () => {
               resolve();
             }, timeDelay);
           },
           () => {
-            reject(i18n.t('categories.errors.delete'));
+            reject(i18n.t('categories.errors.deleteUsed'));
             return false;
           },
         );

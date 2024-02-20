@@ -1,7 +1,7 @@
 export interface PieChartDataItem {
   value: number;
   additionalValue: number;
-  color: string;
+  color: string | null;
 }
 
 export interface PieChartProps {

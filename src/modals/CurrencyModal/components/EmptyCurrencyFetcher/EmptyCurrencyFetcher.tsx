@@ -3,7 +3,7 @@ import { CurrencyModalContent } from '../CurrencyModalContent';
 import { useAddCurrency, useEditCurrency } from '../../../../hooks/currencies';
 
 export const EmptyCurrencyFetcher = () => {
-  const [name, setName] = useState('');
+  const [title, setTitle] = useState('');
   const [symbol, setSymbol] = useState<string>('');
   const { mutate: addCurrency, isSuccess, data: currencyId } = useAddCurrency();
   const editCurrency = useEditCurrency();
@@ -12,15 +12,15 @@ export const EmptyCurrencyFetcher = () => {
     if (isSuccess) {
       editCurrency({
         id: currencyId,
-        code: name,
+        title,
         symbol,
       });
     }
-  }, [name, symbol, isSuccess]);
+  }, [title, symbol, isSuccess]);
 
   useEffect(() => {
-    addCurrency({ code: name || 'новая валюта', symbol: symbol || '@' });
+    addCurrency({ title, symbol });
   }, []);
 
-  return <CurrencyModalContent name={name} setName={setName} symbol={symbol} setSymbol={setSymbol} />;
+  return <CurrencyModalContent title={title} setTitle={setTitle} symbol={symbol} setSymbol={setSymbol} />;
 };

@@ -17,11 +17,11 @@ export type StatisticsItemDB = {
 };
 
 export type TransactionDB = {
-  categoryColor: string;
-  categoryDescription: string;
-  categoryId: string;
+  categoryColor: string | null;
+  categoryDescription: string | null;
+  categoryId: string | null;
   categoryTitle: string;
-  currencyCode: string;
+  currencyTitle: string;
   currencyId: string;
   currencyPosition: 'R' | 'L';
   currencySymbol: string;
@@ -33,7 +33,7 @@ export type TransactionDB = {
 
 export type CurrencyDB = {
   id: number;
-  code: string;
+  title: string;
   position: 'R' | 'L';
   symbol: string;
   total: number;

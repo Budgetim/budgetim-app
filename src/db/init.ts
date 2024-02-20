@@ -12,9 +12,9 @@ const errorCallback = (id: string) => (_transaction: SQLTransaction, err: SQLErr
 export const init = () => {
   const data = initData();
   db.transaction(txn => {
-    // txn.executeSql('DROP TABLE IF EXISTS Transactions', [], success, errorCallback('DROP TABLE Transactions'));
-    // txn.executeSql('DROP TABLE IF EXISTS Categories', [], success, errorCallback('DROP TABLE Categories'));
-    // txn.executeSql('DROP TABLE IF EXISTS Currencies', [], success, errorCallback('DROP TABLE Currencies'));
+    //txn.executeSql('DROP TABLE IF EXISTS Transactions', [], success, errorCallback('DROP TABLE Transactions'));
+    //txn.executeSql('DROP TABLE IF EXISTS Categories', [], success, errorCallback('DROP TABLE Categories'));
+    //txn.executeSql('DROP TABLE IF EXISTS Currencies', [], success, errorCallback('DROP TABLE Currencies'));
     txn.executeSql(
       `
         SELECT name FROM sqlite_master WHERE type='table' AND name='Categories';
@@ -37,7 +37,7 @@ export const init = () => {
           `
         CREATE TABLE IF NOT EXISTS Currencies (
           currency_id INTEGER PRIMARY KEY NOT NULL,
-          code VARCHAR(128) NOT NULL,
+          title VARCHAR(128) NOT NULL,
           symbol VARCHAR(128) NOT NULL,
           position VARCHAR(128) NOT NULL
         )`,
@@ -50,7 +50,7 @@ export const init = () => {
         CREATE TABLE IF NOT EXISTS Transactions (
           transaction_id INTEGER PRIMARY KEY NOT NULL,
           title VARCHAR(128),
-          category VARCHAR(128) NOT NULL,
+          category VARCHAR(128),
           currency VARCHAR(12,2) NOT NULL,
           price DECIMAL(12,2) NOT NULL,
           date VARCHAR(128) NOT NULL,
@@ -64,10 +64,10 @@ export const init = () => {
         if (!res.rows.length) {
           txn.executeSql(
             `
-              INSERT INTO Currencies (code, symbol, position)
+              INSERT INTO Currencies (title, symbol, position)
               VALUES
                 ${data.currencies
-                  .map(({ code, symbol, position }) => `("${code}", "${symbol}", "${position}")`)
+                  .map(({ title, symbol, position }) => `("${title}", "${symbol}", "${position}")`)
                   .join(',')}
               `,
             [],

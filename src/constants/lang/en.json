@@ -29,22 +29,27 @@
   },
   "categories": {
     "title": "Categories",
+    "emptyTitle": "Untitled",
     "form": {
-      "name": "Name",
+      "name": "Title",
       "description": "Description"
     },
     "action": {
       "more": "Show more",
       "add": "Add new"
     },
+    "messages": {
+      "noCategory": "Without category"
+    },
     "errors": {
-      "delete": "Impossible to delete category"
+      "deleteUsed": "Cannot delete category because it is used in expenses",
+      "deleteLast": "There must be at least one category left"
     }
   },
   "currencies": {
     "title": "Currencies",
     "form": {
-      "name": "Name",
+      "name": "Title",
       "symbol": "Character (e.g. $)"
     },
     "action": {

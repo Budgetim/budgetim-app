@@ -15,7 +15,7 @@ export const TransactionCard: FC<TransactionCardProps> = props => {
       <Content>
         <LeftContentWrapper>
           <SubTitleWrapper>
-            <Circle bg={tagColor.toLowerCase()} />
+            {!!tagColor && <Circle bg={tagColor.toLowerCase()} />}
             <SubTitle variant="footnoteRegular" numberOfLines={1}>
               {subTitle}
             </SubTitle>

@@ -45,7 +45,7 @@ export const CurrenciesList: FC = () => {
         ...data.map(item => {
           return {
             id: item.id,
-            title: item.code || i18n.t('transactions.emptyTitle'),
+            title: item.title || i18n.t('transactions.emptyTitle'),
             titleColor: 'textPrimary',
             subtitle: item.symbol,
             onPress: () => dispatch({ type: 'setCurrencyModal', payload: { id: item.id } }),

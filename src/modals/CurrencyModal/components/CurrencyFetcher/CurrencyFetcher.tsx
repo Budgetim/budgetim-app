@@ -11,19 +11,19 @@ interface ContentProps {
 }
 
 export const Content: FC<ContentProps> = ({ currency }) => {
-  const [name, setName] = useState(currency.code);
+  const [title, setTitle] = useState(currency.title);
   const [symbol, setSymbol] = useState(currency.symbol);
   const editCurrency = useEditCurrency();
 
   useEffect(() => {
     editCurrency({
       id: currency.id,
-      code: name,
+      title,
       symbol,
     });
-  }, [name, symbol]);
+  }, [title, symbol]);
 
-  return <CurrencyModalContent name={name} setName={setName} symbol={symbol} setSymbol={setSymbol} />;
+  return <CurrencyModalContent title={title} setTitle={setTitle} symbol={symbol} setSymbol={setSymbol} />;
 };
 
 interface CurrencyFetcherProps {

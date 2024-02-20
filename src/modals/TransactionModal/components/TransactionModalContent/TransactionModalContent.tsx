@@ -61,7 +61,10 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = props =
             </Section>
 
             <Section>
-              <CategoriesList activeCategoryId={categoryId} setCategoryId={setCategoryId} />
+              <CategoriesList
+                activeCategoryId={categoryId}
+                setCategoryId={id => setCategoryId(categoryId === id ? null : id)}
+              />
             </Section>
             <Section>
               <CurrenciesList activeCurrencyId={currencyId} setCurrencyId={setCurrencyId} />

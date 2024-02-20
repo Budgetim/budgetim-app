@@ -186,7 +186,8 @@ export class CategoryModel {
             strftime('%m', Transactions.date) AS month,
             strftime('%Y', Transactions.date) AS year
           FROM Transactions
-          INNER JOIN Categories ON Transactions.category = Categories.category_id
+          LEFT JOIN Categories 
+            ON Categories.category_id = Transactions.category
           WHERE
             month = "${monthFormat}"
             AND year = "${params.year}"

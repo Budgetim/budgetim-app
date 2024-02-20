@@ -4,8 +4,8 @@ export type StackParamList = {
   StatisticsByDates: undefined;
   Settings: undefined;
   TransactionsByCategory: {
-    category: number;
-    categoryTitle: string;
+    category: number | null;
+    categoryTitle: string | null;
     month: number;
     year: number;
   };
