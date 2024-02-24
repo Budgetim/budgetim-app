@@ -7,6 +7,7 @@ import i18n from 'i18n-js';
 import { ErrorMessage } from '../../../../components/ErrorMessage';
 import { useGetCurrencies } from '../../../../hooks/currencies';
 import { useGetCategories } from '../../../../hooks/categories';
+import { ModalWrapper } from '../../../ModalWrapper';
 
 interface ContentProps {
   transaction: Transaction;
@@ -49,20 +50,30 @@ export const Content: FC<ContentProps> = ({ transaction }) => {
 
 interface TransactionFetcherProps {
   id: number;
+  isVisible: boolean;
+  onClose: () => void;
 }
 
-export const TransactionFetcher: FC<TransactionFetcherProps> = ({ id }) => {
+export const TransactionFetcher: FC<TransactionFetcherProps> = ({ id, isVisible, onClose }) => {
   const { data, isLoading, error } = useGetTransaction(id);
   const { isLoading: isLoadingCurrencies } = useGetCurrencies();
   const { isLoading: isLoadingCategories } = useGetCategories();
 
-  if (isLoading || isLoadingCurrencies || isLoadingCategories) {
-    return <Loader />;
-  }
+  const renderContent = () => {
+    if (isLoading || isLoadingCurrencies || isLoadingCategories) {
+      return <Loader />;
+    }
 
-  if (error || !data) {
-    return <ErrorMessage>{error || i18n.t('common.state.error')}</ErrorMessage>;
-  }
+    if (error || !data) {
+      return <ErrorMessage>{error || i18n.t('common.state.error')}</ErrorMessage>;
+    }
 
-  return <Content transaction={data} />;
+    return <Content transaction={data} />;
+  };
+
+  return (
+    <ModalWrapper onClose={onClose} isVisible={isVisible} action={onClose} actionText={i18n.t('common.action.done')}>
+      {renderContent()}
+    </ModalWrapper>
+  );
 };

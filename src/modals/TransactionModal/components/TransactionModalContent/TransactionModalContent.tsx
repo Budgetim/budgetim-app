@@ -43,6 +43,7 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = props =
                 placeholder={i18n.t('transactions.form.title')}
                 onFocus={() => setFocusedTitle(true)}
                 onBlur={() => setFocusedTitle(false)}
+                autoFocus
               />
             </Section>
             <Section>
@@ -56,7 +57,6 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = props =
                 value={separateThousands(price)}
                 placeholder={i18n.t('transactions.form.price')}
                 keyboardType="numeric"
-                autoFocus
               />
             </Section>
 
@@ -97,7 +97,13 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = props =
       )}
       <CategoryModal />
       <CurrencyModal />
-      <ModalWrapper isVisible={dateModalIsOpen} onClose={() => setDateModalIsOpen(false)} height="shirt">
+      <ModalWrapper
+        isVisible={dateModalIsOpen}
+        onClose={() => setDateModalIsOpen(false)}
+        action={() => setDateModalIsOpen(false)}
+        actionText={i18n.t('common.action.close')}
+        height="shirt"
+      >
         <DateTimePicker
           locale={locale}
           value={date}

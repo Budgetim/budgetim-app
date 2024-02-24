@@ -8,19 +8,19 @@ export const initData = () => {
     return {
       currencies: [
         {
-          title: 'Рубли',
-          symbol: '₽',
-          position: 'R',
+          title: 'RUB',
+          symbol: '',
+          position: '',
         },
         {
-          title: 'Доллары',
-          symbol: '$',
-          position: 'R',
+          title: 'USD',
+          symbol: '',
+          position: '',
         },
         {
-          title: 'Евро',
-          symbol: '€',
-          position: 'L',
+          title: 'EUR',
+          symbol: '',
+          position: '',
         },
       ],
       categories: [
@@ -50,19 +50,19 @@ export const initData = () => {
   return {
     currencies: [
       {
-        title: 'Dollars',
-        symbol: '$',
-        position: 'R',
+        title: 'USD',
+        symbol: '',
+        position: '',
       },
       {
-        title: 'Euros',
-        symbol: '€',
-        position: 'L',
+        title: 'EUR',
+        symbol: '',
+        position: '',
       },
       {
-        title: 'Rubles',
-        symbol: '₽',
-        position: 'R',
+        title: 'RUB',
+        symbol: '',
+        position: '',
       },
     ],
     categories: [

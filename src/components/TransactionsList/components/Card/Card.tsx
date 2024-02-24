@@ -7,9 +7,10 @@ import { SwipeableRow } from '../SwipeableRow';
 import { useDeleteTransaction } from '../../../../hooks/transactions';
 import { useTheme } from 'styled-components/native';
 import { getCategoryTitle } from '../../../../utils/getCategoryTitle';
+import { currencies } from '../../../../constants/currencies';
 
 export const Card: FC<Transaction> = memo(props => {
-  const { title, category, currency, price, id } = props;
+  const { title, category, price, id } = props;
   const {
     colors: { systemGray02 },
   } = useTheme();
@@ -19,6 +20,8 @@ export const Card: FC<Transaction> = memo(props => {
   const onDelete = async () => {
     deleteTransaction(id);
   };
+
+  const currency = currencies[props.currency.title];
 
   const label =
     currency.position === 'L'

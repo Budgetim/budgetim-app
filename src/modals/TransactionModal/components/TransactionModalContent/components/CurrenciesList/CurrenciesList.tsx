@@ -7,6 +7,7 @@ import { CheckIcon } from '../../../../../../icons/CheckIcon';
 import i18n from 'i18n-js';
 import { PlusIcon } from '../../../../../../icons/PlusIcon';
 import { useModalsDispatch } from '../../../../../../contexts/modals';
+import { currencies } from '../../../../../../constants/currencies';
 
 export const CurrenciesList: FC<CurrenciesListProps> = ({ activeCurrencyId, setCurrencyId }) => {
   const { data } = useGetCurrencies();
@@ -28,9 +29,9 @@ export const CurrenciesList: FC<CurrenciesListProps> = ({ activeCurrencyId, setC
         ...(data?.map(currency => {
           return {
             id: currency.id,
-            title: currency.symbol,
-            titleColor: currency.symbol ? 'textPrimary' : 'textSecondary',
-            subtitle: currency.title,
+            title: currency.title,
+            titleColor: 'textPrimary',
+            subtitle: `${i18n.t(`currencies.codes.${currency.title}`)} (${currencies[currency.title].symbol})`,
             rightContent: <CheckIcon color={currency.id === activeCurrencyId ? systemBlue : systemGray06} size={28} />,
             isActive: currency.id === activeCurrencyId,
             onPress: () => setCurrencyId(currency.id),

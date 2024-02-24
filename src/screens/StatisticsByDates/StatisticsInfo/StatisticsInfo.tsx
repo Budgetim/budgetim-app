@@ -11,27 +11,32 @@ import { PieChart } from '../../../components/PieChart';
 import { useTheme } from 'styled-components/native';
 import { Loader } from '../../../components/Loader';
 import { CategoriesList } from '../CategoriesList';
-import { useGetCurrencies } from '../../../hooks/currencies';
 import { useGetStatistics } from '../../../hooks/categories';
+import { currencies } from '../../../constants/currencies';
 
 export interface StatisticsInfoProps {
   year: number;
   month: number;
-  currencyId: number;
+  currencySymbol: string;
+  currencyCode: keyof typeof currencies;
   setNextDate?: () => void;
   setPrevDate?: () => void;
 }
 
-export const StatisticsInfo: FC<StatisticsInfoProps> = ({ month, year, currencyId, setNextDate, setPrevDate }) => {
+export const StatisticsInfo: FC<StatisticsInfoProps> = ({
+  month,
+  year,
+  currencySymbol,
+  currencyCode,
+  setNextDate,
+  setPrevDate,
+}) => {
   const locale = getLocale();
-  const { data: currencies } = useGetCurrencies();
-  const { data, isLoading, error } = useGetStatistics({ month, year, currencyId });
+  const { data, isLoading, error } = useGetStatistics({ month, year, baseCurrency: currencyCode });
 
   const {
     colors: { textPrimary },
   } = useTheme();
-
-  const currencySymbol = currencies?.find(currency => currency.id === currencyId)!.symbol;
 
   const renderContent = () => {
     if (isLoading) {
@@ -80,7 +85,7 @@ export const StatisticsInfo: FC<StatisticsInfoProps> = ({ month, year, currencyI
           <ArrowRightIcon color={textPrimary} size={24} />
         </NavigateButton>
       </PieChartWrapper>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }} scrollIndicatorInsets={{ right: 1 }}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 24 }} scrollIndicatorInsets={{ right: 1 }}>
         {renderContent()}
       </ScrollView>
     </View>

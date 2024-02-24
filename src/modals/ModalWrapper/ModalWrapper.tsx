@@ -1,15 +1,23 @@
 import React, { FC } from 'react';
-import { ButtonText, Header, ModalContent, ModalStyled } from './styled';
+import { Header, ModalContent, ModalStyled, ButtonText } from './styled';
 import { Pressable } from 'react-native';
-import i18n from 'i18n-js';
 
 interface TransactionModalWrapperProps {
   isVisible: boolean;
   onClose: () => void;
+  action: () => void;
+  actionText: string;
   height?: 'full' | 'shirt';
 }
 
-export const ModalWrapper: FC<TransactionModalWrapperProps> = ({ isVisible, onClose, height = 'full', children }) => {
+export const ModalWrapper: FC<TransactionModalWrapperProps> = ({
+  isVisible,
+  onClose,
+  action,
+  actionText,
+  height = 'full',
+  children,
+}) => {
   return (
     <ModalStyled
       isVisible={isVisible}
@@ -21,8 +29,8 @@ export const ModalWrapper: FC<TransactionModalWrapperProps> = ({ isVisible, onCl
     >
       <ModalContent isFull={height === 'full'}>
         <Header>
-          <Pressable style={{ display: 'flex', flexDirection: 'row' }} onPress={onClose}>
-            <ButtonText variant="subheadlineBold">{i18n.t('common.action.close')}</ButtonText>
+          <Pressable onPress={action}>
+            <ButtonText variant="subheadlineBold">{actionText}</ButtonText>
           </Pressable>
         </Header>
         {children}

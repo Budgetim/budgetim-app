@@ -1,26 +1,50 @@
-import React, { useEffect, useState } from 'react';
-import { CurrencyModalContent } from '../CurrencyModalContent';
-import { useAddCurrency, useEditCurrency } from '../../../../hooks/currencies';
+import React, { FC } from 'react';
+import { useAddCurrency, useGetCurrencies } from '../../../../hooks/currencies';
+import { ScrollView, TouchableHighlight } from 'react-native';
+import { Content, Section } from './styled';
+import { MixedList } from '../../../../components/MixedList';
+import { currencies } from '../../../../constants/currencies';
+import i18n from 'i18n-js';
+import { Loader } from '../../../../components/Loader';
 
-export const EmptyCurrencyFetcher = () => {
-  const [title, setTitle] = useState('');
-  const [symbol, setSymbol] = useState<string>('');
-  const { mutate: addCurrency, isSuccess, data: currencyId } = useAddCurrency();
-  const editCurrency = useEditCurrency();
+type EmptyCurrencyFetcherProps = {
+  onClose: () => void;
+};
 
-  useEffect(() => {
-    if (isSuccess) {
-      editCurrency({
-        id: currencyId,
-        title,
-        symbol,
-      });
-    }
-  }, [title, symbol, isSuccess]);
+export const EmptyCurrencyFetcher: FC<EmptyCurrencyFetcherProps> = ({ onClose }) => {
+  const { data, isLoading } = useGetCurrencies();
+  const { mutate: addCurrency } = useAddCurrency();
+  if (isLoading) {
+    return <Loader />;
+  }
 
-  useEffect(() => {
-    addCurrency({ title, symbol });
-  }, []);
+  const currencyKeys = data.map(item => item.title);
 
-  return <CurrencyModalContent title={title} setTitle={setTitle} symbol={symbol} setSymbol={setSymbol} />;
+  const currenciesList = Object.keys(currencies).filter(key => !currencyKeys.includes(key));
+
+  return (
+    <ScrollView>
+      <TouchableHighlight>
+        <Content>
+          <Section>
+            <MixedList
+              data={currenciesList.map(code => {
+                return {
+                  id: code,
+                  title: code,
+                  titleColor: 'textPrimary',
+                  subtitle: i18n.t(`currencies.codes.${code}`),
+                  rightText: currencies[code].symbol,
+                  onPress: () => {
+                    addCurrency({ title: code });
+                    onClose();
+                  },
+                };
+              })}
+            />
+          </Section>
+        </Content>
+      </TouchableHighlight>
+    </ScrollView>
+  );
 };

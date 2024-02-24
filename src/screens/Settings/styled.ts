@@ -4,7 +4,7 @@ import css from '@styled-system/css';
 
 export const Container = styled(ScrollView)(
   css({
-    pt: 4,
+    px: 3,
   }),
 );
 

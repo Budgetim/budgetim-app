@@ -24,7 +24,7 @@ export class CategoryModel {
     return {
       color: item.color,
       description: item.description,
-      id: item.id,
+      categoryId: item.categoryId,
       sum: item.sum,
       title: item.title,
     };
@@ -77,9 +77,14 @@ export class CategoryModel {
           `,
           [],
           (_tx, res) => {
-            const category: CategoryDB = res.rows.item(0);
+            const categoriesArray = (res.rows as unknown as { _array: CategoryDB[] })._array;
+            const category = categoriesArray[0];
             setTimeout(() => {
-              resolve(CategoryModel.categoryFormat(category));
+              if (!category) {
+                reject('not found');
+              } else {
+                resolve(CategoryModel.categoryFormat(category));
+              }
             }, timeDelay);
           },
           (_transaction, error) => {
@@ -163,7 +168,7 @@ export class CategoryModel {
             }, timeDelay);
           },
           () => {
-            reject(i18n.t('categories.errors.delete'));
+            reject(i18n.t('categories.errors.deleteUsed'));
             return false;
           },
         );
@@ -179,7 +184,7 @@ export class CategoryModel {
           `
           SELECT
             SUM(Transactions.price) as sum,
-            Categories.category_id AS id,
+            Categories.category_id AS categoryId,
             Categories.color, 
             Categories.title,
             Categories.description,
