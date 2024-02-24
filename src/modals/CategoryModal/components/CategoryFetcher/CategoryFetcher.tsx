@@ -5,6 +5,7 @@ import i18n from 'i18n-js';
 import { ErrorMessage } from '../../../../components/ErrorMessage';
 import { useEditCategory, useGetCategory } from '../../../../hooks/categories';
 import { CategoryModalContent } from '../CategoryModalContent';
+import { ModalWrapper } from '../../../ModalWrapper';
 
 interface ContentProps {
   category: Category;
@@ -39,18 +40,28 @@ export const Content: FC<ContentProps> = ({ category }) => {
 
 interface CategoryFetcherProps {
   id: number;
+  isVisible: boolean;
+  onClose: () => void;
 }
 
-export const CategoryFetcher: FC<CategoryFetcherProps> = ({ id }) => {
+export const CategoryFetcher: FC<CategoryFetcherProps> = ({ id, onClose, isVisible }) => {
   const { data, isLoading, error } = useGetCategory(id);
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  const renderContent = () => {
+    if (isLoading) {
+      return <Loader />;
+    }
 
-  if (error || !data) {
-    return <ErrorMessage>{error || i18n.t('common.state.error')}</ErrorMessage>;
-  }
+    if (error || !data) {
+      return <ErrorMessage>{error || i18n.t('common.state.error')}</ErrorMessage>;
+    }
 
-  return <Content category={data} />;
+    return <Content category={data} />;
+  };
+
+  return (
+    <ModalWrapper onClose={onClose} isVisible={isVisible} action={onClose} actionText={i18n.t('common.action.done')}>
+      {renderContent()}
+    </ModalWrapper>
+  );
 };

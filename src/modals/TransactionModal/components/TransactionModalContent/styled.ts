@@ -4,7 +4,8 @@ import css from '@styled-system/css';
 
 export const Content = styled(View)(
   css({
-    p: 4,
+    px: 3,
+    py: 4,
   }),
 );
 

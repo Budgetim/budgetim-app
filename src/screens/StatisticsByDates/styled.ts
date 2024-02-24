@@ -5,12 +5,12 @@ import { View } from 'react-native';
 export const Container = styled(View)(
   css({
     flex: 1,
+    p: 3,
   }),
 );
 
 export const Tabs = styled(View)(
   css({
     py: 2,
-    px: 4,
   }),
 );

@@ -1,8 +1,11 @@
-import { Category, StatisticsItem } from '../types';
+import { Category, StatisticsGroup } from '../types';
 import { CategoryModel } from '../db/category';
 import { db } from '../db';
+import { CurrencyModel } from '../db/currency';
+import { CurrencyCode, getRates } from './exchange';
 
 const categoryModel = new CategoryModel(db);
+const currencyModel = new CurrencyModel(db);
 
 export const getCategories = async (): Promise<Category[]> => {
   const categories = await categoryModel.getCategories();
@@ -45,10 +48,36 @@ export const editCategory = async (params: EditCategoryParams): Promise<Category
 export interface GetStatisticsParams {
   month: number;
   year: number;
-  currencyId: number;
+  baseCurrency: CurrencyCode;
 }
 
-export const getStatistics = async (params: GetStatisticsParams): Promise<StatisticsItem[]> => {
-  const statistic = await categoryModel.showStatistic(params);
-  return statistic;
+export const getStatistics = async (params: GetStatisticsParams): Promise<StatisticsGroup[]> => {
+  const currencies = await currencyModel.getUsedCurrencies();
+  const ratesData = await getRates({
+    base: params.baseCurrency,
+    symbols: currencies.map(item => item.title),
+  });
+
+  const results = await Promise.all(
+    currencies.map(async item => {
+      const statistic = await categoryModel.showStatistic({ ...params, currencyId: item.id });
+      return statistic.map(st => ({
+        ...st,
+        sum: +(st.sum / ratesData.rates[item.title]).toFixed(1),
+      }));
+    }),
+  );
+
+  const flatResult = results.flat();
+  const res = [];
+  flatResult.forEach(item => {
+    const findedItem = res.find(r => r.categoryId === item.categoryId);
+    if (findedItem) {
+      findedItem.sum += item.sum;
+    } else {
+      res.push(item);
+    }
+  });
+
+  return res;
 };

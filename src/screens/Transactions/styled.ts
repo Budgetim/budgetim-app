@@ -10,10 +10,6 @@ export const Footer = styled(View)(
     height: 70,
     display: 'flex',
     flexDirection: 'row',
-    // position: 'absolute',
-    // width: '100%',
-    // bottom: 90,
-    // left: 0,
   }),
 );
 

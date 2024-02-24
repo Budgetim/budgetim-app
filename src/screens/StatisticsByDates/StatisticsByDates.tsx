@@ -9,12 +9,13 @@ import { useGetUsedCurrencies } from '../../hooks/currencies';
 import { StackParamList } from '../types';
 import { StatisticsInfo } from './StatisticsInfo';
 import { Tabs, Container } from './styled';
+import { currencies } from '../../constants/currencies';
 
 export const StatisticsByDates: FC<NativeStackScreenProps<StackParamList, 'StatisticsByDates'>> = () => {
   const [activeMode, setActiveMode] = useState(0);
   const [indexDate, setIndexDate] = useState(0);
   const { data, isLoading: isLoadingData } = useGetAvailableMonths();
-  const { data: currencies, isLoading: isLoadingCurrencies } = useGetUsedCurrencies();
+  const { data: dataCurrencies, isLoading: isLoadingCurrencies } = useGetUsedCurrencies();
 
   useEffect(() => {
     if (data) {
@@ -26,7 +27,7 @@ export const StatisticsByDates: FC<NativeStackScreenProps<StackParamList, 'Stati
     return <Loader />;
   }
 
-  if (!data || !currencies || !data.length || !data[indexDate]) {
+  if (!data || !dataCurrencies || !data.length || !data[indexDate]) {
     return <NoDataMessage>{i18n.t('statistics.messages.noData')} 👀</NoDataMessage>;
   }
 
@@ -38,21 +39,24 @@ export const StatisticsByDates: FC<NativeStackScreenProps<StackParamList, 'Stati
     setIndexDate(indexDate + 1);
   };
 
+  console.log(dataCurrencies[activeMode]);
+
   return (
     <Container>
-      {currencies.length > 1 && (
+      {dataCurrencies.length > 1 && (
         <Tabs>
           <TabsGroup
             activeIndex={activeMode}
             onChangeIndex={setActiveMode}
-            data={currencies.map(currency => ({ title: currency.symbol }))}
+            data={dataCurrencies.map(currency => ({ title: currency.title }))}
           />
         </Tabs>
       )}
       <StatisticsInfo
         year={data[indexDate].year}
         month={data[indexDate].month}
-        currencyId={currencies[activeMode].id}
+        currencySymbol={currencies[dataCurrencies[activeMode].title].symbol}
+        currencyCode={dataCurrencies[activeMode].title}
         setNextDate={indexDate !== data.length - 1 ? setNextMonth : undefined}
         setPrevDate={indexDate !== 0 ? setPrevMonth : undefined}
       />

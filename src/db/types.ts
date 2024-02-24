@@ -11,7 +11,7 @@ export type StatisticsItemDB = {
   description: string;
   month: string;
   year: string;
-  id: number;
+  categoryId: number;
   sum: number;
   title: string;
 };

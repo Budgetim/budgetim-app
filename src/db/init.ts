@@ -24,7 +24,7 @@ export const init = () => {
         txn.executeSql(
           `
         CREATE TABLE IF NOT EXISTS Categories (
-          category_id INTEGER PRIMARY KEY NOT NULL,
+          category_id INTEGER PRIMARY KEY AUTOINCREMENT,
           title VARCHAR(128) NOT NULL,
           color VARCHAR(128) NOT NULL,
           description VARCHAR(128)
@@ -36,7 +36,7 @@ export const init = () => {
         txn.executeSql(
           `
         CREATE TABLE IF NOT EXISTS Currencies (
-          currency_id INTEGER PRIMARY KEY NOT NULL,
+          currency_id INTEGER PRIMARY KEY AUTOINCREMENT,
           title VARCHAR(128) NOT NULL,
           symbol VARCHAR(128) NOT NULL,
           position VARCHAR(128) NOT NULL
@@ -48,7 +48,7 @@ export const init = () => {
         txn.executeSql(
           `
         CREATE TABLE IF NOT EXISTS Transactions (
-          transaction_id INTEGER PRIMARY KEY NOT NULL,
+          transaction_id INTEGER PRIMARY KEY AUTOINCREMENT,
           title VARCHAR(128),
           category VARCHAR(128),
           currency VARCHAR(12,2) NOT NULL,

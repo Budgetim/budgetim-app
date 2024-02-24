@@ -1,12 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import {
-  addCurrency,
-  deleteCurrency,
-  editCurrency,
-  getCurrencies,
-  getCurrency,
-  getUsedCurrencies,
-} from '../api/currencies';
+import { addCurrency, deleteCurrency, getCurrencies, getCurrency, getUsedCurrencies } from '../api/currencies';
 import { queryClient } from '../Providers';
 
 export const useGetCurrencies = () => {
@@ -48,14 +41,4 @@ export const useDeleteCurrency = () => {
     },
   });
   return mutation;
-};
-
-export const useEditCurrency = () => {
-  const mutation = useMutation({
-    mutationFn: editCurrency,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['currencies'] });
-    },
-  });
-  return mutation.mutate;
 };

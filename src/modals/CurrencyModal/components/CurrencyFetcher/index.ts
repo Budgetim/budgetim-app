@@ -1,1 +1,0 @@
-export { CurrencyFetcher } from './CurrencyFetcher';

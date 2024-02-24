@@ -9,7 +9,7 @@ import { CurrenciesList } from './components/CurrenciesList';
 
 export const Settings: FC<NativeStackScreenProps<StackParamList, 'Settings'>> = () => {
   return (
-    <Container>
+    <Container contentContainerStyle={{ paddingVertical: 16 }}>
       <Item>
         <CategoriesList />
       </Item>

@@ -115,13 +115,13 @@ export class CurrencyModel {
     });
   }
 
-  addCurrency(params: { title: string; symbol: string }): Promise<number> {
+  addCurrency(params: { title: string }): Promise<number> {
     return new Promise((resolve, reject) => {
       this.db.transaction(txn => {
         txn.executeSql(
           `
           INSERT INTO Currencies (title, symbol, position)
-          VALUES ("${params.title}", "${params.symbol}", "R")
+          VALUES ("${params.title}", "", "R")
           `,
           [],
           (_tx, res) => {
@@ -139,56 +139,31 @@ export class CurrencyModel {
     });
   }
 
-  editCurrency(params: { id: number; title: string; symbol: string }): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      this.db.transaction(txn => {
-        txn.executeSql(
-          `
-          UPDATE
-            Currencies SET title = "${params.title}",
-            symbol = "${params.symbol}"
-          WHERE Currencies.currency_id = ${params.id}
-          `,
-          [],
-          () => {
-            setTimeout(() => {
-              resolve(true);
-            }, timeDelay);
-          },
-          (_transaction, error) => {
-            console.error(error);
-            reject(error.message);
-            return true;
-          },
-        );
-      });
-    });
-  }
-
   deleteCurrency(id: number): Promise<void> {
     return new Promise(async (resolve, reject) => {
       const currencies = await this.getCurrencies();
       if (currencies.length === 1) {
         reject(i18n.t('categories.errors.deleteLast'));
-      }
-      this.db.transaction(txn => {
-        txn.executeSql(
-          `
+      } else {
+        this.db.transaction(txn => {
+          txn.executeSql(
+            `
           DELETE FROM Currencies
           WHERE Currencies.currency_id = ${id}
           `,
-          [],
-          () => {
-            setTimeout(async () => {
-              resolve();
-            }, timeDelay);
-          },
-          () => {
-            reject(i18n.t('categories.errors.deleteUsed'));
-            return false;
-          },
-        );
-      });
+            [],
+            () => {
+              setTimeout(async () => {
+                resolve();
+              }, timeDelay);
+            },
+            () => {
+              reject(i18n.t('categories.errors.deleteUsed'));
+              return false;
+            },
+          );
+        });
+      }
     });
   }
 }

@@ -9,6 +9,7 @@ export const Container = styled(View)(
     display: 'flex',
     flexDirection: 'row',
     bg: 'systemGray04',
+    height: 48,
   }),
 );
 

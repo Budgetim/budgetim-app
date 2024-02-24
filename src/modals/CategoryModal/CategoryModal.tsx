@@ -1,6 +1,5 @@
 import React from 'react';
 import { useModalsDispatch, useModalsState } from '../../contexts/modals';
-import { ModalWrapper } from '../ModalWrapper';
 import { CategoryFetcher } from './components/CategoryFetcher';
 import { EmptyCategoryFetcher } from './components/EmptyCategoryFetcher';
 
@@ -14,9 +13,9 @@ export const CategoryModal = () => {
     modalsDispatch({ type: 'closeCategoryModal', payload: undefined });
   };
 
-  return (
-    <ModalWrapper isVisible={isVisible} onClose={closeModal}>
-      {id ? <CategoryFetcher id={id} /> : <EmptyCategoryFetcher />}
-    </ModalWrapper>
-  );
+  if (id) {
+    return <CategoryFetcher id={id} isVisible={isVisible} onClose={closeModal} />;
+  }
+
+  return <EmptyCategoryFetcher isVisible={isVisible} onClose={closeModal} />;
 };

@@ -4,7 +4,6 @@ import { separateThousands } from '../../../utils/separateThousands';
 import { CategoriesListProps } from './types';
 import { useNavigation } from '@react-navigation/native';
 import { MixedList } from '../../../components/MixedList';
-import i18n from 'i18n-js';
 import { CategoryPreview } from '../../../components/CategoryPreview/CategoryPreview';
 import { getCategoryTitle } from '../../../utils/getCategoryTitle';
 
@@ -14,10 +13,9 @@ export const CategoriesList: FC<CategoriesListProps> = ({ data, month, year, cur
   return (
     <View>
       <MixedList
-        title={i18n.t('categories.title')}
         data={data.map(item => {
           return {
-            id: item.id || -1,
+            id: item.categoryId || -1,
             title: getCategoryTitle(item.title),
             titleColor: item.title ? 'textPrimary' : 'textSecondary',
             subtitle: item.description || undefined,
@@ -26,7 +24,7 @@ export const CategoriesList: FC<CategoriesListProps> = ({ data, month, year, cur
             hasArrow: true,
             onPress: () =>
               navigation.navigate('TransactionsByCategory', {
-                category: item.id,
+                category: item.categoryId,
                 categoryTitle: item.title,
                 month,
                 year,

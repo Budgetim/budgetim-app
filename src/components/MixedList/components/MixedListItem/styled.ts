@@ -9,6 +9,7 @@ export const InnerItem = styled(TouchableOpacity)(
   css({
     flexDirection: 'row',
     pl: 3,
+    minHeight: 44,
   }),
 );
 

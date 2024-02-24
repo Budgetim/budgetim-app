@@ -8,6 +8,7 @@ import { useTheme } from 'styled-components/native';
 import { useModalsDispatch } from '../../../../contexts/modals';
 import { PlusIcon } from '../../../../icons/PlusIcon';
 import { useDeleteCurrency, useGetCurrencies } from '../../../../hooks/currencies';
+import { currencies } from '../../../../constants/currencies';
 
 export const CurrenciesList: FC = () => {
   const {
@@ -45,10 +46,10 @@ export const CurrenciesList: FC = () => {
         ...data.map(item => {
           return {
             id: item.id,
-            title: item.title || i18n.t('transactions.emptyTitle'),
+            title: item.title,
             titleColor: 'textPrimary',
-            subtitle: item.symbol,
-            onPress: () => dispatch({ type: 'setCurrencyModal', payload: { id: item.id } }),
+            subtitle: i18n.t(`currencies.codes.${item.title}`),
+            rightText: currencies[item.title].symbol,
             onDelete: () => deleteCurrency(item.id),
           };
         }),

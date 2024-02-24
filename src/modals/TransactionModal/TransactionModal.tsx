@@ -1,6 +1,5 @@
 import React from 'react';
 import { useModalsDispatch, useModalsState } from '../../contexts/modals';
-import { ModalWrapper } from '../ModalWrapper';
 import { TransactionFetcher } from './components/TransactionFetcher';
 import { EmptyTransactionFetcher } from './components/EmptyTransactionFetcher';
 
@@ -15,9 +14,9 @@ export const TransactionModal = () => {
     modalsDispatch({ type: 'closeTransactionModal', payload: undefined });
   };
 
-  return (
-    <ModalWrapper isVisible={isVisible} onClose={closeModal}>
-      {id ? <TransactionFetcher id={id} /> : <EmptyTransactionFetcher />}
-    </ModalWrapper>
-  );
+  if (id) {
+    return <TransactionFetcher id={id} isVisible={isVisible} onClose={closeModal} />;
+  }
+
+  return <EmptyTransactionFetcher isVisible={isVisible} onClose={closeModal} />;
 };

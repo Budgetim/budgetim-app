@@ -29,9 +29,14 @@ export type AvailableMonth = {
 export type StatisticsItem = {
   color: string | null;
   description: string | null;
-  id: number | null;
+  categoryId: number | null;
   sum: number;
   title: string | null;
+};
+
+export type StatisticsGroup = {
+  currency: string;
+  data: StatisticsItem[];
 };
 
 export interface Action<T extends string, P extends unknown> {
