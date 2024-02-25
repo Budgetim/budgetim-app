@@ -39,8 +39,6 @@ export const StatisticsByDates: FC<NativeStackScreenProps<StackParamList, 'Stati
     setIndexDate(indexDate + 1);
   };
 
-  console.log(dataCurrencies[activeMode]);
-
   return (
     <Container>
       {dataCurrencies.length > 1 && (

@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { color, ColorProps } from 'styled-system';
 import css from '@styled-system/css';
 import { TextVariant } from '../../../TextVariant';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native';
 
 export const InnerItem = styled(TouchableOpacity)(
   css({

@@ -104,5 +104,5 @@ export const EmptyTransactionFetcher: FC<EmptyTransactionFetcherProps> = props =
     return <Loader />;
   }
 
-  return <Content {...props} categoryId={categories?.[0]?.id || null} currencyId={currencies[0].id} />;
+  return <Content {...props} categoryId={categories?.[0]?.id || null} currencyId={currencies?.[0]?.id || null} />;
 };
