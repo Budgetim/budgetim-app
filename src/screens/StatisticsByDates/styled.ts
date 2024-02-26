@@ -5,7 +5,7 @@ import { View } from 'react-native';
 export const Container = styled(View)(
   css({
     flex: 1,
-    p: 3,
+    pt: 3,
   }),
 );
 

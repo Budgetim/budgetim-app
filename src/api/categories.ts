@@ -79,5 +79,6 @@ export const getStatistics = async (params: GetStatisticsParams): Promise<Statis
     }
   });
 
-  return res;
+  const sortedRes = [...res.sort((item1, item2) => item2.sum - item1.sum)];
+  return sortedRes;
 };

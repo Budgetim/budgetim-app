@@ -58,6 +58,8 @@ export const Content: FC<ContentProps> = props => {
     setAction('close');
     setTitle('');
     setPrice('');
+    setCategoryId(props.categoryId);
+    setCurrencyId(props.currencyId);
     added.current = false;
   };
 

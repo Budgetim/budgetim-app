@@ -40,7 +40,7 @@ export const MixedListItem: FC<DataItem & { isLast: boolean }> = ({
 
   const renderContent = () => {
     return (
-      <InnerItem onPress={() => onPress?.()}>
+      <InnerItem onPress={() => onPress?.()} disabled={!onPress}>
         {leftContent ? <LeftContent>{leftContent}</LeftContent> : null}
         <MainContent>
           <ContentWrapper>

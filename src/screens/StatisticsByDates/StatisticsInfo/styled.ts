@@ -10,7 +10,7 @@ export const PieChartWrapper = styled(View)(
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 5,
+    padding: 4,
   }),
 );
 
