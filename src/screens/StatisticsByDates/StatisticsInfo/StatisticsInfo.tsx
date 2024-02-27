@@ -85,9 +85,7 @@ export const StatisticsInfo: FC<StatisticsInfoProps> = ({
           <ArrowRightIcon color={textPrimary} size={24} />
         </NavigateButton>
       </PieChartWrapper>
-      <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 24 }} scrollIndicatorInsets={{ right: 1 }}>
-        {renderContent()}
-      </ScrollView>
+      <ScrollView contentContainerStyle={{ flexGrow: 1, paddingVertical: 20 }}>{renderContent()}</ScrollView>
     </View>
   );
 };

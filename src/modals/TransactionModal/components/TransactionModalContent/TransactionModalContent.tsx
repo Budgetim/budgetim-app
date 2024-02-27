@@ -1,5 +1,5 @@
-import React, { FC, useEffect, useState } from 'react';
-import { ScrollView, Keyboard, TouchableHighlight } from 'react-native';
+import React, { FC, useEffect, useRef, useState } from 'react';
+import { ScrollView, Keyboard, TouchableHighlight, Platform, TextInput } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import i18n from 'i18n-js';
 import { locale } from 'expo-localization';
@@ -25,6 +25,7 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = props =
   const [focusedTitle, setFocusedTitle] = useState(false);
   const [titleError, setTitleError] = useState(false);
   const [dateModalIsOpen, setDateModalIsOpen] = useState(false);
+  const inputPrice = useRef<TextInput>();
 
   useEffect(() => {
     setTitleError(false);
@@ -43,6 +44,8 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = props =
                 placeholder={i18n.t('transactions.form.title')}
                 onFocus={() => setFocusedTitle(true)}
                 onBlur={() => setFocusedTitle(false)}
+                onSubmitEditing={() => inputPrice?.current?.focus()}
+                returnKeyType="next"
                 autoFocus
               />
             </Section>
@@ -57,6 +60,7 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = props =
                 value={separateThousands(price)}
                 placeholder={i18n.t('transactions.form.price')}
                 keyboardType="numeric"
+                ref={inputPrice}
               />
             </Section>
 
@@ -97,18 +101,33 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = props =
       )}
       <CategoryModal />
       <CurrencyModal />
-      <ModalWrapper
-        isVisible={dateModalIsOpen}
-        onClose={() => setDateModalIsOpen(false)}
-        action={() => setDateModalIsOpen(false)}
-        actionText={i18n.t('common.action.close')}
-        height="shirt"
-      >
+      {Platform.OS === 'ios' ? (
+        <ModalWrapper
+          isVisible={dateModalIsOpen}
+          onClose={() => setDateModalIsOpen(false)}
+          action={() => setDateModalIsOpen(false)}
+          actionText={i18n.t('common.action.close')}
+          height="shirt"
+        >
+          <DateTimePicker
+            locale={locale}
+            value={date}
+            mode="date"
+            display="inline"
+            onChange={(_event, selectedDate) => {
+              const currentDate = selectedDate || date;
+              setDate(currentDate);
+              setDateModalIsOpen(false);
+            }}
+            maximumDate={new Date()}
+          />
+        </ModalWrapper>
+      ) : dateModalIsOpen ? (
         <DateTimePicker
           locale={locale}
           value={date}
           mode="date"
-          display="inline"
+          display="calendar"
           onChange={(_event, selectedDate) => {
             const currentDate = selectedDate || date;
             setDate(currentDate);
@@ -116,7 +135,7 @@ export const TransactionModalContent: FC<TransactionModalContentProps> = props =
           }}
           maximumDate={new Date()}
         />
-      </ModalWrapper>
+      ) : null}
     </>
   );
 };

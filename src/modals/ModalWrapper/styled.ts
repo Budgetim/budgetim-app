@@ -16,6 +16,8 @@ export const ModalContent = styled(View)<{ isFull: boolean }>(({ isFull }) =>
     bg: 'bgPrimary',
     shadowOpacity: 0.1,
     shadowRadius: 3,
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
     height: isFull ? '85%' : '65%',
   } as SystemStyleObject),
 );

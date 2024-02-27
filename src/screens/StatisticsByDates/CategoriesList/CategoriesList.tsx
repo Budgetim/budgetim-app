@@ -11,7 +11,7 @@ export const CategoriesList: FC<CategoriesListProps> = ({ data, month, year, cur
   const navigation = useNavigation();
 
   return (
-    <View>
+    <View style={{ marginHorizontal: 12 }}>
       <MixedList
         data={data.map(item => {
           return {

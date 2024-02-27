@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, TouchableHighlight } from 'react-native';
 import i18n from 'i18n-js';
 
 import { Input } from '../../../../components/Input';
@@ -20,27 +20,29 @@ export const CategoryModalContent: FC<CategoryModalContentProps> = props => {
 
   return (
     <ScrollView>
-      <Content>
-        <Section error={titleError}>
-          <Input
-            variant="subheadlineRegular"
-            defaultValue={title}
-            onChangeText={setTitle}
-            placeholder={i18n.t('categories.form.name')}
-          />
-        </Section>
-        <Section>
-          <Input
-            variant="subheadlineRegular"
-            defaultValue={description || ''}
-            onChangeText={setDescription}
-            placeholder={i18n.t('categories.form.description')}
-          />
-        </Section>
-        <Section>
-          <ColorPicker onChange={color => setColor(color)} value={color} colors={colors} />
-        </Section>
-      </Content>
+      <TouchableHighlight>
+        <Content>
+          <Section error={titleError}>
+            <Input
+              variant="subheadlineRegular"
+              defaultValue={title}
+              onChangeText={setTitle}
+              placeholder={i18n.t('categories.form.name')}
+            />
+          </Section>
+          <Section>
+            <Input
+              variant="subheadlineRegular"
+              defaultValue={description || ''}
+              onChangeText={setDescription}
+              placeholder={i18n.t('categories.form.description')}
+            />
+          </Section>
+          <Section>
+            <ColorPicker onChange={color => setColor(color)} value={color} colors={colors} />
+          </Section>
+        </Content>
+      </TouchableHighlight>
     </ScrollView>
   );
 };

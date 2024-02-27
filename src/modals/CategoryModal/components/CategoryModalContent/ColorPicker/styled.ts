@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import css from '@styled-system/css';
 import { View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native';
 import { color, ColorProps } from 'styled-system';
 
 const SIZE = 52;

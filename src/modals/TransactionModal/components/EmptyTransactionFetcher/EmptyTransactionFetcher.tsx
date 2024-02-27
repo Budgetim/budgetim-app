@@ -58,6 +58,8 @@ export const Content: FC<ContentProps> = props => {
     setAction('close');
     setTitle('');
     setPrice('');
+    setCategoryId(props.categoryId);
+    setCurrencyId(props.currencyId);
     added.current = false;
   };
 
@@ -104,5 +106,5 @@ export const EmptyTransactionFetcher: FC<EmptyTransactionFetcherProps> = props =
     return <Loader />;
   }
 
-  return <Content {...props} categoryId={categories?.[0]?.id || null} currencyId={currencies[0].id} />;
+  return <Content {...props} categoryId={categories?.[0]?.id || null} currencyId={currencies?.[0]?.id || null} />;
 };
