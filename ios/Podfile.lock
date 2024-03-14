@@ -302,6 +302,8 @@ PODS:
     - React-Core (= 0.63.5)
     - React-cxxreact (= 0.63.5)
     - React-jsi (= 0.63.5)
+  - RNCAsyncStorage (1.22.3):
+    - React-Core
   - RNDateTimePicker (3.5.2):
     - React-Core
   - RNGestureHandler (1.10.3):
@@ -399,6 +401,7 @@ DEPENDENCIES:
   - React-RCTText (from `../node_modules/react-native/Libraries/Text`)
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
@@ -507,6 +510,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/Vibration"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNCAsyncStorage:
+    :path: "../node_modules/@react-native-async-storage/async-storage"
   RNDateTimePicker:
     :path: "../node_modules/@react-native-community/datetimepicker"
   RNGestureHandler:
@@ -576,6 +581,7 @@ SPEC CHECKSUMS:
   React-RCTText: 393f059d7ec02c733da57240694201e734f0dc84
   React-RCTVibration: 3e83f53610d63d3c1fc4db303305e934e73047cc
   ReactCommon: b9ff54b6dd22ba4a776eda22d7f83ec27544ca35
+  RNCAsyncStorage: 10591b9e0a91eaffee14e69b3721009759235125
   RNDateTimePicker: 7658208086d86d09e1627b5c34ba0cf237c60140
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNReanimated: e5040efc7c90da0b190a6525fcfc7e1e75973b21
