@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { CategoryPreviewProps } from './types';
+import type { CategoryPreviewProps } from './types';
 import { Circle } from './styled';
 import { useTheme } from 'styled-components/native';
 
