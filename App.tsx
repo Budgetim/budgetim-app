@@ -18,7 +18,9 @@ i18n.locale = locale;
 i18n.fallbacks = true;
 
 export default function App() {
-  useEffect(init, []);
+  useEffect(() => {
+    init();
+  }, []);
   return (
     <Providers>
       <Screens />

@@ -19,8 +19,6 @@ PODS:
     - ExpoModulesCore
     - React-Core
     - UMCore
-  - EXInAppPurchases (11.0.1):
-    - UMCore
   - EXKeepAwake (9.2.0):
     - UMCore
   - EXLocalization (10.2.0):
@@ -34,19 +32,6 @@ PODS:
   - ExpoModulesCore/Interfaces (0.2.0):
     - ExpoModulesCore/Core
     - UMCore
-  - EXSecureStore (10.2.0):
-    - UMCore
-  - EXSplashScreen (0.11.4):
-    - React-Core
-    - UMCore
-  - EXStructuredHeaders (1.1.1):
-    - UMCore
-  - EXUpdates (0.8.5):
-    - EXStructuredHeaders
-    - EXUpdatesInterface
-    - React-Core
-    - UMCore
-  - EXUpdatesInterface (0.2.2)
   - FBLazyVector (0.65.3)
   - FBReactNativeSpec (0.65.3):
     - RCT-Folly (= 2021.04.26.00)
@@ -302,17 +287,9 @@ PODS:
     - React-jsi (= 0.65.3)
     - React-perflogger (= 0.65.3)
   - React-jsinspector (0.65.3)
-  - react-native-color-picker-ios (0.1.2):
-    - React
-  - react-native-date-picker (4.2.6):
-    - React-Core
   - react-native-safe-area-context (3.2.0):
     - React-Core
   - react-native-sqlite-2 (3.6.2):
-    - React-Core
-  - react-native-sqlite-storage (6.0.1):
-    - React-Core
-  - react-native-webview (11.26.0):
     - React-Core
   - React-perflogger (0.65.3)
   - React-RCTActionSheet (0.65.3):
@@ -384,6 +361,8 @@ PODS:
     - React-Core
   - RNGestureHandler (1.10.3):
     - React-Core
+  - RNIap (12.13.0):
+    - React-Core
   - RNReanimated (2.2.4):
     - DoubleConversion
     - FBLazyVector
@@ -438,15 +417,9 @@ DEPENDENCIES:
   - EXFileSystem (from `../node_modules/expo-file-system/ios`)
   - EXFont (from `../node_modules/expo-font/ios`)
   - EXImageLoader (from `../node_modules/expo-image-loader/ios`)
-  - EXInAppPurchases (from `../node_modules/expo-in-app-purchases/ios`)
   - EXKeepAwake (from `../node_modules/expo-keep-awake/ios`)
   - EXLocalization (from `../node_modules/expo-localization/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core/ios`)
-  - EXSecureStore (from `../node_modules/expo-secure-store/ios`)
-  - EXSplashScreen (from `../node_modules/expo-splash-screen/ios`)
-  - EXStructuredHeaders (from `../node_modules/expo-structured-headers/ios`)
-  - EXUpdates (from `../node_modules/expo-updates/ios`)
-  - EXUpdatesInterface (from `../node_modules/expo-updates-interface/ios`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
   - Flipper (= 0.75.1)
@@ -484,12 +457,8 @@ DEPENDENCIES:
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
-  - react-native-color-picker-ios (from `../node_modules/react-native-color-picker-ios`)
-  - react-native-date-picker (from `../node_modules/react-native-date-picker`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-sqlite-2 (from `../node_modules/react-native-sqlite-2`)
-  - react-native-sqlite-storage (from `../node_modules/react-native-sqlite-storage`)
-  - react-native-webview (from `../node_modules/react-native-webview`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -505,6 +474,7 @@ DEPENDENCIES:
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNIap (from `../node_modules/react-native-iap`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
@@ -547,24 +517,12 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-font/ios"
   EXImageLoader:
     :path: "../node_modules/expo-image-loader/ios"
-  EXInAppPurchases:
-    :path: "../node_modules/expo-in-app-purchases/ios"
   EXKeepAwake:
     :path: "../node_modules/expo-keep-awake/ios"
   EXLocalization:
     :path: "../node_modules/expo-localization/ios"
   ExpoModulesCore:
     :path: "../node_modules/expo-modules-core/ios"
-  EXSecureStore:
-    :path: "../node_modules/expo-secure-store/ios"
-  EXSplashScreen:
-    :path: "../node_modules/expo-splash-screen/ios"
-  EXStructuredHeaders:
-    :path: "../node_modules/expo-structured-headers/ios"
-  EXUpdates:
-    :path: "../node_modules/expo-updates/ios"
-  EXUpdatesInterface:
-    :path: "../node_modules/expo-updates-interface/ios"
   FBLazyVector:
     :path: "../node_modules/react-native/Libraries/FBLazyVector"
   FBReactNativeSpec:
@@ -593,18 +551,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsiexecutor"
   React-jsinspector:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
-  react-native-color-picker-ios:
-    :path: "../node_modules/react-native-color-picker-ios"
-  react-native-date-picker:
-    :path: "../node_modules/react-native-date-picker"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-sqlite-2:
     :path: "../node_modules/react-native-sqlite-2"
-  react-native-sqlite-storage:
-    :path: "../node_modules/react-native-sqlite-storage"
-  react-native-webview:
-    :path: "../node_modules/react-native-webview"
   React-perflogger:
     :path: "../node_modules/react-native/ReactCommon/reactperflogger"
   React-RCTActionSheet:
@@ -635,6 +585,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/datetimepicker"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNIap:
+    :path: "../node_modules/react-native-iap"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
@@ -656,21 +608,15 @@ SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: 831926d9b8bf8166fd87886c4abab286c2422662
-  EXApplication: 9ff2a206009d6e55bca6c20b3f33d07986b51ef3
-  EXConstants: 4cb52b6d8f636c767104a44bf7db3873e9c01a6f
-  EXErrorRecovery: 404d827bc7d42f306c062d58a60b06afc4d082b3
-  EXFileSystem: 0a04aba8da751b9ac954065911bcf166503f8267
-  EXFont: 9846ba1bb6f5f5aed44e20eea3ac70693323832d
-  EXImageLoader: d3531a3fe530b22925c19977cb53bb43e3821fe6
-  EXInAppPurchases: 7ea774bc066a8a1621d0da4363f0b29a7d64f056
-  EXKeepAwake: f4105ef469be7b283f66ce2d7234bb71ac80cd26
-  EXLocalization: 356f4e16a606cec21a77d6250528fde526152b45
-  ExpoModulesCore: 2734852616127a6c1fc23012197890a6f3763dc7
-  EXSecureStore: 1aa80d49a3a101418bbd2675e2a0d32dceea10c2
-  EXSplashScreen: 847e0d8026731c1090bf269ede3e15ac87d88958
-  EXStructuredHeaders: e52b880264d15b8ad07d36670226c29476af6334
-  EXUpdates: 013d26649cb6ab4f8d8d80c35d3d4be150b47e7c
-  EXUpdatesInterface: b68e78b912a03fff7901a5f46ec200c45e3506a5
+  EXApplication: cdc959fd8b706b039621de03585375f11a066a47
+  EXConstants: d0969e870d37f824cc940751d8e7e3c50afe6063
+  EXErrorRecovery: e092308f1fad9030d298e5116585c2d79671c8e6
+  EXFileSystem: 94496f1160b0bf7f000fe04e38ecb2aa63083a2c
+  EXFont: cb2350960187470ec54ff4668755abb74fde9839
+  EXImageLoader: 6494524ac2b99af4edcacada0e19c71600423e59
+  EXKeepAwake: db7607300383508b9ccf1da5bed4eab541f53e25
+  EXLocalization: 9f38e9895b6d6e6646490f2394739f5d70cf0286
+  ExpoModulesCore: 730c7158b2fb179ba5921230e56a083a2304974d
   FBLazyVector: 0e9e33e0ea8988b63afab6d0de48a439ef7f38a5
   FBReactNativeSpec: 361d07f694bc5962407333de9140034e8fd5be52
   Flipper: d3da1aa199aad94455ae725e9f3aa43f3ec17021
@@ -697,12 +643,8 @@ SPEC CHECKSUMS:
   React-jsi: 0ab20c9070bc28cd99a200e826ce7cf46e8f5b26
   React-jsiexecutor: d7540b187f30f45281ece995f19dde143e3afff3
   React-jsinspector: 94bbad998be4efbdac7d6d152677bdd134c1c980
-  react-native-color-picker-ios: 2e23dbcbfd3506c7560632c58b7e130b6015fbeb
-  react-native-date-picker: 93e43b3084cea595b4d68b1405d6d99849663bd6
-  react-native-safe-area-context: f0906bf8bc9835ac9a9d3f97e8bde2a997d8da79
-  react-native-sqlite-2: 21c4a9d439e92193a8712c68492731c014671b53
-  react-native-sqlite-storage: f6d515e1c446d1e6d026aa5352908a25d4de3261
-  react-native-webview: 994b9f8fbb504d6314dc40d83f94f27c6831b3bf
+  react-native-safe-area-context: e471852c5ed67eea4b10c5d9d43c1cebae3b231d
+  react-native-sqlite-2: 28321ec49c8c791f713e6d3706c17290041196aa
   React-perflogger: f8205b59ccf68dbe4184e71ac7b4db55ea0c8965
   React-RCTActionSheet: 67b50ddfccbc123dcc7574475e4fdc911cc601d7
   React-RCTAnimation: 3b998b2da94bc3f74c8d8e98b3181e20678a0ca7
@@ -715,16 +657,17 @@ SPEC CHECKSUMS:
   React-RCTVibration: a19175b1a97cbad173a032a5d089ec5784b2bac3
   React-runtimeexecutor: 5ebf1c985947ea684140fe8431b5b4921c2960c1
   ReactCommon: 3a88b42affa0809e2524f978700a22841b04a421
-  RNCAsyncStorage: 10591b9e0a91eaffee14e69b3721009759235125
-  RNDateTimePicker: 7658208086d86d09e1627b5c34ba0cf237c60140
+  RNCAsyncStorage: 9a368d054cd82af2e9cc8862be344ca647c2e2a2
+  RNDateTimePicker: c9911be59b1f8670b9f244b85af3a7c295e175ed
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
+  RNIap: 888a76d4c80dc23930888820da2078a3682c08c4
   RNReanimated: f58d4f027fcea2197b63588138decdf5f8ac5e89
   RNScreens: 21b73c94c9117e1110a79ee0ee80c93ccefed8ce
   RNSVG: 6adc5c52d2488a476248413064b7f2832e639057
-  UMAppLoader: 21af63390e55c82e037fb9752d93114a80ecf16e
-  UMCore: ce3a4faa010239063b8343895b29a6d97b01069d
-  UMReactNativeAdapter: d03cefd0e4e4179ab8c490408589f1c8a6c8b785
-  UMTaskManagerInterface: 2be431101b73604e64fbfffcf759336f9d8fccbb
+  UMAppLoader: db2dae4bc3085e21f56d6d9cf7783d08c5999af4
+  UMCore: ad33bbda30dee343a248e3696f30502092d9842d
+  UMReactNativeAdapter: c10564ac78d5117d448b75b87862173deb043ec5
+  UMTaskManagerInterface: 75462b0d8580ec91ae23f88a4f9271a3130efb02
   Yoga: 8ae716bf8b654fac1c7be1ac81376041837acb2c
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
