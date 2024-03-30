@@ -26,14 +26,6 @@ PODS:
   - EXSplashScreen (0.11.4):
     - React-Core
     - UMCore
-  - EXStructuredHeaders (1.1.1):
-    - UMCore
-  - EXUpdates (0.8.5):
-    - EXStructuredHeaders
-    - EXUpdatesInterface
-    - React-Core
-    - UMCore
-  - EXUpdatesInterface (0.2.2)
   - FBLazyVector (0.65.3)
   - FBReactNativeSpec (0.65.3):
     - RCT-Folly (= 2021.04.26.00)
@@ -359,7 +351,7 @@ PODS:
     - React-perflogger (= 0.65.3)
   - RNCAsyncStorage (1.22.3):
     - React-Core
-  - RNDateTimePicker (3.5.2):
+  - RNDateTimePicker (7.6.3):
     - React-Core
   - RNGestureHandler (1.10.3):
     - React-Core
@@ -419,9 +411,6 @@ DEPENDENCIES:
   - EXLocalization (from `../node_modules/expo-localization/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core/ios`)
   - EXSplashScreen (from `../node_modules/expo-splash-screen/ios`)
-  - EXStructuredHeaders (from `../node_modules/expo-structured-headers/ios`)
-  - EXUpdates (from `../node_modules/expo-updates/ios`)
-  - EXUpdatesInterface (from `../node_modules/expo-updates-interface/ios`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
   - Flipper (= 0.75.1)
@@ -519,12 +508,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-modules-core/ios"
   EXSplashScreen:
     :path: "../node_modules/expo-splash-screen/ios"
-  EXStructuredHeaders:
-    :path: "../node_modules/expo-structured-headers/ios"
-  EXUpdates:
-    :path: "../node_modules/expo-updates/ios"
-  EXUpdatesInterface:
-    :path: "../node_modules/expo-updates-interface/ios"
   FBLazyVector:
     :path: "../node_modules/react-native/Libraries/FBLazyVector"
   FBReactNativeSpec:
@@ -616,9 +599,6 @@ SPEC CHECKSUMS:
   EXLocalization: 9f38e9895b6d6e6646490f2394739f5d70cf0286
   ExpoModulesCore: 730c7158b2fb179ba5921230e56a083a2304974d
   EXSplashScreen: f537a41eed0ad091fa599e1591ad4f94e38c6ca9
-  EXStructuredHeaders: 5c1dfd030edc0128927fe3cb7ec73bec84b73ab4
-  EXUpdates: 9d6127984b515fa2c0404b2a4662861e42b88d98
-  EXUpdatesInterface: e4c4c7b7c49250314ad7137ffca09446c5b2c492
   FBLazyVector: 0e9e33e0ea8988b63afab6d0de48a439ef7f38a5
   FBReactNativeSpec: 361d07f694bc5962407333de9140034e8fd5be52
   Flipper: d3da1aa199aad94455ae725e9f3aa43f3ec17021
@@ -660,7 +640,7 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: 5ebf1c985947ea684140fe8431b5b4921c2960c1
   ReactCommon: 3a88b42affa0809e2524f978700a22841b04a421
   RNCAsyncStorage: 9a368d054cd82af2e9cc8862be344ca647c2e2a2
-  RNDateTimePicker: c9911be59b1f8670b9f244b85af3a7c295e175ed
+  RNDateTimePicker: 7b38b71bcd7c4cfa1cb95f2dff9a4f1faed2dced
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNIap: 888a76d4c80dc23930888820da2078a3682c08c4
   RNReanimated: f58d4f027fcea2197b63588138decdf5f8ac5e89
