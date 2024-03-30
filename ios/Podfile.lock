@@ -2,24 +2,15 @@ PODS:
   - boost-for-react-native (1.63.0)
   - CocoaAsyncSocket (7.6.5)
   - DoubleConversion (1.1.6)
-  - EXApplication (3.2.0):
-    - UMCore
   - EXConstants (11.0.2):
     - ExpoModulesCore
     - UMCore
-  - EXErrorRecovery (2.2.0):
-    - UMCore
   - EXFileSystem (11.1.3):
-    - ExpoModulesCore
-    - UMCore
-  - EXFont (9.2.1):
     - ExpoModulesCore
     - UMCore
   - EXImageLoader (2.2.0):
     - ExpoModulesCore
     - React-Core
-    - UMCore
-  - EXKeepAwake (9.2.0):
     - UMCore
   - EXLocalization (10.2.0):
     - UMCore
@@ -422,13 +413,9 @@ PODS:
 
 DEPENDENCIES:
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
-  - EXApplication (from `../node_modules/expo-application/ios`)
   - EXConstants (from `../node_modules/expo-constants/ios`)
-  - EXErrorRecovery (from `../node_modules/expo-error-recovery/ios`)
   - EXFileSystem (from `../node_modules/expo-file-system/ios`)
-  - EXFont (from `../node_modules/expo-font/ios`)
   - EXImageLoader (from `../node_modules/expo-image-loader/ios`)
-  - EXKeepAwake (from `../node_modules/expo-keep-awake/ios`)
   - EXLocalization (from `../node_modules/expo-localization/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core/ios`)
   - EXSplashScreen (from `../node_modules/expo-splash-screen/ios`)
@@ -520,20 +507,12 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   DoubleConversion:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
-  EXApplication:
-    :path: "../node_modules/expo-application/ios"
   EXConstants:
     :path: "../node_modules/expo-constants/ios"
-  EXErrorRecovery:
-    :path: "../node_modules/expo-error-recovery/ios"
   EXFileSystem:
     :path: "../node_modules/expo-file-system/ios"
-  EXFont:
-    :path: "../node_modules/expo-font/ios"
   EXImageLoader:
     :path: "../node_modules/expo-image-loader/ios"
-  EXKeepAwake:
-    :path: "../node_modules/expo-keep-awake/ios"
   EXLocalization:
     :path: "../node_modules/expo-localization/ios"
   ExpoModulesCore:
@@ -631,13 +610,9 @@ SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: 831926d9b8bf8166fd87886c4abab286c2422662
-  EXApplication: cdc959fd8b706b039621de03585375f11a066a47
   EXConstants: d0969e870d37f824cc940751d8e7e3c50afe6063
-  EXErrorRecovery: e092308f1fad9030d298e5116585c2d79671c8e6
   EXFileSystem: 94496f1160b0bf7f000fe04e38ecb2aa63083a2c
-  EXFont: cb2350960187470ec54ff4668755abb74fde9839
   EXImageLoader: 6494524ac2b99af4edcacada0e19c71600423e59
-  EXKeepAwake: db7607300383508b9ccf1da5bed4eab541f53e25
   EXLocalization: 9f38e9895b6d6e6646490f2394739f5d70cf0286
   ExpoModulesCore: 730c7158b2fb179ba5921230e56a083a2304974d
   EXSplashScreen: f537a41eed0ad091fa599e1591ad4f94e38c6ca9

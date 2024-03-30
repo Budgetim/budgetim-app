@@ -1,11 +1,7 @@
 {
   "scripts": {
-    "start": "react-native start",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "ipad": "react-native run-ios --simulator=\"iPad Pro (12.9-inch) (5th generation)\"",
-    "web": "expo start --web",
-    "eject": "expo eject",
     "lint": "eslint --ext .js,.ts,.jsx,.tsx src App.tsx"
   },
   "dependencies": {
@@ -18,7 +14,6 @@
     "@tanstack/react-query": "^4.29.5",
     "d3": "^7.1.1",
     "date-fns": "^2.24.0",
-    "expo": "~42.0.1",
     "expo-localization": "~10.2.0",
     "expo-splash-screen": "~0.11.2",
     "expo-updates": "~0.8.1",
