@@ -178,6 +178,10 @@
       "ZAR": "South African Rand",
       "ZMK": "Zambian Kwacha",
       "ZWL": "Zimbabwean Dollar"
+    },
+    "subscription": {
+      "text": "More currencies are available in the paid version of the application",
+      "action": "Subscribe"
     }
   },
   "statistics": {
