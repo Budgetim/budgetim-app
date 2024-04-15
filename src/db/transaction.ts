@@ -62,7 +62,11 @@ export class TransactionModel {
           (_tx, res) => {
             const transaction: TransactionDB = res.rows.item(0);
             setTimeout(() => {
-              resolve(TransactionModel.transactionFormat(transaction));
+              if (!transaction) {
+                reject('Not found');
+              } else {
+                resolve(TransactionModel.transactionFormat(transaction));
+              }
             }, timeDelay);
           },
           (_transaction, error) => {
