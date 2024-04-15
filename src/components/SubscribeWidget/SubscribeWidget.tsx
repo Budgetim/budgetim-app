@@ -35,6 +35,7 @@ export const SubscribeWidget = () => {
             key: 'subscribe',
             id: 'month',
             data: 'success',
+            expires: null,
           });
         } catch (error) {
           console.error('An error occurred', error.message);
